@@ -6,9 +6,18 @@
 #include "msxbios.h"
 //#link "msxbios.c"
 
+#include "TilePatterns.h"
+#include "TileColors.h"
+
+
 typedef uint8_t byte;
 typedef uint16_t word;
 typedef uint8_t bool;
+
+#define TRUE 1
+#define FALSE 0
+
+
 
 void InitVRAM() {
   byte * nameTable = (byte *)MSX_modedata_screen2.name;
@@ -34,8 +43,6 @@ void InitVRAM() {
 
    /* access the value using the pointer */
    //printf("Value of *ip variable: %d\n", *ip );
-
-  
   
   FORCLR = COLOR_GREEN;
   BAKCLR = COLOR_MAGENTA;
@@ -57,16 +64,45 @@ void InitVRAM() {
   //void WRTVRM(uint16_t addr, uint8_t data);  
 
   
+  // Clear all VRAM
+  
+  // fill VRAM with value
+  //void FILVRM(uint16_t start, uint16_t len, uint8_t data);
+  FILVRM(0x0000, 0x4000, 0x00); //void FILVRM(uint16_t start, uint16_t len, uint8_t data);
+
+  
   
   // Write to patterns table
   for(int i = 0; i < 8; i++) {
   	WRTVRM(MSX_modedata_screen2.pattern + (exampleChar * 8) + i, 0b10110011);
   }
   
+  // Loading patterns (1st bank)
+  LDIRVM(MSX_modedata_screen2.pattern + (exampleChar * 8), pattern_0, 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+
+  // Loading patterns (2nd bank)
+  LDIRVM(MSX_modedata_screen2.pattern + (256 * 8) + (exampleChar * 8), pattern_0, 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+
+  // Loading patterns (3rd bank)
+  LDIRVM(MSX_modedata_screen2.pattern + (512 * 8)  + (exampleChar * 8), pattern_0, 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+  
+
+  
   // Write to colors table
   for(int i = 0; i < 8; i++) {
   	WRTVRM(MSX_modedata_screen2.color + (exampleChar * 8) + i, 0x8a);
   }
+  
+  // Loading colors (1st bank)
+  LDIRVM(MSX_modedata_screen2.color + (exampleChar * 8), color_0, 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+
+  // Loading colors (2nd bank)
+  LDIRVM(MSX_modedata_screen2.color + (256 * 8) + (exampleChar * 8), color_0, 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+  
+  // Loading colors (3rd bank)
+  LDIRVM(MSX_modedata_screen2.color + (512 * 8) + (exampleChar * 8), color_0, 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+  
+  
   
   // Write to names table
   for(int i = 0; i < 256 * 3; i++) {
@@ -100,7 +136,7 @@ void InitVRAM() {
 
 void gameLoop() {
   
-  bool gameOver = 0;
+  bool gameOver = FALSE;
 
   while(!gameOver) {
 
