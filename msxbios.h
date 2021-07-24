@@ -23,6 +23,11 @@ uint8_t __at(0xf3b1) CRTCNT;
 // F3B2: # of positions within a tabulator-column (ini:14)
 uint8_t __at(0xf3b1) CLMLST;
 
+
+// BIOS Variables added by me
+uint16_t __at(0xfc9e) JIFFY;
+
+
 typedef struct {
   uint16_t name;
   uint16_t color;

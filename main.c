@@ -97,6 +97,23 @@ void InitVRAM() {
   ENASCR();	// Enable screen
 }
 
+
+void gameLoop() {
+  
+  bool gameOver = 0;
+
+  while(!gameOver) {
+
+    word lastJiffy = JIFFY;
+
+    while (lastJiffy == JIFFY) {
+    }
+
+    // Game loop sync'ed at 60/50 Hz starts here
+  }
+}
+
+
 void main() {
   int counter=0;
   
@@ -106,10 +123,17 @@ void main() {
   InitVRAM();
  
   
+  /*
   while (1) {
-  	BEEP();
+    BEEP();
     //counter++;
     //printf("Hello, World!    %04x\n", counter);
     //printf("%04x\n", MSX_modedata_screen1.name);
   }
+  */
+  
+  gameLoop();
+  
+  //while (1) {}
 }
+
