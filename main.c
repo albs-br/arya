@@ -10,18 +10,18 @@
 #include "TileColors.h"
 
 
-typedef uint8_t byte;
-typedef uint16_t word;
-typedef uint8_t bool;
+typedef uint8_t 	byte;
+typedef uint16_t 	word;
+typedef uint8_t 	bool;
 
-#define TRUE 1
-#define FALSE 0
+#define TRUE 	1
+#define FALSE 	0
 
-
+int blackTile = 0;
+int exampleTile = 1;
 
 void InitVRAM() {
   byte * nameTable = (byte *)MSX_modedata_screen2.name;
-  int exampleChar = 0;
   //void * p = (void *)0x28ff44;
   //int* nt;
   
@@ -44,9 +44,9 @@ void InitVRAM() {
    /* access the value using the pointer */
    //printf("Value of *ip variable: %d\n", *ip );
   
-  FORCLR = COLOR_GREEN;
-  BAKCLR = COLOR_MAGENTA;
-  BDRCLR = COLOR_WHITE;
+  FORCLR = COLOR_WHITE;
+  BAKCLR = COLOR_BLACK;
+  BDRCLR = COLOR_BLACK;
   
   INIGRP();	// Set screen 2
   //INIT32();	// Set screen 1
@@ -64,49 +64,46 @@ void InitVRAM() {
   //void WRTVRM(uint16_t addr, uint8_t data);  
 
   
-  // Clear all VRAM
-  
-  // fill VRAM with value
-  //void FILVRM(uint16_t start, uint16_t len, uint8_t data);
+  // Clear all VRAM (16Kb)
   FILVRM(0x0000, 0x4000, 0x00); //void FILVRM(uint16_t start, uint16_t len, uint8_t data);
 
   
   
   // Write to patterns table
-  for(int i = 0; i < 8; i++) {
-  	WRTVRM(MSX_modedata_screen2.pattern + (exampleChar * 8) + i, 0b10110011);
-  }
+  //for(int i = 0; i < 8; i++) {
+  //	WRTVRM(MSX_modedata_screen2.pattern + (exampleChar * 8) + i, 0b10110011);
+  //}
   
   // Loading patterns (1st bank)
-  LDIRVM(MSX_modedata_screen2.pattern + (exampleChar * 8), pattern_0, 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+  LDIRVM(MSX_modedata_screen2.pattern, pattern_black, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
 
   // Loading patterns (2nd bank)
-  LDIRVM(MSX_modedata_screen2.pattern + (256 * 8) + (exampleChar * 8), pattern_0, 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+  LDIRVM(MSX_modedata_screen2.pattern + (256 * 8), pattern_black, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
 
   // Loading patterns (3rd bank)
-  LDIRVM(MSX_modedata_screen2.pattern + (512 * 8)  + (exampleChar * 8), pattern_0, 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+  LDIRVM(MSX_modedata_screen2.pattern + (512 * 8), pattern_black, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
   
 
   
   // Write to colors table
-  for(int i = 0; i < 8; i++) {
-  	WRTVRM(MSX_modedata_screen2.color + (exampleChar * 8) + i, 0x8a);
-  }
+  //for(int i = 0; i < 8; i++) {
+  //	WRTVRM(MSX_modedata_screen2.color + (exampleChar * 8) + i, 0x8a);
+  //}
   
   // Loading colors (1st bank)
-  LDIRVM(MSX_modedata_screen2.color + (exampleChar * 8), color_0, 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+  LDIRVM(MSX_modedata_screen2.color, color_black, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
 
   // Loading colors (2nd bank)
-  LDIRVM(MSX_modedata_screen2.color + (256 * 8) + (exampleChar * 8), color_0, 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+  LDIRVM(MSX_modedata_screen2.color + (256 * 8), color_black, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
   
   // Loading colors (3rd bank)
-  LDIRVM(MSX_modedata_screen2.color + (512 * 8) + (exampleChar * 8), color_0, 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+  LDIRVM(MSX_modedata_screen2.color + (512 * 8), color_black, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
   
   
   
   // Write to names table
   for(int i = 0; i < 256 * 3; i++) {
-  	WRTVRM(MSX_modedata_screen2.name + i, exampleChar);
+  	WRTVRM(MSX_modedata_screen2.name + i, blackTile);
   }
   
   //*nameTable = 60;
@@ -133,10 +130,20 @@ void InitVRAM() {
   ENASCR();	// Enable screen
 }
 
+void DrawPiece(byte col, byte line) {
+  int baseAddr = MSX_modedata_screen2.name + col + (line * 32);
+  
+  WRTVRM(baseAddr, exampleTile);
+  WRTVRM(baseAddr + 1, exampleTile + 1);
+  WRTVRM(baseAddr + 32, exampleTile + 2);
+  WRTVRM(baseAddr + 33, exampleTile + 3);
+}
 
-void gameLoop() {
+void GameLoop() {
   
   bool gameOver = FALSE;
+  byte joystick;
+  byte col = 0, line = 0;
 
   while(!gameOver) {
 
@@ -146,9 +153,16 @@ void gameLoop() {
     }
 
     // Game loop sync'ed at 60/50 Hz starts here
+    joystick = GTSTCK(STCK_Joy1);
+    if (joystick == STCK_W && col > 0) col -= 2;
+    if (joystick == STCK_E && col < 30) col += 2;
+    //if (joystick == STCK_N) dir = D_UP;
+    //if (joystick == STCK_S) dir = D_DOWN;
+
+    
+    DrawPiece(col, 4);
   }
 }
-
 
 void main() {
   int counter=0;
@@ -168,8 +182,7 @@ void main() {
   }
   */
   
-  gameLoop();
+  GameLoop();
   
   //while (1) {}
 }
-
