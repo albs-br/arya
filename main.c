@@ -20,49 +20,23 @@ typedef uint8_t 	bool;
 int blackTile = 0;
 int exampleTile = 1;
 
+#define LINES_PLAYFIELD 	12
+#define COLS_PLAYFIELD 		6
+byte playfield[COLS_PLAYFIELD][LINES_PLAYFIELD];
+
+#define EMPTY	0
+
+
 void InitVRAM() {
-  byte * nameTable = (byte *)MSX_modedata_screen2.name;
-  //void * p = (void *)0x28ff44;
-  //int* nt;
-  
-  //nt = 6144;
-  //*nameTable = 6144;
-
-   //int  *ip;        /* pointer variable declaration */
-  
-   //int  var = 20;   /* actual variable declaration */
-   //int  *ip;        /* pointer variable declaration */
-
-   //ip = &var;  /* store address of var in pointer variable*/
-  
-  
-   //printf("Address of var variable: %x\n", &var  );
-
-   /* address stored in pointer variable */
-   //printf("Address stored in ip variable: %x\n", ip );
-
-   /* access the value using the pointer */
-   //printf("Value of *ip variable: %d\n", *ip );
-  
+ 
   FORCLR = COLOR_WHITE;
   BAKCLR = COLOR_BLACK;
   BDRCLR = COLOR_BLACK;
   
   INIGRP();	// Set screen 2
-  //INIT32();	// Set screen 1
-  //INITXT();	// Set screen 0
-  
-  
-  //nameTable = 65;
-  //*nameTable = 65;
-  
+ 
   DISSCR();	// Disable screen (faster to write)
   
-  //*nameTable = 0xc100;
-  
-  
-  //void WRTVRM(uint16_t addr, uint8_t data);  
-
   
   // Clear all VRAM (16Kb)
   FILVRM(0x0000, 0x4000, 0x00); //void FILVRM(uint16_t start, uint16_t len, uint8_t data);
@@ -106,37 +80,48 @@ void InitVRAM() {
   	WRTVRM(MSX_modedata_screen2.name + i, blackTile);
   }
   
-  //*nameTable = 60;
-  //*nameTable++ = 65;
-  //*nameTable++ = 65;
-
-  //int i =  1;  
-  /*
-  
-  typedef struct {
-    uint16_t name;
-    uint16_t color;
-    uint16_t pattern;
-    uint16_t sprite_attribute;
-    uint16_t sprite_pattern;
-  } MSXVDPModeData;
-
-
-  MSXVDPModeData __at(0xf3c7) MSX_modedata_screen2;
-  */
-  //printf("%04x\n", nameTable);
-  
-  
   ENASCR();	// Enable screen
 }
 
-void DrawPiece(byte col, byte line) {
-  int baseAddr = MSX_modedata_screen2.name + col + (line * 32);
+void InitGame() {
   
-  WRTVRM(baseAddr, exampleTile);
-  WRTVRM(baseAddr + 1, exampleTile + 1);
-  WRTVRM(baseAddr + 32, exampleTile + 2);
-  WRTVRM(baseAddr + 33, exampleTile + 3);
+  // Reset playfield
+  for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+    for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+      playfield[col][line] = EMPTY;
+    }
+  }
+}
+
+void DrawPiece(byte col, byte line, byte tile) {
+  word baseAddr = MSX_modedata_screen2.name + (col * 2) + (line * 2 * 32);
+  
+  if (tile == EMPTY) {
+    WRTVRM(baseAddr, tile);
+    WRTVRM(baseAddr + 1, tile);
+    WRTVRM(baseAddr + 32, tile);
+    WRTVRM(baseAddr + 33, tile);
+    
+    return;
+  }
+  
+  //WRTVRM(baseAddr - 2, blackTile);
+  //WRTVRM(baseAddr - 1, blackTile);
+  WRTVRM(baseAddr, tile);
+  WRTVRM(baseAddr + 1, tile + 1);
+  WRTVRM(baseAddr + 32, tile + 2);
+  WRTVRM(baseAddr + 33, tile + 3);
+  //WRTVRM(baseAddr + 2, blackTile);
+  //WRTVRM(baseAddr + 3, blackTile);
+}
+
+void DrawPlayfield() {
+  byte line = 0; // drawing only current piece line
+  //for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+    for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+      DrawPiece(col, line, playfield[col][line]);
+    }
+  //}
 }
 
 void GameLoop() {
@@ -153,14 +138,22 @@ void GameLoop() {
     }
 
     // Game loop sync'ed at 60/50 Hz starts here
+    
+    playfield[col][line] = EMPTY;
+
+    // Read player input
     joystick = GTSTCK(STCK_Joy1);
-    if (joystick == STCK_W && col > 0) col -= 2;
-    if (joystick == STCK_E && col < 30) col += 2;
+    if (joystick == STCK_W && col > 0) col--;
+    if (joystick == STCK_E && col < COLS_PLAYFIELD - 1) col++;
     //if (joystick == STCK_N) dir = D_UP;
     //if (joystick == STCK_S) dir = D_DOWN;
 
     
-    DrawPiece(col, 4);
+    
+    //DrawPiece(col, 4, exampleTile);
+    playfield[col][line] = exampleTile;
+    
+    DrawPlayfield();
   }
 }
 
@@ -181,6 +174,7 @@ void main() {
     //printf("%04x\n", MSX_modedata_screen1.name);
   }
   */
+  InitGame();
   
   GameLoop();
   
