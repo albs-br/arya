@@ -24,6 +24,9 @@ int exampleTile = 1;
 #define COLS_PLAYFIELD 		6
 byte playfield[COLS_PLAYFIELD][LINES_PLAYFIELD];
 
+byte col = 0, line = 0;
+
+
 #define EMPTY	0
 
 
@@ -115,25 +118,27 @@ void DrawPiece(byte col, byte line, byte tile) {
   //WRTVRM(baseAddr + 3, blackTile);
 }
 
-void DrawPlayfield() {
-  byte line = 0; // drawing only current piece line
-  //for(byte line = 0; line < LINES_PLAYFIELD; line++) {
-    for(byte col = 0; col < COLS_PLAYFIELD; col++) {
-      DrawPiece(col, line, playfield[col][line]);
-    }
-  //}
+void DrawLine(byte line) {
+  for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+    DrawPiece(col, line, playfield[col][line]);
+  }
 }
+
+//void DrawPlayfield() {
+  //byte line = 0; // drawing only current piece line
+  //for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+  //}
+//}
 
 void GameLoop() {
   
   bool gameOver = FALSE;
   byte joystick;
-  byte col = 0, line = 0;
+  byte counter = 0;
 
   while(!gameOver) {
 
     word lastJiffy = JIFFY;
-
     while (lastJiffy == JIFFY) {
     }
 
@@ -148,12 +153,23 @@ void GameLoop() {
     //if (joystick == STCK_N) dir = D_UP;
     //if (joystick == STCK_S) dir = D_DOWN;
 
-    
+    counter++;
+    if(counter == 30) {
+      DrawLine(line);
+      counter = 0;
+      
+      if(line == LINES_PLAYFIELD - 1) {
+    	playfield[col][line] = exampleTile;
+        line = 0;
+      }
+      line++;
+    }
     
     //DrawPiece(col, 4, exampleTile);
     playfield[col][line] = exampleTile;
     
-    DrawPlayfield();
+    //DrawPlayfield();
+    DrawLine(line);
   }
 }
 
