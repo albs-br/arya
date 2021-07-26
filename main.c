@@ -22,6 +22,8 @@ int exampleTile = 1;
 
 #define LINES_PLAYFIELD 	12
 #define COLS_PLAYFIELD 		6
+#define INITIAL_LINE		0
+#define INITIAL_COL		2
 byte playfield[COLS_PLAYFIELD][LINES_PLAYFIELD];
 
 byte col = 0, line = 0;
@@ -88,6 +90,9 @@ void InitVRAM() {
 
 void InitGame() {
   
+  line = INITIAL_LINE;
+  col = INITIAL_COL;
+  
   // Reset playfield
   for(byte line = 0; line < LINES_PLAYFIELD; line++) {
     for(byte col = 0; col < COLS_PLAYFIELD; col++) {
@@ -148,21 +153,37 @@ void GameLoop() {
 
     // Read player input
     joystick = GTSTCK(STCK_Joy1);
-    if (joystick == STCK_W && col > 0) col--;
-    if (joystick == STCK_E && col < COLS_PLAYFIELD - 1) col++;
+    if (joystick == STCK_W && 
+        col > 0 && 
+        playfield[col - 1][line] == EMPTY) {
+      col--;
+    }
+    if (joystick == STCK_E && 
+        col < COLS_PLAYFIELD - 1 &&
+        playfield[col + 1][line] == EMPTY) {
+      col++;
+    }
     //if (joystick == STCK_N) dir = D_UP;
     //if (joystick == STCK_S) dir = D_DOWN;
 
+    // Piece falling logic
     counter++;
     if(counter == 30) {
-      DrawLine(line);
+      
+      DrawLine(line);	// Clear previous line
+      
       counter = 0;
       
-      if(line == LINES_PLAYFIELD - 1) {
+      if(line == LINES_PLAYFIELD - 1 || playfield[col][line + 1] != EMPTY) {
     	playfield[col][line] = exampleTile;
-        line = 0;
+      	DrawLine(line);
+
+        col = INITIAL_COL;
+        line = INITIAL_LINE;
       }
-      line++;
+      else {
+      	line++;
+      }
     }
     
     //DrawPiece(col, 4, exampleTile);
