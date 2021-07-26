@@ -20,6 +20,8 @@ typedef uint8_t 	bool;
 int blackTile = 0;
 int exampleTile = 1;
 
+#define SPEED			30
+
 #define LINES_PLAYFIELD 	12
 #define COLS_PLAYFIELD 		6
 #define INITIAL_LINE		0
@@ -138,7 +140,7 @@ void DrawLine(byte line) {
 void GameLoop() {
   
   bool gameOver = FALSE;
-  byte joystick;
+  byte joystick, lastJoystick = STCK_none;
   byte counter = 0;
 
   while(!gameOver) {
@@ -153,22 +155,28 @@ void GameLoop() {
 
     // Read player input
     joystick = GTSTCK(STCK_Joy1);
-    if (joystick == STCK_W && 
-        col > 0 && 
-        playfield[col - 1][line] == EMPTY) {
-      col--;
+    if(lastJoystick == STCK_none) {
+
+      if (joystick == STCK_W && 
+          col > 0 && 
+          playfield[col - 1][line] == EMPTY) {
+        col--;
+      }
+      if (joystick == STCK_E && 
+          col < COLS_PLAYFIELD - 1 &&
+          playfield[col + 1][line] == EMPTY) {
+        col++;
+      }
+      //if (joystick == STCK_N) dir = D_UP;
+      //if (joystick == STCK_S) dir = D_DOWN;
+
     }
-    if (joystick == STCK_E && 
-        col < COLS_PLAYFIELD - 1 &&
-        playfield[col + 1][line] == EMPTY) {
-      col++;
-    }
-    //if (joystick == STCK_N) dir = D_UP;
-    //if (joystick == STCK_S) dir = D_DOWN;
+
+    lastJoystick = joystick;
 
     // Piece falling logic
     counter++;
-    if(counter == 30) {
+    if(counter == SPEED) {
       
       DrawLine(line);	// Clear previous line
       
