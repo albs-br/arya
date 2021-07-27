@@ -18,7 +18,8 @@ typedef uint8_t 	bool;
 #define FALSE 	0
 
 int blackTile = 0;
-int exampleTile = 1;
+int exampleTile = 5;
+int exampleTile_green = 1;
 
 #define SPEED			30
 

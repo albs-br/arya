@@ -1,4 +1,5 @@
 
+
 static const unsigned char color_black[] = {
     0xf1,
     0xf1,
@@ -9,6 +10,8 @@ static const unsigned char color_black[] = {
     0xf1,
     0xf1,
   };
+
+// ---------------------------------------------
 
 // top left
 static const unsigned char color_0[] = {
@@ -57,3 +60,54 @@ static const unsigned char color_3[] = {
     0x1c,
     0x1c,
   };
+
+// ---------------------------------------------
+
+// top left
+static const unsigned char color_4[] = {
+    0x96,
+    0x96,
+    0x96,
+    0x96,
+    0x96,
+    0x96,
+    0x96,
+    0x96,
+  };
+
+// top right
+static const unsigned char color_5[] = {
+    0x98,
+    0x68,
+    0x68,
+    0x68,
+    0x68,
+    0x68,
+    0x68,
+    0x68,
+  };
+
+// bottom left
+static const unsigned char color_6[] = {
+    0x68,
+    0x68,
+    0x68,
+    0x68,
+    0x68,
+    0x68,
+    0x68,
+    0x68,
+  };
+
+// bottom right
+static const unsigned char color_7[] = {
+    0x89,
+    0x89,
+    0x89,
+    0x89,
+    0x89,
+    0x89,
+    0x89,
+    0x86,
+  };
+
