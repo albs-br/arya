@@ -29,6 +29,7 @@ int exampleTile_green = 1;
 #define INITIAL_COL		2
 byte playfield[COLS_PLAYFIELD][LINES_PLAYFIELD];
 
+bool gameOver = FALSE;
 byte col = 0, line = 0;
 
 
@@ -91,19 +92,6 @@ void InitVRAM() {
   ENASCR();	// Enable screen
 }
 
-void InitGame() {
-  
-  line = INITIAL_LINE;
-  col = INITIAL_COL;
-  
-  // Reset playfield
-  for(byte line = 0; line < LINES_PLAYFIELD; line++) {
-    for(byte col = 0; col < COLS_PLAYFIELD; col++) {
-      playfield[col][line] = EMPTY;
-    }
-  }
-}
-
 void DrawBlock(byte col, byte line, byte tile) {
   word baseAddr = MSX_modedata_screen2.name + (col * 2) + (line * 2 * 32);
   
@@ -146,7 +134,6 @@ void DrawPiece(byte line) {
 
 void GameLoop() {
   
-  bool gameOver = FALSE;
   byte joystick, lastJoystick = STCK_none;
   byte counter = 0;
 
@@ -164,7 +151,8 @@ void GameLoop() {
     playfield[col][line + 2] = EMPTY;
 
     // Read player input
-    joystick = GTSTCK(STCK_Joy1);
+    joystick = GTSTCK(STCK_Cursors);
+    //joystick = GTSTCK(STCK_Joy1);
     if(lastJoystick == STCK_none) {
 
       if (joystick == STCK_W && 
@@ -173,14 +161,30 @@ void GameLoop() {
           playfield[col - 1][line + 2] == EMPTY) {
         col--;
       }
-      if (joystick == STCK_E && 
+      else if (joystick == STCK_E && 
           col < COLS_PLAYFIELD - 1 &&
           playfield[col + 1][line] == EMPTY &&
           playfield[col + 1][line + 2] == EMPTY) {
         col++;
       }
-      //if (joystick == STCK_N) dir = D_UP;
-      //if (joystick == STCK_S) dir = D_DOWN;
+      
+      // Rotate piece
+      if (joystick == STCK_N) {
+      }
+      
+      // Fall piece until hit bottom or other piece
+      if (joystick == STCK_S) {
+        for(byte i = line; i < LINES_PLAYFIELD; i++) {
+          if(i == LINES_PLAYFIELD - 3 || playfield[col][i + 3] != EMPTY) {
+      	    
+            // Clear current piece lines
+            DrawPiece(line);
+            
+            line = i;
+            break;
+          }
+        }
+      }
 
     }
 
@@ -197,6 +201,11 @@ void GameLoop() {
       
       // Check if piece hit bottom or other piece
       if(line == LINES_PLAYFIELD - 3 || playfield[col][line + 3] != EMPTY) {
+        
+        if(line == 0) {
+          gameOver = TRUE;
+        }
+        
     	// Update and draw piece static
         playfield[col][line] = exampleTile;
     	playfield[col][line + 1] = exampleTile_green;
@@ -220,6 +229,24 @@ void GameLoop() {
     // Draw piece at current position
     DrawPiece(line);
   }
+  
+  //InitGame();
+}
+
+void InitGame() {
+  
+  gameOver = FALSE;
+  line = INITIAL_LINE;
+  col = INITIAL_COL;
+  
+  // Reset playfield
+  for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+    for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+      playfield[col][line] = EMPTY;
+    }
+  }
+  
+  GameLoop();
 }
 
 void main() {
@@ -240,8 +267,6 @@ void main() {
   }
   */
   InitGame();
-  
-  GameLoop();
   
   //while (1) {}
 }
