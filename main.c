@@ -104,7 +104,7 @@ void InitGame() {
   }
 }
 
-void DrawPiece(byte col, byte line, byte tile) {
+void DrawBlock(byte col, byte line, byte tile) {
   word baseAddr = MSX_modedata_screen2.name + (col * 2) + (line * 2 * 32);
   
   if (tile == EMPTY) {
@@ -128,8 +128,14 @@ void DrawPiece(byte col, byte line, byte tile) {
 
 void DrawLine(byte line) {
   for(byte col = 0; col < COLS_PLAYFIELD; col++) {
-    DrawPiece(col, line, playfield[col][line]);
+    DrawBlock(col, line, playfield[col][line]);
   }
+}
+
+void DrawPiece(byte line) {
+  DrawLine(line);
+  DrawLine(line + 1);
+  DrawLine(line + 2);
 }
 
 //void DrawPlayfield() {
@@ -152,8 +158,10 @@ void GameLoop() {
 
     // Game loop sync'ed at 60/50 Hz starts here
     
+    // Clear piece before update position
     playfield[col][line] = EMPTY;
     playfield[col][line + 1] = EMPTY;
+    playfield[col][line + 2] = EMPTY;
 
     // Read player input
     joystick = GTSTCK(STCK_Joy1);
@@ -161,12 +169,14 @@ void GameLoop() {
 
       if (joystick == STCK_W && 
           col > 0 && 
-          playfield[col - 1][line] == EMPTY) {
+          playfield[col - 1][line] == EMPTY && 
+          playfield[col - 1][line + 2] == EMPTY) {
         col--;
       }
       if (joystick == STCK_E && 
           col < COLS_PLAYFIELD - 1 &&
-          playfield[col + 1][line] == EMPTY) {
+          playfield[col + 1][line] == EMPTY &&
+          playfield[col + 1][line + 2] == EMPTY) {
         col++;
       }
       //if (joystick == STCK_N) dir = D_UP;
@@ -180,17 +190,20 @@ void GameLoop() {
     counter++;
     if(counter == SPEED) {
       
-      DrawLine(line);	// Clear previous line
-      DrawLine(line + 1);	// Clear previous line
-      
       counter = 0;
-      
-      if(line == LINES_PLAYFIELD - 2 || playfield[col][line + 2] != EMPTY) {
-    	playfield[col][line] = exampleTile;
-    	playfield[col][line + 1] = exampleTile_green;
-      	DrawLine(line);
-      	DrawLine(line + 1);
 
+      // Draw piece before update position
+      DrawPiece(line);
+      
+      // Check if piece hit bottom or other piece
+      if(line == LINES_PLAYFIELD - 3 || playfield[col][line + 3] != EMPTY) {
+    	// Update and draw piece static
+        playfield[col][line] = exampleTile;
+    	playfield[col][line + 1] = exampleTile_green;
+    	playfield[col][line + 2] = exampleTile_green;
+      	DrawPiece(line);
+
+        // Set piece to next
         col = INITIAL_COL;
         line = INITIAL_LINE;
       }
@@ -199,13 +212,13 @@ void GameLoop() {
       }
     }
     
-    //DrawPiece(col, 4, exampleTile);
+    //Set piece at updated position
     playfield[col][line] = exampleTile;
     playfield[col][line + 1] = exampleTile_green;
+    playfield[col][line + 2] = exampleTile_green;
     
-    //DrawPlayfield();
-    DrawLine(line);
-    DrawLine(line + 1);
+    // Draw piece at current position
+    DrawPiece(line);
   }
 }
 
