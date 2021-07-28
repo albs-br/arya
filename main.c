@@ -21,7 +21,7 @@ int blackTile = 0;
 int exampleTile = 5;
 int exampleTile_green = 1;
 
-#define SPEED			30
+#define SPEED			15 // 30 // 60
 
 #define LINES_PLAYFIELD 	12
 #define COLS_PLAYFIELD 		6
@@ -153,6 +153,7 @@ void GameLoop() {
     // Game loop sync'ed at 60/50 Hz starts here
     
     playfield[col][line] = EMPTY;
+    playfield[col][line + 1] = EMPTY;
 
     // Read player input
     joystick = GTSTCK(STCK_Joy1);
@@ -180,12 +181,15 @@ void GameLoop() {
     if(counter == SPEED) {
       
       DrawLine(line);	// Clear previous line
+      DrawLine(line + 1);	// Clear previous line
       
       counter = 0;
       
-      if(line == LINES_PLAYFIELD - 1 || playfield[col][line + 1] != EMPTY) {
+      if(line == LINES_PLAYFIELD - 2 || playfield[col][line + 2] != EMPTY) {
     	playfield[col][line] = exampleTile;
+    	playfield[col][line + 1] = exampleTile_green;
       	DrawLine(line);
+      	DrawLine(line + 1);
 
         col = INITIAL_COL;
         line = INITIAL_LINE;
@@ -197,9 +201,11 @@ void GameLoop() {
     
     //DrawPiece(col, 4, exampleTile);
     playfield[col][line] = exampleTile;
+    playfield[col][line + 1] = exampleTile_green;
     
     //DrawPlayfield();
     DrawLine(line);
+    DrawLine(line + 1);
   }
 }
 

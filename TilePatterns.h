@@ -2,7 +2,7 @@
 
 
 static const unsigned char pattern_black[] = {
-    0b11111111,
+    0b01111111,
     0b11111111,
     0b11111111,
     0b11111111,
