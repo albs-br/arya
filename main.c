@@ -20,6 +20,7 @@ typedef uint8_t 	bool;
 int blackTile = 0;
 int exampleTile = 5;
 int exampleTile_green = 1;
+int exampleTile_blue = 9;
 
 #define SPEED			15 // 30 // 60
 
@@ -31,7 +32,7 @@ byte playfield[COLS_PLAYFIELD][LINES_PLAYFIELD];
 
 bool gameOver = FALSE;
 byte col = 0, line = 0;
-
+byte topPiece, midPiece, bottomPiece;
 
 #define EMPTY	0
 
@@ -170,6 +171,11 @@ void GameLoop() {
       
       // Rotate piece
       if (joystick == STCK_N) {
+        byte temp = bottomPiece;
+        
+        bottomPiece = midPiece;
+        midPiece = topPiece;
+        topPiece = temp;
       }
       
       // Fall piece until hit bottom or other piece
@@ -207,9 +213,9 @@ void GameLoop() {
         }
         
     	// Update and draw piece static
-        playfield[col][line] = exampleTile;
-    	playfield[col][line + 1] = exampleTile_green;
-    	playfield[col][line + 2] = exampleTile_green;
+        playfield[col][line] = topPiece;
+        playfield[col][line + 1] = midPiece;
+        playfield[col][line + 2] = bottomPiece;
       	DrawPiece(line);
 
         // Set piece to next
@@ -222,9 +228,9 @@ void GameLoop() {
     }
     
     //Set piece at updated position
-    playfield[col][line] = exampleTile;
-    playfield[col][line + 1] = exampleTile_green;
-    playfield[col][line + 2] = exampleTile_green;
+    playfield[col][line] = topPiece;
+    playfield[col][line + 1] = midPiece;
+    playfield[col][line + 2] = bottomPiece;
     
     // Draw piece at current position
     DrawPiece(line);
@@ -238,6 +244,10 @@ void InitGame() {
   gameOver = FALSE;
   line = INITIAL_LINE;
   col = INITIAL_COL;
+  
+  topPiece = exampleTile_green;
+  midPiece = exampleTile;
+  bottomPiece = exampleTile_blue;
   
   // Reset playfield
   for(byte line = 0; line < LINES_PLAYFIELD; line++) {

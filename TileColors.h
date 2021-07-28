@@ -111,3 +111,53 @@ static const unsigned char color_7[] = {
     0x86,
   };
 
+// ---------------------------------------------
+
+// top left
+static const unsigned char color_8[] = {
+    0x47,
+    0x47,
+    0x47,
+    0x47,
+    0x47,
+    0x47,
+    0x47,
+    0x47,
+  };
+
+// top right
+static const unsigned char color_9[] = {
+    0x47,
+    0x47,
+    0x47,
+    0x47,
+    0x47,
+    0x47,
+    0x47,
+    0x47,
+  };
+
+// bottom left
+static const unsigned char color_10[] = {
+    0x47,
+    0x47,
+    0x47,
+    0x47,
+    0x47,
+    0x47,
+    0x47,
+    0x47,
+  };
+
+// bottom right
+static const unsigned char color_11[] = {
+    0x47,
+    0x47,
+    0x47,
+    0x47,
+    0x47,
+    0x47,
+    0x47,
+    0x47,
+  };
+
