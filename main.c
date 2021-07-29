@@ -21,13 +21,13 @@ typedef uint8_t 	bool;
 #define FALSE 	0
 
 #define EMPTY	0
-byte blackTile = 0;
-byte exampleTile = 5;
-byte exampleTile_green = 1;
-byte exampleTile_blue = 9;
+const byte blackTile = 0;
+const byte exampleTile = 5;
+const byte exampleTile_green = 1;
+const byte exampleTile_blue = 9;
 
 // TODO: refactor here
-const byte pieces[3] = { 1, 9, 5 };
+const byte pieces[3] = { 1, 5, 9 };
 
 
 #define SPEED			30 // 30 // 60
@@ -163,13 +163,16 @@ void CheckPlayfield() {
 }
 
 byte RandomIndex() {
-  byte random = GetRandom() & 0b00000011;
-  
-  if(random > 3) {
-    while (1) {}
+  byte random;
+  do {
+     random = GetRandom() & 0b00000011; // AND mask to get a value in the 0-3 range
   }
+  while(random > 2); // Get a number between 0 and 2
   
-  if(random > 2) random = 2; // TODO: it is not good (tendency to get result 2)
+  // Testing if AND mask works:
+  //if(random > 3) {
+  //  while (1) {}
+  //}
   
   return random;
 }
@@ -303,9 +306,6 @@ void InitGame() {
   col = INITIAL_COL;
   
   RandomPiece();
-  //topPiece = exampleTile_green;
-  //midPiece = exampleTile;
-  //bottomPiece = exampleTile_blue;
   
   // Reset playfield
   for(byte line = 0; line < LINES_PLAYFIELD; line++) {
