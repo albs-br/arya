@@ -6,6 +6,9 @@
 #include "msxbios.h"
 //#link "msxbios.c"
 
+#include "random.h"
+
+
 #include "TilePatterns.h"
 #include "TileColors.h"
 
@@ -17,10 +20,15 @@ typedef uint8_t 	bool;
 #define TRUE 	1
 #define FALSE 	0
 
-int blackTile = 0;
-int exampleTile = 5;
-int exampleTile_green = 1;
-int exampleTile_blue = 9;
+#define EMPTY	0
+byte blackTile = 0;
+byte exampleTile = 5;
+byte exampleTile_green = 1;
+byte exampleTile_blue = 9;
+
+// TODO: refactor here
+const byte pieces[3] = { 1, 5, 9 };
+
 
 #define SPEED			30 // 30 // 60
 
@@ -29,12 +37,12 @@ int exampleTile_blue = 9;
 #define INITIAL_LINE		0
 #define INITIAL_COL		2
 byte playfield[COLS_PLAYFIELD][LINES_PLAYFIELD];
+byte playfieldTemp[COLS_PLAYFIELD][LINES_PLAYFIELD];
 
 bool gameOver = FALSE;
 byte col = 0, line = 0;
 byte topPiece, midPiece, bottomPiece;
 
-#define EMPTY	0
 
 
 void InitVRAM() {
@@ -134,11 +142,18 @@ void DrawPlayfield() {
 }
 
 void CheckPlayfield() {
+  // Save copy of playfield
+  for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+    for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+      	playfieldTemp[col][line] = playfield[col][line];
+    }
+  }
+  
   // Check lines
   for(byte line = 0; line < LINES_PLAYFIELD; line++) {
     for(byte col = 2; col < COLS_PLAYFIELD; col++) {
-      if (playfield[col - 2][line] == playfield[col - 1][line] && 
-          playfield[col - 1][line] == playfield[col][line]) {
+      if (playfieldTemp[col - 2][line] == playfieldTemp[col - 1][line] && 
+          playfieldTemp[col - 1][line] == playfieldTemp[col][line]) {
         playfield[col - 2][line] = EMPTY;
         playfield[col - 1][line] = EMPTY;
         playfield[col][line] = EMPTY;
@@ -157,8 +172,9 @@ void GameLoop() {
     word lastJiffy = JIFFY;
     while (lastJiffy == JIFFY) {
     }
-
     // Game loop sync'ed at 60/50 Hz starts here
+    
+    
     
     // Clear piece before update position
     playfield[col][line] = EMPTY;
@@ -257,6 +273,10 @@ void GameLoop() {
   //InitGame();
 }
 
+byte RandomPiece() {
+  
+}
+
 void InitGame() {
   
   gameOver = FALSE;
@@ -278,8 +298,13 @@ void InitGame() {
 }
 
 void main() {
+
   int counter=0;
   
+  //pieces[0] = exampleTile;
+  //pieces[1] = exampleTile_green;
+  //pieces[2] = exampleTile_blue;
+
   //INITXT();
   SCNCNT = 1; // set keyboard scan counter
   
