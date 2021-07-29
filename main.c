@@ -22,7 +22,7 @@ int exampleTile = 5;
 int exampleTile_green = 1;
 int exampleTile_blue = 9;
 
-#define SPEED			15 // 30 // 60
+#define SPEED			30 // 30 // 60
 
 #define LINES_PLAYFIELD 	12
 #define COLS_PLAYFIELD 		6
@@ -127,11 +127,25 @@ void DrawPiece(byte line) {
   DrawLine(line + 2);
 }
 
-//void DrawPlayfield() {
-  //byte line = 0; // drawing only current piece line
-  //for(byte line = 0; line < LINES_PLAYFIELD; line++) {
-  //}
-//}
+void DrawPlayfield() {
+  for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+    DrawLine(line);
+  }
+}
+
+void CheckPlayfield() {
+  // Check lines
+  for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+    for(byte col = 2; col < COLS_PLAYFIELD; col++) {
+      if (playfield[col - 2][line] == playfield[col - 1][line] && 
+          playfield[col - 1][line] == playfield[col][line]) {
+        playfield[col - 2][line] = EMPTY;
+        playfield[col - 1][line] = EMPTY;
+        playfield[col][line] = EMPTY;
+      }
+    }
+  }
+}
 
 void GameLoop() {
   
@@ -221,6 +235,10 @@ void GameLoop() {
         // Set piece to next
         col = INITIAL_COL;
         line = INITIAL_LINE;
+        
+    	CheckPlayfield();
+        
+        DrawPlayfield();
       }
       else {
       	line++;
