@@ -21,27 +21,27 @@
 //were avoided for maximum speed on ultra low power devices.
 
 
-char a, b, c, x;
+char Rand_a, Rand_b, Rand_c, Rand_x;
 
 
 //Can also be used to seed the rng with more entropy during use.
 void InitRnd(char s1, char s2, char s3) {
   //XOR new entropy into key state
-  a ^= s1;
-  b ^= s2;
-  c ^= s3;
+  Rand_a ^= s1;
+  Rand_b ^= s2;
+  Rand_c ^= s3;
 
-  x++;
-  a = (a^c^x);
-  b = (b+a);
-  c = (c+(b>>1)^a);
+  Rand_x++;
+  Rand_a = (Rand_a ^ Rand_c ^ Rand_x);
+  Rand_b = (Rand_b + Rand_a);
+  Rand_c = (Rand_c + (Rand_b >> 1) ^ Rand_a);
 }
 
-unsigned char Randomize() {
-  x++;               //x is incremented every round and is not affected by any other variable
-  a = (a^c^x);       //note the mix of addition and XOR
-  b = (b+a);         //And the use of very few instructions
-  c = (c+(b>>1)^a);  //the right shift is to ensure that high-order bits from b can affect  
+unsigned char GetRandom() {
+  Rand_x++;               			//x is incremented every round and is not affected by any other variable
+  Rand_a = (Rand_a ^ Rand_c ^ Rand_x);       	//note the mix of addition and XOR
+  Rand_b = (Rand_b + Rand_a);         		//And the use of very few instructions
+  Rand_c = (Rand_c + (Rand_b >> 1) ^ Rand_a);  	//the right shift is to ensure that high-order bits from b can affect  
 
-  return(c);          //low order bits of other variables
+  return (Rand_c);          //low order bits of other variables
 }

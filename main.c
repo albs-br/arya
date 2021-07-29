@@ -27,7 +27,7 @@ byte exampleTile_green = 1;
 byte exampleTile_blue = 9;
 
 // TODO: refactor here
-const byte pieces[3] = { 1, 5, 9 };
+const byte pieces[3] = { 1, 9, 5 };
 
 
 #define SPEED			30 // 30 // 60
@@ -162,6 +162,24 @@ void CheckPlayfield() {
   }
 }
 
+byte RandomIndex() {
+  byte random = GetRandom() & 0b00000011;
+  
+  if(random > 3) {
+    while (1) {}
+  }
+  
+  if(random > 2) random = 2; // TODO: it is not good (tendency to get result 2)
+  
+  return random;
+}
+
+byte RandomPiece() {
+  topPiece = pieces[RandomIndex()];
+  midPiece = pieces[RandomIndex()];
+  bottomPiece = pieces[RandomIndex()];
+}
+
 void GameLoop() {
   
   byte joystick, lastJoystick = STCK_none;
@@ -252,6 +270,8 @@ void GameLoop() {
         col = INITIAL_COL;
         line = INITIAL_LINE;
         
+    	RandomPiece();
+        
     	CheckPlayfield();
         
         DrawPlayfield();
@@ -261,6 +281,7 @@ void GameLoop() {
       }
     }
     
+
     //Set piece at updated position
     playfield[col][line] = topPiece;
     playfield[col][line + 1] = midPiece;
@@ -273,19 +294,18 @@ void GameLoop() {
   //InitGame();
 }
 
-byte RandomPiece() {
-  
-}
-
 void InitGame() {
+  
+  InitRnd(JIFFY, JIFFY, JIFFY);
   
   gameOver = FALSE;
   line = INITIAL_LINE;
   col = INITIAL_COL;
   
-  topPiece = exampleTile_green;
-  midPiece = exampleTile;
-  bottomPiece = exampleTile_blue;
+  RandomPiece();
+  //topPiece = exampleTile_green;
+  //midPiece = exampleTile;
+  //bottomPiece = exampleTile_blue;
   
   // Reset playfield
   for(byte line = 0; line < LINES_PLAYFIELD; line++) {
