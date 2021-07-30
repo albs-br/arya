@@ -142,6 +142,8 @@ void DrawPlayfield() {
 }
 
 void CheckPlayfield() {
+  bool piecesRemoved = FALSE;
+  
   // Save copy of playfield
   for(byte line = 0; line < LINES_PLAYFIELD; line++) {
     for(byte col = 0; col < COLS_PLAYFIELD; col++) {
@@ -152,8 +154,11 @@ void CheckPlayfield() {
   // Check lines
   for(byte line = 0; line < LINES_PLAYFIELD; line++) {
     for(byte col = 2; col < COLS_PLAYFIELD; col++) {
-      if (playfieldTemp[col - 2][line] == playfieldTemp[col - 1][line] && 
+      if (playfieldTemp[col][line] != EMPTY &&
+          playfieldTemp[col - 2][line] == playfieldTemp[col - 1][line] && 
           playfieldTemp[col - 1][line] == playfieldTemp[col][line]) {
+        
+        piecesRemoved = TRUE;
         
         // Set cells to empty
         playfield[col - 2][line] = EMPTY;
@@ -162,12 +167,16 @@ void CheckPlayfield() {
 
         // Adjust the column above
         for(byte line1 = line; line1 > 0; line1--) {
-          playfield[col - 2][line1] = playfield[col - 2][line1 - 1];
-          playfield[col - 1][line1] = playfield[col - 1][line1 - 1];
-          playfield[col][line1] = playfield[col][line1 - 1];
+          playfield[col - 2][line1] = playfieldTemp[col - 2][line1 - 1];
+          playfield[col - 1][line1] = playfieldTemp[col - 1][line1 - 1];
+          playfield[col][line1] = playfieldTemp[col][line1 - 1];
         }
       }
     }
+  }
+  
+  if(piecesRemoved) {
+    CheckPlayfield();
   }
 }
 
@@ -203,6 +212,7 @@ void GameLoop() {
     while (lastJiffy == JIFFY) {
     }
     // Game loop sync'ed at 60/50 Hz starts here
+    
     
     
     
@@ -308,7 +318,7 @@ void GameLoop() {
 
 void InitGame() {
   
-  InitRnd(JIFFY, JIFFY, JIFFY);
+  InitRnd(JIFFY, JIFFY * 2, JIFFY * 3);
   
   gameOver = FALSE;
   line = INITIAL_LINE;
