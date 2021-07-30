@@ -30,7 +30,7 @@ const byte exampleTile_blue = 9;
 const byte pieces[3] = { 1, 5, 9 };
 
 
-#define SPEED			30 // 30 // 60
+#define SPEED			60 // 30 // 60
 
 #define LINES_PLAYFIELD 	12
 #define COLS_PLAYFIELD 		6
@@ -154,9 +154,18 @@ void CheckPlayfield() {
     for(byte col = 2; col < COLS_PLAYFIELD; col++) {
       if (playfieldTemp[col - 2][line] == playfieldTemp[col - 1][line] && 
           playfieldTemp[col - 1][line] == playfieldTemp[col][line]) {
+        
+        // Set cells to empty
         playfield[col - 2][line] = EMPTY;
         playfield[col - 1][line] = EMPTY;
         playfield[col][line] = EMPTY;
+
+        // Adjust the column above
+        for(byte line1 = line; line1 > 0; line1--) {
+          playfield[col - 2][line1] = playfield[col - 2][line1 - 1];
+          playfield[col - 1][line1] = playfield[col - 1][line1 - 1];
+          playfield[col][line1] = playfield[col][line1 - 1];
+        }
       }
     }
   }
