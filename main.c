@@ -316,6 +316,28 @@ void GameLoop() {
   //InitGame();
 }
 
+void TestCase() {
+  playfield[2][ 8] = exampleTile_green;
+  playfield[2][ 9] = exampleTile_blue;
+
+  playfield[0][10] = exampleTile_blue;
+  playfield[1][10] = exampleTile_blue;
+  playfield[2][10] = exampleTile;
+  playfield[4][10] = exampleTile;
+  playfield[5][10] = exampleTile_blue;
+
+  playfield[0][11] = exampleTile_green;
+  playfield[1][11] = exampleTile_green;
+  playfield[2][11] = exampleTile;
+  playfield[3][11] = exampleTile_blue;
+  playfield[4][11] = exampleTile;
+  playfield[5][11] = exampleTile;
+  
+  topPiece = exampleTile;
+  midPiece = exampleTile;
+  bottomPiece = exampleTile;
+}
+
 void InitGame() {
   
   InitRnd(JIFFY, JIFFY * 2, JIFFY * 3);
@@ -332,6 +354,11 @@ void InitGame() {
       playfield[col][line] = EMPTY;
     }
   }
+  
+  // Testing code
+  TestCase();
+
+  DrawPlayfield();
   
   GameLoop();
 }
