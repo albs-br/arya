@@ -20,7 +20,8 @@ typedef uint8_t 	bool;
 #define TRUE 	1
 #define FALSE 	0
 
-#define EMPTY	0
+#define EMPTY		0
+#define REMOVING_FLAG	0b10000000
 const byte blackTile = 0;
 const byte exampleTile = 5;
 const byte exampleTile_green = 1;
@@ -30,7 +31,7 @@ const byte exampleTile_blue = 9;
 const byte pieces[3] = { 1, 5, 9 };
 
 
-#define SPEED			60 // 30 // 60
+#define SPEED			60 // 15 // 30 // 60
 
 #define LINES_PLAYFIELD 	12
 #define COLS_PLAYFIELD 		6
@@ -160,22 +161,67 @@ void CheckPlayfield() {
         
         piecesRemoved = TRUE;
         
-        // Set cells to empty
-        playfield[col - 2][line] = EMPTY;
-        playfield[col - 1][line] = EMPTY;
-        playfield[col][line] = EMPTY;
+        // Set cells to removing status
+        playfield[col - 2][line] = playfield[col - 2][line] | REMOVING_FLAG;
+        playfield[col - 1][line] = playfield[col - 1][line] | REMOVING_FLAG;
+        playfield[col][line] = 	   playfield[col][line] | REMOVING_FLAG;
 
         // Adjust the column above
-        for(byte line1 = line; line1 > 0; line1--) {
-          playfield[col - 2][line1] = playfieldTemp[col - 2][line1 - 1];
-          playfield[col - 1][line1] = playfieldTemp[col - 1][line1 - 1];
-          playfield[col][line1] = playfieldTemp[col][line1 - 1];
-        }
+        //for(byte line1 = line; line1 > 0; line1--) {
+        //  playfield[col - 2][line1] = playfieldTemp[col - 2][line1 - 1];
+        //  playfield[col - 1][line1] = playfieldTemp[col - 1][line1 - 1];
+        //  playfield[col][line1] = playfieldTemp[col][line1 - 1];
+        //}
       }
     }
   }
   
   if(piecesRemoved) {
+    
+    byte counter = 60;
+    
+    while(counter-- > 0) {
+      word lastJiffy = JIFFY;
+      while (lastJiffy == JIFFY) {
+      }
+      // Animation loop sync'ed at 60/50 Hz starts here
+
+      for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+        for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+
+          if(playfieldTemp[col][line] & REMOVING_FLAG == 1) {
+            
+            if(JIFFY & 0b00000011) {
+              //DrawBlock(col, line, playfieldTemp[col][line] & 0b01111111);
+              DrawBlock(col, line, exampleTile);
+            }
+            else {
+              DrawBlock(col, line, EMPTY);
+            }
+
+          }
+        }
+      }
+    }
+    
+    for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+      for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+
+        if(playfieldTemp[col][line] & REMOVING_FLAG == 1) {
+
+          playfieldTemp[col][line] = EMPTY;
+
+          // Adjust the column above
+          for(byte line1 = line; line1 > 0; line1--) {
+            playfield[col][line1] = playfieldTemp[col][line1 - 1];
+          }
+        }
+      }
+    }
+
+    
+    DrawPlayfield();
+    
     CheckPlayfield();
   }
 }
