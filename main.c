@@ -22,6 +22,7 @@ typedef uint8_t 	bool;
 
 #define EMPTY		0
 #define REMOVING_FLAG	0b10000000
+#define REMOVING_STATUS	255
 const byte blackTile = 0;
 const byte exampleTile = 5;
 const byte exampleTile_green = 1;
@@ -162,10 +163,14 @@ void CheckPlayfield() {
         piecesRemoved = TRUE;
         
         // Set cells to removing status
-        playfield[col - 2][line] = playfield[col - 2][line] | REMOVING_FLAG;
-        playfield[col - 1][line] = playfield[col - 1][line] | REMOVING_FLAG;
-        playfield[col][line] = 	   playfield[col][line] | REMOVING_FLAG;
-
+        //playfield[col - 2][line] = playfield[col - 2][line] | REMOVING_FLAG;
+        //playfield[col - 1][line] = playfield[col - 1][line] | REMOVING_FLAG;
+        //playfield[col][line] = 	   playfield[col][line] | REMOVING_FLAG;
+        
+        playfield[col - 2][line] = REMOVING_STATUS;
+        playfield[col - 1][line] = REMOVING_STATUS;
+        playfield[col][line] = 	   REMOVING_STATUS;
+        
         // Adjust the column above
         //for(byte line1 = line; line1 > 0; line1--) {
         //  playfield[col - 2][line1] = playfieldTemp[col - 2][line1 - 1];
@@ -178,6 +183,7 @@ void CheckPlayfield() {
   
   if(piecesRemoved) {
     
+    // Animation
     byte counter = 60;
     
     while(counter-- > 0) {
@@ -189,7 +195,8 @@ void CheckPlayfield() {
       for(byte line = 0; line < LINES_PLAYFIELD; line++) {
         for(byte col = 0; col < COLS_PLAYFIELD; col++) {
 
-          if(playfieldTemp[col][line] & REMOVING_FLAG == 1) {
+          //if(playfieldTemp[col][line] & REMOVING_FLAG == 1) {
+          if(playfieldTemp[col][line] == REMOVING_STATUS) {
             
             if(JIFFY & 0b00000011) {
               //DrawBlock(col, line, playfieldTemp[col][line] & 0b01111111);
@@ -204,10 +211,12 @@ void CheckPlayfield() {
       }
     }
     
+    // After animation
     for(byte line = 0; line < LINES_PLAYFIELD; line++) {
       for(byte col = 0; col < COLS_PLAYFIELD; col++) {
 
-        if(playfieldTemp[col][line] & REMOVING_FLAG == 1) {
+        //if(playfieldTemp[col][line] & REMOVING_FLAG == 1) {
+        if(playfieldTemp[col][line] == REMOVING_STATUS) {
 
           playfieldTemp[col][line] = EMPTY;
 
