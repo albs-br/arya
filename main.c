@@ -143,6 +143,15 @@ void DrawPlayfield() {
   }
 }
 
+void Wait(word numberOfFrames) {
+  do {
+    word lastJiffy = JIFFY;
+    while (lastJiffy == JIFFY) {
+    }
+  }
+  while (numberOfFrames-- > 0);
+}
+
 void CheckPlayfield() {
   bool piecesRemoved = FALSE;
   
@@ -218,11 +227,15 @@ void CheckPlayfield() {
         //if(playfieldTemp[col][line] & REMOVING_FLAG == 1) {
         if(playfieldTemp[col][line] == REMOVING_STATUS) {
 
-          playfieldTemp[col][line] = EMPTY;
+          //playfieldTemp[col][line] = EMPTY;
 
           // Adjust the column above
           for(byte line1 = line; line1 > 0; line1--) {
-            playfield[col][line1] = playfieldTemp[col][line1 - 1];
+            byte linesToBeRemoved = 1;
+            if(playfield[col][line1 - 1] == REMOVING_STATUS) linesToBeRemoved++;
+            if(playfield[col][line1 - 2] == REMOVING_STATUS) linesToBeRemoved++;
+            
+            playfield[col][line1] = playfieldTemp[col][line1 - linesToBeRemoved];
           }
         }
       }
@@ -230,6 +243,8 @@ void CheckPlayfield() {
 
     
     DrawPlayfield();
+    
+    Wait(90);
     
     CheckPlayfield();
   }
@@ -357,13 +372,14 @@ void GameLoop() {
       	line++;
       }
     }
+
     
 
     //Set piece at updated position
     playfield[col][line] = topPiece;
     playfield[col][line + 1] = midPiece;
     playfield[col][line + 2] = bottomPiece;
-    
+
     // Draw piece at current position
     DrawPiece(line);
   }
@@ -384,7 +400,7 @@ void TestCase() {
   playfield[0][11] = exampleTile_green;
   playfield[1][11] = exampleTile_green;
   playfield[2][11] = exampleTile;
-  playfield[3][11] = exampleTile_blue;
+  //playfield[3][11] = exampleTile_blue;
   playfield[4][11] = exampleTile;
   playfield[5][11] = exampleTile;
   
