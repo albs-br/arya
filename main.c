@@ -178,14 +178,7 @@ void CheckPlayfield() {
         
         playfield[col - 2][line] = REMOVING_STATUS;
         playfield[col - 1][line] = REMOVING_STATUS;
-        playfield[col][line] = 	   REMOVING_STATUS;
-        
-        // Adjust the column above
-        //for(byte line1 = line; line1 > 0; line1--) {
-        //  playfield[col - 2][line1] = playfieldTemp[col - 2][line1 - 1];
-        //  playfield[col - 1][line1] = playfieldTemp[col - 1][line1 - 1];
-        //  playfield[col][line1] = playfieldTemp[col][line1 - 1];
-        //}
+        playfield[col][line] = REMOVING_STATUS;
       }
     }
   }
@@ -208,7 +201,7 @@ void CheckPlayfield() {
           if(playfield[col][line] == REMOVING_STATUS) {
             
             if(JIFFY & 0b00000011) {
-              //DrawBlock(col, line, playfieldTemp[col][line] & 0b01111111);
+              //DrawBlock(col, line, playfield[col][line] & 0b01111111);
               DrawBlock(col, line, exampleTile);
             }
             else {
