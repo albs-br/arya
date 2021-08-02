@@ -13,6 +13,8 @@ static const unsigned char color_black[] = {
 
 // ---------------------------------------------
 
+// Green
+
 // top left
 static const unsigned char color_0[] = {
     0x13,
@@ -62,6 +64,8 @@ static const unsigned char color_3[] = {
   };
 
 // ---------------------------------------------
+
+// Red
 
 // top left
 static const unsigned char color_4[] = {
@@ -113,9 +117,11 @@ static const unsigned char color_7[] = {
 
 // ---------------------------------------------
 
+// Blue
+
 // top left
 static const unsigned char color_8[] = {
-    0x47,
+    0x41,
     0x47,
     0x47,
     0x47,
@@ -127,37 +133,37 @@ static const unsigned char color_8[] = {
 
 // top right
 static const unsigned char color_9[] = {
+    0x41,
+    0x45,
     0x47,
     0x47,
-    0x47,
-    0x47,
-    0x47,
-    0x47,
-    0x47,
-    0x47,
+    0x45,
+    0x45,
+    0x41,
+    0x45,
   };
 
 // bottom left
 static const unsigned char color_10[] = {
     0x47,
-    0x47,
-    0x47,
-    0x47,
-    0x47,
-    0x47,
-    0x47,
-    0x47,
+    0x45,
+    0x45,
+    0x45,
+    0x45,
+    0x41,
+    0x45,
+    0x41,
   };
 
 // bottom right
 static const unsigned char color_11[] = {
-    0x47,
-    0x47,
-    0x47,
-    0x47,
-    0x47,
-    0x47,
-    0x47,
-    0x47,
+    0x41,
+    0x41,
+    0x41,
+    0x41,
+    0x41,
+    0x41,
+    0x41,
+    0x41,
   };
 
