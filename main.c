@@ -339,32 +339,7 @@ void GameLoop() {
       // Draw piece before update position
       DrawPiece(line);
       
-      // Check if piece hit bottom or other piece
-      if(line == LINES_PLAYFIELD - 3 || playfield[col][line + 3] != EMPTY) {
-        
-        if(line == 0) {
-          gameOver = TRUE;
-        }
-        
-    	// Update and draw piece static
-        playfield[col][line] = topPiece;
-        playfield[col][line + 1] = midPiece;
-        playfield[col][line + 2] = bottomPiece;
-      	DrawPiece(line);
-
-        // Set piece to next
-        col = INITIAL_COL;
-        line = INITIAL_LINE;
-        
-    	RandomPiece();
-        
-    	CheckPlayfield();
-        
-        DrawPlayfield();
-      }
-      else {
-      	line++;
-      }
+      line++;
     }
 
     
@@ -374,8 +349,34 @@ void GameLoop() {
     playfield[col][line + 1] = midPiece;
     playfield[col][line + 2] = bottomPiece;
 
+    
+    
     // Draw piece at current position
     DrawPiece(line);
+
+    // Check if piece hit bottom or other piece
+    if(line == LINES_PLAYFIELD - 3 || playfield[col][line + 3] != EMPTY) {
+
+      if(line == 0) {
+        gameOver = TRUE;
+      }
+
+      // Update and draw piece static
+      playfield[col][line] = topPiece;
+      playfield[col][line + 1] = midPiece;
+      playfield[col][line + 2] = bottomPiece;
+      DrawPiece(line);
+
+      // Set piece to next
+      col = INITIAL_COL;
+      line = INITIAL_LINE;
+
+      RandomPiece();
+
+      CheckPlayfield();
+
+      DrawPlayfield();
+    }  
   }
   
   //InitGame();
