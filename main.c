@@ -205,7 +205,7 @@ void CheckPlayfield() {
         for(byte col = 0; col < COLS_PLAYFIELD; col++) {
 
           //if(playfieldTemp[col][line] & REMOVING_FLAG == 1) {
-          if(playfieldTemp[col][line] == REMOVING_STATUS) {
+          if(playfield[col][line] == REMOVING_STATUS) {
             
             if(JIFFY & 0b00000011) {
               //DrawBlock(col, line, playfieldTemp[col][line] & 0b01111111);
@@ -225,7 +225,7 @@ void CheckPlayfield() {
       for(byte col = 0; col < COLS_PLAYFIELD; col++) {
 
         //if(playfieldTemp[col][line] & REMOVING_FLAG == 1) {
-        if(playfieldTemp[col][line] == REMOVING_STATUS) {
+        if(playfield[col][line] == REMOVING_STATUS) {
 
           //playfieldTemp[col][line] = EMPTY;
 
@@ -235,7 +235,8 @@ void CheckPlayfield() {
             if(playfield[col][line1 - 1] == REMOVING_STATUS) linesToBeRemoved++;
             if(playfield[col][line1 - 2] == REMOVING_STATUS) linesToBeRemoved++;
             
-            playfield[col][line1] = playfieldTemp[col][line1 - linesToBeRemoved];
+            //playfield[col][line1] = playfieldTemp[col][line1 - linesToBeRemoved];
+            playfield[col][line1] = playfield[col][line1 - linesToBeRemoved];
           }
         }
       }
@@ -244,7 +245,7 @@ void CheckPlayfield() {
     
     DrawPlayfield();
     
-    Wait(90);
+    //Wait(90);
     
     CheckPlayfield();
   }
