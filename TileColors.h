@@ -167,3 +167,55 @@ static const unsigned char color_11[] = {
     0x41,
   };
 
+// ---------------------------------------------
+
+// Purple
+
+// top left
+static const unsigned char color_12[] = {
+    0xd1,
+    0xdf,
+    0xdf,
+    0xdf,
+    0xdf,
+    0xdf,
+    0xdf,
+    0xdf,
+  };
+
+// top right
+static const unsigned char color_13[] = {
+    0xd1,
+    0xdf,
+    0xdf,
+    0xdf,
+    0xdf,
+    0xdf,
+    0xdf,
+    0xdf,
+  };
+
+// bottom left
+static const unsigned char color_14[] = {
+    0xdf,
+    0xdf,
+    0xdf,
+    0xd1,
+    0xd1,
+    0xd1,
+    0xd1,
+    0xd1,
+  };
+
+// bottom right
+static const unsigned char color_15[] = {
+    0xd1,
+    0xd1,
+    0xd1,
+    0xd1,
+    0xd1,
+    0xd1,
+    0xd1,
+    0xd1,
+  };
+

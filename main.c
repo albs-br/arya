@@ -27,9 +27,10 @@ const byte blackTile = 0;
 const byte exampleTile = 5;
 const byte exampleTile_green = 1;
 const byte exampleTile_blue = 9;
+const byte exampleTile_purple = 13;
 
 // TODO: refactor here
-const byte pieces[3] = { 1, 5, 9 };
+const byte pieces[4] = { 1, 5, 9, 13 };
 
 
 #define SPEED			60 // 15 // 30 // 60
@@ -246,10 +247,10 @@ void CheckPlayfield() {
 
 byte RandomIndex() {
   byte random;
-  do {
+  //do {
      random = GetRandom() & 0b00000011; // AND mask to get a value in the 0-3 range
-  }
-  while(random > 2); // Get a number between 0 and 2
+  //}
+  //while(random > 2); // Get a number between 0 and 2
   
   // Testing if AND mask works:
   //if(random > 3) {
@@ -422,7 +423,7 @@ void InitGame() {
   }
   
   // Testing code
-  TestCase();
+  //TestCase();
 
   DrawPlayfield();
   
