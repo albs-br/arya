@@ -266,6 +266,31 @@ byte RandomPiece() {
   bottomPiece = pieces[RandomIndex()];
 }
 
+void UpdateAndDrawPieceStatic() {
+  // Update and draw piece static
+  playfield[col][line] = topPiece;
+  playfield[col][line + 1] = midPiece;
+  playfield[col][line + 2] = bottomPiece;
+  DrawPiece(line);
+
+  // Set piece to next
+  col = INITIAL_COL;
+  line = INITIAL_LINE;
+
+  // Check if initial place of piece is occupied
+  if(playfield[col][line] != EMPTY ||
+     playfield[col][line + 1] != EMPTY ||
+     playfield[col][line + 2] != EMPTY) {
+    gameOver = TRUE;
+  }  
+  
+  RandomPiece();
+
+  CheckPlayfield();
+
+  DrawPlayfield();
+}
+
 void GameLoop() {
   
   byte joystick, lastJoystick = STCK_none;
@@ -322,6 +347,8 @@ void GameLoop() {
             DrawPiece(line);
             
             line = i;
+            
+            UpdateAndDrawPieceStatic();
             break;
           }
         }
@@ -340,7 +367,36 @@ void GameLoop() {
       // Draw piece before update position
       DrawPiece(line);
       
+      
+      // Check if piece hit bottom or other piece
+      if(line == LINES_PLAYFIELD - 3 || playfield[col][line + 3] != EMPTY) {
+
+        //if(line == 0) {
+        //  gameOver = TRUE;
+        //}
+
+        UpdateAndDrawPieceStatic();
+        /*
+        // Update and draw piece static
+        playfield[col][line] = topPiece;
+        playfield[col][line + 1] = midPiece;
+        playfield[col][line + 2] = bottomPiece;
+        DrawPiece(line);
+
+        // Set piece to next
+        col = INITIAL_COL;
+        line = INITIAL_LINE;
+
+        RandomPiece();
+
+        CheckPlayfield();
+
+        DrawPlayfield();
+        */
+      }
+      
       line++;
+      
     }
 
     
@@ -355,6 +411,7 @@ void GameLoop() {
     // Draw piece at current position
     DrawPiece(line);
 
+    /*
     // Check if piece hit bottom or other piece
     if(line == LINES_PLAYFIELD - 3 || playfield[col][line + 3] != EMPTY) {
 
@@ -378,6 +435,7 @@ void GameLoop() {
 
       DrawPlayfield();
     }  
+    */
   }
   
   //InitGame();
