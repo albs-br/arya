@@ -183,7 +183,28 @@ void CheckPlayfield() {
       }
     }
   }
-  
+
+  // Check columns
+  for(byte line = 2; line < LINES_PLAYFIELD; line++) {
+    for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+      if (playfieldTemp[col][line] != EMPTY &&
+          playfieldTemp[col][line - 2] == playfieldTemp[col][line - 1] && 
+          playfieldTemp[col][line - 1] == playfieldTemp[col][line]) {
+        
+        piecesRemoved = TRUE;
+        
+        // Set cells to removing status
+        //playfield[col - 2][line] = playfield[col - 2][line] | REMOVING_FLAG;
+        //playfield[col - 1][line] = playfield[col - 1][line] | REMOVING_FLAG;
+        //playfield[col][line] = 	   playfield[col][line] | REMOVING_FLAG;
+        
+        playfield[col][line - 2] = REMOVING_STATUS;
+        playfield[col][line - 1] = REMOVING_STATUS;
+        playfield[col][line] = REMOVING_STATUS;
+      }
+    }
+  }
+
   if(piecesRemoved) {
     
     // Animation
