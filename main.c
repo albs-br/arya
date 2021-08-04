@@ -206,6 +206,42 @@ void CheckPlayfield() {
     }
   }
 
+  // Check diagonals
+  for(byte line = 2; line < LINES_PLAYFIELD; line++) {
+    for(byte col = 2; col < COLS_PLAYFIELD; col++) {
+      if (playfieldTemp[col][line] != EMPTY &&
+          playfieldTemp[col - 2][line - 2] == playfieldTemp[col - 1][line - 1] && 
+          playfieldTemp[col - 1][line - 1] == playfieldTemp[col][line]) {
+        
+        piecesRemoved = TRUE;
+        
+        // Set cells to removing status
+        //playfield[col - 2][line] = playfield[col - 2][line] | REMOVING_FLAG;
+        //playfield[col - 1][line] = playfield[col - 1][line] | REMOVING_FLAG;
+        //playfield[col][line] = 	   playfield[col][line] | REMOVING_FLAG;
+        
+        playfield[col - 2][line - 2] = REMOVING_STATUS;
+        playfield[col - 1][line - 1] = REMOVING_STATUS;
+        playfield[col][line] = REMOVING_STATUS;
+      }
+      if (playfieldTemp[col][line - 2] != EMPTY &&
+          playfieldTemp[col - 1][line - 1] == playfieldTemp[col - 2][line] && 
+          playfieldTemp[col - 2][line] == playfieldTemp[col][line - 2]) {
+        
+        piecesRemoved = TRUE;
+        
+        // Set cells to removing status
+        //playfield[col - 2][line] = playfield[col - 2][line] | REMOVING_FLAG;
+        //playfield[col - 1][line] = playfield[col - 1][line] | REMOVING_FLAG;
+        //playfield[col][line] = 	   playfield[col][line] | REMOVING_FLAG;
+        
+        playfield[col][line - 2] = REMOVING_STATUS;
+        playfield[col - 1][line - 1] = REMOVING_STATUS;
+        playfield[col - 2][line] = REMOVING_STATUS;
+      }
+    }
+  }
+
   if(piecesRemoved) {
     
     // Animation
@@ -476,11 +512,11 @@ void TestCase() {
   playfield[0][11] = exampleTile_green;
   playfield[1][11] = exampleTile_green;
   playfield[2][11] = exampleTile;
-  //playfield[3][11] = exampleTile_blue;
+  playfield[3][11] = exampleTile_blue;
   playfield[4][11] = exampleTile;
   playfield[5][11] = exampleTile;
   
-  topPiece = exampleTile;
+  topPiece = exampleTile_blue;
   midPiece = exampleTile;
   bottomPiece = exampleTile_yellow;
 }
@@ -503,7 +539,7 @@ void InitGame() {
   }
   
   // Testing code
-  //TestCase();
+  TestCase();
 
   DrawPlayfield();
   
