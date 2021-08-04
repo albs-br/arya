@@ -1,4 +1,4 @@
-#define NUMBER_OF_PATTERNS 17
+#define NUMBER_OF_PATTERNS 21
 
 
 static const unsigned char pattern_black[] = {
@@ -218,5 +218,57 @@ static const unsigned char pattern_15[] = {
     0b01111011,
     0b11010111,
     0b11111110,
+  };
+
+// ---------------------------------------------
+
+// Yellow
+
+// top left
+static const unsigned char pattern_16[] = {
+    0b01111111,
+    0b11111111,
+    0b11101010,
+    0b11011111,
+    0b11111111,
+    0b11011111,
+    0b11111111,
+    0b11011111,
+  };
+
+// top right
+static const unsigned char pattern_17[] = {
+    0b11111110,
+    0b11111111,
+    0b10101111,
+    0b11111010,
+    0b11111111,
+    0b11111010,
+    0b11111111,
+    0b11111010,
+  };
+
+// bottom left
+static const unsigned char pattern_18[] = {
+    0b11111111,
+    0b11011111,
+    0b11111111,
+    0b11011111,
+    0b11111111,
+    0b11101010,
+    0b11111111,
+    0b01010101,
+  };
+
+// bottom right
+static const unsigned char pattern_19[] = {
+    0b11111111,
+    0b11111010,
+    0b11111111,
+    0b11111010,
+    0b11110111,
+    0b10101010,
+    0b11111111,
+    0b01010110,
   };
 

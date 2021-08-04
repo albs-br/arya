@@ -219,3 +219,55 @@ static const unsigned char color_15[] = {
     0xd1,
   };
 
+// ---------------------------------------------
+
+// Yellow
+
+// top left
+static const unsigned char color_16[] = {
+    0xa1,
+    0xbf,
+    0xbf,
+    0xbf,
+    0xbf,
+    0xbf,
+    0xbf,
+    0xbf,
+  };
+
+// top right
+static const unsigned char color_17[] = {
+    0xa1,
+    0xaf,
+    0xaf,
+    0xa1,
+    0xa1,
+    0xa1,
+    0xa1,
+    0xa1,
+  };
+
+// bottom left
+static const unsigned char color_18[] = {
+    0xaf,
+    0xaf,
+    0xaf,
+    0xaf,
+    0xa1,
+    0xa1,
+    0xa1,
+    0xa1,
+  };
+
+// bottom right
+static const unsigned char color_19[] = {
+    0xb1,
+    0xb1,
+    0xb1,
+    0xb1,
+    0xb1,
+    0xb1,
+    0xb1,
+    0xb1,
+  };
+
