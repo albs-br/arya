@@ -47,6 +47,9 @@ bool gameOver = FALSE;
 byte col = 0, line = 0;
 byte topPiece, midPiece, bottomPiece;
 
+byte d_col, d_line;
+
+
 
 
 void InitVRAM() {
@@ -174,17 +177,17 @@ void CheckPlayfield() {
         piecesRemoved = TRUE;
         
         // Set cells to removing status
-        //playfield[col - 2][line] = playfield[col - 2][line] | REMOVING_FLAG;
-        //playfield[col - 1][line] = playfield[col - 1][line] | REMOVING_FLAG;
-        //playfield[col][line] = 	   playfield[col][line] | REMOVING_FLAG;
+        playfield[col - 2][line] = playfieldTemp[col - 2][line] | REMOVING_FLAG;
+        playfield[col - 1][line] = playfieldTemp[col - 1][line] | REMOVING_FLAG;
+        playfield[col][line] = 	   playfieldTemp[col][line] | REMOVING_FLAG;
         
-        playfield[col - 2][line] = REMOVING_STATUS;
-        playfield[col - 1][line] = REMOVING_STATUS;
-        playfield[col][line] = REMOVING_STATUS;
+        //playfield[col - 2][line] = REMOVING_STATUS;
+        //playfield[col - 1][line] = REMOVING_STATUS;
+        //playfield[col][line] = REMOVING_STATUS;
       }
     }
   }
-
+/*
   // Check columns
   for(byte line = 2; line < LINES_PLAYFIELD; line++) {
     for(byte col = 0; col < COLS_PLAYFIELD; col++) {
@@ -241,7 +244,7 @@ void CheckPlayfield() {
       }
     }
   }
-
+*/
   if(piecesRemoved) {
     
     // Animation
@@ -256,12 +259,18 @@ void CheckPlayfield() {
       for(byte line = 0; line < LINES_PLAYFIELD; line++) {
         for(byte col = 0; col < COLS_PLAYFIELD; col++) {
 
-          //if(playfieldTemp[col][line] & REMOVING_FLAG == 1) {
-          if(playfield[col][line] == REMOVING_STATUS) {
+          if(playfield[col][line] > 128) {
+          //if(playfield[col][line] & REMOVING_FLAG != 0) { // why it isn't working???
+          //if(playfield[col][line] == REMOVING_STATUS) {
+    		
+            d_col = col;
+            d_line = line; //[debug]
+            
+            //while(1) {}
             
             if(JIFFY & 0b00000011) {
-              //DrawBlock(col, line, playfield[col][line] & 0b01111111);
-              DrawBlock(col, line, exampleTile);
+              DrawBlock(col, line, playfield[col][line] & 0b01111111);
+              //DrawBlock(col, line, exampleTile_green);
             }
             else {
               DrawBlock(col, line, EMPTY);
@@ -272,20 +281,24 @@ void CheckPlayfield() {
       }
     }
     
+    
     // After animation
     for(byte line = 0; line < LINES_PLAYFIELD; line++) {
       for(byte col = 0; col < COLS_PLAYFIELD; col++) {
 
         //if(playfieldTemp[col][line] & REMOVING_FLAG == 1) {
-        if(playfield[col][line] == REMOVING_STATUS) {
+        if(playfield[col][line] > 128) {
+        //if(playfield[col][line] == REMOVING_STATUS) {
 
           //playfieldTemp[col][line] = EMPTY;
 
           // Adjust the column above
           for(byte line1 = line; line1 > 0; line1--) {
             byte linesToBeRemoved = 1;
-            if(playfield[col][line1 - 1] == REMOVING_STATUS) linesToBeRemoved++;
-            if(playfield[col][line1 - 2] == REMOVING_STATUS) linesToBeRemoved++;
+            if(playfield[col][line1 - 1] > 128) linesToBeRemoved++;
+            if(playfield[col][line1 - 2] > 128) linesToBeRemoved++;
+            //if(playfield[col][line1 - 1] == REMOVING_STATUS) linesToBeRemoved++;
+            //if(playfield[col][line1 - 2] == REMOVING_STATUS) linesToBeRemoved++;
             
             //playfield[col][line1] = playfieldTemp[col][line1 - linesToBeRemoved];
             playfield[col][line1] = playfield[col][line1 - linesToBeRemoved];
