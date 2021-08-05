@@ -24,14 +24,14 @@ typedef uint8_t 	bool;
 #define REMOVING_FLAG	0b10000000
 #define REMOVING_STATUS	255
 const byte blackTile = 0;
-const byte exampleTile = 5;
-const byte exampleTile_green = 1;
-const byte exampleTile_blue = 9;
-const byte exampleTile_purple = 13;
-const byte exampleTile_yellow = 17;
+const byte exampleTile = 8;
+const byte exampleTile_green = 4;
+const byte exampleTile_blue = 12;
+const byte exampleTile_purple = 16;
+const byte exampleTile_yellow = 20;
 
 // TODO: refactor here
-const byte pieces[5] = { 1, 5, 9, 13, 17 };
+const byte pieces[5] = { 4, 8, 12, 16, 20 };
 
 
 #define SPEED			60 // 15 // 30 // 60
@@ -74,13 +74,13 @@ void InitVRAM() {
   //}
   
   // Loading patterns (1st bank)
-  LDIRVM(MSX_modedata_screen2.pattern, pattern_black, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+  LDIRVM(MSX_modedata_screen2.pattern, pattern_black_0, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
 
   // Loading patterns (2nd bank)
-  LDIRVM(MSX_modedata_screen2.pattern + (256 * 8), pattern_black, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+  LDIRVM(MSX_modedata_screen2.pattern + (256 * 8), pattern_black_0, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
 
   // Loading patterns (3rd bank)
-  LDIRVM(MSX_modedata_screen2.pattern + (512 * 8), pattern_black, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+  LDIRVM(MSX_modedata_screen2.pattern + (512 * 8), pattern_black_0, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
   
 
   
@@ -90,32 +90,33 @@ void InitVRAM() {
   //}
   
   // Loading colors (1st bank)
-  LDIRVM(MSX_modedata_screen2.color, color_black, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+  LDIRVM(MSX_modedata_screen2.color, color_black_0, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
 
   // Loading colors (2nd bank)
-  LDIRVM(MSX_modedata_screen2.color + (256 * 8), color_black, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+  LDIRVM(MSX_modedata_screen2.color + (256 * 8), color_black_0, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
   
   // Loading colors (3rd bank)
-  LDIRVM(MSX_modedata_screen2.color + (512 * 8), color_black, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+  LDIRVM(MSX_modedata_screen2.color + (512 * 8), color_black_0, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
   
   
   
   // Write to names table
   for(int i = 0; i < 256 * 3; i++) {
-  	WRTVRM(MSX_modedata_screen2.name + i, blackTile);
+  	WRTVRM(MSX_modedata_screen2.name + i, 4); // test
   }
   
   ENASCR();	// Enable screen
 }
 
 void DrawBlock(byte col, byte line, byte tile) {
-  word baseAddr = MSX_modedata_screen2.name + (col * 2) + (line * 2 * 32);
+  const byte horizOffset = 10;	// playfield offset from screen left border
+  word baseAddr = MSX_modedata_screen2.name + (col * 2) + (line * 2 * 32) + horizOffset;
   
   if (tile == EMPTY) {
-    WRTVRM(baseAddr, tile);
-    WRTVRM(baseAddr + 1, tile);
-    WRTVRM(baseAddr + 32, tile);
-    WRTVRM(baseAddr + 33, tile);
+    WRTVRM(baseAddr, EMPTY);
+    WRTVRM(baseAddr + 1, EMPTY + 1);
+    WRTVRM(baseAddr + 32, EMPTY + 2);
+    WRTVRM(baseAddr + 33, EMPTY + 3);
     
     return;
   }

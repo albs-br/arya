@@ -1,8 +1,41 @@
-#define NUMBER_OF_PATTERNS 21
+#define NUMBER_OF_PATTERNS 24
 
 
-static const unsigned char pattern_black[] = {
+static const unsigned char pattern_black_0[] = {
     0b01111111,
+    0b11111111,
+    0b11111111,
+    0b11111111,
+    0b11111111,
+    0b11111111,
+    0b11111111,
+    0b11111111,
+  };
+
+static const unsigned char pattern_black_1[] = {
+    0b11111111,
+    0b11111111,
+    0b11111111,
+    0b11111111,
+    0b11111111,
+    0b11111111,
+    0b11111111,
+    0b11111111,
+  };
+
+static const unsigned char pattern_black_2[] = {
+    0b11111111,
+    0b11111111,
+    0b11111111,
+    0b11111111,
+    0b11111111,
+    0b11111111,
+    0b11111111,
+    0b11111111,
+  };
+
+static const unsigned char pattern_black_3[] = {
+    0b11111111,
     0b11111111,
     0b11111111,
     0b11111111,
