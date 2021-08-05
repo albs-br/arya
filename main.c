@@ -22,7 +22,7 @@ typedef uint8_t 	bool;
 
 #define EMPTY		0
 #define REMOVING_FLAG	0b10000000
-#define REMOVING_STATUS	255
+//#define REMOVING_STATUS	255
 const byte blackTile = 0;
 const byte exampleTile = 8;
 const byte exampleTile_green = 4;
@@ -50,6 +50,14 @@ byte topPiece, midPiece, bottomPiece;
 byte d_col, d_line;
 
 
+
+
+void DrawBackground() {
+  // Write to names table
+  for(int i = 0; i < 256 * 3; i++) {
+  	WRTVRM(MSX_modedata_screen2.name + i, 0); // test
+  }
+}
 
 
 void InitVRAM() {
@@ -100,10 +108,9 @@ void InitVRAM() {
   
   
   
-  // Write to names table
-  for(int i = 0; i < 256 * 3; i++) {
-  	WRTVRM(MSX_modedata_screen2.name + i, 4); // test
-  }
+  DrawBackground();
+  
+  
   
   ENASCR();	// Enable screen
 }
@@ -322,11 +329,6 @@ byte RandomIndex() {
   }
   while(random > 4); // Get a number between 0 and 4
   
-  // Testing if AND mask works:
-  //if(random > 3) {
-  //  while (1) {}
-  //}
-  
   return random;
 }
 
@@ -441,28 +443,7 @@ void GameLoop() {
       // Check if piece hit bottom or other piece
       if(line == LINES_PLAYFIELD - 3 || playfield[col][line + 3] != EMPTY) {
 
-        //if(line == 0) {
-        //  gameOver = TRUE;
-        //}
-
         UpdateAndDrawPieceStatic();
-        /*
-        // Update and draw piece static
-        playfield[col][line] = topPiece;
-        playfield[col][line + 1] = midPiece;
-        playfield[col][line + 2] = bottomPiece;
-        DrawPiece(line);
-
-        // Set piece to next
-        col = INITIAL_COL;
-        line = INITIAL_LINE;
-
-        RandomPiece();
-
-        CheckPlayfield();
-
-        DrawPlayfield();
-        */
       }
       
       line++;
@@ -481,34 +462,8 @@ void GameLoop() {
     // Draw piece at current position
     DrawPiece(line);
 
-    /*
-    // Check if piece hit bottom or other piece
-    if(line == LINES_PLAYFIELD - 3 || playfield[col][line + 3] != EMPTY) {
-
-      if(line == 0) {
-        gameOver = TRUE;
-      }
-
-      // Update and draw piece static
-      playfield[col][line] = topPiece;
-      playfield[col][line + 1] = midPiece;
-      playfield[col][line + 2] = bottomPiece;
-      DrawPiece(line);
-
-      // Set piece to next
-      col = INITIAL_COL;
-      line = INITIAL_LINE;
-
-      RandomPiece();
-
-      CheckPlayfield();
-
-      DrawPlayfield();
-    }  
-    */
   }
   
-  //InitGame();
 }
 
 void TestCase() {
