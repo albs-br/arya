@@ -1,8 +1,11 @@
 #define NUMBER_OF_PATTERNS 24
 
 
+// Empty spaces
+
+// top left
 static const unsigned char pattern_black_0[] = {
-    0b01111111,
+    0b11111111,
     0b11111111,
     0b11111111,
     0b11111111,
@@ -12,37 +15,40 @@ static const unsigned char pattern_black_0[] = {
     0b11111111,
   };
 
+// top right
 static const unsigned char pattern_black_1[] = {
+    0b11111110,
     0b11111111,
     0b11111111,
     0b11111111,
+    0b11111110,
     0b11111111,
     0b11111111,
-    0b11111111,
-    0b11111111,
-    0b11111111,
+    0b11111110,
   };
 
+// bottom left
 static const unsigned char pattern_black_2[] = {
     0b11111111,
     0b11111111,
     0b11111111,
     0b11111111,
     0b11111111,
+    0b11111011,
     0b11111111,
-    0b11111111,
-    0b11111111,
+    0b10111011,
   };
 
+// bottom right
 static const unsigned char pattern_black_3[] = {
-    0b11111111,
-    0b11111111,
-    0b11111111,
-    0b11111111,
-    0b11111111,
-    0b11111111,
-    0b11111111,
-    0b11111111,
+    0b11111011,
+    0b11111110,
+    0b11111101,
+    0b11111110,
+    0b11110111,
+    0b11111010,
+    0b10101111,
+    0b01010101,
   };
 
 // ---------------------------------------------
