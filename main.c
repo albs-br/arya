@@ -21,17 +21,21 @@ typedef uint8_t 	bool;
 #define FALSE 	0
 
 #define EMPTY		0
-#define REMOVING_FLAG	0b10000000
-//#define REMOVING_STATUS	255
-const byte blackTile = 0;
-const byte exampleTile = 8;
-const byte exampleTile_green = 4;
-const byte exampleTile_blue = 12;
-const byte exampleTile_purple = 16;
-const byte exampleTile_yellow = 20;
+#define TILE_GREEN	4
+#define TILE_RED	8
+#define TILE_BLUE	12
+#define TILE_PURPLE	16
+#define TILE_YELLOW	20
 
-// TODO: refactor here
-const byte pieces[5] = { 4, 8, 12, 16, 20 };
+#define REMOVING_FLAG	0b10000000
+
+const byte pieces[5] = { 
+  TILE_GREEN, 
+  TILE_RED, 
+  TILE_BLUE, 
+  TILE_PURPLE, 
+  TILE_YELLOW 
+};
 
 
 #define SPEED			60 // 15 // 30 // 60
@@ -47,8 +51,6 @@ bool gameOver = FALSE;
 byte col = 0, line = 0;
 byte topPiece, midPiece, bottomPiece;
 
-byte d_col, d_line;
-
 
 
 
@@ -62,6 +64,8 @@ void DrawBackground() {
 
 void InitVRAM() {
  
+  SCNCNT = 1; 	// set keyboard scan counter
+  
   FORCLR = COLOR_WHITE;
   BAKCLR = COLOR_BLACK;
   BDRCLR = COLOR_BLACK;
@@ -270,11 +274,6 @@ void CheckPlayfield() {
           if((playfield[col][line] & REMOVING_FLAG) != 0) {
           //if(playfield[col][line] == REMOVING_STATUS) {
     		
-            d_col = col;
-            d_line = line; //[debug]
-            
-            //while(1) {}
-            
             if(JIFFY & 0b00000011) {
               DrawBlock(col, line, playfield[col][line] & 0b01111111);
               //DrawBlock(col, line, exampleTile_green);
@@ -467,25 +466,25 @@ void GameLoop() {
 }
 
 void TestCase() {
-  playfield[2][ 8] = exampleTile_green;
-  playfield[2][ 9] = exampleTile_blue;
+  playfield[2][ 8] = TILE_GREEN;
+  playfield[2][ 9] = TILE_BLUE;
 
-  playfield[0][10] = exampleTile_blue;
-  playfield[1][10] = exampleTile_blue;
-  playfield[2][10] = exampleTile;
-  playfield[4][10] = exampleTile;
-  playfield[5][10] = exampleTile_blue;
+  playfield[0][10] = TILE_BLUE;
+  playfield[1][10] = TILE_BLUE;
+  playfield[2][10] = TILE_RED;
+  playfield[4][10] = TILE_RED;
+  playfield[5][10] = TILE_BLUE;
 
-  playfield[0][11] = exampleTile_green;
-  playfield[1][11] = exampleTile_green;
-  playfield[2][11] = exampleTile;
-  playfield[3][11] = exampleTile_blue;
-  playfield[4][11] = exampleTile;
-  playfield[5][11] = exampleTile;
+  playfield[0][11] = TILE_GREEN;
+  playfield[1][11] = TILE_GREEN;
+  playfield[2][11] = TILE_RED;
+  playfield[3][11] = TILE_BLUE;
+  playfield[4][11] = TILE_RED;
+  playfield[5][11] = TILE_RED;
   
-  topPiece = exampleTile_blue;
-  midPiece = exampleTile;
-  bottomPiece = exampleTile_yellow;
+  topPiece = TILE_BLUE;
+  midPiece = TILE_RED;
+  bottomPiece = TILE_YELLOW;
 }
 
 void InitGame() {
@@ -515,27 +514,7 @@ void InitGame() {
 
 void main() {
 
-  int counter=0;
-  
-  //pieces[0] = exampleTile;
-  //pieces[1] = exampleTile_green;
-  //pieces[2] = exampleTile_blue;
-
-  //INITXT();
-  SCNCNT = 1; // set keyboard scan counter
-  
   InitVRAM();
  
-  
-  /*
-  while (1) {
-    BEEP();
-    //counter++;
-    //printf("Hello, World!    %04x\n", counter);
-    //printf("%04x\n", MSX_modedata_screen1.name);
-  }
-  */
   InitGame();
-  
-  //while (1) {}
 }
