@@ -26,6 +26,7 @@ uint8_t __at(0xf3b1) CLMLST;
 
 // BIOS Variables added by me
 uint16_t __at(0xfc9e) JIFFY;
+uint8_t* __at(0xf3db) CLIKSW;
 
 
 typedef struct {
@@ -67,7 +68,7 @@ uint8_t __at(0xf3ea) BAKCLR;
 // F3EB: code for the standard border color (ini:7)
 uint8_t __at(0xf3eb) BDRCLR;
 
-//Pixel lcocation
+//Pixel location
 uint16_t __at(0xf92a) CLOC;
 //Pixel mask
 uint8_t __at(0xf92c) CMASK;
@@ -81,6 +82,8 @@ uint8_t __at(0xf3f7) REPCNT;
 uint8_t* __at(0xf3f8) PUTPNT;
 //Address in the keyboard buffer where the next character is read
 uint8_t* __at(0xf3fa) GETPNT;
+
+
 
 /// FUNCTIONS
 

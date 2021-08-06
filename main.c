@@ -51,19 +51,22 @@ bool gameOver = FALSE;
 byte col = 0, line = 0;
 byte topPiece, midPiece, bottomPiece;
 
+byte d_col = 0, d_line = 0, d_value = 0;
+
 
 
 
 void DrawBackground() {
   // Write to names table
   for(int i = 0; i < 256 * 3; i++) {
-  	WRTVRM(MSX_modedata_screen2.name + i, 0); // test
+    WRTVRM(MSX_modedata_screen2.name + i, 0); // test
   }
 }
 
 
 void InitVRAM() {
  
+  CLIKSW = 0;	// disable keyboard sound
   SCNCNT = 1; 	// set keyboard scan counter
   
   FORCLR = COLOR_WHITE;
@@ -123,6 +126,7 @@ void DrawBlock(byte col, byte line, byte tile) {
   const byte horizOffset = 10;	// playfield offset from screen left border
   word baseAddr = MSX_modedata_screen2.name + (col * 2) + (line * 2 * 32) + horizOffset;
   
+  /*
   if (tile == EMPTY) {
     WRTVRM(baseAddr, EMPTY);
     WRTVRM(baseAddr + 1, EMPTY + 1);
@@ -131,6 +135,7 @@ void DrawBlock(byte col, byte line, byte tile) {
     
     return;
   }
+  */
   
   //WRTVRM(baseAddr - 2, blackTile);
   //WRTVRM(baseAddr - 1, blackTile);
@@ -167,6 +172,31 @@ void Wait(word numberOfFrames) {
     }
   }
   while (numberOfFrames-- > 0);
+}
+
+void CheckIfPlayfieldIsValid() {
+  bool found = FALSE;
+  for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+    for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+      for(byte item = 0; item < 5; item++) {
+        found = FALSE;
+      	if(playfieldTemp[col][line] == pieces[item] || playfieldTemp[col][line] == EMPTY) {
+          found = TRUE;
+          break;
+        }
+      }
+      if(!found) {
+        d_col = col;
+        d_line = line;
+        d_value = playfieldTemp[col][line];
+        
+        while(1) { 
+          BEEP();
+        }
+      }
+      
+    }
+  }
 }
 
 void CheckPlayfield() {
@@ -315,7 +345,9 @@ void CheckPlayfield() {
     
     DrawPlayfield();
     
-    //Wait(90);
+    Wait(90);
+    
+    CheckIfPlayfieldIsValid(); // test
     
     CheckPlayfield();
   }
@@ -522,6 +554,7 @@ void TestCase() {
 
 void InitGame() {
   
+  // TODO: use user input to seed random number generator
   InitRnd(JIFFY, JIFFY * 2, JIFFY * 3);
   
   gameOver = FALSE;
