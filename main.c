@@ -336,7 +336,7 @@ void CheckPlayfield() {
             //if(playfield[col][line1 - 2] == REMOVING_STATUS) linesToBeRemoved++;
             
             //playfield[col][line1] = playfieldTemp[col][line1 - linesToBeRemoved];
-            playfield[col][line1] = playfield[col][line1 - linesToBeRemoved];
+            playfield[col][line1] = playfield[col][(line1 - linesToBeRemoved >= 0) ? line1 - linesToBeRemoved : 0];
           }
         }
       }
@@ -345,7 +345,7 @@ void CheckPlayfield() {
     
     DrawPlayfield();
     
-    Wait(90);
+    //Wait(90);
     
     CheckIfPlayfieldIsValid(); // test
     
