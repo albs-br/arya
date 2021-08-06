@@ -466,11 +466,12 @@ void GameLoop() {
     
     // Animate Bg
     //void FILVRM(uint16_t start, uint16_t len, uint8_t data);
+    //if(JIFFY & 0b0000001100000000 == 0) {
     /*
-    if(JIFFY & 0b0000001100000000 == 0) {
+    if(JIFFY % 8 == 0) {
       switch(bgCounter++) {
         case 0:
-          bgColor = 0x11;
+          bgColor = 0x14;
           break;
         case 1:
           bgColor = 0x14;
@@ -482,7 +483,7 @@ void GameLoop() {
           bgColor = 0x14;
           break;
         case 4:
-          bgColor = 0x11;
+          bgColor = 0x14;
           bgCounter = 0;
           break;
         default:
