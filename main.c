@@ -64,8 +64,11 @@ void DrawBackground() {
   }
 }
 
-void Sound() {
+void Sound_C() {
   GICINI();
+  
+  //__asm__("HALT");
+
   
   /*
   WRTPSG
@@ -77,20 +80,30 @@ void Sound() {
   
   
   //uint16_t WRTPSG(uint16_t reg_data) __z88dk_fastcall;
-  WRTPSG(0x080f);
+  WRTPSG(0x0f08);
   
   for(byte i=0; i<255; i++) {
-    WRTPSG((0 * 256) + 93);
-    WRTPSG((1 * 256) + 0);
+    WRTPSG((93 * 256) + 0);
+    WRTPSG((0 * 256) + 1);
   }
 
   for(byte i=0; i<255; i++) {
-    WRTPSG((0 * 256) + 45);
-    WRTPSG((1 * 256) + 0);
+    WRTPSG((45 * 256) + 0);
+    WRTPSG((0 * 256) + 1);
   }
 
-  WRTPSG((8 * 256) + 0);	// register 8, value 0
+  WRTPSG((0 * 256) + 8);	// register 8, value 0
 }
+
+/*
+void Sound() {
+  GICINI();
+  
+  __asm__("ld a, 8");
+  __asm__("ld e, 15");
+  __asm__("call 0x0093");
+}
+*/
 
 void InitVRAM() {
  
@@ -320,7 +333,7 @@ void CheckPlayfield() {
     // Animation
     byte counter = 60;
     
-    //Sound();
+    Sound();
     
     while(counter-- > 0) {
       word lastJiffy = JIFFY;
