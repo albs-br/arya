@@ -64,6 +64,33 @@ void DrawBackground() {
   }
 }
 
+void Sound() {
+  GICINI();
+  
+  /*
+  WRTPSG
+  Address  : #0093
+  Function : Writes data to PSG register
+  Input    : A  - PSG register number
+             E  - Data write  
+  */
+  
+  
+  //uint16_t WRTPSG(uint16_t reg_data) __z88dk_fastcall;
+  WRTPSG(0x080f);
+  
+  for(byte i=0; i<255; i++) {
+    WRTPSG((0 * 256) + 93);
+    WRTPSG((1 * 256) + 0);
+  }
+
+  for(byte i=0; i<255; i++) {
+    WRTPSG((0 * 256) + 45);
+    WRTPSG((1 * 256) + 0);
+  }
+
+  WRTPSG((8 * 256) + 0);	// register 8, value 0
+}
 
 void InitVRAM() {
  
@@ -293,6 +320,8 @@ void CheckPlayfield() {
     // Animation
     byte counter = 60;
     
+    //Sound();
+    
     while(counter-- > 0) {
       word lastJiffy = JIFFY;
       while (lastJiffy == JIFFY) {
@@ -337,7 +366,8 @@ void CheckPlayfield() {
             //if(playfield[col][line1 - 2] == REMOVING_STATUS) linesToBeRemoved++;
             
             //playfield[col][line1] = playfieldTemp[col][line1 - linesToBeRemoved];
-            playfield[col][line1] = playfield[col][(line1 - linesToBeRemoved >= 0) ? line1 - linesToBeRemoved : 0];
+            //playfield[col][line1] = playfield[col][(line1 - linesToBeRemoved >= 0) ? line1 - linesToBeRemoved : 0];
+            playfield[col][line1] = (line1 - linesToBeRemoved >= 0) ? playfield[col][line1 - linesToBeRemoved] : EMPTY;
           }
         }
       }
