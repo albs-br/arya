@@ -51,6 +51,7 @@ bool gameOver = FALSE;
 byte col = 0, line = 0;
 byte topPiece, midPiece, bottomPiece;
 
+// Debug variables
 byte d_col = 0, d_line = 0, d_value = 0;
 
 
@@ -404,7 +405,9 @@ void GameLoop() {
   while(!gameOver) {
 
     word lastJiffy = JIFFY;
+    //d_value = 0;
     while (lastJiffy == JIFFY) {
+      //d_value++;
     }
     // Game loop sync'ed at 60/50 Hz starts here
     
