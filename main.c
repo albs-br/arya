@@ -64,7 +64,7 @@ void DrawBackground() {
   }
 }
 
-void Sound_C() {
+void Sound() {
   GICINI();
   
   //__asm__("HALT");
@@ -93,6 +93,19 @@ void Sound_C() {
   }
 
   WRTPSG((0 * 256) + 8);	// register 8, value 0
+}
+
+void Sound_Shot() {
+  
+  //BEEP();
+  
+  GICINI();
+
+  WRTPSG((151 * 256) + 6);
+  WRTPSG((0b10000001 * 256) + 7);
+  WRTPSG((16 * 256) + 8);
+  WRTPSG((19 * 256) + 12);
+  WRTPSG((1 * 256) + 13);
 }
 
 /*

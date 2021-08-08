@@ -170,7 +170,8 @@ uint16_t WRTPSG(uint16_t reg_data) __z88dk_fastcall {
   reg_data;
   MSXUSR_LOAD_A();
   MSXUSR_LOAD_E();
-  MSXUSR(0x0096);
+  //MSXUSR(0x0096);
+  MSXUSR(0x0093);
 }
 
 uint8_t CHSNS() __z88dk_fastcall {
