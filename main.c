@@ -6,6 +6,10 @@
 #include "msxbios.h"
 //#link "msxbios.c"
 
+
+#include "fonts.h"
+
+
 #include "random.h"
 
 
