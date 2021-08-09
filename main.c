@@ -2,6 +2,7 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
+//#include <math.h>
 
 #include "msxbios.h"
 //#link "msxbios.c"
@@ -68,6 +69,65 @@ void DrawString(const char* str, byte col, byte line) {
   }
 }
 
+word Power(byte base, byte expoent) {
+  word power = base;
+
+  if (expoent == 0) return 1;
+
+  for(byte j = 1; j < expoent; j++) {
+    power = power * base;
+  }
+  
+  return power;
+}
+
+void DrawNumber(word number, byte col, byte line) {
+  //for(byte i=0; i < size; i++) {
+  //}
+  
+  
+  /*
+  do {
+    DrawChar(number / (10 ^ digit) + CHAR_0, col++, line);
+    number = number - (10 ^ digit);
+  }
+  while (digit-- > 0);
+  */
+
+  word power;
+  for(byte i = 3; i > 0; i--) {
+    
+    if(number >= 10) {
+      power = Power(10, i - 1);
+
+      DrawChar((number / power) + CHAR_0, col++, line);
+      number = number - power;
+    }
+    else {
+      DrawChar(number % 10 + CHAR_0, col++, line);
+      break;
+    }
+  }
+  
+  /*
+(int) pow((double) a,i)  
+  */
+  
+  // test
+  d_value = Power(10, 2);
+  
+  /*
+  
+  DrawChar((number / 100) + CHAR_0, col++, line);
+  number = number - 100;
+  
+  DrawChar((number / 10) + CHAR_0, col++, line);
+  number = number - 10;
+  
+  DrawChar((number % 10) + CHAR_0, col++, line);
+  */
+}
+
 /*
 void putstring(byte x, byte y, const char* str) {
   cursorxy(x,y);
@@ -102,8 +162,11 @@ void DrawBackground() {
   DrawChar(CHAR_A, 0, 10);
   DrawChar(CHAR_A, 0, 20);
   
-  DrawString("ABC", 0, 7);
+  DrawString("ABC", 0, 6);
   DrawString(".,()", 0, 11);
+  DrawNumber(1, 0, 12);
+  DrawNumber(12, 0, 13);
+  DrawNumber(123, 0, 14);
   DrawString("ABCabc123", 22, 22);
 }
 
