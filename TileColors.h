@@ -304,3 +304,17 @@ static const unsigned char color_19[] = {
     0xb1,
   };
 
+
+// ------------------------------------------------
+
+// Font color
+static const unsigned char color_font[] = {
+    0xf1,
+    0xf1,
+    0xe1,
+    0x71,
+    0x71,
+    0x51,
+    0x51,
+    0x41,
+  };

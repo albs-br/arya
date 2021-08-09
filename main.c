@@ -66,6 +66,20 @@ void DrawBackground() {
   for(int i = 0; i < 256 * 3; i++) {
     WRTVRM(MSX_modedata_screen2.name + i, 0); // test
   }
+  
+  // test font
+  for(byte i=0; i<10; i++) {
+    WRTVRM(MSX_modedata_screen2.name + i, CHAR_0 + i);
+  }
+  for(byte i=0; i<10; i++) {
+    WRTVRM(MSX_modedata_screen2.name + 32 + i, CHAR_A + i);
+  }
+  for(byte i=0; i<10; i++) {
+    WRTVRM(MSX_modedata_screen2.name + 64 + i, CHAR_A + 10 + i);
+  }
+  for(byte i=0; i<10; i++) {
+    WRTVRM(MSX_modedata_screen2.name + 96 + i, CHAR_A + 20 + i);
+  }
 }
 
 void Sound() {
@@ -155,7 +169,11 @@ void InitVRAM() {
   // Loading patterns (3rd bank)
   LDIRVM(MSX_modedata_screen2.pattern + (512 * 8), pattern_black_0, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
   
-
+  // Loading font patterns (1st bank)
+  //FONT[HICHAR-LOCHAR+1][FONT_HEIGHT*FONT_BWIDTH] 
+  LDIRVM(MSX_modedata_screen2.pattern + (NUMBER_OF_PATTERNS * 8), FONT, (HICHAR-LOCHAR+1) * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+  
+  
   
   // Write to colors table
   //for(int i = 0; i < 8; i++) {
@@ -163,13 +181,22 @@ void InitVRAM() {
   //}
   
   // Loading colors (1st bank)
-  LDIRVM(MSX_modedata_screen2.color, color_black_0, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+  LDIRVM(MSX_modedata_screen2.color, color_black_0, NUMBER_OF_PATTERNS * 8);
 
   // Loading colors (2nd bank)
-  LDIRVM(MSX_modedata_screen2.color + (256 * 8), color_black_0, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+  LDIRVM(MSX_modedata_screen2.color + (256 * 8), color_black_0, NUMBER_OF_PATTERNS * 8);
   
   // Loading colors (3rd bank)
-  LDIRVM(MSX_modedata_screen2.color + (512 * 8), color_black_0, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+  LDIRVM(MSX_modedata_screen2.color + (512 * 8), color_black_0, NUMBER_OF_PATTERNS * 8);
+  
+  // Loading font colors (1st bank)
+  // Single color
+  //FILVRM(MSX_modedata_screen2.color + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, 0xf0);
+  // Gradient pattern
+  for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
+    LDIRVM(MSX_modedata_screen2.color + (NUMBER_OF_PATTERNS * 8) + (i * 8), color_font, 8);
+  }
+  
   
   
   
