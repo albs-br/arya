@@ -60,6 +60,9 @@ byte d_col = 0, d_line = 0, d_value = 0;
 
 
 
+void DrawChar(byte character, byte col, byte line) {
+  WRTVRM(MSX_modedata_screen2.name + (line * 32) + col, character);
+}
 
 void DrawBackground() {
   // Write to names table
@@ -80,6 +83,10 @@ void DrawBackground() {
   for(byte i=0; i<10; i++) {
     WRTVRM(MSX_modedata_screen2.name + 96 + i, CHAR_A + 20 + i);
   }
+  
+  DrawChar(CHAR_A, 30, 5);
+  DrawChar(CHAR_A, 0, 10);
+  DrawChar(CHAR_A, 0, 20);
 }
 
 void Sound() {
@@ -170,8 +177,13 @@ void InitVRAM() {
   LDIRVM(MSX_modedata_screen2.pattern + (512 * 8), pattern_black_0, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
   
   // Loading font patterns (1st bank)
-  //FONT[HICHAR-LOCHAR+1][FONT_HEIGHT*FONT_BWIDTH] 
   LDIRVM(MSX_modedata_screen2.pattern + (NUMBER_OF_PATTERNS * 8), FONT, (HICHAR-LOCHAR+1) * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+  
+  // Loading font patterns (2nd bank)
+  LDIRVM(MSX_modedata_screen2.pattern + (256 * 8) + (NUMBER_OF_PATTERNS * 8), FONT, (HICHAR-LOCHAR+1) * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+  
+  // Loading font patterns (3rd bank)
+  LDIRVM(MSX_modedata_screen2.pattern + (512 * 8) + (NUMBER_OF_PATTERNS * 8), FONT, (HICHAR-LOCHAR+1) * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
   
   
   
@@ -189,15 +201,23 @@ void InitVRAM() {
   // Loading colors (3rd bank)
   LDIRVM(MSX_modedata_screen2.color + (512 * 8), color_black_0, NUMBER_OF_PATTERNS * 8);
   
-  // Loading font colors (1st bank)
+  // Loading font colors
   // Single color
   //FILVRM(MSX_modedata_screen2.color + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, 0xf0);
-  // Gradient pattern
+  // Gradient pattern (1st bank)
   for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
     LDIRVM(MSX_modedata_screen2.color + (NUMBER_OF_PATTERNS * 8) + (i * 8), color_font, 8);
   }
   
+  // Gradient pattern (2nd bank)
+  for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
+    LDIRVM(MSX_modedata_screen2.color + (256 * 8) + (NUMBER_OF_PATTERNS * 8) + (i * 8), color_font, 8);
+  }
   
+  // Gradient pattern (3rd bank)
+  for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
+    LDIRVM(MSX_modedata_screen2.color + (512 * 8) + (NUMBER_OF_PATTERNS * 8) + (i * 8), color_font, 8);
+  }
   
   
   DrawBackground();
