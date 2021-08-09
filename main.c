@@ -6,15 +6,12 @@
 #include "msxbios.h"
 //#link "msxbios.c"
 
-
-#include "fonts.h"
-
-
 #include "random.h"
-
 
 #include "TilePatterns.h"
 #include "TileColors.h"
+
+#include "fonts.h"
 
 
 typedef uint8_t 	byte;
@@ -64,6 +61,23 @@ void DrawChar(byte character, byte col, byte line) {
   WRTVRM(MSX_modedata_screen2.name + (line * 32) + col, character);
 }
 
+void DrawString(const char* str, byte col, byte line) {
+  while (*str) {
+    //DrawChar((*str++) - (65 - CHAR_A), col++, line);
+    DrawChar((*str++) - (65 - (CHAR_A)), col++, line);
+  }
+}
+
+/*
+void putstring(byte x, byte y, const char* str) {
+  cursorxy(x,y);
+  while (*str) {
+    CHPUT(*str++);
+  }
+}
+
+*/
+
 void DrawBackground() {
   // Write to names table
   for(int i = 0; i < 256 * 3; i++) {
@@ -87,6 +101,10 @@ void DrawBackground() {
   DrawChar(CHAR_A, 30, 5);
   DrawChar(CHAR_A, 0, 10);
   DrawChar(CHAR_A, 0, 20);
+  
+  DrawString("ABC", 0, 7);
+  DrawString(".,()", 0, 11);
+  DrawString("ABCabc123", 22, 22);
 }
 
 void Sound() {
