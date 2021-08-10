@@ -307,8 +307,8 @@ static const unsigned char color_19[] = {
 
 // ------------------------------------------------
 
-// Font color
-static const unsigned char color_font[] = {
+// Font color 1
+static const unsigned char color_font_1[] = {
     0xf1,
     0xf1,
     0xe1,
@@ -317,4 +317,16 @@ static const unsigned char color_font[] = {
     0x51,
     0x51,
     0x41,
+  };
+
+// Font color 2
+static const unsigned char color_font_2[] = {
+    0x61,
+    0x61,
+    0x81,
+    0x81,
+    0x91,
+    0x91,
+    0xe1,
+    0xe1,
   };
