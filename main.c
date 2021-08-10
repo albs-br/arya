@@ -95,18 +95,20 @@ void DrawNumber(word number, byte col, byte line) {
   */
 
   word power;
-  for(byte i = 3; i > 0; i--) {
+  bool trailingZero = TRUE;
+  for(byte i = 6; i > 0; i--) {
     
-    if(number >= 10) {
-      power = Power(10, i - 1);
+    power = Power(10, i - 1);
 
-      DrawChar((number / power) + CHAR_0, col++, line);
-      number = number - power;
+    //if(number == 0 && i == 0) trailingZero = FALSE;
+    if(trailingZero && (number / power) != 0) trailingZero = FALSE;
+    
+    if(!trailingZero || i == 1) {
+      DrawChar((number / power) + CHAR_0, col, line);
+      number = number % power;
     }
-    else {
-      DrawChar(number % 10 + CHAR_0, col++, line);
-      break;
-    }
+    
+    col++;
   }
   
   /*
@@ -167,7 +169,11 @@ void DrawBackground() {
   DrawNumber(1, 0, 12);
   DrawNumber(12, 0, 13);
   DrawNumber(123, 0, 14);
-  DrawString("ABCabc123", 22, 22);
+  DrawString("ABCabc123", 0, 23);
+  
+  for(byte i=0; i < 24; i++) {
+    DrawNumber(i * 10 + 1, 25, i);
+  }
 }
 
 void Sound() {
