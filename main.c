@@ -52,6 +52,7 @@ byte playfieldTemp[COLS_PLAYFIELD][LINES_PLAYFIELD];
 bool gameOver = FALSE;
 byte col = 0, line = 0;
 byte topPiece, midPiece, bottomPiece;
+word blocksRemoved = 0;
 
 // Debug variables
 byte d_col = 0, d_line = 0, d_value = 0;
@@ -82,17 +83,6 @@ word Power(byte base, byte expoent) {
 }
 
 void DrawNumber(word number, byte col, byte line) {
-  //for(byte i=0; i < size; i++) {
-  //}
-  
-  
-  /*
-  do {
-    DrawChar(number / (10 ^ digit) + CHAR_0, col++, line);
-    number = number - (10 ^ digit);
-  }
-  while (digit-- > 0);
-  */
 
   word power;
   bool trailingZero = TRUE;
@@ -100,7 +90,6 @@ void DrawNumber(word number, byte col, byte line) {
     
     power = Power(10, i - 1);
 
-    //if(number == 0 && i == 0) trailingZero = FALSE;
     if(trailingZero && (number / power) != 0) trailingZero = FALSE;
     
     if(!trailingZero || i == 1) {
@@ -111,34 +100,9 @@ void DrawNumber(word number, byte col, byte line) {
     col++;
   }
   
-  /*
-(int) pow((double) a,i)  
-  */
-  
   // test
   d_value = Power(10, 2);
-  
-  /*
-  
-  DrawChar((number / 100) + CHAR_0, col++, line);
-  number = number - 100;
-  
-  DrawChar((number / 10) + CHAR_0, col++, line);
-  number = number - 10;
-  
-  DrawChar((number % 10) + CHAR_0, col++, line);
-  */
 }
-
-/*
-void putstring(byte x, byte y, const char* str) {
-  cursorxy(x,y);
-  while (*str) {
-    CHPUT(*str++);
-  }
-}
-
-*/
 
 void DrawBackground() {
   // Write to names table
@@ -172,7 +136,7 @@ void DrawBackground() {
   DrawString("ABCabc123", 0, 23);
   
   for(byte i=0; i < 24; i++) {
-    DrawNumber(i * 10 + 1, 25, i);
+    //DrawNumber(i * 10 + 1, 25, i);
   }
 }
 
@@ -357,6 +321,10 @@ void DrawPlayfield() {
   }
 }
 
+void DrawScore() {
+  DrawNumber(blocksRemoved, 25, 10);
+}
+
 void Wait(word numberOfFrames) {
   do {
     word lastJiffy = JIFFY;
@@ -414,10 +382,6 @@ void CheckPlayfield() {
         playfield[col - 2][line] = playfieldTemp[col - 2][line] | REMOVING_FLAG;
         playfield[col - 1][line] = playfieldTemp[col - 1][line] | REMOVING_FLAG;
         playfield[col][line] = 	   playfieldTemp[col][line] | REMOVING_FLAG;
-        
-        //playfield[col - 2][line] = REMOVING_STATUS;
-        //playfield[col - 1][line] = REMOVING_STATUS;
-        //playfield[col][line] = REMOVING_STATUS;
       }
     }
   }
@@ -435,10 +399,6 @@ void CheckPlayfield() {
         playfield[col][line - 2] = playfieldTemp[col][line - 2] | REMOVING_FLAG;
         playfield[col][line - 1] = playfieldTemp[col][line - 1] | REMOVING_FLAG;
         playfield[col][line] = 	   playfieldTemp[col][line] | REMOVING_FLAG;
-        
-        //playfield[col][line - 2] = REMOVING_STATUS;
-        //playfield[col][line - 1] = REMOVING_STATUS;
-        //playfield[col][line] = REMOVING_STATUS;
       }
     }
   }
@@ -456,10 +416,6 @@ void CheckPlayfield() {
         playfield[col - 2][line - 2] = playfieldTemp[col - 2][line - 2] | REMOVING_FLAG;
         playfield[col - 1][line - 1] = playfieldTemp[col - 1][line - 1] | REMOVING_FLAG;
         playfield[col][line] = 	       playfieldTemp[col][line] | REMOVING_FLAG;
-        
-        //playfield[col - 2][line - 2] = REMOVING_STATUS;
-        //playfield[col - 1][line - 1] = REMOVING_STATUS;
-        //playfield[col][line] = REMOVING_STATUS;
       }
       if (playfieldTemp[col][line - 2] != EMPTY &&
           playfieldTemp[col - 1][line - 1] == playfieldTemp[col - 2][line] && 
@@ -471,10 +427,6 @@ void CheckPlayfield() {
         playfield[col][line - 2] =     playfieldTemp[col][line - 2] | REMOVING_FLAG;
         playfield[col - 1][line - 1] = playfieldTemp[col - 1][line - 1] | REMOVING_FLAG;
         playfield[col - 2][line] = 	       playfieldTemp[col - 2][line] | REMOVING_FLAG;
-        
-        //playfield[col][line - 2] = REMOVING_STATUS;
-        //playfield[col - 1][line - 1] = REMOVING_STATUS;
-        //playfield[col - 2][line] = REMOVING_STATUS;
       }
     }
   }
@@ -496,11 +448,9 @@ void CheckPlayfield() {
         for(byte col = 0; col < COLS_PLAYFIELD; col++) {
 
           if((playfield[col][line] & REMOVING_FLAG) != 0) {
-          //if(playfield[col][line] == REMOVING_STATUS) {
     		
             if(JIFFY & 0b00000011) {
               DrawBlock(col, line, playfield[col][line] & 0b01111111);
-              //DrawBlock(col, line, exampleTile_green);
             }
             else {
               DrawBlock(col, line, EMPTY);
@@ -517,17 +467,14 @@ void CheckPlayfield() {
       for(byte col = 0; col < COLS_PLAYFIELD; col++) {
 
         if((playfield[col][line] & REMOVING_FLAG) != 0) {
-        //if(playfield[col][line] == REMOVING_STATUS) {
-
-          //playfieldTemp[col][line] = EMPTY;
+          
+          blocksRemoved++;
 
           // Adjust the column above
           for(byte line1 = line; line1 > 0; line1--) {
             byte linesToBeRemoved = 1;
             if((playfield[col][line1 - 1] & REMOVING_FLAG) != 0) linesToBeRemoved++;
             if((playfield[col][line1 - 2] & REMOVING_FLAG) != 0) linesToBeRemoved++;
-            //if(playfield[col][line1 - 1] == REMOVING_STATUS) linesToBeRemoved++;
-            //if(playfield[col][line1 - 2] == REMOVING_STATUS) linesToBeRemoved++;
             
             //playfield[col][line1] = playfieldTemp[col][line1 - linesToBeRemoved];
             //playfield[col][line1] = playfield[col][(line1 - linesToBeRemoved >= 0) ? line1 - linesToBeRemoved : 0];
@@ -544,7 +491,10 @@ void CheckPlayfield() {
     
     CheckIfPlayfieldIsValid(); // test
     
+    DrawScore();
+
     CheckPlayfield();
+    
   }
 }
 
@@ -757,6 +707,7 @@ void InitGame() {
   gameOver = FALSE;
   line = INITIAL_LINE;
   col = INITIAL_COL;
+  blocksRemoved = 0;
   
   RandomPiece();
   
@@ -768,9 +719,11 @@ void InitGame() {
   }
   
   // Testing code
-  TestCase();
+  //TestCase();
 
   DrawPlayfield();
+  
+  DrawScore();
   
   GameLoop();
 }
