@@ -335,6 +335,18 @@ static const unsigned char color_font_2[] = {
 
 // Title block color 1
 static const unsigned char color_title_1[] = {
+    0xa1,
+    0xa1,
+    0xa1,
+    0xa1,
+    0xa1,
+    0xa1,
+    0xa1,
+    0xa1,
+  };
+
+// Title block color 2
+static const unsigned char color_title_2[] = {
     0xb1,
     0xb1,
     0xb1,
@@ -343,4 +355,28 @@ static const unsigned char color_title_1[] = {
     0xb1,
     0xb1,
     0xb1,
+  };
+
+// Title block color 3
+static const unsigned char color_title_3[] = {
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+  };
+
+// Title block color 4
+static const unsigned char color_title_4[] = {
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
   };

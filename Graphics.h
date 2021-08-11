@@ -117,7 +117,9 @@ void InitVRAM() {
   
 
   // Title blocks
-  LDIRVM(MSX_modedata_screen2.pattern + (TITLE_1 * 8), pattern_title, 8);
+  for(byte i=0; i < NUMBER_OF_TITLE_BLOCKS; i++) {
+    LDIRVM(MSX_modedata_screen2.pattern + (TITLE_1 * 8) + (i * 8), pattern_title, 4 * 8);
+  }
   
   
   // Write to colors table
@@ -167,7 +169,7 @@ void InitVRAM() {
   }
   
   // Title blocks
-  LDIRVM(MSX_modedata_screen2.color + (TITLE_1 * 8), color_title_1, 8);
+  LDIRVM(MSX_modedata_screen2.color + (TITLE_1 * 8), color_title_1, NUMBER_OF_TITLE_BLOCKS * 8);
   
   
   
