@@ -65,8 +65,7 @@ void DrawChar(byte character, byte col, byte line) {
 
 void DrawString(const char* str, byte col, byte line) {
   while (*str) {
-    //DrawChar((*str++) - (65 - CHAR_A), col++, line);
-    DrawChar((*str++) - (65 - (CHAR_A)), col++, line);
+    DrawChar((*str++) - (65 - CHAR_A), col++, line);
   }
 }
 
@@ -279,15 +278,15 @@ void InitVRAM() {
   //FILVRM(MSX_modedata_screen2.color + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, 0xf0);
   // Gradient pattern (1st bank)
   for(byte i = 0; i < 10; i++) {
-    LDIRVM(MSX_modedata_screen2.color + ((CHAR_0) * 8) + (i * 8), color_font_1, 8);
+    LDIRVM(MSX_modedata_screen2.color + (CHAR_0 * 8) + (i * 8), color_font_1, 8);
   }
   // Gradient pattern (2nd bank)
   for(byte i = 0; i < 10; i++) {
-    LDIRVM(MSX_modedata_screen2.color + (256 * 8) + ((CHAR_0) * 8) + (i * 8), color_font_1, 8);
+    LDIRVM(MSX_modedata_screen2.color + (256 * 8) + (CHAR_0 * 8) + (i * 8), color_font_1, 8);
   }
   // Gradient pattern (3rd bank)
   for(byte i = 0; i < 10; i++) {
-    LDIRVM(MSX_modedata_screen2.color + (512 * 8) + ((CHAR_0) * 8) + (i * 8), color_font_1, 8);
+    LDIRVM(MSX_modedata_screen2.color + (512 * 8) + (CHAR_0 * 8) + (i * 8), color_font_1, 8);
   }
   
   
