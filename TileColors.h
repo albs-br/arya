@@ -330,3 +330,18 @@ static const unsigned char color_font_2[] = {
     0xe1,
     0xe1,
   };
+
+// ----------------------------------------------------
+
+// Title block color 1
+// Font color 2
+static const unsigned char color_title_1[] = {
+    0xb1,
+    0xb1,
+    0xb1,
+    0xb1,
+    0xb1,
+    0xb1,
+    0xb1,
+    0xb1,
+  };

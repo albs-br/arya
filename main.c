@@ -7,14 +7,6 @@
 #include "msxbios.h"
 //#link "msxbios.c"
 
-#include "random.h"
-
-#include "TilePatterns.h"
-#include "TileColors.h"
-
-#include "fonts.h"
-
-
 typedef uint8_t 	byte;
 typedef uint16_t 	word;
 typedef uint8_t 	bool;
@@ -30,6 +22,22 @@ typedef uint8_t 	bool;
 #define TILE_YELLOW	20
 
 #define REMOVING_FLAG	0b10000000
+
+
+
+#include "random.h"
+
+#include "TilePatterns.h"
+#include "TileColors.h"
+
+
+#include "Title.h"
+
+
+#include "Fonts.h"
+
+
+
 
 const byte pieces[5] = { 
   TILE_GREEN, 
@@ -748,8 +756,11 @@ void InitGame() {
 }
 
 void main() {
-
+  
   InitVRAM();
+  
+  
+  //TitleScreen();
  
   InitGame();
 }

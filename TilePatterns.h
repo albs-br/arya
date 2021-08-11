@@ -1,4 +1,4 @@
-#define NUMBER_OF_PATTERNS 24
+#define NUMBER_OF_PATTERNS 25
 
 
 // Empty spaces
@@ -309,5 +309,19 @@ static const unsigned char pattern_19[] = {
     0b10101010,
     0b11111111,
     0b01010110,
+  };
+
+// -----------------------------------
+
+// Title block
+static const unsigned char pattern_title[] = {
+    0b11111110,
+    0b11111110,
+    0b11111110,
+    0b11111110,
+    0b11111110,
+    0b11111110,
+    0b11111110,
+    0b00000000,
   };
 
