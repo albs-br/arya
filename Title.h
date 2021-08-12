@@ -33,6 +33,10 @@ static const unsigned char title[] = {
   };
 
 
+void BlinkBlock(byte col, byte line) {
+  WRTVRM(MSX_modedata_screen2.name + col + (line * 32), A); // test
+}
+
 void TitleScreen() {
   // Write to names table
   /*
@@ -42,6 +46,22 @@ void TitleScreen() {
   */
 
   LDIRVM(MSX_modedata_screen2.name, title, 32 * 24);
+  
+  BlinkBlock(0, 0);
+  
+  /*
+    word lastJiffy = JIFFY;
+    while (lastJiffy == JIFFY) {
+    }
+  */
+  
+  /*
+  byte random;
+  do {
+     random = GetRandom() & 0b00000111; // AND mask to get a value in the 0-7 range
+  }
+  while(random > 4); // Get a number between 0 and 4  
+  */
   
   while (1) { }
 }

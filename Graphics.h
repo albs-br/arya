@@ -227,11 +227,3 @@ void DrawScore() {
   DrawNumber(blocksRemoved, 25, 10);
 }
 
-void Wait(word numberOfFrames) {
-  do {
-    word lastJiffy = JIFFY;
-    while (lastJiffy == JIFFY) {
-    }
-  }
-  while (numberOfFrames-- > 0);
-}

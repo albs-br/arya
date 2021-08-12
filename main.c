@@ -79,6 +79,14 @@ byte d_col = 0, d_line = 0, d_value = 0;
 
 
 
+void Wait(word numberOfFrames) {
+  do {
+    word lastJiffy = JIFFY;
+    while (lastJiffy == JIFFY) {
+    }
+  }
+  while (numberOfFrames-- > 0);
+}
 
 void CheckIfPlayfieldIsValid() {
   bool found = FALSE;
