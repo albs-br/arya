@@ -2,7 +2,7 @@
 #define CHAR_A			(NUMBER_OF_PATTERNS + 33)	// ALWAYS use parenthesis when defining pre-compilation constants with expressions
 #define CHAR_0			(NUMBER_OF_PATTERNS + 16)
 #define TITLE_1			(NUMBER_OF_PATTERNS + (HICHAR - LOCHAR))
-#define NUMBER_OF_TITLE_BLOCKS 	4
+#define NUMBER_OF_TITLE_BLOCKS 	7
 
 // Empty spaces
 

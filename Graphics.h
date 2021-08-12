@@ -118,7 +118,7 @@ void InitVRAM() {
 
   // Title blocks
   for(byte i=0; i < NUMBER_OF_TITLE_BLOCKS; i++) {
-    LDIRVM(MSX_modedata_screen2.pattern + (TITLE_1 * 8) + (i * 8), pattern_title, 4 * 8);
+    LDIRVM(MSX_modedata_screen2.pattern + (TITLE_1 * 8) + (i * 8), pattern_title, NUMBER_OF_TITLE_BLOCKS * 8);
   }
   
   
