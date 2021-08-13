@@ -45,3 +45,15 @@ unsigned char GetRandom() {
 
   return (Rand_c);          //low order bits of other variables
 }
+
+// Functions made by me:
+
+byte GetRandomInInterval(byte max, byte mask) {
+  byte random;
+  do {
+     random = GetRandom() & mask; // AND mask to get a value in the range passed by mask. E.g. 0b00000011, range 0-3
+  }
+  while(random > max); // Get a number between 0 and max
+
+  return random;
+}

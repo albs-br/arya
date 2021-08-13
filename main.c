@@ -95,8 +95,7 @@ void main() {
   
   InitVRAM();
   
-  
-  //TitleScreen();
+  TitleScreen();
  
   InitGame();
 }

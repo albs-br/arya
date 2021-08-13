@@ -56,8 +56,6 @@ void TitleScreen() {
     G,
   };
   
-  byte index = 0;
-  
   // Write to names table
   /*
   for(int i = 0; i < 256 * 3; i++) {
@@ -83,15 +81,29 @@ void TitleScreen() {
   */
   
   while(1) {
+    byte index = 0, col, line, rnd;
     word lastJiffy = JIFFY;
-    while (JIFFY <= lastJiffy + 2) {
+    while (JIFFY == lastJiffy) {
     }
     
     // Title animation v-sync'ed starts here
+    do {
+      col = GetRandomInInterval(31, 0b00011111);
+      line = GetRandomInInterval(7, 0b00000111);
+    }
+    while (RDVRM(MSX_modedata_screen2.name + col + (line * 32)) == EMPTY);
     
-    BlinkBlock(0, 0, blocks[index++]);
+    rnd = GetRandomInInterval(7, 0b00000111);
     
-    if(index == sizeof(blocks)) index = 0;
-    
+    for(byte i=0; i < 13 + rnd; i++) {
+
+      lastJiffy = JIFFY;
+      while (JIFFY == lastJiffy) {
+      }
+      
+      BlinkBlock(col, line, blocks[index++]);
+
+      if(index >= sizeof(blocks)) index = 0;
+    }
   }
 }
