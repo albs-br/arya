@@ -84,7 +84,7 @@ void TitleScreen() {
   
   while(1) {
     word lastJiffy = JIFFY;
-    while (JIFFY <= lastJiffy + 4) {
+    while (JIFFY <= lastJiffy + 2) {
     }
     
     // Title animation v-sync'ed starts here
