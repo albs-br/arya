@@ -340,7 +340,7 @@ void GameLoop() {
 
   }
   
-  DrawString("GAME OVER", 10, 12);
+  DrawString("GAME OVER", 12, 12);
   
   //while(1) { };
   

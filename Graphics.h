@@ -38,9 +38,10 @@ void DrawBackground() {
   }
 
   
-  DrawString("BLOCKS", 25, 9);
+  DrawString(" LEVEL", 26, 4);
+  DrawString("BLOCKS", 26, 9);
   
-  
+  /*
   // test font
   for(byte i=0; i<10; i++) {
     WRTVRM(MSX_modedata_screen2.name + i, CHAR_0 + i);
@@ -71,6 +72,7 @@ void DrawBackground() {
   for(byte i=0; i < 24; i++) {
     //DrawNumber(i * 10 + 1, 25, i);
   }
+  */
 }
 
 void InitVRAM() {
@@ -224,6 +226,6 @@ void DrawPlayfield() {
 }
 
 void DrawScore() {
-  DrawNumber(blocksRemoved, 25, 10);
+  DrawNumber(blocksRemoved, 26, 10);
 }
 
