@@ -60,9 +60,9 @@ byte d_col = 0, d_line = 0, d_value = 0;
 #include "Fonts.h"
 #include "TilePatterns.h"
 #include "TileColors.h"
-#include "Title.h"
-
 #include "Graphics.h"
+
+#include "Title.h"
 
 #include "Sound.h"
 

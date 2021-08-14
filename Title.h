@@ -19,14 +19,14 @@ void TitleScreen() {
   
   // Title screen names table (32 x 24 chars)
   static const unsigned char title[] = {
-      0, 0, 0, 0, A, A, A, A, 0, A, A, A, A, A, A, 0, 0, A, A, 0, 0, 0, A, A, 0, 0, 0, 0, 0, 0, 0, 0, 
-      0, 0, 0, A, A, A, A, A, 0, B, A, 0, 0, 0, A, A, 0, 0, A, A, 0, 0, A, A, 0, 0, 0, 0, 0, 0, 0, 0, 
-      0, 0, A, A, A, 0, A, A, 0, C, A, 0, 0, 0, A, A, 0, 0, 0, A, A, 0, A, A, 0, 0, 0, 0, 0, 0, 0, 0, 
-      0, A, A, A, 0, 0, A, A, 0, D, A, 0, 0, A, A, 0, 0, 0, 0, 0, A, A, A, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-      0, A, A, 0, 0, 0, A, A, 0, A, A, A, A, A, 0, 0, 0, 0, 0, 0, A, A, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-      0, A, A, 0, 0, 0, A, A, 0, A, A, A, A, A, 0, 0, 0, 0, 0, 0, A, A, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-      0, A, A, A, A, A, A, A, 0, A, A, 0, 0, 0, A, 0, 0, 0, 0, 0, A, A, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-      0, A, A, 0, 0, 0, A, A, 0, A, A, 0, 0, 0, A, 0, 0, 0, 0, 0, A, A, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+      0, 0, 0, 0, A, A, A, A, 0, A, A, A, A, A, A, 0, 0, A, A, 0, 0, 0, A, A, 0, 0, 0, 0, A, A, A, A, 
+      0, 0, 0, A, A, A, A, A, 0, B, A, 0, 0, 0, A, A, 0, 0, A, A, 0, 0, A, A, 0, 0, 0, A, A, A, A, A, 
+      0, 0, A, A, A, 0, A, A, 0, C, A, 0, 0, 0, A, A, 0, 0, 0, A, A, 0, A, A, 0, 0, A, A, A, 0, A, A, 
+      0, A, A, A, 0, 0, A, A, 0, D, A, 0, 0, A, A, 0, 0, 0, 0, 0, A, A, A, 0, 0, A, A, A, 0, 0, A, A, 
+      0, A, A, 0, 0, 0, A, A, 0, A, A, A, A, A, 0, 0, 0, 0, 0, 0, A, A, 0, 0, 0, A, A, 0, 0, 0, A, A, 
+      0, A, A, 0, 0, 0, A, A, 0, A, A, A, A, A, 0, 0, 0, 0, 0, 0, A, A, 0, 0, 0, A, A, 0, 0, 0, A, A, 
+      0, A, A, A, A, A, A, A, 0, A, A, 0, 0, 0, A, 0, 0, 0, 0, 0, A, A, 0, 0, 0, A, A, A, A, A, A, A, 
+      0, A, A, 0, 0, 0, A, A, 0, A, A, 0, 0, 0, A, 0, 0, 0, 0, 0, A, A, 0, 0, 0, A, A, 0, 0, 0, A, A, 
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -65,45 +65,55 @@ void TitleScreen() {
 
   LDIRVM(MSX_modedata_screen2.name, title, 32 * 24);
   
-  
-  /*
-    word lastJiffy = JIFFY;
-    while (lastJiffy == JIFFY) {
-    }
-  */
-  
-  /*
-  byte random;
-  do {
-     random = GetRandom() & 0b00000111; // AND mask to get a value in the 0-7 range
-  }
-  while(random > 4); // Get a number between 0 and 4  
-  */
+  DrawString("PRESS SPACE TO START", 6, 13);
   
   while(1) {
-    byte index = 0, col, line, rnd;
+    byte index = 0, col_1, line_1, col_2, line_2, col_3, line_3;
+    byte rnd;
+    //byte joystick;
+    
     word lastJiffy = JIFFY;
     while (JIFFY == lastJiffy) {
     }
     
     // Title animation v-sync'ed starts here
     do {
-      col = GetRandomInInterval(31, 0b00011111);
-      line = GetRandomInInterval(7, 0b00000111);
+      col_1 = GetRandomInInterval(31, 0b00011111);
+      line_1 = GetRandomInInterval(7, 0b00000111);
+      //col_2 = GetRandomInInterval(31, 0b00011111);
+      //line_2 = GetRandomInInterval(7, 0b00000111);
     }
-    while (RDVRM(MSX_modedata_screen2.name + col + (line * 32)) == EMPTY);
+    while (RDVRM(MSX_modedata_screen2.name + col_1 + (line_1 * 32)) == EMPTY);
+    
+    do {
+      col_2 = GetRandomInInterval(31, 0b00011111);
+      line_2 = GetRandomInInterval(7, 0b00000111);
+    }
+    while (RDVRM(MSX_modedata_screen2.name + col_2 + (line_2 * 32)) == EMPTY);
+    
+    do {
+      col_3 = GetRandomInInterval(31, 0b00011111);
+      line_3 = GetRandomInInterval(7, 0b00000111);
+    }
+    while (RDVRM(MSX_modedata_screen2.name + col_3 + (line_3 * 32)) == EMPTY);
     
     rnd = GetRandomInInterval(7, 0b00000111);
     
-    for(byte i=0; i < 13 + rnd; i++) {
+    for(byte i=0; i < 0 + rnd; i++) {
 
       lastJiffy = JIFFY;
       while (JIFFY == lastJiffy) {
       }
       
-      BlinkBlock(col, line, blocks[index++]);
+      BlinkBlock(col_1, line_1, blocks[index]);
+      BlinkBlock(col_2, line_2, blocks[index]);
+      BlinkBlock(col_3, line_3, blocks[index]);
 
-      if(index >= sizeof(blocks)) index = 0;
+      if(index++ >= sizeof(blocks)) index = 0;
+      
+      //uint8_t GTTRIG(uint8_t index) __z88dk_fastcall;
+      // joystick = GTSTCK(STCK_Cursors);
+      
     }
   }
 }
