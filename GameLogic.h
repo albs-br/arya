@@ -340,6 +340,13 @@ void GameLoop() {
 
   }
   
+  DrawString("GAME OVER", 10, 12);
+  
+  //while(1) { };
+  
+  // Wait 3 seconds
+  Wait(60 * 3);
+  
 }
 
 void TestCase() {

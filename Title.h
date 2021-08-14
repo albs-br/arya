@@ -67,10 +67,10 @@ void TitleScreen() {
   
   DrawString("PRESS SPACE TO START", 6, 13);
   
-  while(1) {
+  while(TRUE) {
     byte index = 0, col_1, line_1, col_2, line_2, col_3, line_3;
     byte rnd;
-    //byte joystick;
+    byte spaceBar;
     
     word lastJiffy = JIFFY;
     while (JIFFY == lastJiffy) {
@@ -112,8 +112,11 @@ void TitleScreen() {
       if(index++ >= sizeof(blocks)) index = 0;
       
       //uint8_t GTTRIG(uint8_t index) __z88dk_fastcall;
-      // joystick = GTSTCK(STCK_Cursors);
+      spaceBar = GTTRIG(TRIG_Spacebar);
       
+      if(spaceBar == 0xff) { 
+        return;
+      }
     }
   }
 }

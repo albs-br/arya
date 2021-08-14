@@ -53,6 +53,8 @@ word blocksRemoved = 0;
 byte d_col = 0, d_line = 0, d_value = 0;
 
 
+#include "Common.h"
+
 #include "Math.h"
 
 #include "Random.h"
@@ -62,40 +64,28 @@ byte d_col = 0, d_line = 0, d_value = 0;
 #include "TileColors.h"
 #include "Graphics.h"
 
-#include "Title.h"
 
 #include "Sound.h"
 
 
 #include "GameLogic.h"
 
+#include "Title.h"
 
 
-
-
-
-
-
-
-
-
-
-
-void Wait(word numberOfFrames) {
-  do {
-    word lastJiffy = JIFFY;
-    while (lastJiffy == JIFFY) {
-    }
-  }
-  while (numberOfFrames-- > 0);
-}
 
 
 void main() {
   
-  InitVRAM();
-  
-  TitleScreen();
- 
-  InitGame();
+  while(TRUE) {
+    InitVRAM();
+
+    TitleScreen();
+
+    InitVRAM();
+
+    InitGame();
+    
+    //while(1) {}
+  }
 }
