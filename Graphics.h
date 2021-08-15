@@ -37,6 +37,8 @@ void DrawBackground() {
     WRTVRM(MSX_modedata_screen2.name + i, 0); // test
   }
 
+  WRTVRM(MSX_modedata_screen2.name + 0, COLUMN_TOP_1);
+  WRTVRM(MSX_modedata_screen2.name + 1, COLUMN_TOP_1 + 1);
   
   DrawString(" LEVEL", 26, 4);
   DrawString("BLOCKS", 26, 9);

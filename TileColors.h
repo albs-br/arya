@@ -305,6 +305,58 @@ static const unsigned char color_19[] = {
   };
 
 
+// ----------------------------------------------------
+
+// Column top
+
+// top left
+static const unsigned char color_column_1[] = {
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+  };
+
+// top right
+static const unsigned char color_column_2[] = {
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+  };
+
+// bottom left
+static const unsigned char color_column_3[] = {
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+  };
+
+// bottom right
+static const unsigned char color_column_4[] = {
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+  };
+
 // ------------------------------------------------
 
 // Font color 1
@@ -416,3 +468,4 @@ static const unsigned char color_title_7[] = {
     0x41,
     0x41,
   };
+
