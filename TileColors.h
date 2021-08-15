@@ -383,6 +383,46 @@ static const unsigned char color_column_6[] = {
 
 // ------------------------------------------------
 
+// Column middle
+
+// left
+static const unsigned char color_column_7[] = {
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+  };
+
+// center
+static const unsigned char color_column_8[] = {
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+  };
+
+// right
+static const unsigned char color_column_9[] = {
+    0x41,
+    0x41,
+    0x41,
+    0x41,
+    0x41,
+    0x41,
+    0x41,
+    0x41,
+  };
+
+// ------------------------------------------------
+
 // Font color 1
 static const unsigned char color_font_1[] = {
     0xf1,

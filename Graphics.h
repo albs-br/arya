@@ -31,18 +31,29 @@ void DrawNumber(word number, byte col, byte line) {
   //d_value = Power(10, 2);
 }
 
+void DrawColumn(byte col) {
+  WRTVRM(MSX_modedata_screen2.name + col + 0, COLUMN_TOP_1);
+  WRTVRM(MSX_modedata_screen2.name + col + 1, COLUMN_TOP_1 + 1);
+  WRTVRM(MSX_modedata_screen2.name + col + 2, COLUMN_TOP_1 + 2);
+  WRTVRM(MSX_modedata_screen2.name + col + 32, COLUMN_TOP_1 + 3);
+  WRTVRM(MSX_modedata_screen2.name + col + 33, COLUMN_TOP_1 + 4);
+  WRTVRM(MSX_modedata_screen2.name + col + 34, COLUMN_TOP_1 + 5);
+
+  for(byte i=0; i<20; i++) {
+    WRTVRM(MSX_modedata_screen2.name + col + 64 + (i*32), COLUMN_MIDDLE_1);
+    WRTVRM(MSX_modedata_screen2.name + col + 65 + (i*32), COLUMN_MIDDLE_1 + 1);
+    WRTVRM(MSX_modedata_screen2.name + col + 66 + (i*32), COLUMN_MIDDLE_1 + 2);
+  }
+}
+
 void DrawBackground() {
   // Write to names table
   for(int i = 0; i < 256 * 3; i++) {
     WRTVRM(MSX_modedata_screen2.name + i, 0); // test
   }
 
-  WRTVRM(MSX_modedata_screen2.name + 7 + 0, COLUMN_TOP_1);
-  WRTVRM(MSX_modedata_screen2.name + 7 + 1, COLUMN_TOP_1 + 1);
-  WRTVRM(MSX_modedata_screen2.name + 7 + 2, COLUMN_TOP_1 + 2);
-  WRTVRM(MSX_modedata_screen2.name + 7 + 32, COLUMN_TOP_1 + 3);
-  WRTVRM(MSX_modedata_screen2.name + 7 + 33, COLUMN_TOP_1 + 4);
-  WRTVRM(MSX_modedata_screen2.name + 7 + 34, COLUMN_TOP_1 + 5);
+  DrawColumn(7);
+  DrawColumn(22);
   
   DrawString(" LEVEL", 26, 4);
   DrawString("BLOCKS", 26, 9);
