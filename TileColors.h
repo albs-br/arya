@@ -311,7 +311,7 @@ static const unsigned char color_19[] = {
 
 // top left
 static const unsigned char color_column_1[] = {
-    0xe1,
+    0xf1,
     0xe1,
     0xe1,
     0xe1,
