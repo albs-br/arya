@@ -83,7 +83,7 @@ void main() {
   while(TRUE) {
     InitVRAM();
 
-    TitleScreen();
+    //TitleScreen();
 
     InitVRAM();
 

@@ -321,9 +321,21 @@ static const unsigned char color_column_1[] = {
     0xe1,
   };
 
-// top right
+// top center
 static const unsigned char color_column_2[] = {
+    0xf1,
     0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+  };
+
+// top right
+static const unsigned char color_column_3[] = {
+    0xf1,
     0xe1,
     0xe1,
     0xe1,
@@ -334,7 +346,19 @@ static const unsigned char color_column_2[] = {
   };
 
 // bottom left
-static const unsigned char color_column_3[] = {
+static const unsigned char color_column_4[] = {
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+  };
+
+// bottom center
+static const unsigned char color_column_5[] = {
     0xe1,
     0xe1,
     0xe1,
@@ -346,15 +370,15 @@ static const unsigned char color_column_3[] = {
   };
 
 // bottom right
-static const unsigned char color_column_4[] = {
+static const unsigned char color_column_6[] = {
     0xe1,
     0xe1,
     0xe1,
-    0xe1,
-    0xe1,
-    0xe1,
-    0xe1,
-    0xe1,
+    0x41,
+    0x41,
+    0x41,
+    0x41,
+    0x41,
   };
 
 // ------------------------------------------------

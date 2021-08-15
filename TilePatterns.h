@@ -1,4 +1,4 @@
-#define NUMBER_OF_PATTERNS 	29
+#define NUMBER_OF_PATTERNS 	31
 #define CHAR_A			(NUMBER_OF_PATTERNS + 33)	// ALWAYS use parenthesis when defining pre-compilation constants with expressions
 #define CHAR_0			(NUMBER_OF_PATTERNS + 16)
 #define TITLE_1			(NUMBER_OF_PATTERNS + (HICHAR - LOCHAR))
@@ -332,7 +332,7 @@ static const unsigned char pattern_20[] = {
     0b00000011,
   };
 
-// top right
+// top center
 static const unsigned char pattern_21[] = {
     0b11111111,
     0b11111111,
@@ -344,28 +344,52 @@ static const unsigned char pattern_21[] = {
     0b11111111,
   };
 
-// bottom left
+// top right
 static const unsigned char pattern_22[] = {
-    0b11111111,
-    0b11011111,
-    0b11111111,
-    0b11011111,
-    0b11111111,
-    0b11101010,
-    0b11111111,
+    0b11111100,
+    0b11111110,
+    0b00000111,
+    0b01110011,
+    0b01100111,
+    0b00111110,
+    0b10011100,
+    0b11000000,
+  };
+
+// bottom left
+static const unsigned char pattern_23[] = {
+    0b00000110,
+    0b00000000,
+    0b00000011,
+    0b00000100,
+    0b00000101,
+    0b00000101,
+    0b00000101,
+    0b00000101,
+  };
+
+// bottom center
+static const unsigned char pattern_24[] = {
+    0b00000000,
+    0b00000000,
+    0b00110011,
+    0b01000100,
+    0b01010101,
+    0b01010101,
+    0b01010101,
     0b01010101,
   };
 
 // bottom right
-static const unsigned char pattern_23[] = {
-    0b11111111,
-    0b11111010,
-    0b11111111,
-    0b11111010,
-    0b11110111,
-    0b10101010,
-    0b11111111,
-    0b01010110,
+static const unsigned char pattern_25[] = {
+    0b01100000,
+    0b00000000,
+    0b01000000,
+    0b00100000,
+    0b00100000,
+    0b00100000,
+    0b00100000,
+    0b00100000,
   };
 
 // -----------------------------------
