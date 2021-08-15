@@ -149,6 +149,27 @@ void CheckPlayfield() {
       }
     }
 
+    // Level logic
+    if(blocksRemoved >= 60) {
+      level = blocksRemoved / 20;
+      speed = 15;
+    }
+    else { 
+      if(blocksRemoved >= 30) { 
+        level = 2;
+        speed = 30;
+      }
+      else { 
+        level = 1;
+        speed = 60;
+      }
+    }
+    
+    //if(level >= 3) speed = 15;
+    //else if(level == 2) speed = 30;
+    //else speed = 60;
+    
+    
     
     DrawPlayfield();
     
@@ -189,6 +210,8 @@ void UpdateAndDrawPieceStatic() {
   // Set piece to next
   col = INITIAL_COL;
   line = INITIAL_LINE;
+  
+  counter = 0;
 
   // Check if initial place of piece is occupied
   if(playfield[col][line] != EMPTY ||
@@ -208,7 +231,6 @@ void UpdateAndDrawPieceStatic() {
 void GameLoop() {
   
   byte joystick, lastJoystick = STCK_none;
-  byte counter = 0;
   byte bgCounter = 0, bgColor= 0x00;
 
   while(!gameOver) {
@@ -275,9 +297,10 @@ void GameLoop() {
 
     lastJoystick = joystick;
 
+
     // Piece falling logic
     counter++;
-    if(counter == SPEED) {
+    if(counter == speed) {
       
       counter = 0;
 
@@ -380,6 +403,8 @@ void InitGame() {
   line = INITIAL_LINE;
   col = INITIAL_COL;
   blocksRemoved = 0;
+  level = 1;
+  speed = 60;
   
   RandomPiece();
   

@@ -226,6 +226,7 @@ void DrawPlayfield() {
 }
 
 void DrawScore() {
+  DrawNumber(level, 26, 5);
   DrawNumber(blocksRemoved, 26, 10);
 }
 

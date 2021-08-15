@@ -34,7 +34,7 @@ const byte pieces[5] = {
 };
 
 
-#define SPEED			60 // 15 // 30 // 60
+//#define SPEED			60 // 15 // 30 // 60
 
 #define LINES_PLAYFIELD 	12
 #define COLS_PLAYFIELD 		6
@@ -45,8 +45,11 @@ byte playfieldTemp[COLS_PLAYFIELD][LINES_PLAYFIELD];
 
 bool gameOver = FALSE;
 byte col = 0, line = 0;
+byte counter = 0;
 byte topPiece, midPiece, bottomPiece;
 word blocksRemoved = 0;
+byte level = 1;
+byte speed;
 
 
 // Debug variables
