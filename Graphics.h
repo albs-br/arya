@@ -44,6 +44,14 @@ void DrawColumn(byte col) {
     WRTVRM(MSX_modedata_screen2.name + col + 65 + (i*32), COLUMN_MIDDLE_1 + 1);
     WRTVRM(MSX_modedata_screen2.name + col + 66 + (i*32), COLUMN_MIDDLE_1 + 2);
   }
+
+  WRTVRM(MSX_modedata_screen2.name + col + (32 * 8), COLUMN_MIDDLE_2);
+  WRTVRM(MSX_modedata_screen2.name + col + (32 * 8) + 1, COLUMN_MIDDLE_2 + 1);
+  WRTVRM(MSX_modedata_screen2.name + col + (32 * 8) + 2, COLUMN_MIDDLE_2 + 2);
+
+  WRTVRM(MSX_modedata_screen2.name + col + (32 * 16), COLUMN_MIDDLE_2);
+  WRTVRM(MSX_modedata_screen2.name + col + (32 * 16) + 1, COLUMN_MIDDLE_2 + 1);
+  WRTVRM(MSX_modedata_screen2.name + col + (32 * 16) + 2, COLUMN_MIDDLE_2 + 2);
 }
 
 void DrawBackground() {

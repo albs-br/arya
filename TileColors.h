@@ -402,7 +402,7 @@ static const unsigned char color_column_8[] = {
     0xe1,
     0xe1,
     0xe1,
-    0xe1,
+    0xf1,
     0xe1,
     0xe1,
     0xe1,
@@ -411,6 +411,46 @@ static const unsigned char color_column_8[] = {
 
 // right
 static const unsigned char color_column_9[] = {
+    0x41,
+    0x41,
+    0x41,
+    0xf1,
+    0x41,
+    0x41,
+    0x41,
+    0x41,
+  };
+
+// ------------------------------------------------
+
+// Column middle w/ stripe
+
+// left
+static const unsigned char color_column_10[] = {
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+  };
+
+// center
+static const unsigned char color_column_11[] = {
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+  };
+
+// right
+static const unsigned char color_column_12[] = {
     0x41,
     0x41,
     0x41,
