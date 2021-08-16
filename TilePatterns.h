@@ -1,4 +1,4 @@
-#define NUMBER_OF_PATTERNS 	37
+#define NUMBER_OF_PATTERNS 	43
 #define CHAR_A			(NUMBER_OF_PATTERNS + 33)	// ALWAYS use parenthesis when defining pre-compilation constants with expressions
 #define CHAR_0			(NUMBER_OF_PATTERNS + 16)
 #define TITLE_1			(NUMBER_OF_PATTERNS + (HICHAR - LOCHAR))
@@ -6,6 +6,7 @@
 #define COLUMN_TOP_1		24
 #define COLUMN_MIDDLE_1		30
 #define COLUMN_MIDDLE_2		33
+#define COLUMN_BOTTOM_1		36
 
 // Empty spaces
 
@@ -475,6 +476,83 @@ static const unsigned char pattern_31[] = {
   };
 
 // -----------------------------------
+
+// Column bottom
+
+// bottom left
+static const unsigned char pattern_37[] = {
+    0b00000101,
+    0b00000101,
+    0b00000101,
+    0b00000101,
+    0b00000100,
+    0b00000011,
+    0b00000000,
+    0b00000110,
+  };
+
+// bottom center
+static const unsigned char pattern_38[] = {
+    0b01010101,
+    0b01010101,
+    0b01010101,
+    0b01010101,
+    0b01000100,
+    0b00110011,
+    0b00000000,
+    0b00000000,
+  };
+
+// bottom right
+static const unsigned char pattern_39[] = {
+    0b00100000,
+    0b00100000,
+    0b00100000,
+    0b00100000,
+    0b00100000,
+    0b01000000,
+    0b00000000,
+    0b01100000,
+  };
+
+// top left
+static const unsigned char pattern_32[] = {
+    0b00000011,
+    0b00111001,
+    0b01111100,
+    0b11100110,
+    0b11001110,
+    0b11100000,
+    0b01111111,
+    0b00111111,
+  };
+
+// top center
+static const unsigned char pattern_33[] = {
+    0b11111111,
+    0b11111111,
+    0b00000000,
+    0b11011011,
+    0b11011011,
+    0b00000000,
+    0b11111111,
+    0b11111111,
+  };
+
+// top right
+static const unsigned char pattern_34[] = {
+    0b11000000,
+    0b10011100,
+    0b00111110,
+    0b01100111,
+    0b01110011,
+    0b00000111,
+    0b11111110,
+    0b11111100,
+  };
+
+// -----------------------------------
+
 
 // Title block
 static const unsigned char pattern_title[] = {

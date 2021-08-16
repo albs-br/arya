@@ -461,6 +461,82 @@ static const unsigned char color_column_12[] = {
     0x41,
   };
 
+// ----------------------------------------------------
+
+// Column bottom
+
+// bottom left
+static const unsigned char color_column_16[] = {
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+  };
+
+// bottom center
+static const unsigned char color_column_17[] = {
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+  };
+
+// bottom right
+static const unsigned char color_column_18[] = {
+    0x41,
+    0x41,
+    0x41,
+    0x41,
+    0x41,
+    0xe1,
+    0xe1,
+    0xe1,
+  };
+
+// top left
+static const unsigned char color_column_13[] = {
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xf1,
+  };
+
+// top center
+static const unsigned char color_column_14[] = {
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xf1,
+  };
+
+// top right
+static const unsigned char color_column_15[] = {
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xe1,
+    0xf1,
+  };
+
 // ------------------------------------------------
 
 // Font color 1
