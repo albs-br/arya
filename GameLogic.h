@@ -150,25 +150,22 @@ void CheckPlayfield() {
     }
 
     // Level logic
-    if(blocksRemoved >= 60) {
-      level = blocksRemoved / 20;
+    if(blocksRemoved >= 90) {
+      level = (blocksRemoved / 30) + 1;
       speed = 15;
     }
-    else { 
-      if(blocksRemoved >= 30) { 
-        level = 2;
-        speed = 30;
-      }
-      else { 
-        level = 1;
-        speed = 60;
-      }
+    else if(blocksRemoved >= 60) { 
+      level = 3;
+      speed = 30;
     }
-    
-    //if(level >= 3) speed = 15;
-    //else if(level == 2) speed = 30;
-    //else speed = 60;
-    
+    else if(blocksRemoved >= 30) { 
+      level = 2;
+      speed = 45;
+    }
+    else { 
+      level = 1;
+      speed = 60;
+    }
     
     
     DrawPlayfield();
