@@ -1,3 +1,5 @@
+#define PLAYFIELD_HORIZ_OFFSET		10
+
 
 void DrawChar(byte character, byte col, byte line) {
   WRTVRM(MSX_modedata_screen2.name + (line * 32) + col, character);
@@ -107,8 +109,24 @@ void DrawBackground() {
   */
 }
 
+void SetArrow(byte x, byte y) {
+  byte color = 0;
+  //byte temp = JIFFY
+  
+  if(JIFFY & 0b00000001) color = 15;
+  else color = 4;
+  
+  WRTVRM(MSX_modedata_screen2.sprite_attribute, 	y - 1);
+  WRTVRM(MSX_modedata_screen2.sprite_attribute + 1, 	x);
+  WRTVRM(MSX_modedata_screen2.sprite_attribute + 2, 	0);
+  WRTVRM(MSX_modedata_screen2.sprite_attribute + 3, 	color);
+}
+
 void InitVRAM() {
- 
+
+  //const byte SPRATT = MSX_modedata_screen2.sprite_attribute;
+
+  
   CLIKSW = 0;	// disable keyboard sound
   SCNCNT = 1; 	// set keyboard scan counter
   
@@ -116,8 +134,36 @@ void InitVRAM() {
   BAKCLR = COLOR_BLACK;
   BDRCLR = COLOR_BLACK;
   
-  INIGRP();	// Set screen 2
  
+  /*
+  ; Write to VDP register 1 (Set Screen mode, sprites size, Vblank, Display, VRAM mode setting)
+  ; Set it to 225 (‭1110 0001‬ b)
+  ; bit 7: 4/16K selects VRAM configuration. Write 1 if the VDP is not a V9938 nor V9958.
+  ; bit 6: BL disables the screen display when reseted.VDP's commands work a bit faster as well. Screen display is displayed by default.
+  ; bit 5: IE0 enables (1) or disable (0) the vertical retrace interrupts that occur at just after each display of the screen (foreground).
+  ; bit 4: M2 is one of bits that defines the screen mode. (Write 1 to set the SCREEN 3)
+  ; bit 3: M1 is one of bits that defines the screen mode. (Write 1 to set the SCREEN 0)
+  ; bit 2: not used (always 0)
+  ; bit 1: SI defines the sprite size. Write 1 to use 16x16 sprites, 0 to use 8x8 sprites.
+  ; bit 0: MAG enlarges the sprites when 1 is written. (0 by default)
+  ; https://www.msx.org/wiki/VDP_Mode_Registers#Control_Register_1
+          ld		c, 1	               		; VDP Register Number (0..27, 32..46)
+          ld		b, 1110 0010 b   	        ; Data To Write
+      call 	BIOS_WRTVDP        		    ; 
+  */
+  
+  /*
+  reg_data;
+  __asm__("ld b,l");
+  __asm__("ld c,h");
+  MSXUSR(0x0047);  
+  */
+  
+  // Initialize some VDP parameters, such as sprite size
+  WRTVDP(0b0000000111100010);
+
+  INIGRP();	// Set screen 2
+
   DISSCR();	// Disable screen (faster to write)
   
   
@@ -126,6 +172,12 @@ void InitVRAM() {
 
   
   
+  // Loading sprites
+  LDIRVM(MSX_modedata_screen2.sprite_pattern, sprite_arrow_0, NUMBER_OF_SPRITES * 32);
+
+  // Testing sprite
+  SetArrow(0, 0);
+    
   // Write to patterns table
   //for(int i = 0; i < 8; i++) {
   //	WRTVRM(MSX_modedata_screen2.pattern + (exampleChar * 8) + i, 0b10110011);
@@ -215,28 +267,13 @@ void InitVRAM() {
 }
 
 void DrawBlock(byte col, byte line, byte tile) {
-  const byte horizOffset = 10;	// playfield offset from screen left border
-  word baseAddr = MSX_modedata_screen2.name + (col * 2) + (line * 2 * 32) + horizOffset;
+  //const byte horizOffset = 10;	// playfield offset from screen left border
+  word baseAddr = MSX_modedata_screen2.name + (col * 2) + (line * 2 * 32) + PLAYFIELD_HORIZ_OFFSET;
   
-  /*
-  if (tile == EMPTY) {
-    WRTVRM(baseAddr, EMPTY);
-    WRTVRM(baseAddr + 1, EMPTY + 1);
-    WRTVRM(baseAddr + 32, EMPTY + 2);
-    WRTVRM(baseAddr + 33, EMPTY + 3);
-    
-    return;
-  }
-  */
-  
-  //WRTVRM(baseAddr - 2, blackTile);
-  //WRTVRM(baseAddr - 1, blackTile);
   WRTVRM(baseAddr, tile);
   WRTVRM(baseAddr + 1, tile + 1);
   WRTVRM(baseAddr + 32, tile + 2);
   WRTVRM(baseAddr + 33, tile + 3);
-  //WRTVRM(baseAddr + 2, blackTile);
-  //WRTVRM(baseAddr + 3, blackTile);
 }
 
 void DrawLine(byte line) {

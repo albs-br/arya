@@ -328,6 +328,19 @@ void GameLoop() {
     DrawPiece(line);
     
     
+    
+    // Draw arrow sprite indicating where the piece will drop
+    for(byte i = line + 3; i < LINES_PLAYFIELD; i++) {
+      if(i == LINES_PLAYFIELD - 1) {
+      	SetArrow((col * 16) + (PLAYFIELD_HORIZ_OFFSET * 8), (i) * 16);
+      } 
+      else if(playfield[col][i] != EMPTY) {
+      	SetArrow((col * 16) + (PLAYFIELD_HORIZ_OFFSET * 8), (i - 1) * 16);
+        break;
+      }
+    }
+    
+    
     // Animate Bg
     //void FILVRM(uint16_t start, uint16_t len, uint8_t data);
     //if(JIFFY & 0b0000001100000000 == 0) {
