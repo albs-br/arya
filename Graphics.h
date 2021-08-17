@@ -111,19 +111,58 @@ void DrawBackground() {
 
 void SetArrow(byte x, byte y) {
   byte color = 0;
-  //byte temp = JIFFY
+  byte temp = (JIFFY & 0b00001110) >> 1;
   
-  if(JIFFY & 0b00000001) color = 15;
-  else color = 4;
+  switch(temp) {
+    case 0:
+      color = 15;
+      break;
+    case 1:
+      color = 14;
+      break;
+    case 2:
+      color = 5;
+      break;
+    case 3:
+      color = 4;
+      break;
+    case 4:
+      color = 4;
+      break;
+    case 5:
+      color = 5;
+      break;
+    case 6:
+      color = 14;
+      break;
+    case 7:
+      color = 15;
+      break;
+    default:
+      color = 0;
+  }  
   
+  //if(JIFFY & 0b00000001) color = 15;
+  //else color = 4;
+  
+  // First sprite
   WRTVRM(MSX_modedata_screen2.sprite_attribute, 	y - 1);
   WRTVRM(MSX_modedata_screen2.sprite_attribute + 1, 	x);
   WRTVRM(MSX_modedata_screen2.sprite_attribute + 2, 	0);
   WRTVRM(MSX_modedata_screen2.sprite_attribute + 3, 	color);
+
+  // Second sprite (offset to right/down by 1px)
+  /*
+  WRTVRM(MSX_modedata_screen2.sprite_attribute + 4,  	y);
+  WRTVRM(MSX_modedata_screen2.sprite_attribute + 5, 	x + 1);
+  WRTVRM(MSX_modedata_screen2.sprite_attribute + 6, 	0);
+  WRTVRM(MSX_modedata_screen2.sprite_attribute + 7, 	4);
+  */
 }
 
 void HideArrow() {
   WRTVRM(MSX_modedata_screen2.sprite_attribute, 	192);
+  //WRTVRM(MSX_modedata_screen2.sprite_attribute + 4, 	192);
 }
 
 void InitVRAM() {
