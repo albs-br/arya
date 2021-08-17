@@ -122,6 +122,10 @@ void SetArrow(byte x, byte y) {
   WRTVRM(MSX_modedata_screen2.sprite_attribute + 3, 	color);
 }
 
+void HideArrow() {
+  WRTVRM(MSX_modedata_screen2.sprite_attribute, 	192);
+}
+
 void InitVRAM() {
 
   //const byte SPRATT = MSX_modedata_screen2.sprite_attribute;

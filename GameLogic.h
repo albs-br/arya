@@ -101,6 +101,8 @@ void CheckPlayfield() {
     // Animation
     byte counter = 60;
     
+    HideArrow();
+    
     Sound();
     
     while(counter-- > 0) {
@@ -330,13 +332,19 @@ void GameLoop() {
     
     
     // Draw arrow sprite indicating where the piece will drop
-    for(byte i = line + 3; i < LINES_PLAYFIELD; i++) {
-      if(i == LINES_PLAYFIELD - 1) {
-      	SetArrow((col * 16) + (PLAYFIELD_HORIZ_OFFSET * 8), (i) * 16);
-      } 
-      else if(playfield[col][i] != EMPTY) {
-      	SetArrow((col * 16) + (PLAYFIELD_HORIZ_OFFSET * 8), (i - 1) * 16);
-        break;
+    if(playfield[col][line + 3] != EMPTY) {
+      HideArrow();
+    }
+    else {
+      for(byte i = line + 3; i < LINES_PLAYFIELD; i++) {
+        if(i == LINES_PLAYFIELD - 1 && playfield[col][i] == EMPTY) {
+          SetArrow((col * 16) + (PLAYFIELD_HORIZ_OFFSET * 8), (i) * 16);
+          break;
+        } 
+        else if(playfield[col][i] != EMPTY) {
+          SetArrow((col * 16) + (PLAYFIELD_HORIZ_OFFSET * 8), (i - 1) * 16);
+          break;
+        }
       }
     }
     
@@ -426,7 +434,7 @@ void InitGame() {
   }
   
   // Testing code
-  //TestCase();
+  TestCase();
 
   DrawPlayfield();
   
