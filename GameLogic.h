@@ -338,11 +338,11 @@ void GameLoop() {
     else {
       for(byte i = line + 3; i < LINES_PLAYFIELD; i++) {
         if(i == LINES_PLAYFIELD - 1 && playfield[col][i] == EMPTY) {
-          SetArrow((col * 16) + (PLAYFIELD_HORIZ_OFFSET * 8), (i) * 16);
+          DrawArrow((col * 16) + (PLAYFIELD_HORIZ_OFFSET * 8), (i) * 16);
           break;
         } 
         else if(playfield[col][i] != EMPTY) {
-          SetArrow((col * 16) + (PLAYFIELD_HORIZ_OFFSET * 8), (i - 1) * 16);
+          DrawArrow((col * 16) + (PLAYFIELD_HORIZ_OFFSET * 8), (i - 1) * 16);
           break;
         }
       }
@@ -413,6 +413,8 @@ void TestCase() {
 }
 
 void InitGame() {
+  
+  InitVRAM();
   
   // TODO: use user input to seed random number generator
   InitRnd(JIFFY, JIFFY * 2, JIFFY * 3);

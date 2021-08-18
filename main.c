@@ -80,11 +80,7 @@ byte d_col = 0, d_line = 0, d_value = 0;
 void main() {
   
   while(TRUE) {
-    InitVRAM();
-
-    //TitleScreen();
-
-    InitVRAM();
+    TitleScreen();
 
     InitGame();
     

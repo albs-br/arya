@@ -109,38 +109,20 @@ void DrawBackground() {
   */
 }
 
-void SetArrow(byte x, byte y) {
-  byte color = 0;
-  byte temp = (JIFFY & 0b00001110) >> 1;
+void DrawArrow(byte x, byte y) {
+  const byte colors[] = {
+    15,
+    14,
+    5,
+    4,
+    4,
+    5,
+    14,
+    15,
+  };
   
-  switch(temp) {
-    case 0:
-      color = 15;
-      break;
-    case 1:
-      color = 14;
-      break;
-    case 2:
-      color = 5;
-      break;
-    case 3:
-      color = 4;
-      break;
-    case 4:
-      color = 4;
-      break;
-    case 5:
-      color = 5;
-      break;
-    case 6:
-      color = 14;
-      break;
-    case 7:
-      color = 15;
-      break;
-    default:
-      color = 0;
-  }  
+  byte colorIndex = (JIFFY & 0b00001110) >> 1;
+  
   
   //if(JIFFY & 0b00000001) color = 15;
   //else color = 4;
@@ -149,7 +131,7 @@ void SetArrow(byte x, byte y) {
   WRTVRM(MSX_modedata_screen2.sprite_attribute, 	y - 1);
   WRTVRM(MSX_modedata_screen2.sprite_attribute + 1, 	x);
   WRTVRM(MSX_modedata_screen2.sprite_attribute + 2, 	0);
-  WRTVRM(MSX_modedata_screen2.sprite_attribute + 3, 	color);
+  WRTVRM(MSX_modedata_screen2.sprite_attribute + 3, 	colors[colorIndex]);
 
   // Second sprite (offset to right/down by 1px)
   /*
@@ -219,7 +201,12 @@ void InitVRAM() {
   LDIRVM(MSX_modedata_screen2.sprite_pattern, sprite_arrow_0, NUMBER_OF_SPRITES * 32);
 
   // Testing sprite
-  SetArrow(0, 0);
+  //SetArrow(0, 0);
+  
+  // Placing all sprites off screen
+  for(byte i=0; i<32; i++) {
+    WRTVRM(MSX_modedata_screen2.sprite_attribute + (i * 4), 	192);
+  }
     
   // Write to patterns table
   //for(int i = 0; i < 8; i++) {

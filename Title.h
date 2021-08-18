@@ -56,12 +56,7 @@ void TitleScreen() {
     G,
   };
   
-  // Write to names table
-  /*
-  for(int i = 0; i < 256 * 3; i++) {
-    WRTVRM(MSX_modedata_screen2.name + i, EMPTY); // test
-  }
-  */
+  InitVRAM();
 
   LDIRVM(MSX_modedata_screen2.name, title, 32 * 24);
   
