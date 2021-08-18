@@ -1,4 +1,4 @@
-void Sound() {
+void SoundFx_2() {
   GICINI();
   
   //__asm__("HALT");
@@ -29,17 +29,23 @@ void Sound() {
   WRTPSG((0 * 256) + 8);	// register 8, value 0
 }
 
-void Sound_Shot() {
-  
-  //BEEP();
+void SoundFx_1() {
   
   GICINI();
 
   WRTPSG((151 * 256) + 6);
+  
+  // Bits 7 and 6 serves to specify the direction of PSG I/O ports. 
+  // Always set bit 7 and reset bit 6. Otherwise some devices connected to the joystick ports may malfunction.
   WRTPSG((0b10000001 * 256) + 7);
+  
   WRTPSG((16 * 256) + 8);
   WRTPSG((19 * 256) + 12);
   WRTPSG((1 * 256) + 13);
+  
+  //for(word i=0; i<65000; i++) { }
+  //Wait(180);
+  //while(1) {}
 }
 
 /*

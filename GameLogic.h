@@ -103,7 +103,7 @@ void CheckPlayfield() {
     
     HideArrow();
     
-    Sound();
+    SoundFx_2();
     
     while(counter-- > 0) {
       word lastJiffy = JIFFY;
@@ -181,6 +181,9 @@ void CheckPlayfield() {
     CheckPlayfield();
     
   }
+  //else {
+  //  SoundFx_1();
+  //}
 }
 
 byte RandomIndex() {
@@ -200,6 +203,7 @@ byte RandomPiece() {
 }
 
 void UpdateAndDrawPieceStatic() {
+  
   // Update and draw piece static
   playfield[col][line] = topPiece;
   playfield[col][line + 1] = midPiece;
