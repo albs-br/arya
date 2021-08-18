@@ -63,6 +63,39 @@ void DrawColumn(byte col) {
   WRTVRM(MSX_modedata_screen2.name + col + (32 * 22) + 34, COLUMN_BOTTOM_1 + 5);
 }
 
+void DrawScore() {
+  //byte counter = 0;
+  word oldJiffy;
+  
+  // Animation blinking Level number on scoreboard
+  if(newLevel) {
+    for(byte i=0; i < 60; i++) {
+      oldJiffy = JIFFY;
+      while(oldJiffy == JIFFY) { }
+      
+
+      if(JIFFY & 0b00000110) {
+  	DrawString(" LEVEL", 26, 4);
+      	DrawNumber(level, 26, 5);
+      }
+      else {
+  	DrawString("      ", 26, 4);
+      	DrawString("      ", 26, 5);
+      }
+      
+    }
+  }
+  
+  newLevel = FALSE;
+  
+  DrawString(" LEVEL", 26, 4);
+  DrawString("BLOCKS", 26, 9);
+  
+  DrawNumber(blocksRemoved, 26, 10);
+  DrawNumber(level, 26, 5);
+  
+}
+
 void DrawBackground() {
   // Write to names table
   for(int i = 0; i < 256 * 3; i++) {
@@ -72,8 +105,9 @@ void DrawBackground() {
   DrawColumn(7);
   DrawColumn(22);
   
-  DrawString(" LEVEL", 26, 4);
-  DrawString("BLOCKS", 26, 9);
+  DrawScore();
+  //DrawString(" LEVEL", 26, 4);
+  //DrawString("BLOCKS", 26, 9);
   
   /*
   // test font
@@ -324,8 +358,4 @@ void DrawPlayfield() {
   }
 }
 
-void DrawScore() {
-  DrawNumber(level, 26, 5);
-  DrawNumber(blocksRemoved, 26, 10);
-}
 

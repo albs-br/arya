@@ -49,6 +49,7 @@ byte counter = 0;
 byte topPiece, midPiece, bottomPiece;
 word blocksRemoved = 0;
 byte level = 1;
+bool newLevel = FALSE;
 byte speed;
 
 

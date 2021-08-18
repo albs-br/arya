@@ -26,6 +26,7 @@ void CheckIfPlayfieldIsValid() {
 
 void CheckPlayfield() {
   bool piecesRemoved = FALSE;
+  byte oldLevel;
   
   // Save copy of playfield
   for(byte line = 0; line < LINES_PLAYFIELD; line++) {
@@ -152,6 +153,7 @@ void CheckPlayfield() {
     }
 
     // Level logic
+    oldLevel = level;
     if(blocksRemoved >= 90) {
       level = (blocksRemoved / 30) + 1;
       speed = 15;
@@ -168,6 +170,10 @@ void CheckPlayfield() {
     else { 
       level = 1;
       speed = 60;
+    }
+    
+    if(oldLevel != level) {
+      newLevel = TRUE;
     }
     
     
@@ -429,6 +435,7 @@ void InitGame() {
   col = INITIAL_COL;
   blocksRemoved = 0;
   level = 1;
+  newLevel = FALSE;
   speed = 60;
   
   RandomPiece();
