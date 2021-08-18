@@ -65,13 +65,13 @@ void DrawColumn(byte col) {
 
 void DrawScore() {
   //byte counter = 0;
-  word oldJiffy;
+  word lastJiffy;
   
   // Animation blinking Level number on scoreboard
   if(newLevel) {
     for(byte i=0; i < 60; i++) {
-      oldJiffy = JIFFY;
-      while(oldJiffy == JIFFY) { }
+      lastJiffy = JIFFY;
+      while(lastJiffy == JIFFY) { }
       
 
       if(JIFFY & 0b00000110) {
