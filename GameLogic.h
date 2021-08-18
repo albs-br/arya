@@ -155,6 +155,7 @@ void CheckPlayfield() {
     if(blocksRemoved >= 90) {
       level = (blocksRemoved / 30) + 1;
       speed = 15;
+      //DrawNumber(speed, 0, 0); // test
     }
     else if(blocksRemoved >= 60) { 
       level = 3;
