@@ -396,8 +396,8 @@ void InitGame() {
   
   InitVRAM();
   
-  // TODO: use user input to seed random number generator
-  InitRnd(JIFFY, JIFFY * 2, JIFFY * 3);
+  // Using user input on title screen to seed random number generator
+  InitRnd(rndSeed, JIFFY * rndSeed, JIFFY * rndSeed + 99);
   
   gameOver = FALSE;
   line = INITIAL_LINE;

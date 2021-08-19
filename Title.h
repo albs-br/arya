@@ -110,6 +110,7 @@ void TitleScreen() {
       spaceBar = GTTRIG(TRIG_Spacebar);
       
       if(spaceBar == 0xff) { 
+        rndSeed = JIFFY;
         return;
       }
     }

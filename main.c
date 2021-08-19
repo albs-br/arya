@@ -50,7 +50,7 @@ byte topPiece, midPiece, bottomPiece;
 word blocksRemoved = 0;
 byte level = 1;
 bool newLevel = FALSE;
-byte speed;
+byte speed, rndSeed = 0;
 
 
 // Debug variables
