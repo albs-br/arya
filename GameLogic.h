@@ -359,37 +359,6 @@ void GameLoop() {
       }
     }
     
-    
-    // Animate Bg
-    //void FILVRM(uint16_t start, uint16_t len, uint8_t data);
-    //if(JIFFY & 0b0000001100000000 == 0) {
-    /*
-    if(JIFFY % 8 == 0) {
-      switch(bgCounter++) {
-        case 0:
-          bgColor = 0x14;
-          break;
-        case 1:
-          bgColor = 0x14;
-          break;
-        case 2:
-          bgColor = 0x15;
-          break;
-        case 3:
-          bgColor = 0x14;
-          break;
-        case 4:
-          bgColor = 0x14;
-          bgCounter = 0;
-          break;
-        default:
-          bgColor = 0x11;
-
-      }
-      FILVRM(MSX_modedata_screen2.color, 8 * 4, bgColor);
-    }
-    */
-
   }
   
   DrawString("GAME OVER", 12, 12);

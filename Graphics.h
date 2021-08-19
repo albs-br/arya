@@ -64,7 +64,7 @@ void DrawColumn(byte col) {
 }
 
 void DrawScore() {
-  //byte counter = 0;
+  byte bgCounter = 0, bgColor;
   word lastJiffy;
   
   // Animation blinking Level number on scoreboard
@@ -77,6 +77,46 @@ void DrawScore() {
       if(JIFFY & 0b00000110) {
   	DrawString(" LEVEL", 26, 4);
       	DrawNumber(level, 26, 5);
+        
+        // Animate Bg
+        //void FILVRM(uint16_t start, uint16_t len, uint8_t data);
+        //if(JIFFY & 0b0000001100000000 == 0) {
+        //if(JIFFY % 8 == 0) {
+          switch(bgCounter++) {
+            case 0:
+              bgColor = 0x14;
+              break;
+            case 1:
+              bgColor = 0x15;
+              break;
+            case 2:
+              bgColor = 0x17;
+              break;
+            case 3:
+              bgColor = 0x1e;
+              break;
+            case 4:
+              bgColor = 0x1f;
+              break;
+            case 5:
+              bgColor = 0x1e;
+              break;
+            case 6:
+              bgColor = 0x17;
+              break;
+            case 7:
+              bgColor = 0x15;
+              bgCounter = 0;
+              break;
+            default:
+              bgColor = 0x11;
+
+          }
+          FILVRM(MSX_modedata_screen2.color, 8 * 4, bgColor);
+          FILVRM(MSX_modedata_screen2.color + (256 * 8), 8 * 4, bgColor);
+          FILVRM(MSX_modedata_screen2.color + (512 * 8), 8 * 4, bgColor);
+        //}
+        
       }
       else {
   	DrawString("      ", 26, 4);
@@ -87,6 +127,11 @@ void DrawScore() {
   }
   
   newLevel = FALSE;
+  
+  // Restore correct BG Color
+  FILVRM(MSX_modedata_screen2.color, 8 * 4, 0x14);
+  FILVRM(MSX_modedata_screen2.color + (256 * 8), 8 * 4, 0x14);
+  FILVRM(MSX_modedata_screen2.color + (512 * 8), 8 * 4, 0x14);
   
   DrawString(" LEVEL", 26, 4);
   DrawString("BLOCKS", 26, 9);
