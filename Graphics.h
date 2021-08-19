@@ -276,6 +276,10 @@ void InitVRAM() {
 
   
   
+  // Test - clear names table
+  //FILVRM(MSX_modedata_screen2.name, 768, EMPTY); //void FILVRM(uint16_t start, uint16_t len, uint8_t data);
+  
+  
   // Loading sprites
   LDIRVM(MSX_modedata_screen2.sprite_pattern, sprite_arrow_0, NUMBER_OF_SPRITES * 32);
 

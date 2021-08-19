@@ -394,11 +394,6 @@ void TestCase() {
 
 void InitGame() {
   
-  InitVRAM();
-  
-  // Using user input on title screen to seed random number generator
-  InitRnd(rndSeed, JIFFY * rndSeed, JIFFY * rndSeed + 99);
-  
   gameOver = FALSE;
   line = INITIAL_LINE;
   col = INITIAL_COL;
@@ -406,6 +401,12 @@ void InitGame() {
   level = 1;
   newLevel = FALSE;
   speed = 60;
+  
+  InitVRAM();
+  
+  // Using user input on title screen to seed random number generator
+  InitRnd(rndSeed, JIFFY * rndSeed, JIFFY * rndSeed + 99);
+
   
   RandomPiece();
   
@@ -417,7 +418,7 @@ void InitGame() {
   }
   
   // Testing code
-  TestCase();
+  //TestCase();
 
   DrawPlayfield();
   
