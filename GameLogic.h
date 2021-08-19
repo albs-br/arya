@@ -419,7 +419,9 @@ void InitGame() {
   
   // Testing code
   //TestCase();
-
+  
+  DrawBackground();
+  
   DrawPlayfield();
   
   DrawScore();

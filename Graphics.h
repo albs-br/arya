@@ -372,7 +372,7 @@ void InitVRAM() {
   
   
   
-  DrawBackground();
+  //DrawBackground();
   
   
   
