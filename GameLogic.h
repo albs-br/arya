@@ -238,9 +238,45 @@ void UpdateAndDrawPieceStatic() {
   DrawPlayfield();
 }
 
+void Pause() {
+  byte keyboard;
+  
+  DrawString("PAUSE", 13, 12);
+  
+  while(TRUE) {
+    
+    // Check if ESC key is released
+    keyboard = SNSMAT(7);
+    if((keyboard & 0b00000100) != 0) {
+
+      while(TRUE) {
+        
+        // Check if ESC key is pressed again
+        keyboard = SNSMAT(7);
+        if((keyboard & 0b00000100) == 0) {
+          
+          while(TRUE) {
+
+            // Check if ESC key is released again
+            keyboard = SNSMAT(7);
+            if((keyboard & 0b00000100) != 0) {
+              // Clear PAUSE text
+              DrawLine(6);
+              return;
+            }
+          }
+
+        }
+      }
+
+    }
+  }
+    
+}
+
 void GameLoop() {
   
-  byte joystick, lastJoystick = STCK_none;
+  byte keyboard, joystick, lastJoystick = STCK_none;
   byte bgCounter = 0, bgColor= 0x00;
 
   while(!gameOver) {
@@ -307,7 +343,35 @@ void GameLoop() {
 
     lastJoystick = joystick;
 
+    // Read keyboard
+    // http://map.grauw.nl/articles/keymatrix.php
+    /*
+            bit 7	bit 6	bit 5	bit 4	bit 3	bit 2	bit 1	bit 0
+    row 0	7 &	6 ^	5 %	4 $	3 #	2 @	1 !	0 )
+    row 1	; :	] }	[ {	\ ¦	= +	- _	9 (	8 *
+    row 2	B	A	DEAD	/ ?	. >	, <	` ~	' "
+    row 3	J	I	H	G	F	E	D	C
+    row 4	R	Q	P	O	N	M	L	K
+    row 5	Z	Y	X	W	V	U	T	S
+    row 6	F3	F2	F1	CODE	CAPS	GRAPH	CTRL	SHIFT
+    row 7	RET	SELECT	BS	STOP	TAB	ESC	F5	F4
+    row 8	→	↓	↑	←	DEL	INS	HOME	SPACE
+    row 9	NUM4	NUM3	NUM2	NUM1	NUM0	NUM/	NUM+	NUM*
+    row 10	NUM.	NUM,	NUM-	NUM9	NUM8	NUM7	NUM6	NUM5    
 
+    SNSMAT
+    Function : Returns the value of the specified line from the keyboard matrix
+    Input    : A  - For the specified line
+    Output   : A  - For data (the bit corresponding to the pressed key will be 0)
+    Registers: AF
+    */
+    keyboard = SNSMAT(7);
+    // Check if ESC key is pressed
+    if((keyboard & 0b00000100) == 0) {
+      Pause();
+    }
+    
+    
     // Piece falling logic
     counter++;
     if(counter == speed) {
