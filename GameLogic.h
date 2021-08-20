@@ -238,6 +238,18 @@ void UpdateAndDrawPieceStatic() {
   DrawPlayfield();
 }
 
+void BlinkPauseText() {
+  if(JIFFY & 0b00001000) {
+    DrawString("PAUSE", 13, 12);
+  }
+  else {
+    //if(JIFFY & 0b11110000) {
+      // Clear PAUSE text
+      DrawLine(6);
+    //}
+  }
+}
+
 void Pause() {
   byte keyboard;
   
@@ -245,17 +257,23 @@ void Pause() {
   
   while(TRUE) {
     
+    BlinkPauseText();
+    
     // Check if ESC key is released
     keyboard = SNSMAT(7);
     if((keyboard & 0b00000100) != 0) {
 
       while(TRUE) {
         
+    	BlinkPauseText();
+        
         // Check if ESC key is pressed again
         keyboard = SNSMAT(7);
         if((keyboard & 0b00000100) == 0) {
           
           while(TRUE) {
+
+    	    BlinkPauseText();
 
             // Check if ESC key is released again
             keyboard = SNSMAT(7);
