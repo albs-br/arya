@@ -1,4 +1,4 @@
-#define NUMBER_OF_PATTERNS 	43
+#define NUMBER_OF_PATTERNS 	47
 #define CHAR_A			(NUMBER_OF_PATTERNS + 33)	// ALWAYS use parenthesis when defining pre-compilation constants with expressions
 #define CHAR_0			(NUMBER_OF_PATTERNS + 16)
 #define TITLE_1			(NUMBER_OF_PATTERNS + (HICHAR - LOCHAR))
@@ -7,6 +7,7 @@
 #define COLUMN_MIDDLE_1		30
 #define COLUMN_MIDDLE_2		33
 #define COLUMN_BOTTOM_1		36
+#define DUST_1			42
 
 // Empty spaces
 
@@ -553,6 +554,60 @@ static const unsigned char pattern_34[] = {
 
 // -----------------------------------
 
+// ---- NEW TILES HERE -----
+
+// -------------------------------------
+
+// Dust frame 0
+static const unsigned char sprite_dust_0[] = {
+    0b00010000,
+    0b01000010,
+    0b00010000,
+    0b01000101,
+    0b00100000,
+    0b10001001,
+    0b00100000,
+    0b10001000,
+  };
+
+// Dust frame 1
+static const unsigned char sprite_dust_1[] = {
+    0b00010000,
+    0b01000010,
+    0b00000000,
+    0b00000100,
+    0b00100000,
+    0b10000001,
+    0b00100000,
+    0b00001000,
+  };
+
+// Dust frame 2
+static const unsigned char sprite_dust_2[] = {
+    0b00010000,
+    0b00000000,
+    0b00000000,
+    0b00000100,
+    0b00100000,
+    0b10000000,
+    0b00100000,
+    0b00000000,
+  };
+
+// Dust frame 3
+static const unsigned char sprite_dust_3[] = {
+    0b00010000,
+    0b00000000,
+    0b00000000,
+    0b00000100,
+    0b00000000,
+    0b00000000,
+    0b00100000,
+    0b00000000,
+  };
+
+
+// ------------------------------------
 
 // Title block
 static const unsigned char pattern_title[] = {

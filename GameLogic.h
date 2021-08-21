@@ -100,12 +100,46 @@ void CheckPlayfield() {
   if(piecesRemoved) {
     
     // Animation
-    byte counter = 60;
+    byte counter = 72;
     
     HideArrow();
     
     SoundFx_2();
     
+    // Animation 1: blocks blinking
+    while(counter-- > 0) {
+      word lastJiffy = JIFFY;
+      while (lastJiffy == JIFFY) {
+      }
+      // Animation loop sync'ed at 60/50 Hz starts here
+
+      for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+        for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+
+          if((playfield[col][line] & REMOVING_FLAG) != 0) {
+    		
+            if(counter > 12) {
+              if(JIFFY & 0b00000011) {
+                DrawBlock(col, line, playfield[col][line] & 0b01111111);
+              }
+              else {
+                DrawBlock(col, line, EMPTY);
+              }
+            }
+            else {
+              if(counter > 9) DrawBlock_SameTile(col, line, DUST_1);
+              else if(counter > 6) DrawBlock_SameTile(col, line, DUST_1 + 1);
+              else if(counter > 3) DrawBlock_SameTile(col, line, DUST_1 + 2);
+              else DrawBlock_SameTile(col, line, DUST_1 + 3);
+            }
+
+          }
+        }
+      }
+    }
+    
+    // Animation 2: blocks turning into dust
+    /*
     while(counter-- > 0) {
       word lastJiffy = JIFFY;
       while (lastJiffy == JIFFY) {
@@ -128,7 +162,7 @@ void CheckPlayfield() {
         }
       }
     }
-    
+    */
     
     // After animation
     for(byte line = 0; line < LINES_PLAYFIELD; line++) {
@@ -500,7 +534,7 @@ void InitGame() {
   }
   
   // Testing code
-  //TestCase();
+  TestCase();
   
   DrawBackground();
   

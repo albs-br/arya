@@ -389,6 +389,16 @@ void DrawBlock(byte col, byte line, byte tile) {
   WRTVRM(baseAddr + 33, tile + 3);
 }
 
+void DrawBlock_SameTile(byte col, byte line, byte tile) {
+  //const byte horizOffset = 10;	// playfield offset from screen left border
+  word baseAddr = MSX_modedata_screen2.name + (col * 2) + (line * 2 * 32) + PLAYFIELD_HORIZ_OFFSET;
+  
+  WRTVRM(baseAddr, tile);
+  WRTVRM(baseAddr + 1, tile);
+  WRTVRM(baseAddr + 32, tile);
+  WRTVRM(baseAddr + 33, tile);
+}
+
 void DrawLine(byte line) {
   for(byte col = 0; col < COLS_PLAYFIELD; col++) {
     DrawBlock(col, line, playfield[col][line]);

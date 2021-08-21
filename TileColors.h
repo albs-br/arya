@@ -539,6 +539,59 @@ static const unsigned char color_column_15[] = {
 
 // ------------------------------------------------
 
+// ---- NEW COLORS HERE -----
+
+// Dust frame 0
+static const unsigned char color_dust_0[] = {
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+  };
+
+// Dust frame 1
+static const unsigned char color_dust_1[] = {
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+  };
+
+// Dust frame 2
+static const unsigned char color_dust_2[] = {
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+  };
+
+// Dust frame 3
+static const unsigned char color_dust_3[] = {
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+    0xf1,
+  };
+
+
+// -------------------------------------
+
 // Font color 1
 static const unsigned char color_font_1[] = {
     0xf1,
