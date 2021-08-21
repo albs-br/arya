@@ -329,7 +329,8 @@ void Pause() {
 void GameLoop() {
   
   byte keyboard, joystick, btn1, btn2;
-  byte lastJoystick = STCK_none, lastBtn1 = 0, lastBtn2 = 0;
+  byte lastJoystick_LeftRight = STCK_none, lastJoystick_UpDown = STCK_none;
+  byte lastBtn1 = 0, lastBtn2 = 0;
   byte bgCounter = 0, bgColor= 0x00;
 
   while(!gameOver) {
@@ -358,7 +359,7 @@ void GameLoop() {
       joystick = GTSTCK(STCK_Cursors);
     }
     
-    if(lastJoystick == STCK_none) {
+    if(lastJoystick_LeftRight == STCK_none) {
 
       if (joystick == STCK_W && 
           col > 0 && 
@@ -372,7 +373,10 @@ void GameLoop() {
           playfield[col + 1][line + 2] == EMPTY) {
         col++;
       }
-      
+    }
+    
+    if(lastJoystick_UpDown == STCK_none) {
+
       // Rotate piece
       if (joystick == STCK_N || (lastBtn1 == 0 && btn1 == 0xff) || (lastBtn2 == 0 && btn2 == 0xff)) {
         byte temp = bottomPiece;
@@ -400,7 +404,10 @@ void GameLoop() {
 
     }
 
-    lastJoystick = joystick;
+    //if(joystick == STCK_W || joystick == STCK_E) lastJoystick_LeftRight = joystick; else STCK_none;
+    //if(joystick == STCK_N || joystick == STCK_S) lastJoystick_UpDown = joystick; else STCK_none;
+    lastJoystick_LeftRight = joystick;
+    lastJoystick_UpDown = joystick;
     lastBtn1 = btn1;
     lastBtn2 = btn2;
 
