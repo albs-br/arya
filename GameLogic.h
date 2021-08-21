@@ -360,6 +360,7 @@ void GameLoop() {
     }
     
     if(lastJoystick_LeftRight == STCK_none) {
+    //if(lastJoystick_LeftRight != STCK_W && lastJoystick_LeftRight != STCK_E) {
 
       if (joystick == STCK_W && 
           col > 0 && 
@@ -376,6 +377,7 @@ void GameLoop() {
     }
     
     if(lastJoystick_UpDown == STCK_none) {
+    //if(lastJoystick_UpDown != STCK_W && lastJoystick_UpDown != STCK_E) {
 
       // Rotate piece
       if (joystick == STCK_N || (lastBtn1 == 0 && btn1 == 0xff) || (lastBtn2 == 0 && btn2 == 0xff)) {
