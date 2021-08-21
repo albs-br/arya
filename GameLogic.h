@@ -328,7 +328,8 @@ void Pause() {
 
 void GameLoop() {
   
-  byte keyboard, joystick, lastJoystick = STCK_none;
+  byte keyboard, joystick, btn1, btn2;
+  byte lastJoystick = STCK_none, lastBtn1 = 0, lastBtn2 = 0;
   byte bgCounter = 0, bgColor= 0x00;
 
   while(!gameOver) {
@@ -349,8 +350,14 @@ void GameLoop() {
     playfield[col][line + 2] = EMPTY;
 
     // Read player input
-    joystick = GTSTCK(STCK_Cursors);
-    //joystick = GTSTCK(STCK_Joy1);
+    joystick = GTSTCK(STCK_Joy1);
+    btn1 = GTTRIG(TRIG_Joy1_A);
+    btn2 = GTTRIG(TRIG_Joy1_B);
+    
+    if(joystick == STCK_none) {
+      joystick = GTSTCK(STCK_Cursors);
+    }
+    
     if(lastJoystick == STCK_none) {
 
       if (joystick == STCK_W && 
@@ -367,7 +374,7 @@ void GameLoop() {
       }
       
       // Rotate piece
-      if (joystick == STCK_N) {
+      if (joystick == STCK_N || (lastBtn1 == 0 && btn1 == 0xff) || (lastBtn2 == 0 && btn2 == 0xff)) {
         byte temp = bottomPiece;
         
         bottomPiece = midPiece;
@@ -394,6 +401,8 @@ void GameLoop() {
     }
 
     lastJoystick = joystick;
+    lastBtn1 = btn1;
+    lastBtn2 = btn2;
 
     // Read keyboard
     // http://map.grauw.nl/articles/keymatrix.php

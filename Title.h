@@ -60,12 +60,12 @@ void TitleScreen() {
 
   LDIRVM(MSX_modedata_screen2.name, title, 32 * 24);
   
-  DrawString("PRESS SPACE TO START", 6, 13);
+  DrawString("PRESS TRIGGER TO START", 6, 13);
   
   while(TRUE) {
     byte index = 0, col_1, line_1, col_2, line_2, col_3, line_3;
     byte rnd;
-    byte spaceBar;
+    byte spaceBar, btn1, btn2;
     
     word lastJiffy = JIFFY;
     while (JIFFY == lastJiffy) {
@@ -107,9 +107,21 @@ void TitleScreen() {
       if(index++ >= sizeof(blocks)) index = 0;
       
       //uint8_t GTTRIG(uint8_t index) __z88dk_fastcall;
+      /*
+      // parameter for GTTRIG
+      typedef enum GTTRIG_Param {
+        TRIG_Spacebar,
+        TRIG_Joy1_A,
+        TRIG_Joy2_A,
+        TRIG_Joy1_B,
+        TRIG_Joy2_B
+      };      
+      */
       spaceBar = GTTRIG(TRIG_Spacebar);
+      btn1 = GTTRIG(TRIG_Joy1_A);
+      btn2 = GTTRIG(TRIG_Joy1_B);
       
-      if(spaceBar == 0xff) { 
+      if(spaceBar == 0xff || btn1 == 0xff || btn2 == 0xff) { 
         rndSeed = JIFFY;
         return;
       }
