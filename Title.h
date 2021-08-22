@@ -73,11 +73,12 @@ void TitleScreen() {
     byte value;
     word counter = 0;
     
-    word lastJiffy = JIFFY;
-    while (JIFFY == lastJiffy) {
-    }
+    //word lastJiffy = JIFFY;
+    //while (JIFFY == lastJiffy) {
+    //}
     
     // Title animation v-sync'ed starts here
+    
     do {
       col_1 = GetRandomInInterval(31, 0b00011111);
       line_1 = GetRandomInInterval(7, 0b00000111);
@@ -110,11 +111,11 @@ void TitleScreen() {
     
     for(byte i=0; i < 10 + 0; i++) {
 
-      lastJiffy = JIFFY;
+      word lastJiffy = JIFFY;
       while (JIFFY == lastJiffy) {
       }
       
-      // Title animation v-sync'ed also starts here
+      // Animation v-sync'ed starts here
       
       SetBlock(col_1, line_1, blocks[index]);
       //SetBlock(col_2, line_2, blocks[index]);
