@@ -406,8 +406,8 @@ void GameLoop() {
 
     }
 
-    //if(joystick == STCK_W || joystick == STCK_E) lastJoystick_LeftRight = joystick; else STCK_none;
-    //if(joystick == STCK_N || joystick == STCK_S) lastJoystick_UpDown = joystick; else STCK_none;
+    //if(joystick == STCK_W || joystick == STCK_E) lastJoystick_LeftRight = joystick; else lastJoystick_LeftRight = STCK_none;
+    //if(joystick == STCK_N || joystick == STCK_S) lastJoystick_UpDown = joystick; else lastJoystick_UpDown = STCK_none;
     lastJoystick_LeftRight = joystick;
     lastJoystick_UpDown = joystick;
     lastBtn1 = btn1;
