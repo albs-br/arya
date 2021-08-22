@@ -11,18 +11,19 @@
 
 
 
-void BlinkBlock(byte col, byte line, byte tileNumber) {
+void SetBlock(byte col, byte line, byte tileNumber) {
   WRTVRM(MSX_modedata_screen2.name + col + (line * 32), tileNumber);
 }
 
 void TitleScreen() {
+  byte colorIndex = 0;
   
   // Title screen names table (32 x 24 chars)
   static const unsigned char title[] = {
       0, 0, 0, 0, A, A, A, A, 0, A, A, A, A, A, A, 0, 0, A, A, 0, 0, 0, A, A, 0, 0, 0, 0, A, A, A, A, 
-      0, 0, 0, A, A, A, A, A, 0, B, A, 0, 0, 0, A, A, 0, 0, A, A, 0, 0, A, A, 0, 0, 0, A, A, A, A, A, 
-      0, 0, A, A, A, 0, A, A, 0, C, A, 0, 0, 0, A, A, 0, 0, 0, A, A, 0, A, A, 0, 0, A, A, A, 0, A, A, 
-      0, A, A, A, 0, 0, A, A, 0, D, A, 0, 0, A, A, 0, 0, 0, 0, 0, A, A, A, 0, 0, A, A, A, 0, 0, A, A, 
+      0, 0, 0, A, A, A, A, A, 0, A, A, 0, 0, 0, A, A, 0, 0, A, A, 0, 0, A, A, 0, 0, 0, A, A, A, A, A, 
+      0, 0, A, A, A, 0, A, A, 0, A, A, 0, 0, 0, A, A, 0, 0, 0, A, A, 0, A, A, 0, 0, A, A, A, 0, A, A, 
+      0, A, A, A, 0, 0, A, A, 0, A, A, 0, 0, A, A, 0, 0, 0, 0, 0, A, A, A, 0, 0, A, A, A, 0, 0, A, A, 
       0, A, A, 0, 0, 0, A, A, 0, A, A, A, A, A, 0, 0, 0, 0, 0, 0, A, A, 0, 0, 0, A, A, 0, 0, 0, A, A, 
       0, A, A, 0, 0, 0, A, A, 0, A, A, A, A, A, 0, 0, 0, 0, 0, 0, A, A, 0, 0, 0, A, A, 0, 0, 0, A, A, 
       0, A, A, A, A, A, A, A, 0, A, A, 0, 0, 0, A, 0, 0, 0, 0, 0, A, A, 0, 0, 0, A, A, A, A, A, A, A, 
@@ -56,7 +57,7 @@ void TitleScreen() {
     G, // blue
   };
   
-  const char colors[] = { A, C, E, G };
+  const char colors[] = { A, C, E, G, 0 }; // last item will be ignored
   
   InitVRAM();
 
@@ -68,7 +69,8 @@ void TitleScreen() {
     byte index = 0, col_1, line_1; //, col_2, line_2, col_3, line_3;
     byte rnd;
     byte spaceBar, btn1, btn2;
-    byte value, colorIndex = 0;
+    byte value;
+    word counter = 0;
     
     word lastJiffy = JIFFY;
     while (JIFFY == lastJiffy) {
@@ -81,6 +83,13 @@ void TitleScreen() {
       //col_2 = GetRandomInInterval(31, 0b00011111);
       //line_2 = GetRandomInInterval(7, 0b00000111);
       value = RDVRM(MSX_modedata_screen2.name + col_1 + (line_1 * 32));
+      
+      if(counter++ > 1000) {
+        //colorIndex++;
+      	if(colorIndex++ >= sizeof(colors)) colorIndex = 0;
+        
+        counter = 0;
+      }
     }
     while (value == EMPTY || value == colors[colorIndex + 1]);
     /*
@@ -98,15 +107,17 @@ void TitleScreen() {
     */
     rnd = GetRandomInInterval(7, 0b00000111);
     
-    for(byte i=0; i < 10 + rnd; i++) {
+    for(byte i=0; i < 10 + 0; i++) {
 
       lastJiffy = JIFFY;
       while (JIFFY == lastJiffy) {
       }
       
-      BlinkBlock(col_1, line_1, blocks[index]);
-      //BlinkBlock(col_2, line_2, blocks[index]);
-      //BlinkBlock(col_3, line_3, blocks[index]);
+      // Title animation v-sync'ed also starts here
+      
+      SetBlock(col_1, line_1, blocks[index]);
+      //SetBlock(col_2, line_2, blocks[index]);
+      //SetBlock(col_3, line_3, blocks[index]);
 
       if(index++ >= sizeof(blocks)) index = 0;
       
@@ -131,7 +142,7 @@ void TitleScreen() {
       }
     }
     
-    BlinkBlock(col_1, line_1, colors[colorIndex + 1]);
+    SetBlock(col_1, line_1, colors[colorIndex + 1]);
     
   }
 }
