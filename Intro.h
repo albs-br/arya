@@ -1,6 +1,20 @@
 //#define A		TITLE_1
 
+void ChangeFontColor(byte color) {
+  FILVRM(MSX_modedata_screen2.color + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, color);
+  FILVRM(MSX_modedata_screen2.color + (256 * 8)  + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, color);
+  FILVRM(MSX_modedata_screen2.color + (512 * 8)  + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, color);
+}
+
+void ScrollDownFont() {
+  // Loading font patterns (1st bank)
+  LDIRVM(MSX_modedata_screen2.pattern + (NUMBER_OF_PATTERNS * 8), FONT, (HICHAR-LOCHAR+1) * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+
+}
+
 void Intro() {
+  
+  byte counter = 0;
   
   InitVRAM();
 
@@ -8,28 +22,29 @@ void Intro() {
   DrawString("ANDRE BAPTISTA", 9, 13);
   
 
-  // Loading font colors
-  // Single color
-  FILVRM(MSX_modedata_screen2.color + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, 0xf0);
-  FILVRM(MSX_modedata_screen2.color + (256 * 8)  + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, 0xf0);
-  FILVRM(MSX_modedata_screen2.color + (512 * 8)  + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, 0xf0);
-  // Gradient pattern (1st bank)
-  /*
-  for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
-    LDIRVM(MSX_modedata_screen2.color + (NUMBER_OF_PATTERNS * 8) + (i * 8), color_font_2, 8);
-  }
-  // Gradient pattern (2nd bank)
-  for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
-    LDIRVM(MSX_modedata_screen2.color + (256 * 8) + (NUMBER_OF_PATTERNS * 8) + (i * 8), color_font_2, 8);
-  }
-  // Gradient pattern (3rd bank)
-  for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
-    LDIRVM(MSX_modedata_screen2.color + (512 * 8) + (NUMBER_OF_PATTERNS * 8) + (i * 8), color_font_2, 8);
-  }
-  */
+  
 
   
-  Wait(3 * 60);
+  
+  ChangeFontColor(0xf0);
+
+  Wait(2 * 60);
+
+  while(counter++ < 20) {
+    byte lastJiffy = JIFFY;
+    while (JIFFY == lastJiffy) {
+    }
+    
+    if(counter == 15) {
+      ChangeFontColor(0x40);
+    }
+    else if(counter == 10) {
+      ChangeFontColor(0x50);
+    }
+    else if(counter == 5) {
+      ChangeFontColor(0xe0);
+    }
+  }
   
   /*
   while(TRUE) {
