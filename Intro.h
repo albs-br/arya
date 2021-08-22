@@ -2,14 +2,36 @@
 
 void ChangeFontColor(byte color) {
   FILVRM(MSX_modedata_screen2.color + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, color);
-  FILVRM(MSX_modedata_screen2.color + (256 * 8)  + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, color);
-  FILVRM(MSX_modedata_screen2.color + (512 * 8)  + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, color);
+  FILVRM(MSX_modedata_screen2.color + (256 * 8) + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, color);
+  FILVRM(MSX_modedata_screen2.color + (512 * 8) + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, color);
 }
 
 void ScrollDownFont() {
+  word startVRAMAddr = MSX_modedata_screen2.pattern + (256 * 8) + (NUMBER_OF_PATTERNS * 8);
+  word size = (HICHAR-LOCHAR+1) * 8;
+  byte value;
+  
   // Loading font patterns (1st bank)
-  LDIRVM(MSX_modedata_screen2.pattern + (NUMBER_OF_PATTERNS * 8), FONT, (HICHAR-LOCHAR+1) * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+  	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+  //LDIRVM(MSX_modedata_screen2.pattern + (NUMBER_OF_PATTERNS * 8), FONT, (HICHAR-LOCHAR+1) * 8);
 
+  /*
+  uint8_t RDVRM(uint16_t addr) __z88dk_fastcall;
+
+  void WRTVRM(uint16_t addr, uint8_t data);
+  */
+  
+  
+  for(word i=startVRAMAddr; i < (startVRAMAddr + size); i+=8) {
+    for(word j=i+7; j>0; j--) {
+      value = RDVRM(j-1);
+      //WRTVRM(j, value);
+      WRTVRM(j, 0);
+    }
+    WRTVRM(i, 0);
+    
+  }
+  
 }
 
 void Intro() {
@@ -27,6 +49,9 @@ void Intro() {
   
   
   ChangeFontColor(0xf0);
+  //ScrollDownFont();
+  //ChangeFontColor(0x80);
+  //ScrollDownFont();
 
   Wait(2 * 60);
 
@@ -42,6 +67,7 @@ void Intro() {
       ChangeFontColor(0x50);
     }
     else if(counter == 5) {
+      //ScrollDownFont();
       ChangeFontColor(0xe0);
     }
   }
