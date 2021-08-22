@@ -57,7 +57,8 @@ void TitleScreen() {
     G, // blue
   };
   
-  const char colors[] = { A, C, E, G, 0 }; // last item will be ignored
+  const char colors[] = { A, C, E, G }; // last item will be ignored
+  //const char colors[] = { A, C }; // test
   
   InitVRAM();
 
@@ -85,8 +86,8 @@ void TitleScreen() {
       value = RDVRM(MSX_modedata_screen2.name + col_1 + (line_1 * 32));
       
       if(counter++ > 1000) {
-        //colorIndex++;
-      	if(colorIndex++ >= sizeof(colors)) colorIndex = 0;
+        colorIndex++;
+      	if(colorIndex >= sizeof(colors)) colorIndex = 0;
         
         counter = 0;
       }
