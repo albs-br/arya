@@ -85,12 +85,11 @@ void main() {
   
   while(TRUE) {
     
-    Intro();
+    //Intro();
     
     TitleScreen();
 
     InitGame();
     
-    //while(1) {}
   }
 }

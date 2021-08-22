@@ -644,14 +644,14 @@ static const unsigned char color_title_2[] = {
 
 // Title block color 3
 static const unsigned char color_title_3[] = {
-    0xe1,
-    0xe1,
-    0xe1,
-    0xe1,
-    0xe1,
-    0xe1,
-    0xe1,
-    0xe1,
+    0xd1,
+    0xd1,
+    0xd1,
+    0xd1,
+    0xd1,
+    0xd1,
+    0xd1,
+    0xd1,
   };
 
 // Title block color 4

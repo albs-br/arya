@@ -47,14 +47,16 @@ void TitleScreen() {
   
  
   const char blocks[] = {
-    A,
-    B,
-    C,
-    D,
-    E,
-    F,
-    G,
+    A, // yellow
+    B, // yellow
+    C, // magenta
+    D, // white
+    E, // cyan
+    F, // blue
+    G, // blue
   };
+  
+  const char colors[] = { A, C, E, G };
   
   InitVRAM();
 
@@ -63,9 +65,10 @@ void TitleScreen() {
   DrawString("PRESS TRIGGER TO START", 5, 13);
   
   while(TRUE) {
-    byte index = 0, col_1, line_1, col_2, line_2, col_3, line_3;
+    byte index = 0, col_1, line_1; //, col_2, line_2, col_3, line_3;
     byte rnd;
     byte spaceBar, btn1, btn2;
+    byte value, colorIndex = 0;
     
     word lastJiffy = JIFFY;
     while (JIFFY == lastJiffy) {
@@ -77,9 +80,10 @@ void TitleScreen() {
       line_1 = GetRandomInInterval(7, 0b00000111);
       //col_2 = GetRandomInInterval(31, 0b00011111);
       //line_2 = GetRandomInInterval(7, 0b00000111);
+      value = RDVRM(MSX_modedata_screen2.name + col_1 + (line_1 * 32));
     }
-    while (RDVRM(MSX_modedata_screen2.name + col_1 + (line_1 * 32)) == EMPTY);
-    
+    while (value == EMPTY || value == colors[colorIndex + 1]);
+    /*
     do {
       col_2 = GetRandomInInterval(31, 0b00011111);
       line_2 = GetRandomInInterval(7, 0b00000111);
@@ -91,18 +95,18 @@ void TitleScreen() {
       line_3 = GetRandomInInterval(7, 0b00000111);
     }
     while (RDVRM(MSX_modedata_screen2.name + col_3 + (line_3 * 32)) == EMPTY);
-    
+    */
     rnd = GetRandomInInterval(7, 0b00000111);
     
-    for(byte i=0; i < 0 + rnd; i++) {
+    for(byte i=0; i < 10 + rnd; i++) {
 
       lastJiffy = JIFFY;
       while (JIFFY == lastJiffy) {
       }
       
       BlinkBlock(col_1, line_1, blocks[index]);
-      BlinkBlock(col_2, line_2, blocks[index]);
-      BlinkBlock(col_3, line_3, blocks[index]);
+      //BlinkBlock(col_2, line_2, blocks[index]);
+      //BlinkBlock(col_3, line_3, blocks[index]);
 
       if(index++ >= sizeof(blocks)) index = 0;
       
@@ -126,5 +130,8 @@ void TitleScreen() {
         return;
       }
     }
+    
+    BlinkBlock(col_1, line_1, colors[colorIndex + 1]);
+    
   }
 }
