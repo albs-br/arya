@@ -24,7 +24,7 @@ void CheckIfPlayfieldIsValid() {
   }
 }
 
-void CheckPlayfield() {
+void CheckPlayfield(byte iteration) {
   bool piecesRemoved = FALSE;
   byte oldLevel, numberPiecesRemoved;
   
@@ -117,6 +117,7 @@ void CheckPlayfield() {
     }
     
     DrawNumber(numberPiecesRemoved, 0, 0);//test
+    DrawNumber(iteration, 0, 1);//test
     //Wait(60);
     
     while(counter-- > 0) {
@@ -210,7 +211,8 @@ void CheckPlayfield() {
     
     DrawScore();
 
-    CheckPlayfield();
+    iteration++;
+    CheckPlayfield(iteration);
     
   }
   //else {
@@ -257,7 +259,7 @@ void UpdateAndDrawPieceStatic() {
   else {
     RandomPiece();
 
-    CheckPlayfield();
+    CheckPlayfield(1);
   }
 
   DrawPlayfield();
