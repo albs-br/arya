@@ -102,6 +102,8 @@ void CheckPlayfield(byte iteration) {
     // Animation
     byte counter = 72;
     
+    byte leftmostPieceRemoved = 5, rightmostPieceRemoved = 0;
+    
     HideArrow();
     
     SoundFx_2();
@@ -112,12 +114,16 @@ void CheckPlayfield(byte iteration) {
       for(byte col = 0; col < COLS_PLAYFIELD; col++) {
         if((playfield[col][line] & REMOVING_FLAG) != 0) {
           numberPiecesRemoved++;
+          if(col < leftmostPieceRemoved) leftmostPieceRemoved = col;
+          if(col > rightmostPieceRemoved) rightmostPieceRemoved = col;
         }
       }
     }
     
     DrawNumber(numberPiecesRemoved, 0, 0);//test
     DrawNumber(iteration, 0, 1);//test
+    DrawNumber(leftmostPieceRemoved, 0, 3);//test
+    DrawNumber(rightmostPieceRemoved, 0, 4);//test
     //Wait(60);
     
     
