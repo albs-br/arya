@@ -73,9 +73,7 @@ byte d_col = 0, d_line = 0, d_value = 0;
 
 #include "GameLogic.h"
 
-
 #include "Intro.h"
-
 #include "Title.h"
 
 
@@ -85,7 +83,7 @@ void main() {
   
   while(TRUE) {
     
-    //Intro();
+    Intro();
     
     TitleScreen();
 

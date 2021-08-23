@@ -26,7 +26,7 @@ void CheckIfPlayfieldIsValid() {
 
 void CheckPlayfield() {
   bool piecesRemoved = FALSE;
-  byte oldLevel;
+  byte oldLevel, numberPiecesRemoved;
   
   // Save copy of playfield
   for(byte line = 0; line < LINES_PLAYFIELD; line++) {
@@ -106,7 +106,19 @@ void CheckPlayfield() {
     
     SoundFx_2();
     
-    // Animation 1: blocks blinking
+    // Count pieces removed
+    numberPiecesRemoved = 0;
+    for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+      for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+        if((playfield[col][line] & REMOVING_FLAG) != 0) {
+          numberPiecesRemoved++;
+        }
+      }
+    }
+    
+    DrawNumber(numberPiecesRemoved, 0, 0);//test
+    //Wait(60);
+    
     while(counter-- > 0) {
       word lastJiffy = JIFFY;
       while (lastJiffy == JIFFY) {
@@ -117,7 +129,9 @@ void CheckPlayfield() {
         for(byte col = 0; col < COLS_PLAYFIELD; col++) {
 
           if((playfield[col][line] & REMOVING_FLAG) != 0) {
+            
     		
+    	    // Animation 1: blocks blinking
             if(counter > 12) {
               if(JIFFY & 0b00000011) {
                 DrawBlock(col, line, playfield[col][line] & 0b01111111);
@@ -127,6 +141,7 @@ void CheckPlayfield() {
               }
             }
             else {
+              // Animation 2: blocks turning into dust
               if(counter > 9) DrawBlock_SameTile(col, line, DUST_1);
               else if(counter > 6) DrawBlock_SameTile(col, line, DUST_1 + 1);
               else if(counter > 3) DrawBlock_SameTile(col, line, DUST_1 + 2);
@@ -138,31 +153,7 @@ void CheckPlayfield() {
       }
     }
     
-    // Animation 2: blocks turning into dust
-    /*
-    while(counter-- > 0) {
-      word lastJiffy = JIFFY;
-      while (lastJiffy == JIFFY) {
-      }
-      // Animation loop sync'ed at 60/50 Hz starts here
-
-      for(byte line = 0; line < LINES_PLAYFIELD; line++) {
-        for(byte col = 0; col < COLS_PLAYFIELD; col++) {
-
-          if((playfield[col][line] & REMOVING_FLAG) != 0) {
-    		
-            if(JIFFY & 0b00000011) {
-              DrawBlock(col, line, playfield[col][line] & 0b01111111);
-            }
-            else {
-              DrawBlock(col, line, EMPTY);
-            }
-
-          }
-        }
-      }
-    }
-    */
+    
     
     // After animation
     for(byte line = 0; line < LINES_PLAYFIELD; line++) {
