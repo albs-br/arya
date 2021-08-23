@@ -92,7 +92,7 @@ void CheckPlayfield(byte iteration) {
         // Set cells to removing status
         playfield[col][line - 2] =     playfieldTemp[col][line - 2] | REMOVING_FLAG;
         playfield[col - 1][line - 1] = playfieldTemp[col - 1][line - 1] | REMOVING_FLAG;
-        playfield[col - 2][line] = 	       playfieldTemp[col - 2][line] | REMOVING_FLAG;
+        playfield[col - 2][line] =     playfieldTemp[col - 2][line] | REMOVING_FLAG;
       }
     }
   }
@@ -103,6 +103,7 @@ void CheckPlayfield(byte iteration) {
     byte counter = 72;
     
     byte leftmostPieceRemoved = 5, rightmostPieceRemoved = 0;
+    //byte lmostPieceRemoved = 11,   upmostPieceRemoved = 0;
     
     HideArrow();
     
@@ -116,16 +117,20 @@ void CheckPlayfield(byte iteration) {
           numberPiecesRemoved++;
           if(col < leftmostPieceRemoved) leftmostPieceRemoved = col;
           if(col > rightmostPieceRemoved) rightmostPieceRemoved = col;
+          //if(line < lmostPieceRemoved) lmostPieceRemoved = line;
+          //if(line > upmostPieceRemoved) upmostPieceRemoved = line;
         }
       }
     }
     
+    // debug
     DrawNumber(numberPiecesRemoved, 0, 0);//test
     DrawNumber(iteration, 0, 1);//test
     DrawNumber(leftmostPieceRemoved, 0, 3);//test
     DrawNumber(rightmostPieceRemoved, 0, 4);//test
+    //DrawNumber(lmostPieceRemoved, 0, 6);//test
+    //DrawNumber(upmostPieceRemoved, 0, 7);//test
     //Wait(60);
-    
     
     while(counter-- > 0) {
       word lastJiffy = JIFFY;
