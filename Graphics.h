@@ -209,7 +209,7 @@ void DrawArrow(byte x, byte y) {
   // First sprite
   WRTVRM(MSX_modedata_screen2.sprite_attribute, 	y - 1);
   WRTVRM(MSX_modedata_screen2.sprite_attribute + 1, 	x);
-  WRTVRM(MSX_modedata_screen2.sprite_attribute + 2, 	0);
+  WRTVRM(MSX_modedata_screen2.sprite_attribute + 2, 	SPRITE_PATTERN_DOWN_ARROW);
   WRTVRM(MSX_modedata_screen2.sprite_attribute + 3, 	colors[colorIndex]);
 
   // Second sprite (offset to right/down by 1px)
