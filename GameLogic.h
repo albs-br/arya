@@ -120,17 +120,23 @@ void CheckPlayfield(byte iteration) {
     DrawNumber(iteration, 0, 1);//test
     //Wait(60);
     
+    
     while(counter-- > 0) {
       word lastJiffy = JIFFY;
       while (lastJiffy == JIFFY) {
       }
       // Animation loop sync'ed at 60/50 Hz starts here
 
+
       for(byte line = 0; line < LINES_PLAYFIELD; line++) {
         for(byte col = 0; col < COLS_PLAYFIELD; col++) {
 
           if((playfield[col][line] & REMOVING_FLAG) != 0) {
             
+            // "?x HIT" sprite logic
+            //if(numberPiecesRemoved == 3) {
+            //  DrawHitSprite(
+            //}
     		
     	    // Animation 1: blocks blinking
             if(counter > 12) {
