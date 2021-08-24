@@ -71,6 +71,9 @@ byte d_col = 0, d_line = 0, d_value = 0;
 
 #include "Sound.h"
 
+
+#include "CheckPlayfield.h"
+
 #include "GameLogic.h"
 
 #include "Intro.h"

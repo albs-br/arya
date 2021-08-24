@@ -65,6 +65,8 @@ void TitleScreen() {
   LDIRVM(MSX_modedata_screen2.name, title, 32 * 24);
   
   DrawString("PRESS TRIGGER TO START", 5, 13);
+  DrawString("ANDREBAPTISTA.COM.BR", 0, 23);
+  DrawString("v.?.?.?", 32-7, 23);
   
   while(TRUE) {
     byte index = 0, col_1, line_1; //, col_2, line_2, col_3, line_3;

@@ -15,7 +15,10 @@ void DrawNumber(word number, byte col, byte line) {
 
   word power;
   bool trailingZero = TRUE;
-  for(byte i = 6; i > 0; i--) {
+
+  DrawString("      ", col, line); // Clear space for number (6 digits)
+
+  for(byte i = 6; i > 0; i--) { //  (6 digits)
     
     power = Power(10, i - 1);
 
@@ -225,6 +228,9 @@ void HideArrow() {
   WRTVRM(MSX_modedata_screen2.sprite_attribute, 	192);
   //WRTVRM(MSX_modedata_screen2.sprite_attribute + 4, 	192);
 }
+
+//void DrawHitSprite() {
+//}
 
 void InitVRAM() {
 
