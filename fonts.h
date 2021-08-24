@@ -22,5 +22,3 @@ const char FONT[] = {
 
 
 
-#define CHAR_A		(NUMBER_OF_PATTERNS + 33)	// ALWAYS use parenthesis when defining pre-compilation constants with expressions
-#define CHAR_0		(NUMBER_OF_PATTERNS + 16)
