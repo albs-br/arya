@@ -90,7 +90,7 @@ void TitleScreen() {
       
       if(counter++ > 1000) {
         colorIndex++;
-      	if(colorIndex >= sizeof(colors)) colorIndex = 0;
+      	if(colorIndex >= sizeof(colors) - 1) colorIndex = 0;
         
         counter = 0;
       }

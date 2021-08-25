@@ -1,0 +1,307 @@
+ASxxxx Linker V03.00 + NoICE + sdld,  page 1.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+.  .ABS.                            00000000    00000000 =           0. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00000000  .__.ABS.                           
+     00000000  l__CABS                         
+     00000000  l__DABS                         
+     00000000  l__HEADER                       
+     00000000  l__HEAP                         
+     00000000  l__HOME                         
+     00000000  l__ROMDATA                      
+     00000000  s__CABS                         
+     00000000  s__DABS                         
+     00000000  s__HEADER                       
+     00000000  s__HEADER0                      
+     00000001  l__GSFINAL                      
+     00000004  _MSX_charset                       msxbios
+     00000006  _MSX_vdp_port_read                 msxbios
+     00000007  _MSX_vdp_port_write                msxbios
+     0000000C  l__INITIALIZED                  
+     0000000C  l__INITIALIZER                  
+     00000010  l__GSINIT                       
+     0000001C  l__HEADER0                      
+     0000002D  _MSX_version                       msxbios
+     000000A6  l__DATA                         
+     00002837  l__CODE                         
+     0000801C  s__CODE                         
+     0000A853  s__GSINIT                       
+     0000A853  s__HOME                         
+     0000A863  s__GSFINAL                      
+     0000A864  s__INITIALIZER                  
+     0000A870  s__ROMDATA                      
+     0000C000  s__DATA                         
+     0000C0A6  s__INITIALIZED                  
+     0000C0B2  s__HEAP                         
+     0000F3AE  _LINL40                            msxbios
+     0000F3AF  _LINL32                            msxbios
+     0000F3B0  _LINLEN                            msxbios
+     0000F3B1  _CLMLST                            msxbios
+     0000F3B1  _CRTCNT                            msxbios
+     0000F3B3  _MSX_modedata_screen0              msxbios
+     0000F3BD  _MSX_modedata_screen1              msxbios
+     0000F3C7  _MSX_modedata_screen2              msxbios
+     0000F3D1  _MSX_modedata_screen3              msxbios
+     0000F3DB  _CLIKSW                            msxbios
+     0000F3DC  _CSRY                              msxbios
+     0000F3DD  _CSRX                              msxbios
+     0000F3DE  _CNSDFG                            msxbios
+     0000F3DF  _MSX_vdp_regs                      msxbios
+     0000F3E7  _STATFL                            msxbios
+     0000F3E8  _TRGFLG                            msxbios
+     0000F3E9  _FORCLR                            msxbios
+     0000F3EA  _BAKCLR                            msxbios
+     0000F3EB  _BDRCLR                            msxbios
+ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+.  .ABS.                            00000000    00000000 =           0. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     0000F3F2  _ATRBYT                            msxbios
+     0000F3F6  _SCNCNT                            msxbios
+     0000F3F7  _REPCNT                            msxbios
+     0000F3F8  _PUTPNT                            msxbios
+     0000F3FA  _GETPNT                            msxbios
+     0000F92A  _CLOC                              msxbios
+     0000F92C  _CMASK                             msxbios
+     0000FC9E  _JIFFY                             msxbios
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_CODE                               0000801C    00002837 =       10295. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     0000801C  _Wait                              main
+     00008034  _pieces                            main
+     00008039  _Power                             main
+     0000806C  _InitRnd                           main
+     000080BF  _GetRandom                         main
+     000080F5  _GetRandomInInterval               main
+     00008109  _DrawChar                          main
+     00008134  _FONT                              main
+     000087C4  _DrawString                        main
+     000087F6  _DrawNumber                        main
+     000088B1  _DrawColumn                        main
+     00008A82  _DrawScore                         main
+     00008C19  _DrawBackground                    main
+     00008C4A  _DrawArrow                         main
+     00008CE5  _HideArrow                         main
+     00008CF3  _InitVRAM                          main
+     00008F89  _DrawBlock                         main
+     00008FF6  _DrawBlock_SameTile                main
+     0000905C  _DrawLine                          main
+     00009094  _DrawPiece                         main
+     000090B7  _DrawPlayfield                     main
+     000090C8  _SoundFx_2                         main
+     00009107  _SoundFx_1                         main
+     00009128  _CheckIfPlayfieldIsValid           main
+     000091DC  _CheckPlayfield                    main
+     00009925  _RandomIndex                       main
+     00009932  _RandomPiece                       main
+     0000995A  _UpdateAndDrawPieceStatic          main
+     000099EE  _BlinkPauseText                    main
+     00009A12  _Pause                             main
+     00009A52  _GameLoop                          main
+     00009E2C  _TestCase                          main
+     00009E7D  _InitGame                          main
+     00009F17  _ChangeFontColor                   main
+     00009F6F  _ScrollDownFont                    main
+     00009FF3  _Intro                             main
+     0000A081  _SetBlock                          main
+     0000A0AC  _TitleScreen                       main
+     0000A5DB  _main                              main
+     0000A5E6  _LOAD_REGS                         msxbios
+     0000A5F5  _RDSLT                             msxbios
+     0000A617  _WRSLT                             msxbios
+     0000A640  _DISSCR                            msxbios
+     0000A644  _ENASCR                            msxbios
+     0000A648  _WRTVDP                            msxbios
+     0000A64E  _RDVRM                             msxbios
+     0000A653  _WRTVRM                            msxbios
+     0000A673  _SETRD                             msxbios
+     0000A677  _SETWRT                            msxbios
+     0000A67B  _FILVRM                            msxbios
+ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_CODE                               0000801C    00002837 =       10295. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     0000A6AB  _LDIRMV                            msxbios
+     0000A6DE  _LDIRVM                            msxbios
+     0000A711  _CHGMOD                            msxbios
+     0000A716  _CHGCLR                            msxbios
+     0000A71A  _CLRSPR                            msxbios
+     0000A71E  _INITXT                            msxbios
+     0000A722  _INIT32                            msxbios
+     0000A726  _INIGRP                            msxbios
+     0000A72A  _INIMLT                            msxbios
+     0000A72E  _CALPAT                            msxbios
+     0000A733  _CALATR                            msxbios
+     0000A738  _GSPSIZ                            msxbios
+     0000A73D  _GRPPRT                            msxbios
+     0000A742  _GICINI                            msxbios
+     0000A746  _WRTPSG                            msxbios
+     0000A74C  _CHSNS                             msxbios
+     0000A754  _CHGET                             msxbios
+     0000A759  _CHPUT                             msxbios
+     0000A75E  _LPTOUT                            msxbios
+     0000A763  _BEEP                              msxbios
+     0000A767  _CLS                               msxbios
+     0000A76C  _POSIT                             msxbios
+     0000A770  _TOTEXT                            msxbios
+     0000A774  _GTSTCK                            msxbios
+     0000A77A  _GTTRIG                            msxbios
+     0000A780  _GTPAD                             msxbios
+     0000A786  _GTPDL                             msxbios
+     0000A78C  _MAPXY                             msxbios
+     0000A790  _FETCHC_ADDR                       msxbios
+     0000A794  _RDVDP                             msxbios
+     0000A799  _SNSMAT                            msxbios
+     0000A79F  _KILBUF                            msxbios
+     0000A7A3  _putchar                           msxbios
+     0000A7CD  _getchar                           msxbios
+     0000A7E1  __divuint                          
+     0000A7E9  __divuchar                         
+     0000A7F0  __divu8                            
+     0000A7F3  __divu16                           
+     0000A822  __mulint                           
+     0000A828  __mul16                            
+     0000A83C  __moduchar                         
+     0000A848  __moduint                          
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 5.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_HEADER0                            00000000    0000001C =          28. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00008010  init                               
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 6.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_GSINIT                             0000A853    00000010 =          16. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     0000A853  gsinit                             
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 7.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_GSFINAL                            0000A863    00000001 =           1. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+ASxxxx Linker V03.00 + NoICE + sdld,  page 8.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_INITIALIZER                        0000A864    0000000C =          12. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+ASxxxx Linker V03.00 + NoICE + sdld,  page 9.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_DATA                               0000C000    000000A6 =         166. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     0000C000  _heap_top                          
+     0000C002  _playfield                         main
+     0000C04A  _playfieldTemp                     main
+     0000C092  _topPiece                          main
+     0000C093  _midPiece                          main
+     0000C094  _bottomPiece                       main
+     0000C095  _speed                             main
+     0000C096  _Rand_a                            main
+     0000C097  _Rand_b                            main
+     0000C098  _Rand_c                            main
+     0000C099  _Rand_x                            main
+     0000C09A  _REGS                              msxbios
+ASxxxx Linker V03.00 + NoICE + sdld,  page 10.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_INITIALIZED                        0000C0A6    0000000C =          12. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     0000C0A6  _gameOver                          main
+     0000C0A7  _col                               main
+     0000C0A8  _line                              main
+     0000C0A9  _counter                           main
+     0000C0AA  _blocksRemoved                     main
+     0000C0AC  _level                             main
+     0000C0AD  _newLevel                          main
+     0000C0AE  _rndSeed                           main
+     0000C0AF  _d_col                             main
+     0000C0B0  _d_line                            main
+     0000C0B1  _d_value                           main
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 11.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_HEAP                               0000C0B2    00000000 =           0. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     0000C0B2  _HEAP_start                        
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 12.
+
+Files Linked                              [ module(s) ]
+
+Debug\objs\msxromcrt0.rel                 [  ]
+Debug\objs\main.rel                       [ main ]
+Debug\objs\msxbios.rel                    [ msxbios ]
+
+
+Libraries Linked                          [ object file ]
+
+C:\Program Files\SDCC\bin\..\lib\z80/z80.lib
+                                          [ divunsigned.rel ]
+C:\Program Files\SDCC\bin\..\lib\z80/z80.lib
+                                          [ mul.rel ]
+C:\Program Files\SDCC\bin\..\lib\z80/z80.lib
+                                          [ modunsigned.rel ]
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 13.
+
+User Base Address Definitions
+
+_CODE = 0x801c
+_DATA = 0xc000
+
+

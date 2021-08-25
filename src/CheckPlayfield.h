@@ -129,10 +129,10 @@ void CheckPlayfield(byte iteration) {
     // debug
     DrawNumber(numberPiecesRemoved, 0, 0);//test
     DrawNumber(iteration, 0, 1);//test
-    //DrawNumber(leftmostPieceRemoved, 0, 3);//test
-    //DrawNumber(rightmostPieceRemoved, 0, 4);//test
-    //DrawNumber(lmostPieceRemoved, 0, 6);//test
-    //DrawNumber(upmostPieceRemoved, 0, 7);//test
+    DrawNumber(leftmostPieceRemoved, 0, 3);//test
+    DrawNumber(rightmostPieceRemoved, 0, 4);//test
+    DrawNumber(lmostPieceRemoved, 0, 6);//test
+    DrawNumber(upmostPieceRemoved, 0, 7);//test
     //Wait(60);
     
     while(counter-- > 0) {
@@ -147,14 +147,14 @@ void CheckPlayfield(byte iteration) {
 
           if((playfield[col][line] & REMOVING_FLAG) != 0) {
             
-            //byte x, y;
+            byte x, y;
             
             // "?x HIT" sprite logic
-            //if(numberPiecesRemoved == 3) {
-              //x = ((rightmostPieceRemoved - leftmostPieceRemoved) / 2) + leftmostPieceRemoved;
-              //y = ((lmostPieceRemoved - upmostPieceRemoved) / 2) + lmostPieceRemoved;
+            if(numberPiecesRemoved == 3) {
+              x = ((rightmostPieceRemoved - leftmostPieceRemoved) / 2) + leftmostPieceRemoved;
+              y = ((lmostPieceRemoved - upmostPieceRemoved) / 2) + lmostPieceRemoved;
               //DrawHitSprite(
-            //}
+            }
     		
     	    // Animation 1: blocks blinking
             if(counter > 12) {

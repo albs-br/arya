@@ -10,7 +10,7 @@ byte RandomIndex() {
   return random;
 }
 
-byte RandomPiece() {
+void RandomPiece() {
   topPiece = pieces[RandomIndex()];
   midPiece = pieces[RandomIndex()];
   bottomPiece = pieces[RandomIndex()];

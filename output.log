@@ -1,0 +1,122 @@
+-------------------------------------------------------------------------------
+Building target configuration files...
+-------------------------------------------------------------------------------
+MSX SDCC Make Script Copyright © 2020-2021 Danilo Angelo 2021 Pedro Medeiros
+version 00.05.00 - Codename Mac\'n\'Tux
+Build Debug Level 255
+-------------------------------------------------------------------------------
+Filesystem config...
+Current dir C:\Users\albs_\source\repos\arya
+Target file .\MSXAPP.ROM
+Object path .\Debug\objs
+Binary path .\Debug\bin
+MSX dev path .\..\..\..
+MSX lib path .\..\..\..\libs
+-------------------------------------------------------------------------------
+Making a small housecleaning.
+Done housecleaning.
+-------------------------------------------------------------------------------
+Building application settings file...
+Adding specific ROM settings...
+Done building application settings file.
+-------------------------------------------------------------------------------
+Collecting include cirectories...
+Collected .
+Done collecting include directories.
+-------------------------------------------------------------------------------
+Building application modules...
+Processing ASM file MSX\ROM\msxromcrt0.s...
+## sdasz80 -o "Debug\objs\msxromcrt0.rel" "MSX\ROM\msxromcrt0.s"
+ARG[1]=sdasz80
+ARG[2]=-o
+ARG[3]="Debug\objs\msxromcrt0.rel"
+ARG[4]="MSX\ROM\msxromcrt0.s"
+Processing C file src\main.c...
+## sdcc -mz80 -c -I"." -o "Debug\objs\main.rel" "src\main.c"
+ARG[1]=sdcc
+ARG[2]=-mz80
+ARG[3]=-c
+ARG[4]=-I"."
+ARG[5]=-o
+ARG[6]="Debug\objs\main.rel"
+ARG[7]="src\main.c"
+Processing C file src\msxbios.c...
+## sdcc -mz80 -c -I"." -o "Debug\objs\msxbios.rel" "src\msxbios.c"
+ARG[1]=sdcc
+ARG[2]=-mz80
+ARG[3]=-c
+ARG[4]=-I"."
+ARG[5]=-o
+ARG[6]="Debug\objs\msxbios.rel"
+ARG[7]="src\msxbios.c"
+Done building application modules.
+-------------------------------------------------------------------------------
+Collecting libraries...
+Done collecting libraries.
+-------------------------------------------------------------------------------
+Determining CODE-LOC...
+Analyzing Debug\objs\msxromcrt0.rel...
+FILE_START is 0x8000.
+_HEADER segment size is 0x0000001C.
+CODE-LOC determined to be 0x0000801C.
+-------------------------------------------------------------------------------
+Compiling...
+## sdcc --code-loc 0x0000801C --data-loc 0xC000 -mz80 --no-std-crt0 --opt-code-size --disable-warning 196 "Debug\objs\msxromcrt0.rel" "Debug\objs\main.rel" "Debug\objs\msxbios.rel" -I"." -o "Debug\objs\MSXAPP.IHX"
+ARG[1]=sdcc
+ARG[2]=--code-loc
+ARG[3]=0x0000801C
+ARG[4]=--data-loc
+ARG[5]=0xC000
+ARG[6]=-mz80
+ARG[7]=--no-std-crt0
+ARG[8]=--opt-code-size
+ARG[9]=--disable-warning
+ARG[10]=196
+ARG[11]="Debug\objs\msxromcrt0.rel"
+ARG[12]="Debug\objs\main.rel"
+ARG[13]="Debug\objs\msxbios.rel"
+ARG[14]=-I"."
+ARG[15]=-o
+ARG[16]="Debug\objs\MSXAPP.IHX"
+Done compiling.
+-------------------------------------------------------------------------------
+Build MSX binary...
+## hex2bin -e ROM -l 4000 "Debug\objs\MSXAPP.IHX"
+ARG[1]=hex2bin
+ARG[2]=-e
+ARG[3]=ROM
+ARG[4]=-l
+ARG[5]=4000
+ARG[6]="Debug\objs\MSXAPP.IHX"
+hex2bin v2.5, Copyright (C) 2017 Jacques Pelletier & contributors
+
+Allocate_Memory_and_Rewind:
+Lowest address:   00008000
+Highest address:  0000BFFF
+Starting address: 00008000
+Max Length:       16384
+
+Binary file start = 00008000
+Records start     = 00008000
+Highest address   = 0000BFFF
+Pad Byte          = FF
+Done building MSX binary.
+-------------------------------------------------------------------------------
+Moving MSX binary...
+## copy Debug\objs\*.ROM Debug\bin\
+ARG[1]=copy
+ARG[2]=Debug\objs\*.ROM
+ARG[3]=Debug\bin\
+Debug\objs\MSXAPP.ROM
+        1 arquivo(s) copiado(s).
+Done moving MSX binary.
+-------------------------------------------------------------------------------
+Building symbol file...
+## python Make\symbol.py Debug\objs\ MSXAPP
+ARG[1]=python
+ARG[2]=Make\symbol.py
+ARG[3]=Debug\objs\
+ARG[4]=MSXAPP
+Done building symbol file.
+-------------------------------------------------------------------------------
+All set. Happy MSX'ing.
