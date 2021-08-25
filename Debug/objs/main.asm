@@ -4912,10 +4912,10 @@ _CheckPlayfield::
 	call	_DrawNumber
 	pop	af
 	pop	af
-;src\/CheckPlayfield.h:132: DrawNumber(leftmostPieceRemoved, 0, 3);//test
+;src\/CheckPlayfield.h:132: DrawNumber(leftmostPieceRemoved, 0, 13);//test
 	ld	c, -16 (ix)
 	ld	b, #0x00
-	ld	a, #0x03
+	ld	a, #0x0d
 	push	af
 	inc	sp
 	xor	a, a
@@ -4925,10 +4925,10 @@ _CheckPlayfield::
 	call	_DrawNumber
 	pop	af
 	pop	af
-;src\/CheckPlayfield.h:133: DrawNumber(rightmostPieceRemoved, 0, 4);//test
+;src\/CheckPlayfield.h:133: DrawNumber(rightmostPieceRemoved, 0, 14);//test
 	ld	c, -15 (ix)
 	ld	b, #0x00
-	ld	a, #0x04
+	ld	a, #0x0e
 	push	af
 	inc	sp
 	xor	a, a
@@ -4938,10 +4938,10 @@ _CheckPlayfield::
 	call	_DrawNumber
 	pop	af
 	pop	af
-;src\/CheckPlayfield.h:134: DrawNumber(lowermostPieceRemoved, 0, 6);//test
+;src\/CheckPlayfield.h:134: DrawNumber(lowermostPieceRemoved, 0, 16);//test
 	ld	c, -14 (ix)
 	ld	b, #0x00
-	ld	a, #0x06
+	ld	a, #0x10
 	push	af
 	inc	sp
 	xor	a, a
@@ -4951,10 +4951,10 @@ _CheckPlayfield::
 	call	_DrawNumber
 	pop	af
 	pop	af
-;src\/CheckPlayfield.h:135: DrawNumber(upmostPieceRemoved, 0, 7);//test
+;src\/CheckPlayfield.h:135: DrawNumber(upmostPieceRemoved, 0, 17);//test
 	ld	c, -13 (ix)
 	ld	b, #0x00
-	ld	a, #0x07
+	ld	a, #0x11
 	push	af
 	inc	sp
 	xor	a, a
@@ -5086,7 +5086,7 @@ _CheckPlayfield::
 	add	hl, hl
 	add	a, l
 	ld	e, a
-;src\/CheckPlayfield.h:155: y = (((lowermostPieceRemoved * 16) - (upmostPieceRemoved * 16)) / 2) + (lowermostPieceRemoved * 16) - (72 - counter);
+;src\/CheckPlayfield.h:155: y = (((lowermostPieceRemoved * 16) - (upmostPieceRemoved * 16)) / 2) + (upmostPieceRemoved * 16) - (72 - counter);
 	ld	l, -14 (ix)
 	ld	h, #0x00
 	add	hl, hl
@@ -5117,7 +5117,7 @@ _CheckPlayfield::
 00234$:
 	sra	b
 	rr	c
-	ld	l, -14 (ix)
+	ld	l, -13 (ix)
 	add	hl, hl
 	add	hl, hl
 	add	hl, hl

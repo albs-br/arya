@@ -4912,10 +4912,10 @@
       0016E3 CDrDAr07         [17] 4912 	call	_DrawNumber
       0016E6 F1               [10] 4913 	pop	af
       0016E7 F1               [10] 4914 	pop	af
-                                   4915 ;src\/CheckPlayfield.h:132: DrawNumber(leftmostPieceRemoved, 0, 3);//test
+                                   4915 ;src\/CheckPlayfield.h:132: DrawNumber(leftmostPieceRemoved, 0, 13);//test
       0016E8 DD 4E F0         [19] 4916 	ld	c, -16 (ix)
       0016EB 06 00            [ 7] 4917 	ld	b, #0x00
-      0016ED 3E 03            [ 7] 4918 	ld	a, #0x03
+      0016ED 3E 0D            [ 7] 4918 	ld	a, #0x0d
       0016EF F5               [11] 4919 	push	af
       0016F0 33               [ 6] 4920 	inc	sp
       0016F1 AF               [ 4] 4921 	xor	a, a
@@ -4925,10 +4925,10 @@
       0016F5 CDrDAr07         [17] 4925 	call	_DrawNumber
       0016F8 F1               [10] 4926 	pop	af
       0016F9 F1               [10] 4927 	pop	af
-                                   4928 ;src\/CheckPlayfield.h:133: DrawNumber(rightmostPieceRemoved, 0, 4);//test
+                                   4928 ;src\/CheckPlayfield.h:133: DrawNumber(rightmostPieceRemoved, 0, 14);//test
       0016FA DD 4E F1         [19] 4929 	ld	c, -15 (ix)
       0016FD 06 00            [ 7] 4930 	ld	b, #0x00
-      0016FF 3E 04            [ 7] 4931 	ld	a, #0x04
+      0016FF 3E 0E            [ 7] 4931 	ld	a, #0x0e
       001701 F5               [11] 4932 	push	af
       001702 33               [ 6] 4933 	inc	sp
       001703 AF               [ 4] 4934 	xor	a, a
@@ -4938,10 +4938,10 @@
       001707 CDrDAr07         [17] 4938 	call	_DrawNumber
       00170A F1               [10] 4939 	pop	af
       00170B F1               [10] 4940 	pop	af
-                                   4941 ;src\/CheckPlayfield.h:134: DrawNumber(lowermostPieceRemoved, 0, 6);//test
+                                   4941 ;src\/CheckPlayfield.h:134: DrawNumber(lowermostPieceRemoved, 0, 16);//test
       00170C DD 4E F2         [19] 4942 	ld	c, -14 (ix)
       00170F 06 00            [ 7] 4943 	ld	b, #0x00
-      001711 3E 06            [ 7] 4944 	ld	a, #0x06
+      001711 3E 10            [ 7] 4944 	ld	a, #0x10
       001713 F5               [11] 4945 	push	af
       001714 33               [ 6] 4946 	inc	sp
       001715 AF               [ 4] 4947 	xor	a, a
@@ -4951,10 +4951,10 @@
       001719 CDrDAr07         [17] 4951 	call	_DrawNumber
       00171C F1               [10] 4952 	pop	af
       00171D F1               [10] 4953 	pop	af
-                                   4954 ;src\/CheckPlayfield.h:135: DrawNumber(upmostPieceRemoved, 0, 7);//test
+                                   4954 ;src\/CheckPlayfield.h:135: DrawNumber(upmostPieceRemoved, 0, 17);//test
       00171E DD 4E F3         [19] 4955 	ld	c, -13 (ix)
       001721 06 00            [ 7] 4956 	ld	b, #0x00
-      001723 3E 07            [ 7] 4957 	ld	a, #0x07
+      001723 3E 11            [ 7] 4957 	ld	a, #0x11
       001725 F5               [11] 4958 	push	af
       001726 33               [ 6] 4959 	inc	sp
       001727 AF               [ 4] 4960 	xor	a, a
@@ -5086,7 +5086,7 @@
       00180E 29               [11] 5086 	add	hl, hl
       00180F 85               [ 4] 5087 	add	a, l
       001810 5F               [ 4] 5088 	ld	e, a
-                                   5089 ;src\/CheckPlayfield.h:155: y = (((lowermostPieceRemoved * 16) - (upmostPieceRemoved * 16)) / 2) + (lowermostPieceRemoved * 16) - (72 - counter);
+                                   5089 ;src\/CheckPlayfield.h:155: y = (((lowermostPieceRemoved * 16) - (upmostPieceRemoved * 16)) / 2) + (upmostPieceRemoved * 16) - (72 - counter);
       001811 DD 6E F2         [19] 5090 	ld	l, -14 (ix)
       001814 26 00            [ 7] 5091 	ld	h, #0x00
       001816 29               [11] 5092 	add	hl, hl
@@ -5117,7 +5117,7 @@
       001834                       5117 00234$:
       001834 CB 28            [ 8] 5118 	sra	b
       001836 CB 19            [ 8] 5119 	rr	c
-      001838 DD 6E F2         [19] 5120 	ld	l, -14 (ix)
+      001838 DD 6E F3         [19] 5120 	ld	l, -13 (ix)
       00183B 29               [11] 5121 	add	hl, hl
       00183C 29               [11] 5122 	add	hl, hl
       00183D 29               [11] 5123 	add	hl, hl
