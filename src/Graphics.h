@@ -226,11 +226,32 @@ void DrawArrow(byte x, byte y) {
 
 void HideArrow() {
   WRTVRM(MSX_modedata_screen2.sprite_attribute, 	192);
-  //WRTVRM(MSX_modedata_screen2.sprite_attribute + 4, 	192);
 }
 
-//void DrawHitSprite() {
-//}
+void DrawHitSprite(byte x, byte y) {
+  //TODO: refactor (code repeated)
+  const byte colors[] = {
+    15,
+    14,
+    5,
+    4,
+    4,
+    5,
+    14,
+    15,
+  };
+  
+  byte colorIndex = (JIFFY & 0b00001110) >> 1;
+
+  WRTVRM(MSX_modedata_screen2.sprite_attribute + 4, 	y - 1);
+  WRTVRM(MSX_modedata_screen2.sprite_attribute + 5, 	x);
+  WRTVRM(MSX_modedata_screen2.sprite_attribute + 6, 	SPRITE_PATTERN_3X_HIT);
+  WRTVRM(MSX_modedata_screen2.sprite_attribute + 7, 	colors[colorIndex]);
+}
+
+void HideHitSprite() {
+  WRTVRM(MSX_modedata_screen2.sprite_attribute + 4, 	192);
+}
 
 void InitVRAM() {
 

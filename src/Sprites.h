@@ -3,7 +3,7 @@
 
 
 #define SPRITE_PATTERN_DOWN_ARROW	0
-#define SPRITE_PATTERN_3X_HIT		4
+#define SPRITE_PATTERN_3X_HIT		  4
 
 
 

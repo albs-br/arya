@@ -105,7 +105,7 @@ void CheckPlayfield(byte iteration) {
     byte counter = 72;
     
     byte leftmostPieceRemoved = 5, rightmostPieceRemoved = 0;
-    byte lmostPieceRemoved = 11,   upmostPieceRemoved = 0;
+    byte lowermostPieceRemoved = 11,   upmostPieceRemoved = 0;
     
     HideArrow();
     
@@ -120,7 +120,7 @@ void CheckPlayfield(byte iteration) {
           
           if(col < leftmostPieceRemoved) leftmostPieceRemoved = col;
           if(col > rightmostPieceRemoved) rightmostPieceRemoved = col;
-          if(line < lmostPieceRemoved) lmostPieceRemoved = line;
+          if(line < lowermostPieceRemoved) lowermostPieceRemoved = line;
           if(line > upmostPieceRemoved) upmostPieceRemoved = line;
         }
       }
@@ -131,7 +131,7 @@ void CheckPlayfield(byte iteration) {
     DrawNumber(iteration, 0, 1);//test
     DrawNumber(leftmostPieceRemoved, 0, 3);//test
     DrawNumber(rightmostPieceRemoved, 0, 4);//test
-    DrawNumber(lmostPieceRemoved, 0, 6);//test
+    DrawNumber(lowermostPieceRemoved, 0, 6);//test
     DrawNumber(upmostPieceRemoved, 0, 7);//test
     //Wait(60);
     
@@ -151,9 +151,9 @@ void CheckPlayfield(byte iteration) {
             
             // "?x HIT" sprite logic
             if(numberPiecesRemoved == 3) {
-              x = ((rightmostPieceRemoved - leftmostPieceRemoved) / 2) + leftmostPieceRemoved;
-              y = ((lmostPieceRemoved - upmostPieceRemoved) / 2) + lmostPieceRemoved;
-              //DrawHitSprite(
+              x = (PLAYFIELD_HORIZ_OFFSET * 8) + (((rightmostPieceRemoved * 16) - (leftmostPieceRemoved * 16)) / 2) + (leftmostPieceRemoved * 16);
+              y = (((lowermostPieceRemoved * 16) - (upmostPieceRemoved * 16)) / 2) + (lowermostPieceRemoved * 16) - (72 - counter);
+              DrawHitSprite(x, y);
             }
     		
     	    // Animation 1: blocks blinking
@@ -177,6 +177,8 @@ void CheckPlayfield(byte iteration) {
         }
       }
     }
+    
+    HideHitSprite();
     
     
     
