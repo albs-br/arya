@@ -74,6 +74,7 @@ void TitleScreen() {
     byte spaceBar, btn1, btn2;
     byte value;
     word counter = 0;
+    //byte currentColor, nextColor;
     
     //word lastJiffy = JIFFY;
     //while (JIFFY == lastJiffy) {
@@ -81,16 +82,37 @@ void TitleScreen() {
     
     // Title animation v-sync'ed starts here
     
+
     do {
+
+      //currentColor = colors[0];
+      //nextColor = colors[colorIndex];
+
+      //DrawNumber(nextColor, 0, 15);
+
       col_1 = GetRandomInInterval(31, 0b00011111);
       line_1 = GetRandomInInterval(7, 0b00000111);
       //col_2 = GetRandomInInterval(31, 0b00011111);
       //line_2 = GetRandomInInterval(7, 0b00000111);
       value = RDVRM(MSX_modedata_screen2.name + col_1 + (line_1 * 32));
       
+      // Next color
       if(counter++ > 1000) {
         colorIndex++;
       	if(colorIndex >= sizeof(colors) - 1) colorIndex = 0;
+        /*
+      	if(colorIndex == sizeof(colors) - 1) {
+          currentColor = colors[sizeof(colors) - 1];  // last color
+          nextColor = colors[0];                      // first color
+        }
+        else {
+          if(colorIndex == sizeof(colors)) {
+            colorIndex = 0;
+          }
+          currentColor = colors[colorIndex];
+          nextColor = colors[colorIndex + 1];
+        }
+        */
         
         counter = 0;
       }
@@ -109,7 +131,7 @@ void TitleScreen() {
     }
     while (RDVRM(MSX_modedata_screen2.name + col_3 + (line_3 * 32)) == EMPTY);
     */
-    rnd = GetRandomInInterval(7, 0b00000111);
+    //rnd = GetRandomInInterval(7, 0b00000111);
     
     for(byte i=0; i < 10 + 0; i++) {
 

@@ -95,7 +95,7 @@ Symbol Table
     _TRGFLG                                                     =  00F3E8 G
   0 _TestCase                                                      001F6C GR
   0 _TitleScreen                                                   0021EC GR
-  0 _TitleScreen_title_65536_275                                   0023E7 R
+  0 _TitleScreen_title_65536_275                                   0023DB R
   0 _UpdateAndDrawPieceStatic                                      001A9A GR
     _WRTPSG                                                        ****** GX
     _WRTVDP                                                        ****** GX
@@ -103,8 +103,8 @@ Symbol Table
   0 _Wait                                                          000000 GR
   0 ___str_0                                                       00088E R
   0 ___str_1                                                       000BE8 R
-  0 ___str_10                                                      0026FE R
-  0 ___str_11                                                      002713 R
+  0 ___str_10                                                      0026F2 R
+  0 ___str_11                                                      002707 R
   0 ___str_2                                                       000BEF R
   0 ___str_3                                                       000BF6 R
   0 ___str_4                                                       001B4C R
@@ -112,7 +112,7 @@ Symbol Table
   0 ___str_6                                                       001F62 R
   0 ___str_7                                                       0021A8 R
   0 ___str_8                                                       0021B2 R
-  0 ___str_9                                                       0026E7 R
+  0 ___str_9                                                       0026DB R
     __divuint                                                      ****** GX
     __moduint                                                      ****** GX
     __mulint                                                       ****** GX
@@ -202,7 +202,7 @@ Symbol Table
   2 _gameOver                                                      000000 GR
   2 _level                                                         000006 GR
   2 _line                                                          000002 GR
-  0 _main                                                          00271B GR
+  0 _main                                                          00270F GR
   1 _midPiece                                                      000091 GR
   2 _newLevel                                                      000007 GR
   0 _pattern_0                                                     000438 R
@@ -275,7 +275,7 @@ Hexadecimal [24-Bits]
 
 Area Table
 
-   0 _CODE                                      size   2726   flags    0
+   0 _CODE                                      size   271A   flags    0
    1 _DATA                                      size     98   flags    0
    2 _INITIALIZED                               size      C   flags    0
    3 _DABS                                      size      0   flags    8

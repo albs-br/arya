@@ -6867,16 +6867,16 @@ _TitleScreen::
 	xor	a, a
 	ld	-2 (ix), a
 	ld	-1 (ix), a
-;src\/Title.h:84: do {
+;src\/Title.h:86: do {
 00106$:
-;src\/Title.h:85: col_1 = GetRandomInInterval(31, 0b00011111);
+;src\/Title.h:93: col_1 = GetRandomInInterval(31, 0b00011111);
 	push	bc
 	push	de
 	ld	de, #0x1f1f
 	push	de
 	call	_GetRandomInInterval
 	pop	af
-;src\/Title.h:86: line_1 = GetRandomInInterval(7, 0b00000111);
+;src\/Title.h:94: line_1 = GetRandomInInterval(7, 0b00000111);
 	ld	-8 (ix), l
 	ld	de, #0x0707
 	push	de
@@ -6885,7 +6885,7 @@ _TitleScreen::
 	pop	de
 	pop	bc
 	ld	-7 (ix), l
-;src\/Title.h:89: value = RDVRM(MSX_modedata_screen2.name + col_1 + (line_1 * 32));
+;src\/Title.h:97: value = RDVRM(MSX_modedata_screen2.name + col_1 + (line_1 * 32));
 	ld	hl, (#_MSX_modedata_screen2 + 0)
 	ld	a, -8 (ix)
 	ld	b, #0x00
@@ -6913,7 +6913,7 @@ _TitleScreen::
 	pop	de
 	pop	bc
 	ld	-6 (ix), l
-;src\/Title.h:91: if(counter++ > 1000) {
+;src\/Title.h:100: if(counter++ > 1000) {
 	ld	b, -2 (ix)
 	ld	l, -1 (ix)
 	inc	-2 (ix)
@@ -6925,20 +6925,20 @@ _TitleScreen::
 	ld	a, #0x03
 	sbc	a, l
 	jr	NC, 00107$
-;src\/Title.h:92: colorIndex++;
+;src\/Title.h:101: colorIndex++;
 	inc	c
-;src\/Title.h:93: if(colorIndex >= sizeof(colors) - 1) colorIndex = 0;
+;src\/Title.h:102: if(colorIndex >= sizeof(colors) - 1) colorIndex = 0;
 	ld	a, c
 	sub	a, #0x03
 	jr	C, 00102$
 	ld	c, #0x00
 00102$:
-;src\/Title.h:95: counter = 0;
+;src\/Title.h:117: counter = 0;
 	xor	a, a
 	ld	-2 (ix), a
 	ld	-1 (ix), a
 00107$:
-;src\/Title.h:98: while (value == EMPTY || value == colors[colorIndex + 1]);
+;src\/Title.h:120: while (value == EMPTY || value == colors[colorIndex + 1]);
 	ld	a, -6 (ix)
 	or	a, a
 	jr	Z, 00106$
@@ -6960,26 +6960,17 @@ _TitleScreen::
 	ld	a, -6 (ix)
 	sub	a, b
 	jp	Z,00106$
-;src\/Title.h:112: rnd = GetRandomInInterval(7, 0b00000111);
-	push	bc
-	push	de
-	ld	de, #0x0707
-	push	de
-	call	_GetRandomInInterval
-	pop	af
-	pop	de
-	pop	bc
-;src\/Title.h:114: for(byte i=0; i < 10 + 0; i++) {
+;src\/Title.h:136: for(byte i=0; i < 10 + 0; i++) {
 	ld	b, #0x00
 00123$:
 	ld	a, b
 	sub	a, #0x0a
 	jr	NC, 00118$
-;src\/Title.h:116: word lastJiffy = JIFFY;
+;src\/Title.h:138: word lastJiffy = JIFFY;
 	ld	hl, (_JIFFY)
 	ld	-2 (ix), l
 	ld	-1 (ix), h
-;src\/Title.h:117: while (JIFFY == lastJiffy) {
+;src\/Title.h:139: while (JIFFY == lastJiffy) {
 00109$:
 	ld	iy, #_JIFFY
 	ld	a, 0 (iy)
@@ -6989,7 +6980,7 @@ _TitleScreen::
 	sub	a, -1 (ix)
 	jr	Z, 00109$
 00194$:
-;src\/Title.h:122: SetBlock(col_1, line_1, blocks[index]);
+;src\/Title.h:144: SetBlock(col_1, line_1, blocks[index]);
 	ld	l, -3 (ix)
 	ld	h, #0x00
 	add	hl, de
@@ -7006,25 +6997,25 @@ _TitleScreen::
 	inc	sp
 	pop	de
 	pop	bc
-;src\/Title.h:126: if(index++ >= sizeof(blocks)) index = 0;
+;src\/Title.h:148: if(index++ >= sizeof(blocks)) index = 0;
 	ld	a, -3 (ix)
 	inc	-3 (ix)
 	sub	a, #0x07
 	jr	C, 00113$
 	ld	-3 (ix), #0
 00113$:
-;src\/Title.h:139: spaceBar = GTTRIG(TRIG_Spacebar);
+;src\/Title.h:161: spaceBar = GTTRIG(TRIG_Spacebar);
 	push	bc
 	push	de
 	ld	l, #0x00
 	call	_GTTRIG
-;src\/Title.h:140: btn1 = GTTRIG(TRIG_Joy1_A);
+;src\/Title.h:162: btn1 = GTTRIG(TRIG_Joy1_A);
 	ld	-1 (ix), l
 	ld	l, #0x01
 	call	_GTTRIG
 	pop	de
 	pop	bc
-;src\/Title.h:141: btn2 = GTTRIG(TRIG_Joy1_B);
+;src\/Title.h:163: btn2 = GTTRIG(TRIG_Joy1_B);
 	push	hl
 	push	bc
 	push	de
@@ -7035,7 +7026,7 @@ _TitleScreen::
 	pop	bc
 	pop	hl
 	ld	h, a
-;src\/Title.h:143: if(spaceBar == 0xff || btn1 == 0xff || btn2 == 0xff) { 
+;src\/Title.h:165: if(spaceBar == 0xff || btn1 == 0xff || btn2 == 0xff) { 
 	ld	a, -1 (ix)
 	inc	a
 	jr	Z, 00114$
@@ -7044,17 +7035,17 @@ _TitleScreen::
 	inc	h
 	jr	NZ, 00124$
 00114$:
-;src\/Title.h:144: rndSeed = JIFFY;
+;src\/Title.h:166: rndSeed = JIFFY;
 	ld	a,(#_JIFFY + 0)
 	ld	(#_rndSeed), a
-;src\/Title.h:145: return;
+;src\/Title.h:167: return;
 	jr	00125$
 00124$:
-;src\/Title.h:114: for(byte i=0; i < 10 + 0; i++) {
+;src\/Title.h:136: for(byte i=0; i < 10 + 0; i++) {
 	inc	b
 	jr	00123$
 00118$:
-;src\/Title.h:149: SetBlock(col_1, line_1, colors[colorIndex + 1]);
+;src\/Title.h:171: SetBlock(col_1, line_1, colors[colorIndex + 1]);
 	ld	l, -5 (ix)
 	ld	h, -4 (ix)
 	ld	a, (hl)
@@ -7072,7 +7063,7 @@ _TitleScreen::
 	pop	bc
 	jp	00120$
 00125$:
-;src\/Title.h:152: }
+;src\/Title.h:174: }
 	ld	sp, ix
 	pop	ix
 	ret
