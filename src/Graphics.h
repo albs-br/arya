@@ -241,16 +241,28 @@ void DrawHitSprite(byte x, byte y) {
     15,
   };
   
-  byte colorIndex = (JIFFY & 0b00001110) >> 1;
+  byte colorIndex = (JIFFY & 0b00000111) >> 1;
 
   WRTVRM(MSX_modedata_screen2.sprite_attribute + 4, 	y - 1);
-  WRTVRM(MSX_modedata_screen2.sprite_attribute + 5, 	x);
+  WRTVRM(MSX_modedata_screen2.sprite_attribute + 5, 	x - 16);
   WRTVRM(MSX_modedata_screen2.sprite_attribute + 6, 	SPRITE_PATTERN_3X_HIT);
   WRTVRM(MSX_modedata_screen2.sprite_attribute + 7, 	colors[colorIndex]);
+
+  WRTVRM(MSX_modedata_screen2.sprite_attribute + 8, 	y - 1);
+  WRTVRM(MSX_modedata_screen2.sprite_attribute + 9, 	x);
+  WRTVRM(MSX_modedata_screen2.sprite_attribute + 10, 	SPRITE_PATTERN_3X_HIT + 4);
+  WRTVRM(MSX_modedata_screen2.sprite_attribute + 11, 	colors[colorIndex]);
+
+  //WRTVRM(MSX_modedata_screen2.sprite_attribute + 12, 	y - 1);
+  //WRTVRM(MSX_modedata_screen2.sprite_attribute + 13, 	x + 16);
+  //WRTVRM(MSX_modedata_screen2.sprite_attribute + 14, 	SPRITE_PATTERN_3X_HIT + 8);
+  //WRTVRM(MSX_modedata_screen2.sprite_attribute + 15, 	colors[colorIndex]);
 }
 
 void HideHitSprite() {
   WRTVRM(MSX_modedata_screen2.sprite_attribute + 4, 	192);
+  WRTVRM(MSX_modedata_screen2.sprite_attribute + 8, 	192);
+  WRTVRM(MSX_modedata_screen2.sprite_attribute + 12, 	192);
 }
 
 void InitVRAM() {
