@@ -1,19 +1,19 @@
 //#define A		TITLE_1
 
 void ChangeFontColor(byte color) {
-  FILVRM(MSX_modedata_screen2.color + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, color);
-  FILVRM(MSX_modedata_screen2.color + (256 * 8) + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, color);
-  FILVRM(MSX_modedata_screen2.color + (512 * 8) + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, color);
+  FILVRM(CLRTBL + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, color);
+  FILVRM(CLRTBL + (256 * 8) + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, color);
+  FILVRM(CLRTBL + (512 * 8) + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, color);
 }
 
 void ScrollDownFont() {
-  word startVRAMAddr = MSX_modedata_screen2.pattern + (256 * 8) + (NUMBER_OF_PATTERNS * 8);
+  word startVRAMAddr = PATTBL + (256 * 8) + (NUMBER_OF_PATTERNS * 8);
   word size = (HICHAR-LOCHAR+1) * 8;
   byte value;
   
   // Loading font patterns (1st bank)
   	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
-  //LDIRVM(MSX_modedata_screen2.pattern + (NUMBER_OF_PATTERNS * 8), FONT, (HICHAR-LOCHAR+1) * 8);
+  //LDIRVM(PATTBL + (NUMBER_OF_PATTERNS * 8), FONT, (HICHAR-LOCHAR+1) * 8);
 
   /*
   uint8_t RDVRM(uint16_t addr) __z88dk_fastcall;
@@ -89,19 +89,19 @@ void Intro() {
       //col_2 = GetRandomInInterval(31, 0b00011111);
       //line_2 = GetRandomInInterval(7, 0b00000111);
     }
-    while (RDVRM(MSX_modedata_screen2.name + col_1 + (line_1 * 32)) == EMPTY);
+    while (RDVRM(NAMTBL + col_1 + (line_1 * 32)) == EMPTY);
     
     do {
       col_2 = GetRandomInInterval(31, 0b00011111);
       line_2 = GetRandomInInterval(7, 0b00000111);
     }
-    while (RDVRM(MSX_modedata_screen2.name + col_2 + (line_2 * 32)) == EMPTY);
+    while (RDVRM(NAMTBL + col_2 + (line_2 * 32)) == EMPTY);
     
     do {
       col_3 = GetRandomInInterval(31, 0b00011111);
       line_3 = GetRandomInInterval(7, 0b00000111);
     }
-    while (RDVRM(MSX_modedata_screen2.name + col_3 + (line_3 * 32)) == EMPTY);
+    while (RDVRM(NAMTBL + col_3 + (line_3 * 32)) == EMPTY);
     
     rnd = GetRandomInInterval(7, 0b00000111);
     

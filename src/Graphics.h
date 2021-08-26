@@ -1,8 +1,16 @@
+// Screen 2 VRAM mapping
+#define NAMTBL  6144
+#define CLRTBL  8192
+#define PATTBL  2048
+#define SPRATT  6912
+#define SPRPAT  14336
+
+
 #define PLAYFIELD_HORIZ_OFFSET		10
 
 
 void DrawChar(byte character, byte col, byte line) {
-  WRTVRM(MSX_modedata_screen2.name + (line * 32) + col, character);
+  WRTVRM(NAMTBL + (line * 32) + col, character);
 }
 
 void DrawString(const char* str, byte col, byte line) {
@@ -37,33 +45,33 @@ void DrawNumber(word number, byte col, byte line) {
 }
 
 void DrawColumn(byte col) {
-  WRTVRM(MSX_modedata_screen2.name + col + 0, COLUMN_TOP_1);
-  WRTVRM(MSX_modedata_screen2.name + col + 1, COLUMN_TOP_1 + 1);
-  WRTVRM(MSX_modedata_screen2.name + col + 2, COLUMN_TOP_1 + 2);
-  WRTVRM(MSX_modedata_screen2.name + col + 32, COLUMN_TOP_1 + 3);
-  WRTVRM(MSX_modedata_screen2.name + col + 33, COLUMN_TOP_1 + 4);
-  WRTVRM(MSX_modedata_screen2.name + col + 34, COLUMN_TOP_1 + 5);
+  WRTVRM(NAMTBL + col + 0, COLUMN_TOP_1);
+  WRTVRM(NAMTBL + col + 1, COLUMN_TOP_1 + 1);
+  WRTVRM(NAMTBL + col + 2, COLUMN_TOP_1 + 2);
+  WRTVRM(NAMTBL + col + 32, COLUMN_TOP_1 + 3);
+  WRTVRM(NAMTBL + col + 33, COLUMN_TOP_1 + 4);
+  WRTVRM(NAMTBL + col + 34, COLUMN_TOP_1 + 5);
 
   for(byte i=0; i<20; i++) {
-    WRTVRM(MSX_modedata_screen2.name + col + 64 + (i*32), COLUMN_MIDDLE_1);
-    WRTVRM(MSX_modedata_screen2.name + col + 65 + (i*32), COLUMN_MIDDLE_1 + 1);
-    WRTVRM(MSX_modedata_screen2.name + col + 66 + (i*32), COLUMN_MIDDLE_1 + 2);
+    WRTVRM(NAMTBL + col + 64 + (i*32), COLUMN_MIDDLE_1);
+    WRTVRM(NAMTBL + col + 65 + (i*32), COLUMN_MIDDLE_1 + 1);
+    WRTVRM(NAMTBL + col + 66 + (i*32), COLUMN_MIDDLE_1 + 2);
   }
 
-  WRTVRM(MSX_modedata_screen2.name + col + (32 * 8), COLUMN_MIDDLE_2);
-  WRTVRM(MSX_modedata_screen2.name + col + (32 * 8) + 1, COLUMN_MIDDLE_2 + 1);
-  WRTVRM(MSX_modedata_screen2.name + col + (32 * 8) + 2, COLUMN_MIDDLE_2 + 2);
+  WRTVRM(NAMTBL + col + (32 * 8), COLUMN_MIDDLE_2);
+  WRTVRM(NAMTBL + col + (32 * 8) + 1, COLUMN_MIDDLE_2 + 1);
+  WRTVRM(NAMTBL + col + (32 * 8) + 2, COLUMN_MIDDLE_2 + 2);
 
-  WRTVRM(MSX_modedata_screen2.name + col + (32 * 16), COLUMN_MIDDLE_2);
-  WRTVRM(MSX_modedata_screen2.name + col + (32 * 16) + 1, COLUMN_MIDDLE_2 + 1);
-  WRTVRM(MSX_modedata_screen2.name + col + (32 * 16) + 2, COLUMN_MIDDLE_2 + 2);
+  WRTVRM(NAMTBL + col + (32 * 16), COLUMN_MIDDLE_2);
+  WRTVRM(NAMTBL + col + (32 * 16) + 1, COLUMN_MIDDLE_2 + 1);
+  WRTVRM(NAMTBL + col + (32 * 16) + 2, COLUMN_MIDDLE_2 + 2);
 
-  WRTVRM(MSX_modedata_screen2.name + col + (32 * 22) + 0, COLUMN_BOTTOM_1);
-  WRTVRM(MSX_modedata_screen2.name + col + (32 * 22) + 1, COLUMN_BOTTOM_1 + 1);
-  WRTVRM(MSX_modedata_screen2.name + col + (32 * 22) + 2, COLUMN_BOTTOM_1 + 2);
-  WRTVRM(MSX_modedata_screen2.name + col + (32 * 22) + 32, COLUMN_BOTTOM_1 + 3);
-  WRTVRM(MSX_modedata_screen2.name + col + (32 * 22) + 33, COLUMN_BOTTOM_1 + 4);
-  WRTVRM(MSX_modedata_screen2.name + col + (32 * 22) + 34, COLUMN_BOTTOM_1 + 5);
+  WRTVRM(NAMTBL + col + (32 * 22) + 0, COLUMN_BOTTOM_1);
+  WRTVRM(NAMTBL + col + (32 * 22) + 1, COLUMN_BOTTOM_1 + 1);
+  WRTVRM(NAMTBL + col + (32 * 22) + 2, COLUMN_BOTTOM_1 + 2);
+  WRTVRM(NAMTBL + col + (32 * 22) + 32, COLUMN_BOTTOM_1 + 3);
+  WRTVRM(NAMTBL + col + (32 * 22) + 33, COLUMN_BOTTOM_1 + 4);
+  WRTVRM(NAMTBL + col + (32 * 22) + 34, COLUMN_BOTTOM_1 + 5);
 }
 
 void DrawScore() {
@@ -115,9 +123,9 @@ void DrawScore() {
               bgColor = 0x11;
 
           }
-          FILVRM(MSX_modedata_screen2.color, 8 * 4, bgColor);
-          FILVRM(MSX_modedata_screen2.color + (256 * 8), 8 * 4, bgColor);
-          FILVRM(MSX_modedata_screen2.color + (512 * 8), 8 * 4, bgColor);
+          FILVRM(CLRTBL, 8 * 4, bgColor);
+          FILVRM(CLRTBL + (256 * 8), 8 * 4, bgColor);
+          FILVRM(CLRTBL + (512 * 8), 8 * 4, bgColor);
         //}
         
       }
@@ -132,9 +140,9 @@ void DrawScore() {
   newLevel = FALSE;
   
   // Restore correct BG Color
-  FILVRM(MSX_modedata_screen2.color, 8 * 4, 0x14);
-  FILVRM(MSX_modedata_screen2.color + (256 * 8), 8 * 4, 0x14);
-  FILVRM(MSX_modedata_screen2.color + (512 * 8), 8 * 4, 0x14);
+  FILVRM(CLRTBL, 8 * 4, 0x14);
+  FILVRM(CLRTBL + (256 * 8), 8 * 4, 0x14);
+  FILVRM(CLRTBL + (512 * 8), 8 * 4, 0x14);
   
   DrawString(" LEVEL", 26, 4);
   DrawString("BLOCKS", 26, 9);
@@ -147,7 +155,7 @@ void DrawScore() {
 void DrawBackground() {
   // Write to names table
   for(int i = 0; i < 256 * 3; i++) {
-    WRTVRM(MSX_modedata_screen2.name + i, 0); // test
+    WRTVRM(NAMTBL + i, 0); // test
   }
 
   DrawColumn(7);
@@ -160,16 +168,16 @@ void DrawBackground() {
   /*
   // test font
   for(byte i=0; i<10; i++) {
-    WRTVRM(MSX_modedata_screen2.name + i, CHAR_0 + i);
+    WRTVRM(NAMTBL + i, CHAR_0 + i);
   }
   for(byte i=0; i<10; i++) {
-    WRTVRM(MSX_modedata_screen2.name + 32 + i, CHAR_A + i);
+    WRTVRM(NAMTBL + 32 + i, CHAR_A + i);
   }
   for(byte i=0; i<10; i++) {
-    WRTVRM(MSX_modedata_screen2.name + 64 + i, CHAR_A + 10 + i);
+    WRTVRM(NAMTBL + 64 + i, CHAR_A + 10 + i);
   }
   for(byte i=0; i<10; i++) {
-    WRTVRM(MSX_modedata_screen2.name + 96 + i, CHAR_A + 20 + i);
+    WRTVRM(NAMTBL + 96 + i, CHAR_A + 20 + i);
   }
   
   DrawChar(CHAR_A, 30, 5);
@@ -210,22 +218,22 @@ void DrawArrow(byte x, byte y) {
   //else color = 4;
   
   // First sprite
-  WRTVRM(MSX_modedata_screen2.sprite_attribute, 	y - 1);
-  WRTVRM(MSX_modedata_screen2.sprite_attribute + 1, 	x);
-  WRTVRM(MSX_modedata_screen2.sprite_attribute + 2, 	SPRITE_PATTERN_DOWN_ARROW);
-  WRTVRM(MSX_modedata_screen2.sprite_attribute + 3, 	colors[colorIndex]);
+  WRTVRM(SPRATT, 	y - 1);
+  WRTVRM(SPRATT + 1, 	x);
+  WRTVRM(SPRATT + 2, 	SPRITE_PATTERN_DOWN_ARROW);
+  WRTVRM(SPRATT + 3, 	colors[colorIndex]);
 
   // Second sprite (offset to right/down by 1px)
   /*
-  WRTVRM(MSX_modedata_screen2.sprite_attribute + 4,  	y);
-  WRTVRM(MSX_modedata_screen2.sprite_attribute + 5, 	x + 1);
-  WRTVRM(MSX_modedata_screen2.sprite_attribute + 6, 	0);
-  WRTVRM(MSX_modedata_screen2.sprite_attribute + 7, 	4);
+  WRTVRM(SPRATT + 4,  	y);
+  WRTVRM(SPRATT + 5, 	x + 1);
+  WRTVRM(SPRATT + 6, 	0);
+  WRTVRM(SPRATT + 7, 	4);
   */
 }
 
 void HideArrow() {
-  WRTVRM(MSX_modedata_screen2.sprite_attribute, 	192);
+  WRTVRM(SPRATT, 	192);
 }
 
 void DrawHitSprite(byte x, byte y, bool firstTime) {
@@ -244,35 +252,35 @@ void DrawHitSprite(byte x, byte y, bool firstTime) {
   byte colorIndex = (JIFFY & 0b00000111) >> 1;
 
   if(firstTime) {
-    WRTVRM(MSX_modedata_screen2.sprite_attribute + 5, 	x - 8);
-    WRTVRM(MSX_modedata_screen2.sprite_attribute + 6, 	SPRITE_PATTERN_3X_HIT);
+    WRTVRM(SPRATT + 5, 	x - 8);
+    WRTVRM(SPRATT + 6, 	SPRITE_PATTERN_3X);
 
-    WRTVRM(MSX_modedata_screen2.sprite_attribute + 9, 	x + 8);
-    WRTVRM(MSX_modedata_screen2.sprite_attribute + 10, 	SPRITE_PATTERN_3X_HIT + 4);
+    WRTVRM(SPRATT + 9, 	x + 8);
+    WRTVRM(SPRATT + 10, 	SPRITE_PATTERN_HIT_1 + 4);
 
-    WRTVRM(MSX_modedata_screen2.sprite_attribute + 13, 	x + 24);
-    WRTVRM(MSX_modedata_screen2.sprite_attribute + 14, 	SPRITE_PATTERN_3X_HIT + 8);
+    WRTVRM(SPRATT + 13, 	x + 24);
+    WRTVRM(SPRATT + 14, 	SPRITE_PATTERN_HIT_2 + 8);
   }
 
-  WRTVRM(MSX_modedata_screen2.sprite_attribute + 4, 	y);
-  WRTVRM(MSX_modedata_screen2.sprite_attribute + 7, 	colors[colorIndex]);
+  WRTVRM(SPRATT + 4, 	y);
+  WRTVRM(SPRATT + 7, 	colors[colorIndex]);
 
-  WRTVRM(MSX_modedata_screen2.sprite_attribute + 8, 	y);
-  WRTVRM(MSX_modedata_screen2.sprite_attribute + 11, 	colors[colorIndex]);
+  WRTVRM(SPRATT + 8, 	y);
+  WRTVRM(SPRATT + 11, 	colors[colorIndex]);
 
-  WRTVRM(MSX_modedata_screen2.sprite_attribute + 12, 	y);
-  WRTVRM(MSX_modedata_screen2.sprite_attribute + 15, 	colors[colorIndex]);
+  WRTVRM(SPRATT + 12, 	y);
+  WRTVRM(SPRATT + 15, 	colors[colorIndex]);
 }
 
 void HideHitSprite() {
-  WRTVRM(MSX_modedata_screen2.sprite_attribute + 4, 	192);
-  WRTVRM(MSX_modedata_screen2.sprite_attribute + 8, 	192);
-  WRTVRM(MSX_modedata_screen2.sprite_attribute + 12, 	192);
+  WRTVRM(SPRATT + 4, 	192);
+  WRTVRM(SPRATT + 8, 	192);
+  WRTVRM(SPRATT + 12, 	192);
 }
 
 void InitVRAM() {
 
-  //const byte SPRATT = MSX_modedata_screen2.sprite_attribute;
+  //const byte SPRATT = SPRATT;
 
   
   CLIKSW = 0;	// disable keyboard sound
@@ -321,98 +329,98 @@ void InitVRAM() {
   
   
   // Test - clear names table
-  //FILVRM(MSX_modedata_screen2.name, 768, EMPTY); //void FILVRM(uint16_t start, uint16_t len, uint8_t data);
+  //FILVRM(NAMTBL, 768, EMPTY); //void FILVRM(uint16_t start, uint16_t len, uint8_t data);
   
   
   // Loading sprites
-  LDIRVM(MSX_modedata_screen2.sprite_pattern, sprite_arrow_0, NUMBER_OF_SPRITES * 32);
+  LDIRVM(SPRPAT, sprite_arrow_0, NUMBER_OF_SPRITES * 32);
 
   // Testing sprite
   //SetArrow(0, 0);
   
   // Placing all sprites off screen
   for(byte i=0; i<32; i++) {
-    WRTVRM(MSX_modedata_screen2.sprite_attribute + (i * 4), 	192);
+    WRTVRM(SPRATT + (i * 4), 	192);
   }
     
   // Write to patterns table
   //for(int i = 0; i < 8; i++) {
-  //	WRTVRM(MSX_modedata_screen2.pattern + (exampleChar * 8) + i, 0b10110011);
+  //	WRTVRM(PATTBL + (exampleChar * 8) + i, 0b10110011);
   //}
   
   // Loading patterns (1st bank)
-  LDIRVM(MSX_modedata_screen2.pattern, pattern_black_0, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+  LDIRVM(PATTBL, pattern_black_0, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
 
   // Loading patterns (2nd bank)
-  LDIRVM(MSX_modedata_screen2.pattern + (256 * 8), pattern_black_0, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+  LDIRVM(PATTBL + (256 * 8), pattern_black_0, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
 
   // Loading patterns (3rd bank)
-  LDIRVM(MSX_modedata_screen2.pattern + (512 * 8), pattern_black_0, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+  LDIRVM(PATTBL + (512 * 8), pattern_black_0, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
   
   // Loading font patterns (1st bank)
-  LDIRVM(MSX_modedata_screen2.pattern + (NUMBER_OF_PATTERNS * 8), FONT, (HICHAR-LOCHAR+1) * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+  LDIRVM(PATTBL + (NUMBER_OF_PATTERNS * 8), FONT, (HICHAR-LOCHAR+1) * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
   
   // Loading font patterns (2nd bank)
-  LDIRVM(MSX_modedata_screen2.pattern + (256 * 8) + (NUMBER_OF_PATTERNS * 8), FONT, (HICHAR-LOCHAR+1) * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+  LDIRVM(PATTBL + (256 * 8) + (NUMBER_OF_PATTERNS * 8), FONT, (HICHAR-LOCHAR+1) * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
   
   // Loading font patterns (3rd bank)
-  LDIRVM(MSX_modedata_screen2.pattern + (512 * 8) + (NUMBER_OF_PATTERNS * 8), FONT, (HICHAR-LOCHAR+1) * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+  LDIRVM(PATTBL + (512 * 8) + (NUMBER_OF_PATTERNS * 8), FONT, (HICHAR-LOCHAR+1) * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
   
 
   // Title blocks
   for(byte i=0; i < NUMBER_OF_TITLE_BLOCKS; i++) {
-    LDIRVM(MSX_modedata_screen2.pattern + (TITLE_1 * 8) + (i * 8), pattern_title, NUMBER_OF_TITLE_BLOCKS * 8);
+    LDIRVM(PATTBL + (TITLE_1 * 8) + (i * 8), pattern_title, NUMBER_OF_TITLE_BLOCKS * 8);
   }
   
   
   // Write to colors table
   //for(int i = 0; i < 8; i++) {
-  //	WRTVRM(MSX_modedata_screen2.color + (exampleChar * 8) + i, 0x8a);
+  //	WRTVRM(CLRTBL + (exampleChar * 8) + i, 0x8a);
   //}
   
   // Loading colors (1st bank)
-  LDIRVM(MSX_modedata_screen2.color, color_black_0, NUMBER_OF_PATTERNS * 8);
+  LDIRVM(CLRTBL, color_black_0, NUMBER_OF_PATTERNS * 8);
   // Loading colors (2nd bank)
-  LDIRVM(MSX_modedata_screen2.color + (256 * 8), color_black_0, NUMBER_OF_PATTERNS * 8);
+  LDIRVM(CLRTBL + (256 * 8), color_black_0, NUMBER_OF_PATTERNS * 8);
   // Loading colors (3rd bank)
-  LDIRVM(MSX_modedata_screen2.color + (512 * 8), color_black_0, NUMBER_OF_PATTERNS * 8);
+  LDIRVM(CLRTBL + (512 * 8), color_black_0, NUMBER_OF_PATTERNS * 8);
 
   
   // Loading font colors
   // Single color
-  //FILVRM(MSX_modedata_screen2.color + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, 0xf0);
+  //FILVRM(CLRTBL + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, 0xf0);
   // Gradient pattern (1st bank)
   for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
-    LDIRVM(MSX_modedata_screen2.color + (NUMBER_OF_PATTERNS * 8) + (i * 8), color_font_2, 8);
+    LDIRVM(CLRTBL + (NUMBER_OF_PATTERNS * 8) + (i * 8), color_font_2, 8);
   }
   // Gradient pattern (2nd bank)
   for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
-    LDIRVM(MSX_modedata_screen2.color + (256 * 8) + (NUMBER_OF_PATTERNS * 8) + (i * 8), color_font_2, 8);
+    LDIRVM(CLRTBL + (256 * 8) + (NUMBER_OF_PATTERNS * 8) + (i * 8), color_font_2, 8);
   }
   // Gradient pattern (3rd bank)
   for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
-    LDIRVM(MSX_modedata_screen2.color + (512 * 8) + (NUMBER_OF_PATTERNS * 8) + (i * 8), color_font_2, 8);
+    LDIRVM(CLRTBL + (512 * 8) + (NUMBER_OF_PATTERNS * 8) + (i * 8), color_font_2, 8);
   }
   
 
   // Loading font colors (digits)
   // Single color
-  //FILVRM(MSX_modedata_screen2.color + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, 0xf0);
+  //FILVRM(CLRTBL + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, 0xf0);
   // Gradient pattern (1st bank)
   for(byte i = 0; i < 10; i++) {
-    LDIRVM(MSX_modedata_screen2.color + (CHAR_0 * 8) + (i * 8), color_font_1, 8);
+    LDIRVM(CLRTBL + (CHAR_0 * 8) + (i * 8), color_font_1, 8);
   }
   // Gradient pattern (2nd bank)
   for(byte i = 0; i < 10; i++) {
-    LDIRVM(MSX_modedata_screen2.color + (256 * 8) + (CHAR_0 * 8) + (i * 8), color_font_1, 8);
+    LDIRVM(CLRTBL + (256 * 8) + (CHAR_0 * 8) + (i * 8), color_font_1, 8);
   }
   // Gradient pattern (3rd bank)
   for(byte i = 0; i < 10; i++) {
-    LDIRVM(MSX_modedata_screen2.color + (512 * 8) + (CHAR_0 * 8) + (i * 8), color_font_1, 8);
+    LDIRVM(CLRTBL + (512 * 8) + (CHAR_0 * 8) + (i * 8), color_font_1, 8);
   }
   
   // Title blocks
-  LDIRVM(MSX_modedata_screen2.color + (TITLE_1 * 8), color_title_1, NUMBER_OF_TITLE_BLOCKS * 8);
+  LDIRVM(CLRTBL + (TITLE_1 * 8), color_title_1, NUMBER_OF_TITLE_BLOCKS * 8);
   
   
   
@@ -425,7 +433,7 @@ void InitVRAM() {
 
 void DrawBlock(byte col, byte line, byte tile) {
   //const byte horizOffset = 10;	// playfield offset from screen left border
-  word baseAddr = MSX_modedata_screen2.name + (col * 2) + (line * 2 * 32) + PLAYFIELD_HORIZ_OFFSET;
+  word baseAddr = NAMTBL + (col * 2) + (line * 2 * 32) + PLAYFIELD_HORIZ_OFFSET;
   
   WRTVRM(baseAddr, tile);
   WRTVRM(baseAddr + 1, tile + 1);
@@ -435,7 +443,7 @@ void DrawBlock(byte col, byte line, byte tile) {
 
 void DrawBlock_SameTile(byte col, byte line, byte tile) {
   //const byte horizOffset = 10;	// playfield offset from screen left border
-  word baseAddr = MSX_modedata_screen2.name + (col * 2) + (line * 2 * 32) + PLAYFIELD_HORIZ_OFFSET;
+  word baseAddr = NAMTBL + (col * 2) + (line * 2 * 32) + PLAYFIELD_HORIZ_OFFSET;
   
   WRTVRM(baseAddr, tile);
   WRTVRM(baseAddr + 1, tile);

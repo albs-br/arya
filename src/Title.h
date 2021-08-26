@@ -12,7 +12,7 @@
 
 
 void SetBlock(byte col, byte line, byte tileNumber) {
-  WRTVRM(MSX_modedata_screen2.name + col + (line * 32), tileNumber);
+  WRTVRM(NAMTBL + col + (line * 32), tileNumber);
 }
 
 void TitleScreen() {
@@ -64,7 +64,7 @@ void TitleScreen() {
   
   InitVRAM();
 
-  LDIRVM(MSX_modedata_screen2.name, title, sizeof(title));
+  LDIRVM(NAMTBL, title, sizeof(title));
   
   DrawString("PRESS TRIGGER TO START", 5, 13);
   DrawString("ANDREBAPTISTA.COM.BR", 0, 23);
@@ -96,7 +96,7 @@ void TitleScreen() {
       line_1 = GetRandomInInterval(7, 0b00000111);
       //col_2 = GetRandomInInterval(31, 0b00011111);
       //line_2 = GetRandomInInterval(7, 0b00000111);
-      value = RDVRM(MSX_modedata_screen2.name + col_1 + (line_1 * 32));
+      value = RDVRM(NAMTBL + col_1 + (line_1 * 32));
       
       // Next color
       if(counter++ > 1000) {
@@ -125,13 +125,13 @@ void TitleScreen() {
       col_2 = GetRandomInInterval(31, 0b00011111);
       line_2 = GetRandomInInterval(7, 0b00000111);
     }
-    while (RDVRM(MSX_modedata_screen2.name + col_2 + (line_2 * 32)) == EMPTY);
+    while (RDVRM(NAMTBL + col_2 + (line_2 * 32)) == EMPTY);
     
     do {
       col_3 = GetRandomInInterval(31, 0b00011111);
       line_3 = GetRandomInInterval(7, 0b00000111);
     }
-    while (RDVRM(MSX_modedata_screen2.name + col_3 + (line_3 * 32)) == EMPTY);
+    while (RDVRM(NAMTBL + col_3 + (line_3 * 32)) == EMPTY);
     */
     //rnd = GetRandomInInterval(7, 0b00000111);
     
