@@ -1,7 +1,7 @@
 // Screen 2 VRAM mapping
 #define NAMTBL  6144
 #define CLRTBL  8192
-#define PATTBL  2048
+#define PATTBL  0
 #define SPRATT  6912
 #define SPRPAT  14336
 
@@ -236,30 +236,30 @@ void HideArrow() {
   WRTVRM(SPRATT, 	192);
 }
 
-void DrawHitSprite(byte x, byte y, bool firstTime) {
+void DrawHitSprite(byte numberHit, byte x, byte y, bool firstTime) {
   //TODO: refactor (code repeated)
   const byte colors[] = {
     15,
     14,
-    5,
-    4,
-    4,
-    5,
+    9, //5,
+    6, //4,
+    6, //4,
+    9, //5,
     14,
     15,
   };
   
-  byte colorIndex = (JIFFY & 0b00000111) >> 1;
+  byte colorIndex = (JIFFY & 0b00000111);
 
   if(firstTime) {
     WRTVRM(SPRATT + 5, 	x - 8);
-    WRTVRM(SPRATT + 6, 	SPRITE_PATTERN_3X);
+    WRTVRM(SPRATT + 6, 	SPRITE_PATTERN_3X + ((numberHit - 3) * 4));
 
     WRTVRM(SPRATT + 9, 	x + 8);
-    WRTVRM(SPRATT + 10, 	SPRITE_PATTERN_HIT_1 + 4);
+    WRTVRM(SPRATT + 10, 	SPRITE_PATTERN_HIT);
 
     WRTVRM(SPRATT + 13, 	x + 24);
-    WRTVRM(SPRATT + 14, 	SPRITE_PATTERN_HIT_2 + 8);
+    WRTVRM(SPRATT + 14, 	SPRITE_PATTERN_HIT + 4);
   }
 
   WRTVRM(SPRATT + 4, 	y);
@@ -373,10 +373,6 @@ void InitVRAM() {
   }
   
   
-  // Write to colors table
-  //for(int i = 0; i < 8; i++) {
-  //	WRTVRM(CLRTBL + (exampleChar * 8) + i, 0x8a);
-  //}
   
   // Loading colors (1st bank)
   LDIRVM(CLRTBL, color_black_0, NUMBER_OF_PATTERNS * 8);
@@ -419,7 +415,7 @@ void InitVRAM() {
     LDIRVM(CLRTBL + (512 * 8) + (CHAR_0 * 8) + (i * 8), color_font_1, 8);
   }
   
-  // Title blocks
+  // Title blocks colors
   LDIRVM(CLRTBL + (TITLE_1 * 8), color_title_1, NUMBER_OF_TITLE_BLOCKS * 8);
   
   

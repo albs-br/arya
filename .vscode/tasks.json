@@ -6,7 +6,7 @@
         {
             "label": "compile",
             "type": "shell",
-            "command": "cmd /c .\make\make.bat Debug > output.log",
+            "command": ".\make\make.bat Debug > output.log",
                 // "args": [
                 //     {
                 //       //"value": "Main.s",
