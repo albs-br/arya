@@ -4,23 +4,56 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
+            "label": "compile",
             "type": "shell",
-            "command": "msbuild",
-            "args": [
-                // Ask msbuild to generate full paths for file names.
-                "/property:GenerateFullPaths=true",
-                "/t:build",
-                // Do not generate summary otherwise it leads to duplicate errors in Problems panel
-                "/consoleloggerparameters:NoSummary"
-            ],
+            "command": "cmd /c .\make\make.bat Debug > output.log",
+                // "args": [
+                //     {
+                //       //"value": "Main.s",
+                //       //"value": "${file}",
+                //       //"quoting": "strong"
+                //     }
+                // ],
+            "problemMatcher": [],
             "group": "build",
             "presentation": {
-                // Reveal the output only if unrecognized errors occur.
-                "reveal": "silent"
+                "reveal": "always"
+            }
+        },
+        {
+            "command": "C:\\Program Files\\openMSX\\openmsx",
+                "args": [
+                    {
+                        "value": "C:\\Users\\albs_\\source\\repos\\arya\\Debug\\bin\\MSXAPP.ROM",
+                        "quoting": "strong"
+                    },
+                    {
+                        //"value": "-machine Panasonic_FS-A1GT",
+                        "value": "-machine Gradiente_Expert_GPC-1",
+                        "quoting": "escape"
+                    },
+                    // {
+                    //     "value": "-romtype ASCII16",
+                    //     "quoting": "escape"
+                    // },
+                    // {
+                    //     "value": "-script C:\\Users\\albs_\\source\\repos\\penguim-platformer\\gopenguin_debug.tcl",
+                    //     "quoting": "escape"
+                    // }
+                ],
+            "label": "run openmsx",
+            "type": "shell",
+            "dependsOn": [
+                "assembly"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
             },
-            // Use the standard MS compiler pattern to detect errors, warnings and infos
-            "problemMatcher": "$msCompile"
+            "presentation": {
+                "reveal": "always"
+            }
         }
-    ]
+
 }

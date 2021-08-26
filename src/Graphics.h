@@ -254,13 +254,13 @@ void DrawHitSprite(byte x, byte y, bool firstTime) {
     WRTVRM(MSX_modedata_screen2.sprite_attribute + 14, 	SPRITE_PATTERN_3X_HIT + 8);
   }
 
-  WRTVRM(MSX_modedata_screen2.sprite_attribute + 4, 	y - 1);
+  WRTVRM(MSX_modedata_screen2.sprite_attribute + 4, 	y);
   WRTVRM(MSX_modedata_screen2.sprite_attribute + 7, 	colors[colorIndex]);
 
-  WRTVRM(MSX_modedata_screen2.sprite_attribute + 8, 	y - 1);
+  WRTVRM(MSX_modedata_screen2.sprite_attribute + 8, 	y);
   WRTVRM(MSX_modedata_screen2.sprite_attribute + 11, 	colors[colorIndex]);
 
-  WRTVRM(MSX_modedata_screen2.sprite_attribute + 12, 	y - 1);
+  WRTVRM(MSX_modedata_screen2.sprite_attribute + 12, 	y);
   WRTVRM(MSX_modedata_screen2.sprite_attribute + 15, 	colors[colorIndex]);
 }
 

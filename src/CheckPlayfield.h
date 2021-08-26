@@ -146,18 +146,18 @@ void CheckPlayfield(byte iteration) {
 
       // "?x HIT" sprite logic
       if(numberPiecesRemoved == 3) {
-        y = (((lowermostPieceRemoved * 16) - (upmostPieceRemoved * 16)) / 2) + (upmostPieceRemoved * 16) - (72 - counter);
 
         if(x == 255) { // do this expensive calculation only once
           x = (PLAYFIELD_HORIZ_OFFSET * 8) + (((rightmostPieceRemoved * 16) - (leftmostPieceRemoved * 16)) / 2) + (leftmostPieceRemoved * 16);
           //y = (((lowermostPieceRemoved * 16) - (upmostPieceRemoved * 16)) / 2) + (upmostPieceRemoved * 16) - (72 - counter);
+          y = (((lowermostPieceRemoved * 16) - (upmostPieceRemoved * 16)) / 2) + (upmostPieceRemoved * 16);
           DrawHitSprite(x, y, TRUE);
         }
         else {
           //y -= (72 - counter);
           // TODO: refactor here (line repeated; code expensive unnecessary)
           //y = (((lowermostPieceRemoved * 16) - (upmostPieceRemoved * 16)) / 2) + (upmostPieceRemoved * 16) - (72 - counter);
-          DrawHitSprite(x, y, FALSE);
+          DrawHitSprite(x, y - (72 - counter), FALSE);
         }
       }
 
