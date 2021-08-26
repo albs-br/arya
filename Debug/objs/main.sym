@@ -11,7 +11,7 @@ Symbol Table
     _BAKCLR                                                     =  00F3EA G
     _BDRCLR                                                     =  00F3EB G
     _BEEP                                                          ****** GX
-  0 _BlinkPauseText                                                001BCB GR
+  0 _BlinkPauseText                                                001BF3 GR
     _CLIKSW                                                     =  00F3DB G
     _CLMLST                                                     =  00F3B1 G
     _CLOC                                                       =  00F92A G
@@ -20,21 +20,21 @@ Symbol Table
     _CRTCNT                                                     =  00F3B1 G
     _CSRX                                                       =  00F3DD G
     _CSRY                                                       =  00F3DC G
-  0 _ChangeFontColor                                               0020F4 GR
-  0 _CheckIfPlayfieldIsValid                                       001260 GR
-  0 _CheckPlayfield                                                001314 GR
+  0 _ChangeFontColor                                               00211C GR
+  0 _CheckIfPlayfieldIsValid                                       0012BE GR
+  0 _CheckPlayfield                                                001372 GR
     _DISSCR                                                        ****** GX
   0 _DrawArrow                                                     000C4E GR
   0 _DrawBackground                                                000C1D GR
-  0 _DrawBlock                                                     0010C1 GR
-  0 _DrawBlock_SameTile                                            00112E GR
+  0 _DrawBlock                                                     00111F GR
+  0 _DrawBlock_SameTile                                            00118C GR
   0 _DrawChar                                                      0000ED GR
   0 _DrawColumn                                                    0008B5 GR
   0 _DrawHitSprite                                                 000CF7 GR
-  0 _DrawLine                                                      001194 GR
+  0 _DrawLine                                                      0011F2 GR
   0 _DrawNumber                                                    0007FA GR
-  0 _DrawPiece                                                     0011CC GR
-  0 _DrawPlayfield                                                 0011EF GR
+  0 _DrawPiece                                                     00122A GR
+  0 _DrawPlayfield                                                 00124D GR
   0 _DrawScore                                                     000A86 GR
   0 _DrawString                                                    0007C8 GR
     _ENASCR                                                        ****** GX
@@ -45,16 +45,16 @@ Symbol Table
     _GICINI                                                        ****** GX
     _GTSTCK                                                        ****** GX
     _GTTRIG                                                        ****** GX
-  0 _GameLoop                                                      001C2F GR
+  0 _GameLoop                                                      001C57 GR
   0 _GetRandom                                                     0000A3 GR
   0 _GetRandomInInterval                                           0000D9 GR
   0 _HideArrow                                                     000CE9 GR
-  0 _HideHitSprite                                                 000DF7 GR
+  0 _HideHitSprite                                                 000E55 GR
     _INIGRP                                                        ****** GX
-  0 _InitGame                                                      00205A GR
+  0 _InitGame                                                      002082 GR
   0 _InitRnd                                                       000050 GR
-  0 _InitVRAM                                                      000E2B GR
-  0 _Intro                                                         0021D0 GR
+  0 _InitVRAM                                                      000E89 GR
+  0 _Intro                                                         0021F8 GR
     _JIFFY                                                      =  00FC9E G
     _LDIRVM                                                        ****** GX
     _LINL32                                                     =  00F3AF G
@@ -75,7 +75,7 @@ Symbol Table
     _MSX_vdp_regs                                               =  00F3DF G
     _MSX_version                                                =  00002D G
     _PUTPNT                                                     =  00F3F8 G
-  0 _Pause                                                         001BEF GR
+  0 _Pause                                                         001C17 GR
   0 _Power                                                         00001D GR
     _RDVRM                                                         ****** GX
     _REPCNT                                                     =  00F3F7 G
@@ -83,36 +83,36 @@ Symbol Table
   1 _Rand_b                                                        000095 GR
   1 _Rand_c                                                        000096 GR
   1 _Rand_x                                                        000097 GR
-  0 _RandomIndex                                                   001B02 GR
-  0 _RandomPiece                                                   001B0F GR
+  0 _RandomIndex                                                   001B2A GR
+  0 _RandomPiece                                                   001B37 GR
     _SCNCNT                                                     =  00F3F6 G
     _SNSMAT                                                        ****** GX
     _STATFL                                                     =  00F3E7 G
-  0 _ScrollDownFont                                                00214C GR
-  0 _SetBlock                                                      00225E GR
-  0 _SoundFx_1                                                     00123F GR
-  0 _SoundFx_2                                                     001200 GR
+  0 _ScrollDownFont                                                002174 GR
+  0 _SetBlock                                                      002286 GR
+  0 _SoundFx_1                                                     00129D GR
+  0 _SoundFx_2                                                     00125E GR
     _TRGFLG                                                     =  00F3E8 G
-  0 _TestCase                                                      002009 GR
-  0 _TitleScreen                                                   002289 GR
-  0 _TitleScreen_title_65536_275                                   002478 R
-  0 _UpdateAndDrawPieceStatic                                      001B37 GR
+  0 _TestCase                                                      002031 GR
+  0 _TitleScreen                                                   0022B1 GR
+  0 _TitleScreen_title_65536_278                                   0024A0 R
+  0 _UpdateAndDrawPieceStatic                                      001B5F GR
     _WRTPSG                                                        ****** GX
     _WRTVDP                                                        ****** GX
     _WRTVRM                                                        ****** GX
   0 _Wait                                                          000000 GR
   0 ___str_0                                                       0008AE R
   0 ___str_1                                                       000C08 R
-  0 ___str_10                                                      00278F R
-  0 ___str_11                                                      0027A4 R
+  0 ___str_10                                                      0025B7 R
+  0 ___str_11                                                      0025CC R
   0 ___str_2                                                       000C0F R
   0 ___str_3                                                       000C16 R
-  0 ___str_4                                                       001BE9 R
-  0 ___str_5                                                       001C29 R
-  0 ___str_6                                                       001FFF R
-  0 ___str_7                                                       002245 R
-  0 ___str_8                                                       00224F R
-  0 ___str_9                                                       002778 R
+  0 ___str_4                                                       001C11 R
+  0 ___str_5                                                       001C51 R
+  0 ___str_6                                                       002027 R
+  0 ___str_7                                                       00226D R
+  0 ___str_8                                                       002277 R
+  0 ___str_9                                                       0025A0 R
     __divuint                                                      ****** GX
     __moduint                                                      ****** GX
     __mulint                                                       ****** GX
@@ -202,7 +202,7 @@ Symbol Table
   2 _gameOver                                                      000000 GR
   2 _level                                                         000006 GR
   2 _line                                                          000002 GR
-  0 _main                                                          0027AC GR
+  0 _main                                                          0025D4 GR
   1 _midPiece                                                      000091 GR
   2 _newLevel                                                      000007 GR
   0 _pattern_0                                                     000438 R
@@ -277,7 +277,7 @@ Hexadecimal [24-Bits]
 
 Area Table
 
-   0 _CODE                                      size   27B7   flags    0
+   0 _CODE                                      size   25DC   flags    0
    1 _DATA                                      size     98   flags    0
    2 _INITIALIZED                               size      C   flags    0
    3 _DABS                                      size      0   flags    8

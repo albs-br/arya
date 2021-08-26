@@ -103,6 +103,7 @@ void CheckPlayfield(byte iteration) {
 
     // Animation
     byte counter = 72;
+    byte x = 255, y = 0;
     
     byte leftmostPieceRemoved = 5, rightmostPieceRemoved = 0;
     byte lowermostPieceRemoved = 11,   upmostPieceRemoved = 0;
@@ -136,27 +137,36 @@ void CheckPlayfield(byte iteration) {
     //Wait(60);
     
     while(counter-- > 0) {
+
       word lastJiffy = JIFFY;
       while (lastJiffy == JIFFY) {
       }
       // Animation loop sync'ed at 60/50 Hz starts here
 
 
+      // "?x HIT" sprite logic
+      if(numberPiecesRemoved == 3) {
+        y = (((lowermostPieceRemoved * 16) - (upmostPieceRemoved * 16)) / 2) + (upmostPieceRemoved * 16) - (72 - counter);
+
+        if(x == 255) { // do this expensive calculation only once
+          x = (PLAYFIELD_HORIZ_OFFSET * 8) + (((rightmostPieceRemoved * 16) - (leftmostPieceRemoved * 16)) / 2) + (leftmostPieceRemoved * 16);
+          //y = (((lowermostPieceRemoved * 16) - (upmostPieceRemoved * 16)) / 2) + (upmostPieceRemoved * 16) - (72 - counter);
+          DrawHitSprite(x, y, TRUE);
+        }
+        else {
+          //y -= (72 - counter);
+          // TODO: refactor here (line repeated; code expensive unnecessary)
+          //y = (((lowermostPieceRemoved * 16) - (upmostPieceRemoved * 16)) / 2) + (upmostPieceRemoved * 16) - (72 - counter);
+          DrawHitSprite(x, y, FALSE);
+        }
+      }
+
       for(byte line = 0; line < LINES_PLAYFIELD; line++) {
         for(byte col = 0; col < COLS_PLAYFIELD; col++) {
 
           if((playfield[col][line] & REMOVING_FLAG) != 0) {
             
-            byte x, y;
-            
-            // "?x HIT" sprite logic
-            if(numberPiecesRemoved == 3) {
-              x = (PLAYFIELD_HORIZ_OFFSET * 8) + (((rightmostPieceRemoved * 16) - (leftmostPieceRemoved * 16)) / 2) + (leftmostPieceRemoved * 16);
-              y = (((lowermostPieceRemoved * 16) - (upmostPieceRemoved * 16)) / 2) + (upmostPieceRemoved * 16) - (72 - counter);
-              DrawHitSprite(x, y);
-            }
-    		
-    	    // Animation 1: blocks blinking
+    	      // Animation 1: blocks blinking
             if(counter > 12) {
               if(JIFFY & 0b00000011) {
                 DrawBlock(col, line, playfield[col][line] & 0b01111111);

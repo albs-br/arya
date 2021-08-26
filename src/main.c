@@ -86,7 +86,7 @@ void main() {
   
   while(TRUE) {
     
-    Intro();
+    //Intro();
     
     TitleScreen();
 

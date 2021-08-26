@@ -228,7 +228,7 @@ void HideArrow() {
   WRTVRM(MSX_modedata_screen2.sprite_attribute, 	192);
 }
 
-void DrawHitSprite(byte x, byte y) {
+void DrawHitSprite(byte x, byte y, bool firstTime) {
   //TODO: refactor (code repeated)
   const byte colors[] = {
     15,
@@ -243,20 +243,25 @@ void DrawHitSprite(byte x, byte y) {
   
   byte colorIndex = (JIFFY & 0b00000111) >> 1;
 
+  if(firstTime) {
+    WRTVRM(MSX_modedata_screen2.sprite_attribute + 5, 	x - 8);
+    WRTVRM(MSX_modedata_screen2.sprite_attribute + 6, 	SPRITE_PATTERN_3X_HIT);
+
+    WRTVRM(MSX_modedata_screen2.sprite_attribute + 9, 	x + 8);
+    WRTVRM(MSX_modedata_screen2.sprite_attribute + 10, 	SPRITE_PATTERN_3X_HIT + 4);
+
+    WRTVRM(MSX_modedata_screen2.sprite_attribute + 13, 	x + 24);
+    WRTVRM(MSX_modedata_screen2.sprite_attribute + 14, 	SPRITE_PATTERN_3X_HIT + 8);
+  }
+
   WRTVRM(MSX_modedata_screen2.sprite_attribute + 4, 	y - 1);
-  WRTVRM(MSX_modedata_screen2.sprite_attribute + 5, 	x - 16);
-  WRTVRM(MSX_modedata_screen2.sprite_attribute + 6, 	SPRITE_PATTERN_3X_HIT);
   WRTVRM(MSX_modedata_screen2.sprite_attribute + 7, 	colors[colorIndex]);
 
   WRTVRM(MSX_modedata_screen2.sprite_attribute + 8, 	y - 1);
-  WRTVRM(MSX_modedata_screen2.sprite_attribute + 9, 	x);
-  WRTVRM(MSX_modedata_screen2.sprite_attribute + 10, 	SPRITE_PATTERN_3X_HIT + 4);
   WRTVRM(MSX_modedata_screen2.sprite_attribute + 11, 	colors[colorIndex]);
 
-  //WRTVRM(MSX_modedata_screen2.sprite_attribute + 12, 	y - 1);
-  //WRTVRM(MSX_modedata_screen2.sprite_attribute + 13, 	x + 16);
-  //WRTVRM(MSX_modedata_screen2.sprite_attribute + 14, 	SPRITE_PATTERN_3X_HIT + 8);
-  //WRTVRM(MSX_modedata_screen2.sprite_attribute + 15, 	colors[colorIndex]);
+  WRTVRM(MSX_modedata_screen2.sprite_attribute + 12, 	y - 1);
+  WRTVRM(MSX_modedata_screen2.sprite_attribute + 15, 	colors[colorIndex]);
 }
 
 void HideHitSprite() {
