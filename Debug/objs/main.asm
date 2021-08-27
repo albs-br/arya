@@ -2457,33 +2457,33 @@ _sprite_6x:
 	.db #0x00	; 0
 	.db #0x00	; 0
 _sprite_mega_hit:
-	.db #0x8b	; 139
-	.db #0xda	; 218
-	.db #0xab	; 171
-	.db #0x8a	; 138
-	.db #0x8b	; 139
+	.db #0x04	; 4
+	.db #0x06	; 6
+	.db #0x05	; 5
+	.db #0x04	; 4
+	.db #0x04	; 4
 	.db #0x00	; 0
-	.db #0x72	; 114	'r'
-	.db #0x85	; 133
-	.db #0xb5	; 181
-	.db #0x97	; 151
-	.db #0x75	; 117	'u'
-	.db #0x00	; 0
-	.db #0x00	; 0
+	.db #0x03	; 3
+	.db #0x04	; 4
+	.db #0x05	; 5
+	.db #0x04	; 4
+	.db #0x03	; 3
 	.db #0x00	; 0
 	.db #0x00	; 0
 	.db #0x00	; 0
 	.db #0x00	; 0
 	.db #0x00	; 0
+	.db #0x5c	; 92
+	.db #0xd0	; 208
+	.db #0x5c	; 92
+	.db #0x50	; 80	'P'
+	.db #0x5c	; 92
 	.db #0x00	; 0
-	.db #0x63	; 99	'c'
-	.db #0x36	; 54	'6'
-	.db #0x1c	; 28
-	.db #0x08	; 8
-	.db #0x1c	; 28
-	.db #0x36	; 54	'6'
-	.db #0x63	; 99	'c'
-	.db #0x00	; 0
+	.db #0x98	; 152
+	.db #0x24	; 36
+	.db #0xa4	; 164
+	.db #0xbc	; 188
+	.db #0xa4	; 164
 	.db #0x00	; 0
 	.db #0x00	; 0
 	.db #0x00	; 0
@@ -3836,7 +3836,7 @@ _InitVRAM::
 	pop	af
 ;src\/Graphics.h:389: LDIRVM(SPRPAT, sprite_arrow_0, NUMBER_OF_SPRITES * 32);
 	inc	sp
-	ld	hl,#0x0140
+	ld	hl,#0x0160
 	ex	(sp),hl
 	ld	hl, #_sprite_arrow_0
 	push	hl
@@ -5429,11 +5429,11 @@ _CheckPlayfield::
 	ld	a, -5 (ix)
 	sub	a, #0x03
 	jp	C, 00300$
-;src\/CheckPlayfield.h:150: if(numberPiecesRemoved >= 6) numberPiecesRemoved = 6;
+;src\/CheckPlayfield.h:150: if(numberPiecesRemoved >= 7) numberPiecesRemoved = 7;
 	ld	a, -5 (ix)
-	sub	a, #0x06
+	sub	a, #0x07
 	jr	C, 00141$
-	ld	-5 (ix), #0x06
+	ld	-5 (ix), #0x07
 00141$:
 ;src\/CheckPlayfield.h:152: if(x == 255) { // do this expensive calculation only once
 	ld	a, -11 (ix)
@@ -6778,85 +6778,84 @@ ___str_6:
 ; Function TestCase
 ; ---------------------------------
 _TestCase::
-;src\/GameLogic.h:281: playfield[2][ 8] = TILE_GREEN;
+;src\/GameLogic.h:301: playfield[2][ 8] = TILE_GREEN;
 	ld	hl, #(_playfield + 0x0020)
 	ld	(hl), #0x04
-;src\/GameLogic.h:282: playfield[2][ 9] = TILE_BLUE;
+;src\/GameLogic.h:302: playfield[2][ 9] = TILE_BLUE;
 	ld	hl, #(_playfield + 0x0021)
 	ld	(hl), #0x0c
-;src\/GameLogic.h:284: playfield[0][10] = TILE_BLUE;
+;src\/GameLogic.h:304: playfield[0][10] = TILE_BLUE;
 	ld	hl, #(_playfield + 0x000a)
 	ld	(hl), #0x0c
-;src\/GameLogic.h:285: playfield[1][10] = TILE_BLUE;
+;src\/GameLogic.h:305: playfield[1][10] = TILE_BLUE;
 	ld	hl, #(_playfield + 0x0016)
 	ld	(hl), #0x0c
-;src\/GameLogic.h:286: playfield[2][10] = TILE_RED;
+;src\/GameLogic.h:306: playfield[2][10] = TILE_RED;
 	ld	hl, #(_playfield + 0x0022)
 	ld	(hl), #0x08
-;src\/GameLogic.h:287: playfield[4][10] = TILE_RED;
+;src\/GameLogic.h:307: playfield[4][10] = TILE_RED;
 	ld	hl, #(_playfield + 0x003a)
 	ld	(hl), #0x08
-;src\/GameLogic.h:288: playfield[5][10] = TILE_BLUE;
+;src\/GameLogic.h:308: playfield[5][10] = TILE_BLUE;
 	ld	hl, #(_playfield + 0x0046)
 	ld	(hl), #0x0c
-;src\/GameLogic.h:290: playfield[0][11] = TILE_GREEN;
+;src\/GameLogic.h:310: playfield[0][11] = TILE_GREEN;
 	ld	hl, #(_playfield + 0x000b)
 	ld	(hl), #0x04
-;src\/GameLogic.h:291: playfield[1][11] = TILE_GREEN;
+;src\/GameLogic.h:311: playfield[1][11] = TILE_GREEN;
 	ld	hl, #(_playfield + 0x0017)
 	ld	(hl), #0x04
-;src\/GameLogic.h:292: playfield[2][11] = TILE_RED;
+;src\/GameLogic.h:312: playfield[2][11] = TILE_RED;
 	ld	hl, #(_playfield + 0x0023)
 	ld	(hl), #0x08
-;src\/GameLogic.h:293: playfield[3][11] = TILE_BLUE;
+;src\/GameLogic.h:313: playfield[3][11] = EMPTY;
 	ld	hl, #(_playfield + 0x002f)
-	ld	(hl), #0x0c
-;src\/GameLogic.h:294: playfield[4][11] = TILE_RED;
+	ld	(hl), #0x00
+;src\/GameLogic.h:314: playfield[4][11] = TILE_RED;
 	ld	hl, #(_playfield + 0x003b)
 	ld	(hl), #0x08
-;src\/GameLogic.h:295: playfield[5][11] = TILE_RED;
+;src\/GameLogic.h:315: playfield[5][11] = TILE_RED;
 	ld	hl, #(_playfield + 0x0047)
 	ld	(hl), #0x08
-;src\/GameLogic.h:297: topPiece = TILE_BLUE;
+;src\/GameLogic.h:317: topPiece = TILE_BLUE;
 	ld	a, #0x0c
 	ld	(#_topPiece), a
-;src\/GameLogic.h:298: midPiece = TILE_RED;
-	ld	a, #0x08
-	ld	(#_midPiece), a
-;src\/GameLogic.h:299: bottomPiece = TILE_YELLOW;
-	ld	a, #0x14
+;src\/GameLogic.h:318: midPiece = TILE_RED;
+;src\/GameLogic.h:319: bottomPiece = TILE_RED;
+	ld	a,#0x08
+	ld	(#_midPiece),a
 	ld	(#_bottomPiece), a
-;src\/GameLogic.h:300: }
+;src\/GameLogic.h:320: }
 	ret
-;src\/GameLogic.h:302: void InitGame() {
+;src\/GameLogic.h:322: void InitGame() {
 ;	---------------------------------
 ; Function InitGame
 ; ---------------------------------
 _InitGame::
-;src\/GameLogic.h:304: gameOver = FALSE;
+;src\/GameLogic.h:324: gameOver = FALSE;
 	ld	hl, #_gameOver
 	ld	(hl), #0x00
-;src\/GameLogic.h:305: line = INITIAL_LINE;
+;src\/GameLogic.h:325: line = INITIAL_LINE;
 	ld	hl, #_line
 	ld	(hl), #0x00
-;src\/GameLogic.h:306: col = INITIAL_COL;
+;src\/GameLogic.h:326: col = INITIAL_COL;
 	ld	hl, #_col
 	ld	(hl), #0x02
-;src\/GameLogic.h:307: blocksRemoved = 0;
+;src\/GameLogic.h:327: blocksRemoved = 0;
 	ld	hl, #0x0000
 	ld	(_blocksRemoved), hl
-;src\/GameLogic.h:308: level = 1;
+;src\/GameLogic.h:328: level = 1;
 	ld	hl, #_level
 	ld	(hl), #0x01
-;src\/GameLogic.h:309: newLevel = FALSE;
+;src\/GameLogic.h:329: newLevel = FALSE;
 	ld	hl, #_newLevel
 	ld	(hl), #0x00
-;src\/GameLogic.h:310: speed = 60;
+;src\/GameLogic.h:330: speed = 60;
 	ld	hl, #_speed
 	ld	(hl), #0x3c
-;src\/GameLogic.h:312: InitVRAM();
+;src\/GameLogic.h:332: InitVRAM();
 	call	_InitVRAM
-;src\/GameLogic.h:315: InitRnd(rndSeed, JIFFY * rndSeed, JIFFY * rndSeed + 99);
+;src\/GameLogic.h:335: InitRnd(rndSeed, JIFFY * rndSeed, JIFFY * rndSeed + 99);
 	ld	a, (#_rndSeed + 0)
 	ld	e, a
 	ld	a, (#_JIFFY + 0)
@@ -6898,21 +6897,21 @@ _InitGame::
 	call	_InitRnd
 	pop	af
 	inc	sp
-;src\/GameLogic.h:318: RandomPiece();
+;src\/GameLogic.h:338: RandomPiece();
 	call	_RandomPiece
-;src\/GameLogic.h:321: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+;src\/GameLogic.h:341: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
 	ld	c, #0x00
 00107$:
 	ld	a, c
 	sub	a, #0x0c
 	jr	NC, 00102$
-;src\/GameLogic.h:322: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+;src\/GameLogic.h:342: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
 	ld	b, #0x00
 00104$:
 	ld	a, b
 	sub	a, #0x06
 	jr	NC, 00108$
-;src\/GameLogic.h:323: playfield[col][line] = EMPTY;
+;src\/GameLogic.h:343: playfield[col][line] = EMPTY;
 	ld	e, b
 	ld	d, #0x00
 	ld	l, e
@@ -6927,24 +6926,24 @@ _InitGame::
 	ld	d, #0x00
 	add	hl, de
 	ld	(hl), #0x00
-;src\/GameLogic.h:322: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+;src\/GameLogic.h:342: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
 	inc	b
 	jr	00104$
 00108$:
-;src\/GameLogic.h:321: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+;src\/GameLogic.h:341: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
 	inc	c
 	jr	00107$
 00102$:
-;src\/GameLogic.h:328: TestCase();
+;src\/GameLogic.h:348: TestCase();
 	call	_TestCase
-;src\/GameLogic.h:330: DrawBackground();
+;src\/GameLogic.h:350: DrawBackground();
 	call	_DrawBackground
-;src\/GameLogic.h:332: DrawPlayfield();
+;src\/GameLogic.h:352: DrawPlayfield();
 	call	_DrawPlayfield
-;src\/GameLogic.h:334: DrawScore();
+;src\/GameLogic.h:354: DrawScore();
 	call	_DrawScore
-;src\/GameLogic.h:336: GameLoop();
-;src\/GameLogic.h:337: }
+;src\/GameLogic.h:356: GameLoop();
+;src\/GameLogic.h:357: }
 	jp	_GameLoop
 ;src\/Intro.h:3: void ChangeFontColor(byte color) {
 ;	---------------------------------

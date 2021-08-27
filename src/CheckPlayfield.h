@@ -147,7 +147,7 @@ void CheckPlayfield(byte iteration) {
       // "?x HIT" sprite logic
       if(numberPiecesRemoved >= 3) {
 
-        if(numberPiecesRemoved >= 6) numberPiecesRemoved = 6;
+        if(numberPiecesRemoved >= 7) numberPiecesRemoved = 7;
 
         if(x == 255) { // do this expensive calculation only once
           x = (PLAYFIELD_HORIZ_OFFSET * 8) + (((rightmostPieceRemoved * 16) - (leftmostPieceRemoved * 16)) / 2) + (leftmostPieceRemoved * 16);

@@ -278,6 +278,26 @@ void GameLoop() {
 }
 
 void TestCase() {
+  // playfield[2][ 8] = TILE_GREEN;
+  // playfield[2][ 9] = TILE_BLUE;
+
+  // playfield[0][10] = TILE_BLUE;
+  // playfield[1][10] = TILE_BLUE;
+  // playfield[2][10] = TILE_RED;
+  // playfield[4][10] = TILE_RED;
+  // playfield[5][10] = TILE_BLUE;
+
+  // playfield[0][11] = TILE_GREEN;
+  // playfield[1][11] = TILE_GREEN;
+  // playfield[2][11] = TILE_RED;
+  // playfield[3][11] = TILE_BLUE;
+  // playfield[4][11] = TILE_RED;
+  // playfield[5][11] = TILE_RED;
+  
+  // topPiece = TILE_BLUE;
+  // midPiece = TILE_RED;
+  // bottomPiece = TILE_YELLOW;
+
   playfield[2][ 8] = TILE_GREEN;
   playfield[2][ 9] = TILE_BLUE;
 
@@ -290,13 +310,13 @@ void TestCase() {
   playfield[0][11] = TILE_GREEN;
   playfield[1][11] = TILE_GREEN;
   playfield[2][11] = TILE_RED;
-  playfield[3][11] = TILE_BLUE;
+  playfield[3][11] = EMPTY;
   playfield[4][11] = TILE_RED;
   playfield[5][11] = TILE_RED;
   
   topPiece = TILE_BLUE;
   midPiece = TILE_RED;
-  bottomPiece = TILE_YELLOW;
+  bottomPiece = TILE_RED;
 }
 
 void InitGame() {

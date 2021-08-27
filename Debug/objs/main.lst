@@ -2457,33 +2457,33 @@
       000885 00                    2457 	.db #0x00	; 0
       000886 00                    2458 	.db #0x00	; 0
       000887                       2459 _sprite_mega_hit:
-      000887 8B                    2460 	.db #0x8b	; 139
-      000888 DA                    2461 	.db #0xda	; 218
-      000889 AB                    2462 	.db #0xab	; 171
-      00088A 8A                    2463 	.db #0x8a	; 138
-      00088B 8B                    2464 	.db #0x8b	; 139
+      000887 04                    2460 	.db #0x04	; 4
+      000888 06                    2461 	.db #0x06	; 6
+      000889 05                    2462 	.db #0x05	; 5
+      00088A 04                    2463 	.db #0x04	; 4
+      00088B 04                    2464 	.db #0x04	; 4
       00088C 00                    2465 	.db #0x00	; 0
-      00088D 72                    2466 	.db #0x72	; 114	'r'
-      00088E 85                    2467 	.db #0x85	; 133
-      00088F B5                    2468 	.db #0xb5	; 181
-      000890 97                    2469 	.db #0x97	; 151
-      000891 75                    2470 	.db #0x75	; 117	'u'
+      00088D 03                    2466 	.db #0x03	; 3
+      00088E 04                    2467 	.db #0x04	; 4
+      00088F 05                    2468 	.db #0x05	; 5
+      000890 04                    2469 	.db #0x04	; 4
+      000891 03                    2470 	.db #0x03	; 3
       000892 00                    2471 	.db #0x00	; 0
       000893 00                    2472 	.db #0x00	; 0
       000894 00                    2473 	.db #0x00	; 0
       000895 00                    2474 	.db #0x00	; 0
       000896 00                    2475 	.db #0x00	; 0
-      000897 00                    2476 	.db #0x00	; 0
-      000898 00                    2477 	.db #0x00	; 0
-      000899 00                    2478 	.db #0x00	; 0
-      00089A 63                    2479 	.db #0x63	; 99	'c'
-      00089B 36                    2480 	.db #0x36	; 54	'6'
-      00089C 1C                    2481 	.db #0x1c	; 28
-      00089D 08                    2482 	.db #0x08	; 8
-      00089E 1C                    2483 	.db #0x1c	; 28
-      00089F 36                    2484 	.db #0x36	; 54	'6'
-      0008A0 63                    2485 	.db #0x63	; 99	'c'
-      0008A1 00                    2486 	.db #0x00	; 0
+      000897 5C                    2476 	.db #0x5c	; 92
+      000898 D0                    2477 	.db #0xd0	; 208
+      000899 5C                    2478 	.db #0x5c	; 92
+      00089A 50                    2479 	.db #0x50	; 80	'P'
+      00089B 5C                    2480 	.db #0x5c	; 92
+      00089C 00                    2481 	.db #0x00	; 0
+      00089D 98                    2482 	.db #0x98	; 152
+      00089E 24                    2483 	.db #0x24	; 36
+      00089F A4                    2484 	.db #0xa4	; 164
+      0008A0 BC                    2485 	.db #0xbc	; 188
+      0008A1 A4                    2486 	.db #0xa4	; 164
       0008A2 00                    2487 	.db #0x00	; 0
       0008A3 00                    2488 	.db #0x00	; 0
       0008A4 00                    2489 	.db #0x00	; 0
@@ -3836,7 +3836,7 @@
       001020 F1               [10] 3836 	pop	af
                                    3837 ;src\/Graphics.h:389: LDIRVM(SPRPAT, sprite_arrow_0, NUMBER_OF_SPRITES * 32);
       001021 33               [ 6] 3838 	inc	sp
-      001022 21 40 01         [10] 3839 	ld	hl,#0x0140
+      001022 21 60 01         [10] 3839 	ld	hl,#0x0160
       001025 E3               [19] 3840 	ex	(sp),hl
       001026 21r47r07         [10] 3841 	ld	hl, #_sprite_arrow_0
       001029 E5               [11] 3842 	push	hl
@@ -5429,11 +5429,11 @@
       001961 DD 7E FB         [19] 5429 	ld	a, -5 (ix)
       001964 D6 03            [ 7] 5430 	sub	a, #0x03
       001966 DAr18r1A         [10] 5431 	jp	C, 00300$
-                                   5432 ;src\/CheckPlayfield.h:150: if(numberPiecesRemoved >= 6) numberPiecesRemoved = 6;
+                                   5432 ;src\/CheckPlayfield.h:150: if(numberPiecesRemoved >= 7) numberPiecesRemoved = 7;
       001969 DD 7E FB         [19] 5433 	ld	a, -5 (ix)
-      00196C D6 06            [ 7] 5434 	sub	a, #0x06
+      00196C D6 07            [ 7] 5434 	sub	a, #0x07
       00196E 38 04            [12] 5435 	jr	C, 00141$
-      001970 DD 36 FB 06      [19] 5436 	ld	-5 (ix), #0x06
+      001970 DD 36 FB 07      [19] 5436 	ld	-5 (ix), #0x07
       001974                       5437 00141$:
                                    5438 ;src\/CheckPlayfield.h:152: if(x == 255) { // do this expensive calculation only once
       001974 DD 7E F5         [19] 5439 	ld	a, -11 (ix)
@@ -6779,1050 +6779,1049 @@
                                    6778 ; Function TestCase
                                    6779 ; ---------------------------------
       00216C                       6780 _TestCase::
-                                   6781 ;src\/GameLogic.h:281: playfield[2][ 8] = TILE_GREEN;
+                                   6781 ;src\/GameLogic.h:301: playfield[2][ 8] = TILE_GREEN;
       00216C 21r20r00         [10] 6782 	ld	hl, #(_playfield + 0x0020)
       00216F 36 04            [10] 6783 	ld	(hl), #0x04
-                                   6784 ;src\/GameLogic.h:282: playfield[2][ 9] = TILE_BLUE;
+                                   6784 ;src\/GameLogic.h:302: playfield[2][ 9] = TILE_BLUE;
       002171 21r21r00         [10] 6785 	ld	hl, #(_playfield + 0x0021)
       002174 36 0C            [10] 6786 	ld	(hl), #0x0c
-                                   6787 ;src\/GameLogic.h:284: playfield[0][10] = TILE_BLUE;
+                                   6787 ;src\/GameLogic.h:304: playfield[0][10] = TILE_BLUE;
       002176 21r0Ar00         [10] 6788 	ld	hl, #(_playfield + 0x000a)
       002179 36 0C            [10] 6789 	ld	(hl), #0x0c
-                                   6790 ;src\/GameLogic.h:285: playfield[1][10] = TILE_BLUE;
+                                   6790 ;src\/GameLogic.h:305: playfield[1][10] = TILE_BLUE;
       00217B 21r16r00         [10] 6791 	ld	hl, #(_playfield + 0x0016)
       00217E 36 0C            [10] 6792 	ld	(hl), #0x0c
-                                   6793 ;src\/GameLogic.h:286: playfield[2][10] = TILE_RED;
+                                   6793 ;src\/GameLogic.h:306: playfield[2][10] = TILE_RED;
       002180 21r22r00         [10] 6794 	ld	hl, #(_playfield + 0x0022)
       002183 36 08            [10] 6795 	ld	(hl), #0x08
-                                   6796 ;src\/GameLogic.h:287: playfield[4][10] = TILE_RED;
+                                   6796 ;src\/GameLogic.h:307: playfield[4][10] = TILE_RED;
       002185 21r3Ar00         [10] 6797 	ld	hl, #(_playfield + 0x003a)
       002188 36 08            [10] 6798 	ld	(hl), #0x08
-                                   6799 ;src\/GameLogic.h:288: playfield[5][10] = TILE_BLUE;
+                                   6799 ;src\/GameLogic.h:308: playfield[5][10] = TILE_BLUE;
       00218A 21r46r00         [10] 6800 	ld	hl, #(_playfield + 0x0046)
       00218D 36 0C            [10] 6801 	ld	(hl), #0x0c
-                                   6802 ;src\/GameLogic.h:290: playfield[0][11] = TILE_GREEN;
+                                   6802 ;src\/GameLogic.h:310: playfield[0][11] = TILE_GREEN;
       00218F 21r0Br00         [10] 6803 	ld	hl, #(_playfield + 0x000b)
       002192 36 04            [10] 6804 	ld	(hl), #0x04
-                                   6805 ;src\/GameLogic.h:291: playfield[1][11] = TILE_GREEN;
+                                   6805 ;src\/GameLogic.h:311: playfield[1][11] = TILE_GREEN;
       002194 21r17r00         [10] 6806 	ld	hl, #(_playfield + 0x0017)
       002197 36 04            [10] 6807 	ld	(hl), #0x04
-                                   6808 ;src\/GameLogic.h:292: playfield[2][11] = TILE_RED;
+                                   6808 ;src\/GameLogic.h:312: playfield[2][11] = TILE_RED;
       002199 21r23r00         [10] 6809 	ld	hl, #(_playfield + 0x0023)
       00219C 36 08            [10] 6810 	ld	(hl), #0x08
-                                   6811 ;src\/GameLogic.h:293: playfield[3][11] = TILE_BLUE;
+                                   6811 ;src\/GameLogic.h:313: playfield[3][11] = EMPTY;
       00219E 21r2Fr00         [10] 6812 	ld	hl, #(_playfield + 0x002f)
-      0021A1 36 0C            [10] 6813 	ld	(hl), #0x0c
-                                   6814 ;src\/GameLogic.h:294: playfield[4][11] = TILE_RED;
+      0021A1 36 00            [10] 6813 	ld	(hl), #0x00
+                                   6814 ;src\/GameLogic.h:314: playfield[4][11] = TILE_RED;
       0021A3 21r3Br00         [10] 6815 	ld	hl, #(_playfield + 0x003b)
       0021A6 36 08            [10] 6816 	ld	(hl), #0x08
-                                   6817 ;src\/GameLogic.h:295: playfield[5][11] = TILE_RED;
+                                   6817 ;src\/GameLogic.h:315: playfield[5][11] = TILE_RED;
       0021A8 21r47r00         [10] 6818 	ld	hl, #(_playfield + 0x0047)
       0021AB 36 08            [10] 6819 	ld	(hl), #0x08
-                                   6820 ;src\/GameLogic.h:297: topPiece = TILE_BLUE;
+                                   6820 ;src\/GameLogic.h:317: topPiece = TILE_BLUE;
       0021AD 3E 0C            [ 7] 6821 	ld	a, #0x0c
       0021AF 32r90r00         [13] 6822 	ld	(#_topPiece), a
-                                   6823 ;src\/GameLogic.h:298: midPiece = TILE_RED;
-      0021B2 3E 08            [ 7] 6824 	ld	a, #0x08
-      0021B4 32r91r00         [13] 6825 	ld	(#_midPiece), a
-                                   6826 ;src\/GameLogic.h:299: bottomPiece = TILE_YELLOW;
-      0021B7 3E 14            [ 7] 6827 	ld	a, #0x14
-      0021B9 32r92r00         [13] 6828 	ld	(#_bottomPiece), a
-                                   6829 ;src\/GameLogic.h:300: }
-      0021BC C9               [10] 6830 	ret
-                                   6831 ;src\/GameLogic.h:302: void InitGame() {
-                                   6832 ;	---------------------------------
-                                   6833 ; Function InitGame
-                                   6834 ; ---------------------------------
-      0021BD                       6835 _InitGame::
-                                   6836 ;src\/GameLogic.h:304: gameOver = FALSE;
-      0021BD 21r00r00         [10] 6837 	ld	hl, #_gameOver
-      0021C0 36 00            [10] 6838 	ld	(hl), #0x00
-                                   6839 ;src\/GameLogic.h:305: line = INITIAL_LINE;
-      0021C2 21r02r00         [10] 6840 	ld	hl, #_line
-      0021C5 36 00            [10] 6841 	ld	(hl), #0x00
-                                   6842 ;src\/GameLogic.h:306: col = INITIAL_COL;
-      0021C7 21r01r00         [10] 6843 	ld	hl, #_col
-      0021CA 36 02            [10] 6844 	ld	(hl), #0x02
-                                   6845 ;src\/GameLogic.h:307: blocksRemoved = 0;
-      0021CC 21 00 00         [10] 6846 	ld	hl, #0x0000
-      0021CF 22r04r00         [16] 6847 	ld	(_blocksRemoved), hl
-                                   6848 ;src\/GameLogic.h:308: level = 1;
-      0021D2 21r06r00         [10] 6849 	ld	hl, #_level
-      0021D5 36 01            [10] 6850 	ld	(hl), #0x01
-                                   6851 ;src\/GameLogic.h:309: newLevel = FALSE;
-      0021D7 21r07r00         [10] 6852 	ld	hl, #_newLevel
-      0021DA 36 00            [10] 6853 	ld	(hl), #0x00
-                                   6854 ;src\/GameLogic.h:310: speed = 60;
-      0021DC 21r93r00         [10] 6855 	ld	hl, #_speed
-      0021DF 36 3C            [10] 6856 	ld	(hl), #0x3c
-                                   6857 ;src\/GameLogic.h:312: InitVRAM();
-      0021E1 CDrE5r0F         [17] 6858 	call	_InitVRAM
-                                   6859 ;src\/GameLogic.h:315: InitRnd(rndSeed, JIFFY * rndSeed, JIFFY * rndSeed + 99);
-      0021E4 3Ar08r00         [13] 6860 	ld	a, (#_rndSeed + 0)
-      0021E7 5F               [ 4] 6861 	ld	e, a
-      0021E8 3A 9E FC         [13] 6862 	ld	a, (#_JIFFY + 0)
-      0021EB 67               [ 4] 6863 	ld	h, a
-      0021EC 2E 00            [ 7] 6864 	ld	l, #0x00
-      0021EE 55               [ 4] 6865 	ld	d, l
-      0021EF 06 08            [ 7] 6866 	ld	b, #0x08
-      0021F1                       6867 00133$:
-      0021F1 29               [11] 6868 	add	hl, hl
-      0021F2 30 01            [12] 6869 	jr	NC, 00134$
-      0021F4 19               [11] 6870 	add	hl, de
-      0021F5                       6871 00134$:
-      0021F5 10 FA            [13] 6872 	djnz	00133$
-      0021F7 7D               [ 4] 6873 	ld	a, l
-      0021F8 C6 63            [ 7] 6874 	add	a, #0x63
-      0021FA 4F               [ 4] 6875 	ld	c, a
-      0021FB 3Ar08r00         [13] 6876 	ld	a, (#_rndSeed + 0)
-      0021FE 5F               [ 4] 6877 	ld	e, a
-      0021FF 3A 9E FC         [13] 6878 	ld	a, (#_JIFFY + 0)
-      002202 67               [ 4] 6879 	ld	h, a
-      002203 2E 00            [ 7] 6880 	ld	l, #0x00
-      002205 55               [ 4] 6881 	ld	d, l
-      002206 06 08            [ 7] 6882 	ld	b, #0x08
-      002208                       6883 00135$:
-      002208 29               [11] 6884 	add	hl, hl
-      002209 30 01            [12] 6885 	jr	NC, 00136$
-      00220B 19               [11] 6886 	add	hl, de
-      00220C                       6887 00136$:
-      00220C 10 FA            [13] 6888 	djnz	00135$
-      00220E 79               [ 4] 6889 	ld	a, c
-      00220F F5               [11] 6890 	push	af
-      002210 7D               [ 4] 6891 	ld	a, l
-      002211 33               [ 6] 6892 	inc	sp
-      002212 F5               [11] 6893 	push	af
-      002213 33               [ 6] 6894 	inc	sp
-      002214 3Ar08r00         [13] 6895 	ld	a,(#_rndSeed + 0)
-      002217 F5               [11] 6896 	push	af
-      002218 33               [ 6] 6897 	inc	sp
-      002219 CDr50r00         [17] 6898 	call	_InitRnd
-      00221C F1               [10] 6899 	pop	af
-      00221D 33               [ 6] 6900 	inc	sp
-                                   6901 ;src\/GameLogic.h:318: RandomPiece();
-      00221E CDr72r1C         [17] 6902 	call	_RandomPiece
-                                   6903 ;src\/GameLogic.h:321: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
-      002221 0E 00            [ 7] 6904 	ld	c, #0x00
-      002223                       6905 00107$:
-      002223 79               [ 4] 6906 	ld	a, c
-      002224 D6 0C            [ 7] 6907 	sub	a, #0x0c
-      002226 30 20            [12] 6908 	jr	NC, 00102$
-                                   6909 ;src\/GameLogic.h:322: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
-      002228 06 00            [ 7] 6910 	ld	b, #0x00
-      00222A                       6911 00104$:
-      00222A 78               [ 4] 6912 	ld	a, b
-      00222B D6 06            [ 7] 6913 	sub	a, #0x06
-      00222D 30 16            [12] 6914 	jr	NC, 00108$
-                                   6915 ;src\/GameLogic.h:323: playfield[col][line] = EMPTY;
-      00222F 58               [ 4] 6916 	ld	e, b
-      002230 16 00            [ 7] 6917 	ld	d, #0x00
-      002232 6B               [ 4] 6918 	ld	l, e
-      002233 62               [ 4] 6919 	ld	h, d
-      002234 29               [11] 6920 	add	hl, hl
-      002235 19               [11] 6921 	add	hl, de
-      002236 29               [11] 6922 	add	hl, hl
-      002237 29               [11] 6923 	add	hl, hl
-      002238 11r00r00         [10] 6924 	ld	de, #_playfield
-      00223B 19               [11] 6925 	add	hl, de
-      00223C 59               [ 4] 6926 	ld	e, c
-      00223D 16 00            [ 7] 6927 	ld	d, #0x00
-      00223F 19               [11] 6928 	add	hl, de
-      002240 36 00            [10] 6929 	ld	(hl), #0x00
-                                   6930 ;src\/GameLogic.h:322: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
-      002242 04               [ 4] 6931 	inc	b
-      002243 18 E5            [12] 6932 	jr	00104$
-      002245                       6933 00108$:
-                                   6934 ;src\/GameLogic.h:321: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
-      002245 0C               [ 4] 6935 	inc	c
-      002246 18 DB            [12] 6936 	jr	00107$
-      002248                       6937 00102$:
-                                   6938 ;src\/GameLogic.h:328: TestCase();
-      002248 CDr6Cr21         [17] 6939 	call	_TestCase
-                                   6940 ;src\/GameLogic.h:330: DrawBackground();
-      00224B CDrBCr0C         [17] 6941 	call	_DrawBackground
-                                   6942 ;src\/GameLogic.h:332: DrawPlayfield();
-      00224E CDr5Fr13         [17] 6943 	call	_DrawPlayfield
-                                   6944 ;src\/GameLogic.h:334: DrawScore();
-      002251 CDr35r0B         [17] 6945 	call	_DrawScore
-                                   6946 ;src\/GameLogic.h:336: GameLoop();
-                                   6947 ;src\/GameLogic.h:337: }
-      002254 C3r92r1D         [10] 6948 	jp	_GameLoop
-                                   6949 ;src\/Intro.h:3: void ChangeFontColor(byte color) {
-                                   6950 ;	---------------------------------
-                                   6951 ; Function ChangeFontColor
-                                   6952 ; ---------------------------------
-      002257                       6953 _ChangeFontColor::
-                                   6954 ;src\/Intro.h:4: FILVRM(CLRTBL + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, color);
-      002257 21 02 00         [10] 6955 	ld	hl, #2
-      00225A 39               [11] 6956 	add	hl, sp
-      00225B 7E               [ 7] 6957 	ld	a, (hl)
-      00225C F5               [11] 6958 	push	af
-      00225D 33               [ 6] 6959 	inc	sp
-      00225E 21 00 03         [10] 6960 	ld	hl, #0x0300
-      002261 E5               [11] 6961 	push	hl
-      002262 21 78 21         [10] 6962 	ld	hl, #0x2178
-      002265 E5               [11] 6963 	push	hl
-      002266 CDr00r00         [17] 6964 	call	_FILVRM
-      002269 F1               [10] 6965 	pop	af
-      00226A F1               [10] 6966 	pop	af
-      00226B 33               [ 6] 6967 	inc	sp
-                                   6968 ;src\/Intro.h:5: FILVRM(CLRTBL + (256 * 8) + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, color);
-      00226C 21 02 00         [10] 6969 	ld	hl, #2
-      00226F 39               [11] 6970 	add	hl, sp
-      002270 7E               [ 7] 6971 	ld	a, (hl)
-      002271 F5               [11] 6972 	push	af
-      002272 33               [ 6] 6973 	inc	sp
-      002273 21 00 03         [10] 6974 	ld	hl, #0x0300
-      002276 E5               [11] 6975 	push	hl
-      002277 21 78 29         [10] 6976 	ld	hl, #0x2978
-      00227A E5               [11] 6977 	push	hl
-      00227B CDr00r00         [17] 6978 	call	_FILVRM
-      00227E F1               [10] 6979 	pop	af
-      00227F F1               [10] 6980 	pop	af
-      002280 33               [ 6] 6981 	inc	sp
-                                   6982 ;src\/Intro.h:6: FILVRM(CLRTBL + (512 * 8) + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, color);
-      002281 21 02 00         [10] 6983 	ld	hl, #2
-      002284 39               [11] 6984 	add	hl, sp
-      002285 7E               [ 7] 6985 	ld	a, (hl)
-      002286 F5               [11] 6986 	push	af
-      002287 33               [ 6] 6987 	inc	sp
-      002288 21 00 03         [10] 6988 	ld	hl, #0x0300
-      00228B E5               [11] 6989 	push	hl
-      00228C 21 78 31         [10] 6990 	ld	hl, #0x3178
-      00228F E5               [11] 6991 	push	hl
-      002290 CDr00r00         [17] 6992 	call	_FILVRM
-      002293 F1               [10] 6993 	pop	af
-      002294 F1               [10] 6994 	pop	af
-      002295 33               [ 6] 6995 	inc	sp
-                                   6996 ;src\/Intro.h:7: }
-      002296 C9               [10] 6997 	ret
-                                   6998 ;src\/Intro.h:9: void ScrollDownFont() {
-                                   6999 ;	---------------------------------
-                                   7000 ; Function ScrollDownFont
-                                   7001 ; ---------------------------------
-      002297                       7002 _ScrollDownFont::
-      002297 DD E5            [15] 7003 	push	ix
-      002299 DD 21 00 00      [14] 7004 	ld	ix,#0
-      00229D DD 39            [15] 7005 	add	ix,sp
-      00229F F5               [11] 7006 	push	af
-                                   7007 ;src\/Intro.h:25: for(word i=startVRAMAddr; i < (startVRAMAddr + size); i+=8) {
-      0022A0 11 78 09         [10] 7008 	ld	de, #0x0978
-      0022A3                       7009 00107$:
-      0022A3 7B               [ 4] 7010 	ld	a, e
-      0022A4 D6 78            [ 7] 7011 	sub	a, #0x78
-      0022A6 7A               [ 4] 7012 	ld	a, d
-      0022A7 DE 0C            [ 7] 7013 	sbc	a, #0x0c
-      0022A9 30 44            [12] 7014 	jr	NC, 00109$
-                                   7015 ;src\/Intro.h:26: for(word j=i+7; j>0; j--) {
-      0022AB 33               [ 6] 7016 	inc	sp
-      0022AC 33               [ 6] 7017 	inc	sp
-      0022AD D5               [11] 7018 	push	de
-      0022AE DD 7E FE         [19] 7019 	ld	a, -2 (ix)
-      0022B1 C6 07            [ 7] 7020 	add	a, #0x07
-      0022B3 4F               [ 4] 7021 	ld	c, a
-      0022B4 DD 7E FF         [19] 7022 	ld	a, -1 (ix)
-      0022B7 CE 00            [ 7] 7023 	adc	a, #0x00
-      0022B9 47               [ 4] 7024 	ld	b, a
-      0022BA                       7025 00104$:
-      0022BA 78               [ 4] 7026 	ld	a, b
-      0022BB B1               [ 4] 7027 	or	a, c
-      0022BC 28 1A            [12] 7028 	jr	Z, 00101$
-                                   7029 ;src\/Intro.h:27: value = RDVRM(j-1);
-      0022BE 69               [ 4] 7030 	ld	l, c
-      0022BF 60               [ 4] 7031 	ld	h, b
-      0022C0 2B               [ 6] 7032 	dec	hl
-      0022C1 C5               [11] 7033 	push	bc
-      0022C2 D5               [11] 7034 	push	de
-      0022C3 CDr00r00         [17] 7035 	call	_RDVRM
-      0022C6 D1               [10] 7036 	pop	de
-      0022C7 C1               [10] 7037 	pop	bc
-                                   7038 ;src\/Intro.h:29: WRTVRM(j, 0);
-      0022C8 C5               [11] 7039 	push	bc
-      0022C9 D5               [11] 7040 	push	de
-      0022CA AF               [ 4] 7041 	xor	a, a
-      0022CB F5               [11] 7042 	push	af
-      0022CC 33               [ 6] 7043 	inc	sp
-      0022CD C5               [11] 7044 	push	bc
-      0022CE CDr00r00         [17] 7045 	call	_WRTVRM
-      0022D1 F1               [10] 7046 	pop	af
-      0022D2 33               [ 6] 7047 	inc	sp
-      0022D3 D1               [10] 7048 	pop	de
-      0022D4 C1               [10] 7049 	pop	bc
-                                   7050 ;src\/Intro.h:26: for(word j=i+7; j>0; j--) {
-      0022D5 0B               [ 6] 7051 	dec	bc
-      0022D6 18 E2            [12] 7052 	jr	00104$
-      0022D8                       7053 00101$:
-                                   7054 ;src\/Intro.h:31: WRTVRM(i, 0);
-      0022D8 AF               [ 4] 7055 	xor	a, a
-      0022D9 F5               [11] 7056 	push	af
-      0022DA 33               [ 6] 7057 	inc	sp
-      0022DB D5               [11] 7058 	push	de
-      0022DC CDr00r00         [17] 7059 	call	_WRTVRM
-      0022DF F1               [10] 7060 	pop	af
-      0022E0 33               [ 6] 7061 	inc	sp
-                                   7062 ;src\/Intro.h:25: for(word i=startVRAMAddr; i < (startVRAMAddr + size); i+=8) {
-      0022E1 DD 7E FE         [19] 7063 	ld	a, -2 (ix)
-      0022E4 C6 08            [ 7] 7064 	add	a, #0x08
-      0022E6 5F               [ 4] 7065 	ld	e, a
-      0022E7 DD 7E FF         [19] 7066 	ld	a, -1 (ix)
-      0022EA CE 00            [ 7] 7067 	adc	a, #0x00
-      0022EC 57               [ 4] 7068 	ld	d, a
-      0022ED 18 B4            [12] 7069 	jr	00107$
-      0022EF                       7070 00109$:
-                                   7071 ;src\/Intro.h:35: }
-      0022EF DD F9            [10] 7072 	ld	sp, ix
-      0022F1 DD E1            [14] 7073 	pop	ix
-      0022F3 C9               [10] 7074 	ret
-                                   7075 ;src\/Intro.h:37: void Intro() {
-                                   7076 ;	---------------------------------
-                                   7077 ; Function Intro
-                                   7078 ; ---------------------------------
-      0022F4                       7079 _Intro::
-                                   7080 ;src\/Intro.h:41: InitVRAM();
-      0022F4 CDrE5r0F         [17] 7081 	call	_InitVRAM
-                                   7082 ;src\/Intro.h:43: DrawString("A GAME BY", 11, 11);
-      0022F7 11 0B 0B         [10] 7083 	ld	de, #0x0b0b
-      0022FA D5               [11] 7084 	push	de
-      0022FB 21r69r23         [10] 7085 	ld	hl, #___str_7
-      0022FE E5               [11] 7086 	push	hl
-      0022FF CDrA7r08         [17] 7087 	call	_DrawString
-      002302 F1               [10] 7088 	pop	af
-      002303 F1               [10] 7089 	pop	af
-                                   7090 ;src\/Intro.h:44: DrawString("ANDRE BAPTISTA", 9, 13);
-      002304 11 09 0D         [10] 7091 	ld	de, #0x0d09
-      002307 D5               [11] 7092 	push	de
-      002308 21r73r23         [10] 7093 	ld	hl, #___str_8
-      00230B E5               [11] 7094 	push	hl
-      00230C CDrA7r08         [17] 7095 	call	_DrawString
-      00230F F1               [10] 7096 	pop	af
-                                   7097 ;src\/Intro.h:51: ChangeFontColor(0xf0);
-      002310 26 F0            [ 7] 7098 	ld	h,#0xf0
-      002312 E3               [19] 7099 	ex	(sp),hl
-      002313 33               [ 6] 7100 	inc	sp
-      002314 CDr57r22         [17] 7101 	call	_ChangeFontColor
-      002317 33               [ 6] 7102 	inc	sp
-                                   7103 ;src\/Intro.h:56: Wait(2 * 60);
-      002318 21 78 00         [10] 7104 	ld	hl, #0x0078
-      00231B E5               [11] 7105 	push	hl
-      00231C CDr00r00         [17] 7106 	call	_Wait
-      00231F F1               [10] 7107 	pop	af
-                                   7108 ;src\/Intro.h:58: while(counter++ < 20) {
-      002320 0E 00            [ 7] 7109 	ld	c, #0x00
-      002322                       7110 00112$:
-      002322 79               [ 4] 7111 	ld	a, c
-      002323 D6 14            [ 7] 7112 	sub	a, #0x14
-      002325 D0               [11] 7113 	ret	NC
-      002326 0C               [ 4] 7114 	inc	c
-                                   7115 ;src\/Intro.h:59: byte lastJiffy = JIFFY;
-      002327 21 9E FC         [10] 7116 	ld	hl, #_JIFFY
-      00232A 46               [ 7] 7117 	ld	b, (hl)
-                                   7118 ;src\/Intro.h:60: while (JIFFY == lastJiffy) {
-      00232B                       7119 00101$:
-      00232B 58               [ 4] 7120 	ld	e, b
-      00232C 16 00            [ 7] 7121 	ld	d, #0x00
-      00232E 2A 9E FC         [16] 7122 	ld	hl, (_JIFFY)
-      002331 BF               [ 4] 7123 	cp	a, a
-      002332 ED 52            [15] 7124 	sbc	hl, de
-      002334 28 F5            [12] 7125 	jr	Z, 00101$
-                                   7126 ;src\/Intro.h:63: if(counter == 15) {
-      002336 79               [ 4] 7127 	ld	a, c
-      002337 D6 0F            [ 7] 7128 	sub	a, #0x0f
-      002339 20 0C            [12] 7129 	jr	NZ, 00110$
-                                   7130 ;src\/Intro.h:64: ChangeFontColor(0x40);
-      00233B C5               [11] 7131 	push	bc
-      00233C 3E 40            [ 7] 7132 	ld	a, #0x40
-      00233E F5               [11] 7133 	push	af
-      00233F 33               [ 6] 7134 	inc	sp
-      002340 CDr57r22         [17] 7135 	call	_ChangeFontColor
-      002343 33               [ 6] 7136 	inc	sp
-      002344 C1               [10] 7137 	pop	bc
-      002345 18 DB            [12] 7138 	jr	00112$
-      002347                       7139 00110$:
-                                   7140 ;src\/Intro.h:66: else if(counter == 10) {
-      002347 79               [ 4] 7141 	ld	a, c
-      002348 D6 0A            [ 7] 7142 	sub	a, #0x0a
-      00234A 20 0C            [12] 7143 	jr	NZ, 00107$
-                                   7144 ;src\/Intro.h:67: ChangeFontColor(0x50);
-      00234C C5               [11] 7145 	push	bc
-      00234D 3E 50            [ 7] 7146 	ld	a, #0x50
-      00234F F5               [11] 7147 	push	af
-      002350 33               [ 6] 7148 	inc	sp
-      002351 CDr57r22         [17] 7149 	call	_ChangeFontColor
-      002354 33               [ 6] 7150 	inc	sp
-      002355 C1               [10] 7151 	pop	bc
-      002356 18 CA            [12] 7152 	jr	00112$
-      002358                       7153 00107$:
-                                   7154 ;src\/Intro.h:69: else if(counter == 5) {
-      002358 79               [ 4] 7155 	ld	a, c
-      002359 D6 05            [ 7] 7156 	sub	a, #0x05
-      00235B 20 C5            [12] 7157 	jr	NZ, 00112$
-                                   7158 ;src\/Intro.h:71: ChangeFontColor(0xe0);
-      00235D C5               [11] 7159 	push	bc
-      00235E 3E E0            [ 7] 7160 	ld	a, #0xe0
-      002360 F5               [11] 7161 	push	af
-      002361 33               [ 6] 7162 	inc	sp
-      002362 CDr57r22         [17] 7163 	call	_ChangeFontColor
-      002365 33               [ 6] 7164 	inc	sp
-      002366 C1               [10] 7165 	pop	bc
-                                   7166 ;src\/Intro.h:140: }
-      002367 18 B9            [12] 7167 	jr	00112$
-      002369                       7168 ___str_7:
-      002369 41 20 47 41 4D 45 20  7169 	.ascii "A GAME BY"
+                                   6823 ;src\/GameLogic.h:318: midPiece = TILE_RED;
+                                   6824 ;src\/GameLogic.h:319: bottomPiece = TILE_RED;
+      0021B2 3E 08            [ 7] 6825 	ld	a,#0x08
+      0021B4 32r91r00         [13] 6826 	ld	(#_midPiece),a
+      0021B7 32r92r00         [13] 6827 	ld	(#_bottomPiece), a
+                                   6828 ;src\/GameLogic.h:320: }
+      0021BA C9               [10] 6829 	ret
+                                   6830 ;src\/GameLogic.h:322: void InitGame() {
+                                   6831 ;	---------------------------------
+                                   6832 ; Function InitGame
+                                   6833 ; ---------------------------------
+      0021BB                       6834 _InitGame::
+                                   6835 ;src\/GameLogic.h:324: gameOver = FALSE;
+      0021BB 21r00r00         [10] 6836 	ld	hl, #_gameOver
+      0021BE 36 00            [10] 6837 	ld	(hl), #0x00
+                                   6838 ;src\/GameLogic.h:325: line = INITIAL_LINE;
+      0021C0 21r02r00         [10] 6839 	ld	hl, #_line
+      0021C3 36 00            [10] 6840 	ld	(hl), #0x00
+                                   6841 ;src\/GameLogic.h:326: col = INITIAL_COL;
+      0021C5 21r01r00         [10] 6842 	ld	hl, #_col
+      0021C8 36 02            [10] 6843 	ld	(hl), #0x02
+                                   6844 ;src\/GameLogic.h:327: blocksRemoved = 0;
+      0021CA 21 00 00         [10] 6845 	ld	hl, #0x0000
+      0021CD 22r04r00         [16] 6846 	ld	(_blocksRemoved), hl
+                                   6847 ;src\/GameLogic.h:328: level = 1;
+      0021D0 21r06r00         [10] 6848 	ld	hl, #_level
+      0021D3 36 01            [10] 6849 	ld	(hl), #0x01
+                                   6850 ;src\/GameLogic.h:329: newLevel = FALSE;
+      0021D5 21r07r00         [10] 6851 	ld	hl, #_newLevel
+      0021D8 36 00            [10] 6852 	ld	(hl), #0x00
+                                   6853 ;src\/GameLogic.h:330: speed = 60;
+      0021DA 21r93r00         [10] 6854 	ld	hl, #_speed
+      0021DD 36 3C            [10] 6855 	ld	(hl), #0x3c
+                                   6856 ;src\/GameLogic.h:332: InitVRAM();
+      0021DF CDrE5r0F         [17] 6857 	call	_InitVRAM
+                                   6858 ;src\/GameLogic.h:335: InitRnd(rndSeed, JIFFY * rndSeed, JIFFY * rndSeed + 99);
+      0021E2 3Ar08r00         [13] 6859 	ld	a, (#_rndSeed + 0)
+      0021E5 5F               [ 4] 6860 	ld	e, a
+      0021E6 3A 9E FC         [13] 6861 	ld	a, (#_JIFFY + 0)
+      0021E9 67               [ 4] 6862 	ld	h, a
+      0021EA 2E 00            [ 7] 6863 	ld	l, #0x00
+      0021EC 55               [ 4] 6864 	ld	d, l
+      0021ED 06 08            [ 7] 6865 	ld	b, #0x08
+      0021EF                       6866 00133$:
+      0021EF 29               [11] 6867 	add	hl, hl
+      0021F0 30 01            [12] 6868 	jr	NC, 00134$
+      0021F2 19               [11] 6869 	add	hl, de
+      0021F3                       6870 00134$:
+      0021F3 10 FA            [13] 6871 	djnz	00133$
+      0021F5 7D               [ 4] 6872 	ld	a, l
+      0021F6 C6 63            [ 7] 6873 	add	a, #0x63
+      0021F8 4F               [ 4] 6874 	ld	c, a
+      0021F9 3Ar08r00         [13] 6875 	ld	a, (#_rndSeed + 0)
+      0021FC 5F               [ 4] 6876 	ld	e, a
+      0021FD 3A 9E FC         [13] 6877 	ld	a, (#_JIFFY + 0)
+      002200 67               [ 4] 6878 	ld	h, a
+      002201 2E 00            [ 7] 6879 	ld	l, #0x00
+      002203 55               [ 4] 6880 	ld	d, l
+      002204 06 08            [ 7] 6881 	ld	b, #0x08
+      002206                       6882 00135$:
+      002206 29               [11] 6883 	add	hl, hl
+      002207 30 01            [12] 6884 	jr	NC, 00136$
+      002209 19               [11] 6885 	add	hl, de
+      00220A                       6886 00136$:
+      00220A 10 FA            [13] 6887 	djnz	00135$
+      00220C 79               [ 4] 6888 	ld	a, c
+      00220D F5               [11] 6889 	push	af
+      00220E 7D               [ 4] 6890 	ld	a, l
+      00220F 33               [ 6] 6891 	inc	sp
+      002210 F5               [11] 6892 	push	af
+      002211 33               [ 6] 6893 	inc	sp
+      002212 3Ar08r00         [13] 6894 	ld	a,(#_rndSeed + 0)
+      002215 F5               [11] 6895 	push	af
+      002216 33               [ 6] 6896 	inc	sp
+      002217 CDr50r00         [17] 6897 	call	_InitRnd
+      00221A F1               [10] 6898 	pop	af
+      00221B 33               [ 6] 6899 	inc	sp
+                                   6900 ;src\/GameLogic.h:338: RandomPiece();
+      00221C CDr72r1C         [17] 6901 	call	_RandomPiece
+                                   6902 ;src\/GameLogic.h:341: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+      00221F 0E 00            [ 7] 6903 	ld	c, #0x00
+      002221                       6904 00107$:
+      002221 79               [ 4] 6905 	ld	a, c
+      002222 D6 0C            [ 7] 6906 	sub	a, #0x0c
+      002224 30 20            [12] 6907 	jr	NC, 00102$
+                                   6908 ;src\/GameLogic.h:342: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+      002226 06 00            [ 7] 6909 	ld	b, #0x00
+      002228                       6910 00104$:
+      002228 78               [ 4] 6911 	ld	a, b
+      002229 D6 06            [ 7] 6912 	sub	a, #0x06
+      00222B 30 16            [12] 6913 	jr	NC, 00108$
+                                   6914 ;src\/GameLogic.h:343: playfield[col][line] = EMPTY;
+      00222D 58               [ 4] 6915 	ld	e, b
+      00222E 16 00            [ 7] 6916 	ld	d, #0x00
+      002230 6B               [ 4] 6917 	ld	l, e
+      002231 62               [ 4] 6918 	ld	h, d
+      002232 29               [11] 6919 	add	hl, hl
+      002233 19               [11] 6920 	add	hl, de
+      002234 29               [11] 6921 	add	hl, hl
+      002235 29               [11] 6922 	add	hl, hl
+      002236 11r00r00         [10] 6923 	ld	de, #_playfield
+      002239 19               [11] 6924 	add	hl, de
+      00223A 59               [ 4] 6925 	ld	e, c
+      00223B 16 00            [ 7] 6926 	ld	d, #0x00
+      00223D 19               [11] 6927 	add	hl, de
+      00223E 36 00            [10] 6928 	ld	(hl), #0x00
+                                   6929 ;src\/GameLogic.h:342: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+      002240 04               [ 4] 6930 	inc	b
+      002241 18 E5            [12] 6931 	jr	00104$
+      002243                       6932 00108$:
+                                   6933 ;src\/GameLogic.h:341: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+      002243 0C               [ 4] 6934 	inc	c
+      002244 18 DB            [12] 6935 	jr	00107$
+      002246                       6936 00102$:
+                                   6937 ;src\/GameLogic.h:348: TestCase();
+      002246 CDr6Cr21         [17] 6938 	call	_TestCase
+                                   6939 ;src\/GameLogic.h:350: DrawBackground();
+      002249 CDrBCr0C         [17] 6940 	call	_DrawBackground
+                                   6941 ;src\/GameLogic.h:352: DrawPlayfield();
+      00224C CDr5Fr13         [17] 6942 	call	_DrawPlayfield
+                                   6943 ;src\/GameLogic.h:354: DrawScore();
+      00224F CDr35r0B         [17] 6944 	call	_DrawScore
+                                   6945 ;src\/GameLogic.h:356: GameLoop();
+                                   6946 ;src\/GameLogic.h:357: }
+      002252 C3r92r1D         [10] 6947 	jp	_GameLoop
+                                   6948 ;src\/Intro.h:3: void ChangeFontColor(byte color) {
+                                   6949 ;	---------------------------------
+                                   6950 ; Function ChangeFontColor
+                                   6951 ; ---------------------------------
+      002255                       6952 _ChangeFontColor::
+                                   6953 ;src\/Intro.h:4: FILVRM(CLRTBL + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, color);
+      002255 21 02 00         [10] 6954 	ld	hl, #2
+      002258 39               [11] 6955 	add	hl, sp
+      002259 7E               [ 7] 6956 	ld	a, (hl)
+      00225A F5               [11] 6957 	push	af
+      00225B 33               [ 6] 6958 	inc	sp
+      00225C 21 00 03         [10] 6959 	ld	hl, #0x0300
+      00225F E5               [11] 6960 	push	hl
+      002260 21 78 21         [10] 6961 	ld	hl, #0x2178
+      002263 E5               [11] 6962 	push	hl
+      002264 CDr00r00         [17] 6963 	call	_FILVRM
+      002267 F1               [10] 6964 	pop	af
+      002268 F1               [10] 6965 	pop	af
+      002269 33               [ 6] 6966 	inc	sp
+                                   6967 ;src\/Intro.h:5: FILVRM(CLRTBL + (256 * 8) + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, color);
+      00226A 21 02 00         [10] 6968 	ld	hl, #2
+      00226D 39               [11] 6969 	add	hl, sp
+      00226E 7E               [ 7] 6970 	ld	a, (hl)
+      00226F F5               [11] 6971 	push	af
+      002270 33               [ 6] 6972 	inc	sp
+      002271 21 00 03         [10] 6973 	ld	hl, #0x0300
+      002274 E5               [11] 6974 	push	hl
+      002275 21 78 29         [10] 6975 	ld	hl, #0x2978
+      002278 E5               [11] 6976 	push	hl
+      002279 CDr00r00         [17] 6977 	call	_FILVRM
+      00227C F1               [10] 6978 	pop	af
+      00227D F1               [10] 6979 	pop	af
+      00227E 33               [ 6] 6980 	inc	sp
+                                   6981 ;src\/Intro.h:6: FILVRM(CLRTBL + (512 * 8) + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, color);
+      00227F 21 02 00         [10] 6982 	ld	hl, #2
+      002282 39               [11] 6983 	add	hl, sp
+      002283 7E               [ 7] 6984 	ld	a, (hl)
+      002284 F5               [11] 6985 	push	af
+      002285 33               [ 6] 6986 	inc	sp
+      002286 21 00 03         [10] 6987 	ld	hl, #0x0300
+      002289 E5               [11] 6988 	push	hl
+      00228A 21 78 31         [10] 6989 	ld	hl, #0x3178
+      00228D E5               [11] 6990 	push	hl
+      00228E CDr00r00         [17] 6991 	call	_FILVRM
+      002291 F1               [10] 6992 	pop	af
+      002292 F1               [10] 6993 	pop	af
+      002293 33               [ 6] 6994 	inc	sp
+                                   6995 ;src\/Intro.h:7: }
+      002294 C9               [10] 6996 	ret
+                                   6997 ;src\/Intro.h:9: void ScrollDownFont() {
+                                   6998 ;	---------------------------------
+                                   6999 ; Function ScrollDownFont
+                                   7000 ; ---------------------------------
+      002295                       7001 _ScrollDownFont::
+      002295 DD E5            [15] 7002 	push	ix
+      002297 DD 21 00 00      [14] 7003 	ld	ix,#0
+      00229B DD 39            [15] 7004 	add	ix,sp
+      00229D F5               [11] 7005 	push	af
+                                   7006 ;src\/Intro.h:25: for(word i=startVRAMAddr; i < (startVRAMAddr + size); i+=8) {
+      00229E 11 78 09         [10] 7007 	ld	de, #0x0978
+      0022A1                       7008 00107$:
+      0022A1 7B               [ 4] 7009 	ld	a, e
+      0022A2 D6 78            [ 7] 7010 	sub	a, #0x78
+      0022A4 7A               [ 4] 7011 	ld	a, d
+      0022A5 DE 0C            [ 7] 7012 	sbc	a, #0x0c
+      0022A7 30 44            [12] 7013 	jr	NC, 00109$
+                                   7014 ;src\/Intro.h:26: for(word j=i+7; j>0; j--) {
+      0022A9 33               [ 6] 7015 	inc	sp
+      0022AA 33               [ 6] 7016 	inc	sp
+      0022AB D5               [11] 7017 	push	de
+      0022AC DD 7E FE         [19] 7018 	ld	a, -2 (ix)
+      0022AF C6 07            [ 7] 7019 	add	a, #0x07
+      0022B1 4F               [ 4] 7020 	ld	c, a
+      0022B2 DD 7E FF         [19] 7021 	ld	a, -1 (ix)
+      0022B5 CE 00            [ 7] 7022 	adc	a, #0x00
+      0022B7 47               [ 4] 7023 	ld	b, a
+      0022B8                       7024 00104$:
+      0022B8 78               [ 4] 7025 	ld	a, b
+      0022B9 B1               [ 4] 7026 	or	a, c
+      0022BA 28 1A            [12] 7027 	jr	Z, 00101$
+                                   7028 ;src\/Intro.h:27: value = RDVRM(j-1);
+      0022BC 69               [ 4] 7029 	ld	l, c
+      0022BD 60               [ 4] 7030 	ld	h, b
+      0022BE 2B               [ 6] 7031 	dec	hl
+      0022BF C5               [11] 7032 	push	bc
+      0022C0 D5               [11] 7033 	push	de
+      0022C1 CDr00r00         [17] 7034 	call	_RDVRM
+      0022C4 D1               [10] 7035 	pop	de
+      0022C5 C1               [10] 7036 	pop	bc
+                                   7037 ;src\/Intro.h:29: WRTVRM(j, 0);
+      0022C6 C5               [11] 7038 	push	bc
+      0022C7 D5               [11] 7039 	push	de
+      0022C8 AF               [ 4] 7040 	xor	a, a
+      0022C9 F5               [11] 7041 	push	af
+      0022CA 33               [ 6] 7042 	inc	sp
+      0022CB C5               [11] 7043 	push	bc
+      0022CC CDr00r00         [17] 7044 	call	_WRTVRM
+      0022CF F1               [10] 7045 	pop	af
+      0022D0 33               [ 6] 7046 	inc	sp
+      0022D1 D1               [10] 7047 	pop	de
+      0022D2 C1               [10] 7048 	pop	bc
+                                   7049 ;src\/Intro.h:26: for(word j=i+7; j>0; j--) {
+      0022D3 0B               [ 6] 7050 	dec	bc
+      0022D4 18 E2            [12] 7051 	jr	00104$
+      0022D6                       7052 00101$:
+                                   7053 ;src\/Intro.h:31: WRTVRM(i, 0);
+      0022D6 AF               [ 4] 7054 	xor	a, a
+      0022D7 F5               [11] 7055 	push	af
+      0022D8 33               [ 6] 7056 	inc	sp
+      0022D9 D5               [11] 7057 	push	de
+      0022DA CDr00r00         [17] 7058 	call	_WRTVRM
+      0022DD F1               [10] 7059 	pop	af
+      0022DE 33               [ 6] 7060 	inc	sp
+                                   7061 ;src\/Intro.h:25: for(word i=startVRAMAddr; i < (startVRAMAddr + size); i+=8) {
+      0022DF DD 7E FE         [19] 7062 	ld	a, -2 (ix)
+      0022E2 C6 08            [ 7] 7063 	add	a, #0x08
+      0022E4 5F               [ 4] 7064 	ld	e, a
+      0022E5 DD 7E FF         [19] 7065 	ld	a, -1 (ix)
+      0022E8 CE 00            [ 7] 7066 	adc	a, #0x00
+      0022EA 57               [ 4] 7067 	ld	d, a
+      0022EB 18 B4            [12] 7068 	jr	00107$
+      0022ED                       7069 00109$:
+                                   7070 ;src\/Intro.h:35: }
+      0022ED DD F9            [10] 7071 	ld	sp, ix
+      0022EF DD E1            [14] 7072 	pop	ix
+      0022F1 C9               [10] 7073 	ret
+                                   7074 ;src\/Intro.h:37: void Intro() {
+                                   7075 ;	---------------------------------
+                                   7076 ; Function Intro
+                                   7077 ; ---------------------------------
+      0022F2                       7078 _Intro::
+                                   7079 ;src\/Intro.h:41: InitVRAM();
+      0022F2 CDrE5r0F         [17] 7080 	call	_InitVRAM
+                                   7081 ;src\/Intro.h:43: DrawString("A GAME BY", 11, 11);
+      0022F5 11 0B 0B         [10] 7082 	ld	de, #0x0b0b
+      0022F8 D5               [11] 7083 	push	de
+      0022F9 21r67r23         [10] 7084 	ld	hl, #___str_7
+      0022FC E5               [11] 7085 	push	hl
+      0022FD CDrA7r08         [17] 7086 	call	_DrawString
+      002300 F1               [10] 7087 	pop	af
+      002301 F1               [10] 7088 	pop	af
+                                   7089 ;src\/Intro.h:44: DrawString("ANDRE BAPTISTA", 9, 13);
+      002302 11 09 0D         [10] 7090 	ld	de, #0x0d09
+      002305 D5               [11] 7091 	push	de
+      002306 21r71r23         [10] 7092 	ld	hl, #___str_8
+      002309 E5               [11] 7093 	push	hl
+      00230A CDrA7r08         [17] 7094 	call	_DrawString
+      00230D F1               [10] 7095 	pop	af
+                                   7096 ;src\/Intro.h:51: ChangeFontColor(0xf0);
+      00230E 26 F0            [ 7] 7097 	ld	h,#0xf0
+      002310 E3               [19] 7098 	ex	(sp),hl
+      002311 33               [ 6] 7099 	inc	sp
+      002312 CDr55r22         [17] 7100 	call	_ChangeFontColor
+      002315 33               [ 6] 7101 	inc	sp
+                                   7102 ;src\/Intro.h:56: Wait(2 * 60);
+      002316 21 78 00         [10] 7103 	ld	hl, #0x0078
+      002319 E5               [11] 7104 	push	hl
+      00231A CDr00r00         [17] 7105 	call	_Wait
+      00231D F1               [10] 7106 	pop	af
+                                   7107 ;src\/Intro.h:58: while(counter++ < 20) {
+      00231E 0E 00            [ 7] 7108 	ld	c, #0x00
+      002320                       7109 00112$:
+      002320 79               [ 4] 7110 	ld	a, c
+      002321 D6 14            [ 7] 7111 	sub	a, #0x14
+      002323 D0               [11] 7112 	ret	NC
+      002324 0C               [ 4] 7113 	inc	c
+                                   7114 ;src\/Intro.h:59: byte lastJiffy = JIFFY;
+      002325 21 9E FC         [10] 7115 	ld	hl, #_JIFFY
+      002328 46               [ 7] 7116 	ld	b, (hl)
+                                   7117 ;src\/Intro.h:60: while (JIFFY == lastJiffy) {
+      002329                       7118 00101$:
+      002329 58               [ 4] 7119 	ld	e, b
+      00232A 16 00            [ 7] 7120 	ld	d, #0x00
+      00232C 2A 9E FC         [16] 7121 	ld	hl, (_JIFFY)
+      00232F BF               [ 4] 7122 	cp	a, a
+      002330 ED 52            [15] 7123 	sbc	hl, de
+      002332 28 F5            [12] 7124 	jr	Z, 00101$
+                                   7125 ;src\/Intro.h:63: if(counter == 15) {
+      002334 79               [ 4] 7126 	ld	a, c
+      002335 D6 0F            [ 7] 7127 	sub	a, #0x0f
+      002337 20 0C            [12] 7128 	jr	NZ, 00110$
+                                   7129 ;src\/Intro.h:64: ChangeFontColor(0x40);
+      002339 C5               [11] 7130 	push	bc
+      00233A 3E 40            [ 7] 7131 	ld	a, #0x40
+      00233C F5               [11] 7132 	push	af
+      00233D 33               [ 6] 7133 	inc	sp
+      00233E CDr55r22         [17] 7134 	call	_ChangeFontColor
+      002341 33               [ 6] 7135 	inc	sp
+      002342 C1               [10] 7136 	pop	bc
+      002343 18 DB            [12] 7137 	jr	00112$
+      002345                       7138 00110$:
+                                   7139 ;src\/Intro.h:66: else if(counter == 10) {
+      002345 79               [ 4] 7140 	ld	a, c
+      002346 D6 0A            [ 7] 7141 	sub	a, #0x0a
+      002348 20 0C            [12] 7142 	jr	NZ, 00107$
+                                   7143 ;src\/Intro.h:67: ChangeFontColor(0x50);
+      00234A C5               [11] 7144 	push	bc
+      00234B 3E 50            [ 7] 7145 	ld	a, #0x50
+      00234D F5               [11] 7146 	push	af
+      00234E 33               [ 6] 7147 	inc	sp
+      00234F CDr55r22         [17] 7148 	call	_ChangeFontColor
+      002352 33               [ 6] 7149 	inc	sp
+      002353 C1               [10] 7150 	pop	bc
+      002354 18 CA            [12] 7151 	jr	00112$
+      002356                       7152 00107$:
+                                   7153 ;src\/Intro.h:69: else if(counter == 5) {
+      002356 79               [ 4] 7154 	ld	a, c
+      002357 D6 05            [ 7] 7155 	sub	a, #0x05
+      002359 20 C5            [12] 7156 	jr	NZ, 00112$
+                                   7157 ;src\/Intro.h:71: ChangeFontColor(0xe0);
+      00235B C5               [11] 7158 	push	bc
+      00235C 3E E0            [ 7] 7159 	ld	a, #0xe0
+      00235E F5               [11] 7160 	push	af
+      00235F 33               [ 6] 7161 	inc	sp
+      002360 CDr55r22         [17] 7162 	call	_ChangeFontColor
+      002363 33               [ 6] 7163 	inc	sp
+      002364 C1               [10] 7164 	pop	bc
+                                   7165 ;src\/Intro.h:140: }
+      002365 18 B9            [12] 7166 	jr	00112$
+      002367                       7167 ___str_7:
+      002367 41 20 47 41 4D 45 20  7168 	.ascii "A GAME BY"
              42 59
-      002372 00                    7170 	.db 0x00
-      002373                       7171 ___str_8:
-      002373 41 4E 44 52 45 20 42  7172 	.ascii "ANDRE BAPTISTA"
+      002370 00                    7169 	.db 0x00
+      002371                       7170 ___str_8:
+      002371 41 4E 44 52 45 20 42  7171 	.ascii "ANDRE BAPTISTA"
              41 50 54 49 53 54 41
-      002381 00                    7173 	.db 0x00
-                                   7174 ;src\/Title.h:14: void SetBlock(byte col, byte line, byte tileNumber) {
-                                   7175 ;	---------------------------------
-                                   7176 ; Function SetBlock
-                                   7177 ; ---------------------------------
-      002382                       7178 _SetBlock::
-      002382 DD E5            [15] 7179 	push	ix
-      002384 DD 21 00 00      [14] 7180 	ld	ix,#0
-      002388 DD 39            [15] 7181 	add	ix,sp
-                                   7182 ;src\/Title.h:15: WRTVRM(NAMTBL + col + (line * 32), tileNumber);
-      00238A DD 7E 04         [19] 7183 	ld	a, 4 (ix)
-      00238D 06 00            [ 7] 7184 	ld	b, #0x00
-      00238F 4F               [ 4] 7185 	ld	c, a
-      002390 78               [ 4] 7186 	ld	a, b
-      002391 C6 18            [ 7] 7187 	add	a, #0x18
-      002393 47               [ 4] 7188 	ld	b, a
-      002394 DD 6E 05         [19] 7189 	ld	l, 5 (ix)
-      002397 26 00            [ 7] 7190 	ld	h, #0x00
-      002399 29               [11] 7191 	add	hl, hl
-      00239A 29               [11] 7192 	add	hl, hl
-      00239B 29               [11] 7193 	add	hl, hl
-      00239C 29               [11] 7194 	add	hl, hl
-      00239D 29               [11] 7195 	add	hl, hl
-      00239E 09               [11] 7196 	add	hl, bc
-      00239F DD 7E 06         [19] 7197 	ld	a, 6 (ix)
-      0023A2 F5               [11] 7198 	push	af
-      0023A3 33               [ 6] 7199 	inc	sp
-      0023A4 E5               [11] 7200 	push	hl
-      0023A5 CDr00r00         [17] 7201 	call	_WRTVRM
-      0023A8 F1               [10] 7202 	pop	af
-      0023A9 33               [ 6] 7203 	inc	sp
-                                   7204 ;src\/Title.h:16: }
-      0023AA DD E1            [14] 7205 	pop	ix
-      0023AC C9               [10] 7206 	ret
-                                   7207 ;src\/Title.h:18: void TitleScreen() {
-                                   7208 ;	---------------------------------
-                                   7209 ; Function TitleScreen
-                                   7210 ; ---------------------------------
-      0023AD                       7211 _TitleScreen::
-      0023AD DD E5            [15] 7212 	push	ix
-      0023AF DD 21 00 00      [14] 7213 	ld	ix,#0
-      0023B3 DD 39            [15] 7214 	add	ix,sp
-      0023B5 21 EB FF         [10] 7215 	ld	hl, #-21
-      0023B8 39               [11] 7216 	add	hl, sp
-      0023B9 F9               [ 6] 7217 	ld	sp, hl
-                                   7218 ;src\/Title.h:19: byte colorIndex = 0;
-      0023BA 0E 00            [ 7] 7219 	ld	c, #0x00
-                                   7220 ;src\/Title.h:52: const char blocks[] = {
-      0023BC 21 00 00         [10] 7221 	ld	hl, #0
-      0023BF 39               [11] 7222 	add	hl, sp
-      0023C0 EB               [ 4] 7223 	ex	de, hl
-      0023C1 3E 8E            [ 7] 7224 	ld	a, #0x8e
-      0023C3 12               [ 7] 7225 	ld	(de), a
-      0023C4 6B               [ 4] 7226 	ld	l, e
-      0023C5 62               [ 4] 7227 	ld	h, d
-      0023C6 23               [ 6] 7228 	inc	hl
-      0023C7 36 8F            [10] 7229 	ld	(hl), #0x8f
-      0023C9 6B               [ 4] 7230 	ld	l, e
-      0023CA 62               [ 4] 7231 	ld	h, d
-      0023CB 23               [ 6] 7232 	inc	hl
-      0023CC 23               [ 6] 7233 	inc	hl
-      0023CD 36 90            [10] 7234 	ld	(hl), #0x90
-      0023CF 6B               [ 4] 7235 	ld	l, e
-      0023D0 62               [ 4] 7236 	ld	h, d
-      0023D1 23               [ 6] 7237 	inc	hl
-      0023D2 23               [ 6] 7238 	inc	hl
-      0023D3 23               [ 6] 7239 	inc	hl
-      0023D4 36 91            [10] 7240 	ld	(hl), #0x91
-      0023D6 21 04 00         [10] 7241 	ld	hl, #0x0004
-      0023D9 19               [11] 7242 	add	hl, de
-      0023DA 36 92            [10] 7243 	ld	(hl), #0x92
-      0023DC 21 05 00         [10] 7244 	ld	hl, #0x0005
-      0023DF 19               [11] 7245 	add	hl, de
-      0023E0 36 93            [10] 7246 	ld	(hl), #0x93
-      0023E2 21 06 00         [10] 7247 	ld	hl, #0x0006
-      0023E5 19               [11] 7248 	add	hl, de
-      0023E6 36 94            [10] 7249 	ld	(hl), #0x94
-                                   7250 ;src\/Title.h:62: const char colors[] = { A, C, E, G }; // last item will be ignored
-      0023E8 21 07 00         [10] 7251 	ld	hl, #7
-      0023EB 39               [11] 7252 	add	hl, sp
-      0023EC DD 75 F6         [19] 7253 	ld	-10 (ix), l
-      0023EF DD 74 F7         [19] 7254 	ld	-9 (ix), h
-      0023F2 36 8E            [10] 7255 	ld	(hl), #0x8e
-      0023F4 DD 6E F6         [19] 7256 	ld	l, -10 (ix)
-      0023F7 DD 66 F7         [19] 7257 	ld	h, -9 (ix)
-      0023FA 23               [ 6] 7258 	inc	hl
-      0023FB 36 90            [10] 7259 	ld	(hl), #0x90
-      0023FD DD 6E F6         [19] 7260 	ld	l, -10 (ix)
-      002400 DD 66 F7         [19] 7261 	ld	h, -9 (ix)
-      002403 23               [ 6] 7262 	inc	hl
-      002404 23               [ 6] 7263 	inc	hl
-      002405 36 92            [10] 7264 	ld	(hl), #0x92
-      002407 DD 6E F6         [19] 7265 	ld	l, -10 (ix)
-      00240A DD 66 F7         [19] 7266 	ld	h, -9 (ix)
-      00240D 23               [ 6] 7267 	inc	hl
-      00240E 23               [ 6] 7268 	inc	hl
-      00240F 23               [ 6] 7269 	inc	hl
-      002410 36 94            [10] 7270 	ld	(hl), #0x94
-                                   7271 ;src\/Title.h:65: InitVRAM();
-      002412 C5               [11] 7272 	push	bc
-      002413 D5               [11] 7273 	push	de
-      002414 CDrE5r0F         [17] 7274 	call	_InitVRAM
-      002417 21 00 01         [10] 7275 	ld	hl, #0x0100
-      00241A E5               [11] 7276 	push	hl
-      00241B 21r94r25         [10] 7277 	ld	hl, #_TitleScreen_title_65536_280
-      00241E E5               [11] 7278 	push	hl
-      00241F 21 00 18         [10] 7279 	ld	hl, #0x1800
-      002422 E5               [11] 7280 	push	hl
-      002423 CDr00r00         [17] 7281 	call	_LDIRVM
-      002426 21 06 00         [10] 7282 	ld	hl, #6
-      002429 39               [11] 7283 	add	hl, sp
-      00242A F9               [ 6] 7284 	ld	sp, hl
-      00242B 11 05 0D         [10] 7285 	ld	de, #0x0d05
-      00242E D5               [11] 7286 	push	de
-      00242F 21r94r26         [10] 7287 	ld	hl, #___str_9
-      002432 E5               [11] 7288 	push	hl
-      002433 CDrA7r08         [17] 7289 	call	_DrawString
-      002436 F1               [10] 7290 	pop	af
-      002437 26 17            [ 7] 7291 	ld	h,#0x17
-      002439 E3               [19] 7292 	ex	(sp),hl
-      00243A 33               [ 6] 7293 	inc	sp
-      00243B AF               [ 4] 7294 	xor	a, a
-      00243C F5               [11] 7295 	push	af
-      00243D 33               [ 6] 7296 	inc	sp
-      00243E 21rABr26         [10] 7297 	ld	hl, #___str_10
-      002441 E5               [11] 7298 	push	hl
-      002442 CDrA7r08         [17] 7299 	call	_DrawString
-      002445 F1               [10] 7300 	pop	af
-      002446 F1               [10] 7301 	pop	af
-      002447 11 19 17         [10] 7302 	ld	de, #0x1719
-      00244A D5               [11] 7303 	push	de
-      00244B 21rC0r26         [10] 7304 	ld	hl, #___str_11
-      00244E E5               [11] 7305 	push	hl
-      00244F CDrA7r08         [17] 7306 	call	_DrawString
-      002452 F1               [10] 7307 	pop	af
-      002453 F1               [10] 7308 	pop	af
-      002454 D1               [10] 7309 	pop	de
-      002455 C1               [10] 7310 	pop	bc
-                                   7311 ;src\/Title.h:73: while(TRUE) {
-      002456                       7312 00120$:
-                                   7313 ;src\/Title.h:74: byte index = 0, col_1, line_1; //, col_2, line_2, col_3, line_3;
-      002456 DD 36 FD 00      [19] 7314 	ld	-3 (ix), #0
-                                   7315 ;src\/Title.h:78: word counter = 0;
-      00245A AF               [ 4] 7316 	xor	a, a
-      00245B DD 77 FE         [19] 7317 	ld	-2 (ix), a
-      00245E DD 77 FF         [19] 7318 	ld	-1 (ix), a
-                                   7319 ;src\/Title.h:88: do {
-      002461                       7320 00106$:
-                                   7321 ;src\/Title.h:95: col_1 = GetRandomInInterval(31, 0b00011111);
-      002461 C5               [11] 7322 	push	bc
-      002462 D5               [11] 7323 	push	de
-      002463 11 1F 1F         [10] 7324 	ld	de, #0x1f1f
-      002466 D5               [11] 7325 	push	de
-      002467 CDrD9r00         [17] 7326 	call	_GetRandomInInterval
-      00246A F1               [10] 7327 	pop	af
-                                   7328 ;src\/Title.h:96: line_1 = GetRandomInInterval(7, 0b00000111);
-      00246B DD 75 F8         [19] 7329 	ld	-8 (ix), l
-      00246E 11 07 07         [10] 7330 	ld	de, #0x0707
-      002471 D5               [11] 7331 	push	de
-      002472 CDrD9r00         [17] 7332 	call	_GetRandomInInterval
-      002475 F1               [10] 7333 	pop	af
-      002476 D1               [10] 7334 	pop	de
-      002477 C1               [10] 7335 	pop	bc
-      002478 DD 75 F9         [19] 7336 	ld	-7 (ix), l
-                                   7337 ;src\/Title.h:99: value = RDVRM(NAMTBL + col_1 + (line_1 * 32));
-      00247B DD 6E F8         [19] 7338 	ld	l, -8 (ix)
-      00247E 3E 00            [ 7] 7339 	ld	a, #0x00
-      002480 C6 18            [ 7] 7340 	add	a, #0x18
-      002482 67               [ 4] 7341 	ld	h, a
-      002483 DD 7E F9         [19] 7342 	ld	a, -7 (ix)
-      002486 06 00            [ 7] 7343 	ld	b, #0x00
-      002488 87               [ 4] 7344 	add	a, a
-      002489 CB 10            [ 8] 7345 	rl	b
-      00248B 87               [ 4] 7346 	add	a, a
-      00248C CB 10            [ 8] 7347 	rl	b
-      00248E 87               [ 4] 7348 	add	a, a
-      00248F CB 10            [ 8] 7349 	rl	b
-      002491 87               [ 4] 7350 	add	a, a
-      002492 CB 10            [ 8] 7351 	rl	b
-      002494 87               [ 4] 7352 	add	a, a
-      002495 CB 10            [ 8] 7353 	rl	b
-      002497 85               [ 4] 7354 	add	a, l
-      002498 6F               [ 4] 7355 	ld	l, a
-      002499 78               [ 4] 7356 	ld	a, b
-      00249A 8C               [ 4] 7357 	adc	a, h
-      00249B 67               [ 4] 7358 	ld	h, a
-      00249C C5               [11] 7359 	push	bc
-      00249D D5               [11] 7360 	push	de
-      00249E CDr00r00         [17] 7361 	call	_RDVRM
-      0024A1 D1               [10] 7362 	pop	de
-      0024A2 C1               [10] 7363 	pop	bc
-      0024A3 DD 75 FA         [19] 7364 	ld	-6 (ix), l
-                                   7365 ;src\/Title.h:102: if(counter++ > 1000) {
-      0024A6 DD 46 FE         [19] 7366 	ld	b, -2 (ix)
-      0024A9 DD 6E FF         [19] 7367 	ld	l, -1 (ix)
-      0024AC DD 34 FE         [23] 7368 	inc	-2 (ix)
-      0024AF 20 03            [12] 7369 	jr	NZ, 00193$
-      0024B1 DD 34 FF         [23] 7370 	inc	-1 (ix)
-      0024B4                       7371 00193$:
-      0024B4 3E E8            [ 7] 7372 	ld	a, #0xe8
-      0024B6 B8               [ 4] 7373 	cp	a, b
-      0024B7 3E 03            [ 7] 7374 	ld	a, #0x03
-      0024B9 9D               [ 4] 7375 	sbc	a, l
-      0024BA 30 0F            [12] 7376 	jr	NC, 00107$
-                                   7377 ;src\/Title.h:103: colorIndex++;
-      0024BC 0C               [ 4] 7378 	inc	c
-                                   7379 ;src\/Title.h:104: if(colorIndex >= sizeof(colors) - 1) colorIndex = 0;
-      0024BD 79               [ 4] 7380 	ld	a, c
-      0024BE D6 03            [ 7] 7381 	sub	a, #0x03
-      0024C0 38 02            [12] 7382 	jr	C, 00102$
-      0024C2 0E 00            [ 7] 7383 	ld	c, #0x00
-      0024C4                       7384 00102$:
-                                   7385 ;src\/Title.h:119: counter = 0;
-      0024C4 AF               [ 4] 7386 	xor	a, a
-      0024C5 DD 77 FE         [19] 7387 	ld	-2 (ix), a
-      0024C8 DD 77 FF         [19] 7388 	ld	-1 (ix), a
-      0024CB                       7389 00107$:
-                                   7390 ;src\/Title.h:122: while (value == EMPTY || value == colors[colorIndex + 1]);
-      0024CB DD 7E FA         [19] 7391 	ld	a, -6 (ix)
-      0024CE B7               [ 4] 7392 	or	a, a
-      0024CF 28 90            [12] 7393 	jr	Z, 00106$
-      0024D1 79               [ 4] 7394 	ld	a, c
-      0024D2 3C               [ 4] 7395 	inc	a
-      0024D3 F5               [11] 7396 	push	af
-      0024D4 17               [ 4] 7397 	rla
-      0024D5 9F               [ 4] 7398 	sbc	a, a
-      0024D6 47               [ 4] 7399 	ld	b, a
-      0024D7 F1               [10] 7400 	pop	af
-      0024D8 DD 86 F6         [19] 7401 	add	a, -10 (ix)
-      0024DB DD 77 FB         [19] 7402 	ld	-5 (ix), a
-      0024DE 78               [ 4] 7403 	ld	a, b
-      0024DF DD 8E F7         [19] 7404 	adc	a, -9 (ix)
-      0024E2 DD 77 FC         [19] 7405 	ld	-4 (ix), a
-      0024E5 DD 6E FB         [19] 7406 	ld	l, -5 (ix)
-      0024E8 DD 66 FC         [19] 7407 	ld	h, -4 (ix)
-      0024EB 46               [ 7] 7408 	ld	b, (hl)
-      0024EC DD 7E FA         [19] 7409 	ld	a, -6 (ix)
-      0024EF 90               [ 4] 7410 	sub	a, b
-      0024F0 CAr61r24         [10] 7411 	jp	Z,00106$
-                                   7412 ;src\/Title.h:138: for(byte i=0; i < 10 + 0; i++) {
-      0024F3 06 00            [ 7] 7413 	ld	b, #0x00
-      0024F5                       7414 00123$:
-      0024F5 78               [ 4] 7415 	ld	a, b
-      0024F6 D6 0A            [ 7] 7416 	sub	a, #0x0a
-      0024F8 30 79            [12] 7417 	jr	NC, 00118$
-                                   7418 ;src\/Title.h:140: word lastJiffy = JIFFY;
-      0024FA 2A 9E FC         [16] 7419 	ld	hl, (_JIFFY)
-      0024FD DD 75 FE         [19] 7420 	ld	-2 (ix), l
-      002500 DD 74 FF         [19] 7421 	ld	-1 (ix), h
-                                   7422 ;src\/Title.h:141: while (JIFFY == lastJiffy) {
-      002503                       7423 00109$:
-      002503 FD 21 9E FC      [14] 7424 	ld	iy, #_JIFFY
-      002507 FD 7E 00         [19] 7425 	ld	a, 0 (iy)
-      00250A DD 96 FE         [19] 7426 	sub	a, -2 (ix)
-      00250D 20 08            [12] 7427 	jr	NZ, 00195$
-      00250F FD 7E 01         [19] 7428 	ld	a, 1 (iy)
-      002512 DD 96 FF         [19] 7429 	sub	a, -1 (ix)
-      002515 28 EC            [12] 7430 	jr	Z, 00109$
-      002517                       7431 00195$:
-                                   7432 ;src\/Title.h:146: SetBlock(col_1, line_1, blocks[index]);
-      002517 DD 6E FD         [19] 7433 	ld	l, -3 (ix)
-      00251A 26 00            [ 7] 7434 	ld	h, #0x00
-      00251C 19               [11] 7435 	add	hl, de
-      00251D 7E               [ 7] 7436 	ld	a, (hl)
-      00251E C5               [11] 7437 	push	bc
-      00251F D5               [11] 7438 	push	de
-      002520 F5               [11] 7439 	push	af
-      002521 33               [ 6] 7440 	inc	sp
-      002522 DD 66 F9         [19] 7441 	ld	h, -7 (ix)
-      002525 DD 6E F8         [19] 7442 	ld	l, -8 (ix)
-      002528 E5               [11] 7443 	push	hl
-      002529 CDr82r23         [17] 7444 	call	_SetBlock
-      00252C F1               [10] 7445 	pop	af
-      00252D 33               [ 6] 7446 	inc	sp
-      00252E D1               [10] 7447 	pop	de
-      00252F C1               [10] 7448 	pop	bc
-                                   7449 ;src\/Title.h:150: if(index++ >= sizeof(blocks)) index = 0;
-      002530 DD 7E FD         [19] 7450 	ld	a, -3 (ix)
-      002533 DD 34 FD         [23] 7451 	inc	-3 (ix)
-      002536 D6 07            [ 7] 7452 	sub	a, #0x07
-      002538 38 04            [12] 7453 	jr	C, 00113$
-      00253A DD 36 FD 00      [19] 7454 	ld	-3 (ix), #0
-      00253E                       7455 00113$:
-                                   7456 ;src\/Title.h:163: spaceBar = GTTRIG(TRIG_Spacebar);
-      00253E C5               [11] 7457 	push	bc
-      00253F D5               [11] 7458 	push	de
-      002540 2E 00            [ 7] 7459 	ld	l, #0x00
-      002542 CDr00r00         [17] 7460 	call	_GTTRIG
-                                   7461 ;src\/Title.h:164: btn1 = GTTRIG(TRIG_Joy1_A);
-      002545 DD 75 FF         [19] 7462 	ld	-1 (ix), l
-      002548 2E 01            [ 7] 7463 	ld	l, #0x01
-      00254A CDr00r00         [17] 7464 	call	_GTTRIG
-      00254D D1               [10] 7465 	pop	de
-      00254E C1               [10] 7466 	pop	bc
-                                   7467 ;src\/Title.h:165: btn2 = GTTRIG(TRIG_Joy1_B);
-      00254F E5               [11] 7468 	push	hl
-      002550 C5               [11] 7469 	push	bc
-      002551 D5               [11] 7470 	push	de
-      002552 2E 03            [ 7] 7471 	ld	l, #0x03
-      002554 CDr00r00         [17] 7472 	call	_GTTRIG
-      002557 7D               [ 4] 7473 	ld	a, l
-      002558 D1               [10] 7474 	pop	de
-      002559 C1               [10] 7475 	pop	bc
-      00255A E1               [10] 7476 	pop	hl
-      00255B 67               [ 4] 7477 	ld	h, a
-                                   7478 ;src\/Title.h:167: if(spaceBar == 0xff || btn1 == 0xff || btn2 == 0xff) { 
-      00255C DD 7E FF         [19] 7479 	ld	a, -1 (ix)
-      00255F 3C               [ 4] 7480 	inc	a
-      002560 28 06            [12] 7481 	jr	Z, 00114$
-      002562 2C               [ 4] 7482 	inc	l
-      002563 28 03            [12] 7483 	jr	Z, 00114$
-      002565 24               [ 4] 7484 	inc	h
-      002566 20 08            [12] 7485 	jr	NZ, 00124$
-      002568                       7486 00114$:
-                                   7487 ;src\/Title.h:168: rndSeed = JIFFY;
-      002568 3A 9E FC         [13] 7488 	ld	a,(#_JIFFY + 0)
-      00256B 32r08r00         [13] 7489 	ld	(#_rndSeed), a
-                                   7490 ;src\/Title.h:169: return;
-      00256E 18 1F            [12] 7491 	jr	00125$
-      002570                       7492 00124$:
-                                   7493 ;src\/Title.h:138: for(byte i=0; i < 10 + 0; i++) {
-      002570 04               [ 4] 7494 	inc	b
-      002571 18 82            [12] 7495 	jr	00123$
-      002573                       7496 00118$:
-                                   7497 ;src\/Title.h:173: SetBlock(col_1, line_1, colors[colorIndex + 1]);
-      002573 DD 6E FB         [19] 7498 	ld	l, -5 (ix)
-      002576 DD 66 FC         [19] 7499 	ld	h, -4 (ix)
-      002579 7E               [ 7] 7500 	ld	a, (hl)
-      00257A C5               [11] 7501 	push	bc
-      00257B D5               [11] 7502 	push	de
-      00257C F5               [11] 7503 	push	af
-      00257D 33               [ 6] 7504 	inc	sp
-      00257E DD 66 F9         [19] 7505 	ld	h, -7 (ix)
-      002581 DD 6E F8         [19] 7506 	ld	l, -8 (ix)
-      002584 E5               [11] 7507 	push	hl
-      002585 CDr82r23         [17] 7508 	call	_SetBlock
-      002588 F1               [10] 7509 	pop	af
-      002589 33               [ 6] 7510 	inc	sp
-      00258A D1               [10] 7511 	pop	de
-      00258B C1               [10] 7512 	pop	bc
-      00258C C3r56r24         [10] 7513 	jp	00120$
-      00258F                       7514 00125$:
-                                   7515 ;src\/Title.h:176: }
-      00258F DD F9            [10] 7516 	ld	sp, ix
-      002591 DD E1            [14] 7517 	pop	ix
-      002593 C9               [10] 7518 	ret
-      002594                       7519 _TitleScreen_title_65536_280:
-      002594 00                    7520 	.db #0x00	; 0
-      002595 00                    7521 	.db #0x00	; 0
-      002596 00                    7522 	.db #0x00	; 0
-      002597 00                    7523 	.db #0x00	; 0
-      002598 8E                    7524 	.db #0x8e	; 142
-      002599 8E                    7525 	.db #0x8e	; 142
-      00259A 8E                    7526 	.db #0x8e	; 142
-      00259B 8E                    7527 	.db #0x8e	; 142
-      00259C 00                    7528 	.db #0x00	; 0
-      00259D 8E                    7529 	.db #0x8e	; 142
-      00259E 8E                    7530 	.db #0x8e	; 142
-      00259F 8E                    7531 	.db #0x8e	; 142
-      0025A0 8E                    7532 	.db #0x8e	; 142
-      0025A1 8E                    7533 	.db #0x8e	; 142
-      0025A2 8E                    7534 	.db #0x8e	; 142
-      0025A3 00                    7535 	.db #0x00	; 0
-      0025A4 00                    7536 	.db #0x00	; 0
-      0025A5 8E                    7537 	.db #0x8e	; 142
-      0025A6 8E                    7538 	.db #0x8e	; 142
-      0025A7 00                    7539 	.db #0x00	; 0
-      0025A8 00                    7540 	.db #0x00	; 0
-      0025A9 00                    7541 	.db #0x00	; 0
-      0025AA 8E                    7542 	.db #0x8e	; 142
-      0025AB 8E                    7543 	.db #0x8e	; 142
-      0025AC 00                    7544 	.db #0x00	; 0
-      0025AD 00                    7545 	.db #0x00	; 0
-      0025AE 00                    7546 	.db #0x00	; 0
-      0025AF 00                    7547 	.db #0x00	; 0
-      0025B0 8E                    7548 	.db #0x8e	; 142
-      0025B1 8E                    7549 	.db #0x8e	; 142
-      0025B2 8E                    7550 	.db #0x8e	; 142
-      0025B3 8E                    7551 	.db #0x8e	; 142
-      0025B4 00                    7552 	.db #0x00	; 0
-      0025B5 00                    7553 	.db #0x00	; 0
-      0025B6 00                    7554 	.db #0x00	; 0
-      0025B7 8E                    7555 	.db #0x8e	; 142
-      0025B8 8E                    7556 	.db #0x8e	; 142
-      0025B9 8E                    7557 	.db #0x8e	; 142
-      0025BA 8E                    7558 	.db #0x8e	; 142
-      0025BB 8E                    7559 	.db #0x8e	; 142
-      0025BC 00                    7560 	.db #0x00	; 0
-      0025BD 8E                    7561 	.db #0x8e	; 142
-      0025BE 8E                    7562 	.db #0x8e	; 142
-      0025BF 00                    7563 	.db #0x00	; 0
-      0025C0 00                    7564 	.db #0x00	; 0
-      0025C1 00                    7565 	.db #0x00	; 0
-      0025C2 8E                    7566 	.db #0x8e	; 142
-      0025C3 8E                    7567 	.db #0x8e	; 142
-      0025C4 00                    7568 	.db #0x00	; 0
-      0025C5 00                    7569 	.db #0x00	; 0
-      0025C6 8E                    7570 	.db #0x8e	; 142
-      0025C7 8E                    7571 	.db #0x8e	; 142
-      0025C8 00                    7572 	.db #0x00	; 0
-      0025C9 00                    7573 	.db #0x00	; 0
-      0025CA 8E                    7574 	.db #0x8e	; 142
-      0025CB 8E                    7575 	.db #0x8e	; 142
-      0025CC 00                    7576 	.db #0x00	; 0
-      0025CD 00                    7577 	.db #0x00	; 0
-      0025CE 00                    7578 	.db #0x00	; 0
-      0025CF 8E                    7579 	.db #0x8e	; 142
-      0025D0 8E                    7580 	.db #0x8e	; 142
-      0025D1 8E                    7581 	.db #0x8e	; 142
-      0025D2 8E                    7582 	.db #0x8e	; 142
-      0025D3 8E                    7583 	.db #0x8e	; 142
-      0025D4 00                    7584 	.db #0x00	; 0
-      0025D5 00                    7585 	.db #0x00	; 0
-      0025D6 8E                    7586 	.db #0x8e	; 142
-      0025D7 8E                    7587 	.db #0x8e	; 142
-      0025D8 8E                    7588 	.db #0x8e	; 142
-      0025D9 00                    7589 	.db #0x00	; 0
-      0025DA 8E                    7590 	.db #0x8e	; 142
-      0025DB 8E                    7591 	.db #0x8e	; 142
-      0025DC 00                    7592 	.db #0x00	; 0
-      0025DD 8E                    7593 	.db #0x8e	; 142
-      0025DE 8E                    7594 	.db #0x8e	; 142
-      0025DF 00                    7595 	.db #0x00	; 0
-      0025E0 00                    7596 	.db #0x00	; 0
-      0025E1 00                    7597 	.db #0x00	; 0
-      0025E2 8E                    7598 	.db #0x8e	; 142
-      0025E3 8E                    7599 	.db #0x8e	; 142
-      0025E4 00                    7600 	.db #0x00	; 0
-      0025E5 00                    7601 	.db #0x00	; 0
-      0025E6 00                    7602 	.db #0x00	; 0
-      0025E7 8E                    7603 	.db #0x8e	; 142
-      0025E8 8E                    7604 	.db #0x8e	; 142
-      0025E9 00                    7605 	.db #0x00	; 0
-      0025EA 8E                    7606 	.db #0x8e	; 142
-      0025EB 8E                    7607 	.db #0x8e	; 142
-      0025EC 00                    7608 	.db #0x00	; 0
-      0025ED 00                    7609 	.db #0x00	; 0
-      0025EE 8E                    7610 	.db #0x8e	; 142
-      0025EF 8E                    7611 	.db #0x8e	; 142
-      0025F0 8E                    7612 	.db #0x8e	; 142
-      0025F1 00                    7613 	.db #0x00	; 0
-      0025F2 8E                    7614 	.db #0x8e	; 142
-      0025F3 8E                    7615 	.db #0x8e	; 142
-      0025F4 00                    7616 	.db #0x00	; 0
-      0025F5 8E                    7617 	.db #0x8e	; 142
-      0025F6 8E                    7618 	.db #0x8e	; 142
-      0025F7 8E                    7619 	.db #0x8e	; 142
-      0025F8 00                    7620 	.db #0x00	; 0
-      0025F9 00                    7621 	.db #0x00	; 0
-      0025FA 8E                    7622 	.db #0x8e	; 142
-      0025FB 8E                    7623 	.db #0x8e	; 142
-      0025FC 00                    7624 	.db #0x00	; 0
-      0025FD 8E                    7625 	.db #0x8e	; 142
-      0025FE 8E                    7626 	.db #0x8e	; 142
-      0025FF 00                    7627 	.db #0x00	; 0
-      002600 00                    7628 	.db #0x00	; 0
-      002601 8E                    7629 	.db #0x8e	; 142
-      002602 8E                    7630 	.db #0x8e	; 142
-      002603 00                    7631 	.db #0x00	; 0
-      002604 00                    7632 	.db #0x00	; 0
-      002605 00                    7633 	.db #0x00	; 0
-      002606 00                    7634 	.db #0x00	; 0
-      002607 00                    7635 	.db #0x00	; 0
-      002608 8E                    7636 	.db #0x8e	; 142
-      002609 8E                    7637 	.db #0x8e	; 142
-      00260A 8E                    7638 	.db #0x8e	; 142
-      00260B 00                    7639 	.db #0x00	; 0
-      00260C 00                    7640 	.db #0x00	; 0
-      00260D 8E                    7641 	.db #0x8e	; 142
-      00260E 8E                    7642 	.db #0x8e	; 142
-      00260F 8E                    7643 	.db #0x8e	; 142
-      002610 00                    7644 	.db #0x00	; 0
-      002611 00                    7645 	.db #0x00	; 0
-      002612 8E                    7646 	.db #0x8e	; 142
-      002613 8E                    7647 	.db #0x8e	; 142
-      002614 00                    7648 	.db #0x00	; 0
-      002615 8E                    7649 	.db #0x8e	; 142
-      002616 8E                    7650 	.db #0x8e	; 142
-      002617 00                    7651 	.db #0x00	; 0
-      002618 00                    7652 	.db #0x00	; 0
-      002619 00                    7653 	.db #0x00	; 0
-      00261A 8E                    7654 	.db #0x8e	; 142
-      00261B 8E                    7655 	.db #0x8e	; 142
-      00261C 00                    7656 	.db #0x00	; 0
-      00261D 8E                    7657 	.db #0x8e	; 142
-      00261E 8E                    7658 	.db #0x8e	; 142
-      00261F 8E                    7659 	.db #0x8e	; 142
-      002620 8E                    7660 	.db #0x8e	; 142
-      002621 8E                    7661 	.db #0x8e	; 142
-      002622 00                    7662 	.db #0x00	; 0
-      002623 00                    7663 	.db #0x00	; 0
-      002624 00                    7664 	.db #0x00	; 0
-      002625 00                    7665 	.db #0x00	; 0
-      002626 00                    7666 	.db #0x00	; 0
-      002627 00                    7667 	.db #0x00	; 0
-      002628 8E                    7668 	.db #0x8e	; 142
-      002629 8E                    7669 	.db #0x8e	; 142
-      00262A 00                    7670 	.db #0x00	; 0
-      00262B 00                    7671 	.db #0x00	; 0
-      00262C 00                    7672 	.db #0x00	; 0
-      00262D 8E                    7673 	.db #0x8e	; 142
-      00262E 8E                    7674 	.db #0x8e	; 142
-      00262F 00                    7675 	.db #0x00	; 0
-      002630 00                    7676 	.db #0x00	; 0
-      002631 00                    7677 	.db #0x00	; 0
-      002632 8E                    7678 	.db #0x8e	; 142
-      002633 8E                    7679 	.db #0x8e	; 142
-      002634 00                    7680 	.db #0x00	; 0
-      002635 8E                    7681 	.db #0x8e	; 142
-      002636 8E                    7682 	.db #0x8e	; 142
-      002637 00                    7683 	.db #0x00	; 0
-      002638 00                    7684 	.db #0x00	; 0
-      002639 00                    7685 	.db #0x00	; 0
-      00263A 8E                    7686 	.db #0x8e	; 142
-      00263B 8E                    7687 	.db #0x8e	; 142
-      00263C 00                    7688 	.db #0x00	; 0
-      00263D 8E                    7689 	.db #0x8e	; 142
-      00263E 8E                    7690 	.db #0x8e	; 142
-      00263F 8E                    7691 	.db #0x8e	; 142
-      002640 8E                    7692 	.db #0x8e	; 142
-      002641 8E                    7693 	.db #0x8e	; 142
-      002642 00                    7694 	.db #0x00	; 0
-      002643 00                    7695 	.db #0x00	; 0
-      002644 00                    7696 	.db #0x00	; 0
-      002645 00                    7697 	.db #0x00	; 0
-      002646 00                    7698 	.db #0x00	; 0
-      002647 00                    7699 	.db #0x00	; 0
-      002648 8E                    7700 	.db #0x8e	; 142
-      002649 8E                    7701 	.db #0x8e	; 142
-      00264A 00                    7702 	.db #0x00	; 0
-      00264B 00                    7703 	.db #0x00	; 0
-      00264C 00                    7704 	.db #0x00	; 0
-      00264D 8E                    7705 	.db #0x8e	; 142
-      00264E 8E                    7706 	.db #0x8e	; 142
-      00264F 00                    7707 	.db #0x00	; 0
-      002650 00                    7708 	.db #0x00	; 0
-      002651 00                    7709 	.db #0x00	; 0
-      002652 8E                    7710 	.db #0x8e	; 142
-      002653 8E                    7711 	.db #0x8e	; 142
-      002654 00                    7712 	.db #0x00	; 0
-      002655 8E                    7713 	.db #0x8e	; 142
-      002656 8E                    7714 	.db #0x8e	; 142
-      002657 8E                    7715 	.db #0x8e	; 142
-      002658 8E                    7716 	.db #0x8e	; 142
-      002659 8E                    7717 	.db #0x8e	; 142
-      00265A 8E                    7718 	.db #0x8e	; 142
-      00265B 8E                    7719 	.db #0x8e	; 142
-      00265C 00                    7720 	.db #0x00	; 0
-      00265D 8E                    7721 	.db #0x8e	; 142
-      00265E 8E                    7722 	.db #0x8e	; 142
-      00265F 00                    7723 	.db #0x00	; 0
-      002660 00                    7724 	.db #0x00	; 0
-      002661 00                    7725 	.db #0x00	; 0
-      002662 8E                    7726 	.db #0x8e	; 142
-      002663 00                    7727 	.db #0x00	; 0
-      002664 00                    7728 	.db #0x00	; 0
-      002665 00                    7729 	.db #0x00	; 0
-      002666 00                    7730 	.db #0x00	; 0
-      002667 00                    7731 	.db #0x00	; 0
-      002668 8E                    7732 	.db #0x8e	; 142
-      002669 8E                    7733 	.db #0x8e	; 142
-      00266A 00                    7734 	.db #0x00	; 0
-      00266B 00                    7735 	.db #0x00	; 0
-      00266C 00                    7736 	.db #0x00	; 0
-      00266D 8E                    7737 	.db #0x8e	; 142
-      00266E 8E                    7738 	.db #0x8e	; 142
-      00266F 8E                    7739 	.db #0x8e	; 142
-      002670 8E                    7740 	.db #0x8e	; 142
-      002671 8E                    7741 	.db #0x8e	; 142
-      002672 8E                    7742 	.db #0x8e	; 142
-      002673 8E                    7743 	.db #0x8e	; 142
-      002674 00                    7744 	.db #0x00	; 0
-      002675 8E                    7745 	.db #0x8e	; 142
-      002676 8E                    7746 	.db #0x8e	; 142
-      002677 00                    7747 	.db #0x00	; 0
-      002678 00                    7748 	.db #0x00	; 0
-      002679 00                    7749 	.db #0x00	; 0
-      00267A 8E                    7750 	.db #0x8e	; 142
-      00267B 8E                    7751 	.db #0x8e	; 142
-      00267C 00                    7752 	.db #0x00	; 0
-      00267D 8E                    7753 	.db #0x8e	; 142
-      00267E 8E                    7754 	.db #0x8e	; 142
-      00267F 00                    7755 	.db #0x00	; 0
-      002680 00                    7756 	.db #0x00	; 0
-      002681 00                    7757 	.db #0x00	; 0
-      002682 8E                    7758 	.db #0x8e	; 142
-      002683 00                    7759 	.db #0x00	; 0
-      002684 00                    7760 	.db #0x00	; 0
-      002685 00                    7761 	.db #0x00	; 0
-      002686 00                    7762 	.db #0x00	; 0
-      002687 00                    7763 	.db #0x00	; 0
-      002688 8E                    7764 	.db #0x8e	; 142
-      002689 8E                    7765 	.db #0x8e	; 142
-      00268A 00                    7766 	.db #0x00	; 0
-      00268B 00                    7767 	.db #0x00	; 0
-      00268C 00                    7768 	.db #0x00	; 0
-      00268D 8E                    7769 	.db #0x8e	; 142
-      00268E 8E                    7770 	.db #0x8e	; 142
-      00268F 00                    7771 	.db #0x00	; 0
-      002690 00                    7772 	.db #0x00	; 0
-      002691 00                    7773 	.db #0x00	; 0
-      002692 8E                    7774 	.db #0x8e	; 142
-      002693 8E                    7775 	.db #0x8e	; 142
-      002694                       7776 ___str_9:
-      002694 50 52 45 53 53 20 54  7777 	.ascii "PRESS TRIGGER TO START"
+      00237F 00                    7172 	.db 0x00
+                                   7173 ;src\/Title.h:14: void SetBlock(byte col, byte line, byte tileNumber) {
+                                   7174 ;	---------------------------------
+                                   7175 ; Function SetBlock
+                                   7176 ; ---------------------------------
+      002380                       7177 _SetBlock::
+      002380 DD E5            [15] 7178 	push	ix
+      002382 DD 21 00 00      [14] 7179 	ld	ix,#0
+      002386 DD 39            [15] 7180 	add	ix,sp
+                                   7181 ;src\/Title.h:15: WRTVRM(NAMTBL + col + (line * 32), tileNumber);
+      002388 DD 7E 04         [19] 7182 	ld	a, 4 (ix)
+      00238B 06 00            [ 7] 7183 	ld	b, #0x00
+      00238D 4F               [ 4] 7184 	ld	c, a
+      00238E 78               [ 4] 7185 	ld	a, b
+      00238F C6 18            [ 7] 7186 	add	a, #0x18
+      002391 47               [ 4] 7187 	ld	b, a
+      002392 DD 6E 05         [19] 7188 	ld	l, 5 (ix)
+      002395 26 00            [ 7] 7189 	ld	h, #0x00
+      002397 29               [11] 7190 	add	hl, hl
+      002398 29               [11] 7191 	add	hl, hl
+      002399 29               [11] 7192 	add	hl, hl
+      00239A 29               [11] 7193 	add	hl, hl
+      00239B 29               [11] 7194 	add	hl, hl
+      00239C 09               [11] 7195 	add	hl, bc
+      00239D DD 7E 06         [19] 7196 	ld	a, 6 (ix)
+      0023A0 F5               [11] 7197 	push	af
+      0023A1 33               [ 6] 7198 	inc	sp
+      0023A2 E5               [11] 7199 	push	hl
+      0023A3 CDr00r00         [17] 7200 	call	_WRTVRM
+      0023A6 F1               [10] 7201 	pop	af
+      0023A7 33               [ 6] 7202 	inc	sp
+                                   7203 ;src\/Title.h:16: }
+      0023A8 DD E1            [14] 7204 	pop	ix
+      0023AA C9               [10] 7205 	ret
+                                   7206 ;src\/Title.h:18: void TitleScreen() {
+                                   7207 ;	---------------------------------
+                                   7208 ; Function TitleScreen
+                                   7209 ; ---------------------------------
+      0023AB                       7210 _TitleScreen::
+      0023AB DD E5            [15] 7211 	push	ix
+      0023AD DD 21 00 00      [14] 7212 	ld	ix,#0
+      0023B1 DD 39            [15] 7213 	add	ix,sp
+      0023B3 21 EB FF         [10] 7214 	ld	hl, #-21
+      0023B6 39               [11] 7215 	add	hl, sp
+      0023B7 F9               [ 6] 7216 	ld	sp, hl
+                                   7217 ;src\/Title.h:19: byte colorIndex = 0;
+      0023B8 0E 00            [ 7] 7218 	ld	c, #0x00
+                                   7219 ;src\/Title.h:52: const char blocks[] = {
+      0023BA 21 00 00         [10] 7220 	ld	hl, #0
+      0023BD 39               [11] 7221 	add	hl, sp
+      0023BE EB               [ 4] 7222 	ex	de, hl
+      0023BF 3E 8E            [ 7] 7223 	ld	a, #0x8e
+      0023C1 12               [ 7] 7224 	ld	(de), a
+      0023C2 6B               [ 4] 7225 	ld	l, e
+      0023C3 62               [ 4] 7226 	ld	h, d
+      0023C4 23               [ 6] 7227 	inc	hl
+      0023C5 36 8F            [10] 7228 	ld	(hl), #0x8f
+      0023C7 6B               [ 4] 7229 	ld	l, e
+      0023C8 62               [ 4] 7230 	ld	h, d
+      0023C9 23               [ 6] 7231 	inc	hl
+      0023CA 23               [ 6] 7232 	inc	hl
+      0023CB 36 90            [10] 7233 	ld	(hl), #0x90
+      0023CD 6B               [ 4] 7234 	ld	l, e
+      0023CE 62               [ 4] 7235 	ld	h, d
+      0023CF 23               [ 6] 7236 	inc	hl
+      0023D0 23               [ 6] 7237 	inc	hl
+      0023D1 23               [ 6] 7238 	inc	hl
+      0023D2 36 91            [10] 7239 	ld	(hl), #0x91
+      0023D4 21 04 00         [10] 7240 	ld	hl, #0x0004
+      0023D7 19               [11] 7241 	add	hl, de
+      0023D8 36 92            [10] 7242 	ld	(hl), #0x92
+      0023DA 21 05 00         [10] 7243 	ld	hl, #0x0005
+      0023DD 19               [11] 7244 	add	hl, de
+      0023DE 36 93            [10] 7245 	ld	(hl), #0x93
+      0023E0 21 06 00         [10] 7246 	ld	hl, #0x0006
+      0023E3 19               [11] 7247 	add	hl, de
+      0023E4 36 94            [10] 7248 	ld	(hl), #0x94
+                                   7249 ;src\/Title.h:62: const char colors[] = { A, C, E, G }; // last item will be ignored
+      0023E6 21 07 00         [10] 7250 	ld	hl, #7
+      0023E9 39               [11] 7251 	add	hl, sp
+      0023EA DD 75 F6         [19] 7252 	ld	-10 (ix), l
+      0023ED DD 74 F7         [19] 7253 	ld	-9 (ix), h
+      0023F0 36 8E            [10] 7254 	ld	(hl), #0x8e
+      0023F2 DD 6E F6         [19] 7255 	ld	l, -10 (ix)
+      0023F5 DD 66 F7         [19] 7256 	ld	h, -9 (ix)
+      0023F8 23               [ 6] 7257 	inc	hl
+      0023F9 36 90            [10] 7258 	ld	(hl), #0x90
+      0023FB DD 6E F6         [19] 7259 	ld	l, -10 (ix)
+      0023FE DD 66 F7         [19] 7260 	ld	h, -9 (ix)
+      002401 23               [ 6] 7261 	inc	hl
+      002402 23               [ 6] 7262 	inc	hl
+      002403 36 92            [10] 7263 	ld	(hl), #0x92
+      002405 DD 6E F6         [19] 7264 	ld	l, -10 (ix)
+      002408 DD 66 F7         [19] 7265 	ld	h, -9 (ix)
+      00240B 23               [ 6] 7266 	inc	hl
+      00240C 23               [ 6] 7267 	inc	hl
+      00240D 23               [ 6] 7268 	inc	hl
+      00240E 36 94            [10] 7269 	ld	(hl), #0x94
+                                   7270 ;src\/Title.h:65: InitVRAM();
+      002410 C5               [11] 7271 	push	bc
+      002411 D5               [11] 7272 	push	de
+      002412 CDrE5r0F         [17] 7273 	call	_InitVRAM
+      002415 21 00 01         [10] 7274 	ld	hl, #0x0100
+      002418 E5               [11] 7275 	push	hl
+      002419 21r92r25         [10] 7276 	ld	hl, #_TitleScreen_title_65536_280
+      00241C E5               [11] 7277 	push	hl
+      00241D 21 00 18         [10] 7278 	ld	hl, #0x1800
+      002420 E5               [11] 7279 	push	hl
+      002421 CDr00r00         [17] 7280 	call	_LDIRVM
+      002424 21 06 00         [10] 7281 	ld	hl, #6
+      002427 39               [11] 7282 	add	hl, sp
+      002428 F9               [ 6] 7283 	ld	sp, hl
+      002429 11 05 0D         [10] 7284 	ld	de, #0x0d05
+      00242C D5               [11] 7285 	push	de
+      00242D 21r92r26         [10] 7286 	ld	hl, #___str_9
+      002430 E5               [11] 7287 	push	hl
+      002431 CDrA7r08         [17] 7288 	call	_DrawString
+      002434 F1               [10] 7289 	pop	af
+      002435 26 17            [ 7] 7290 	ld	h,#0x17
+      002437 E3               [19] 7291 	ex	(sp),hl
+      002438 33               [ 6] 7292 	inc	sp
+      002439 AF               [ 4] 7293 	xor	a, a
+      00243A F5               [11] 7294 	push	af
+      00243B 33               [ 6] 7295 	inc	sp
+      00243C 21rA9r26         [10] 7296 	ld	hl, #___str_10
+      00243F E5               [11] 7297 	push	hl
+      002440 CDrA7r08         [17] 7298 	call	_DrawString
+      002443 F1               [10] 7299 	pop	af
+      002444 F1               [10] 7300 	pop	af
+      002445 11 19 17         [10] 7301 	ld	de, #0x1719
+      002448 D5               [11] 7302 	push	de
+      002449 21rBEr26         [10] 7303 	ld	hl, #___str_11
+      00244C E5               [11] 7304 	push	hl
+      00244D CDrA7r08         [17] 7305 	call	_DrawString
+      002450 F1               [10] 7306 	pop	af
+      002451 F1               [10] 7307 	pop	af
+      002452 D1               [10] 7308 	pop	de
+      002453 C1               [10] 7309 	pop	bc
+                                   7310 ;src\/Title.h:73: while(TRUE) {
+      002454                       7311 00120$:
+                                   7312 ;src\/Title.h:74: byte index = 0, col_1, line_1; //, col_2, line_2, col_3, line_3;
+      002454 DD 36 FD 00      [19] 7313 	ld	-3 (ix), #0
+                                   7314 ;src\/Title.h:78: word counter = 0;
+      002458 AF               [ 4] 7315 	xor	a, a
+      002459 DD 77 FE         [19] 7316 	ld	-2 (ix), a
+      00245C DD 77 FF         [19] 7317 	ld	-1 (ix), a
+                                   7318 ;src\/Title.h:88: do {
+      00245F                       7319 00106$:
+                                   7320 ;src\/Title.h:95: col_1 = GetRandomInInterval(31, 0b00011111);
+      00245F C5               [11] 7321 	push	bc
+      002460 D5               [11] 7322 	push	de
+      002461 11 1F 1F         [10] 7323 	ld	de, #0x1f1f
+      002464 D5               [11] 7324 	push	de
+      002465 CDrD9r00         [17] 7325 	call	_GetRandomInInterval
+      002468 F1               [10] 7326 	pop	af
+                                   7327 ;src\/Title.h:96: line_1 = GetRandomInInterval(7, 0b00000111);
+      002469 DD 75 F8         [19] 7328 	ld	-8 (ix), l
+      00246C 11 07 07         [10] 7329 	ld	de, #0x0707
+      00246F D5               [11] 7330 	push	de
+      002470 CDrD9r00         [17] 7331 	call	_GetRandomInInterval
+      002473 F1               [10] 7332 	pop	af
+      002474 D1               [10] 7333 	pop	de
+      002475 C1               [10] 7334 	pop	bc
+      002476 DD 75 F9         [19] 7335 	ld	-7 (ix), l
+                                   7336 ;src\/Title.h:99: value = RDVRM(NAMTBL + col_1 + (line_1 * 32));
+      002479 DD 6E F8         [19] 7337 	ld	l, -8 (ix)
+      00247C 3E 00            [ 7] 7338 	ld	a, #0x00
+      00247E C6 18            [ 7] 7339 	add	a, #0x18
+      002480 67               [ 4] 7340 	ld	h, a
+      002481 DD 7E F9         [19] 7341 	ld	a, -7 (ix)
+      002484 06 00            [ 7] 7342 	ld	b, #0x00
+      002486 87               [ 4] 7343 	add	a, a
+      002487 CB 10            [ 8] 7344 	rl	b
+      002489 87               [ 4] 7345 	add	a, a
+      00248A CB 10            [ 8] 7346 	rl	b
+      00248C 87               [ 4] 7347 	add	a, a
+      00248D CB 10            [ 8] 7348 	rl	b
+      00248F 87               [ 4] 7349 	add	a, a
+      002490 CB 10            [ 8] 7350 	rl	b
+      002492 87               [ 4] 7351 	add	a, a
+      002493 CB 10            [ 8] 7352 	rl	b
+      002495 85               [ 4] 7353 	add	a, l
+      002496 6F               [ 4] 7354 	ld	l, a
+      002497 78               [ 4] 7355 	ld	a, b
+      002498 8C               [ 4] 7356 	adc	a, h
+      002499 67               [ 4] 7357 	ld	h, a
+      00249A C5               [11] 7358 	push	bc
+      00249B D5               [11] 7359 	push	de
+      00249C CDr00r00         [17] 7360 	call	_RDVRM
+      00249F D1               [10] 7361 	pop	de
+      0024A0 C1               [10] 7362 	pop	bc
+      0024A1 DD 75 FA         [19] 7363 	ld	-6 (ix), l
+                                   7364 ;src\/Title.h:102: if(counter++ > 1000) {
+      0024A4 DD 46 FE         [19] 7365 	ld	b, -2 (ix)
+      0024A7 DD 6E FF         [19] 7366 	ld	l, -1 (ix)
+      0024AA DD 34 FE         [23] 7367 	inc	-2 (ix)
+      0024AD 20 03            [12] 7368 	jr	NZ, 00193$
+      0024AF DD 34 FF         [23] 7369 	inc	-1 (ix)
+      0024B2                       7370 00193$:
+      0024B2 3E E8            [ 7] 7371 	ld	a, #0xe8
+      0024B4 B8               [ 4] 7372 	cp	a, b
+      0024B5 3E 03            [ 7] 7373 	ld	a, #0x03
+      0024B7 9D               [ 4] 7374 	sbc	a, l
+      0024B8 30 0F            [12] 7375 	jr	NC, 00107$
+                                   7376 ;src\/Title.h:103: colorIndex++;
+      0024BA 0C               [ 4] 7377 	inc	c
+                                   7378 ;src\/Title.h:104: if(colorIndex >= sizeof(colors) - 1) colorIndex = 0;
+      0024BB 79               [ 4] 7379 	ld	a, c
+      0024BC D6 03            [ 7] 7380 	sub	a, #0x03
+      0024BE 38 02            [12] 7381 	jr	C, 00102$
+      0024C0 0E 00            [ 7] 7382 	ld	c, #0x00
+      0024C2                       7383 00102$:
+                                   7384 ;src\/Title.h:119: counter = 0;
+      0024C2 AF               [ 4] 7385 	xor	a, a
+      0024C3 DD 77 FE         [19] 7386 	ld	-2 (ix), a
+      0024C6 DD 77 FF         [19] 7387 	ld	-1 (ix), a
+      0024C9                       7388 00107$:
+                                   7389 ;src\/Title.h:122: while (value == EMPTY || value == colors[colorIndex + 1]);
+      0024C9 DD 7E FA         [19] 7390 	ld	a, -6 (ix)
+      0024CC B7               [ 4] 7391 	or	a, a
+      0024CD 28 90            [12] 7392 	jr	Z, 00106$
+      0024CF 79               [ 4] 7393 	ld	a, c
+      0024D0 3C               [ 4] 7394 	inc	a
+      0024D1 F5               [11] 7395 	push	af
+      0024D2 17               [ 4] 7396 	rla
+      0024D3 9F               [ 4] 7397 	sbc	a, a
+      0024D4 47               [ 4] 7398 	ld	b, a
+      0024D5 F1               [10] 7399 	pop	af
+      0024D6 DD 86 F6         [19] 7400 	add	a, -10 (ix)
+      0024D9 DD 77 FB         [19] 7401 	ld	-5 (ix), a
+      0024DC 78               [ 4] 7402 	ld	a, b
+      0024DD DD 8E F7         [19] 7403 	adc	a, -9 (ix)
+      0024E0 DD 77 FC         [19] 7404 	ld	-4 (ix), a
+      0024E3 DD 6E FB         [19] 7405 	ld	l, -5 (ix)
+      0024E6 DD 66 FC         [19] 7406 	ld	h, -4 (ix)
+      0024E9 46               [ 7] 7407 	ld	b, (hl)
+      0024EA DD 7E FA         [19] 7408 	ld	a, -6 (ix)
+      0024ED 90               [ 4] 7409 	sub	a, b
+      0024EE CAr5Fr24         [10] 7410 	jp	Z,00106$
+                                   7411 ;src\/Title.h:138: for(byte i=0; i < 10 + 0; i++) {
+      0024F1 06 00            [ 7] 7412 	ld	b, #0x00
+      0024F3                       7413 00123$:
+      0024F3 78               [ 4] 7414 	ld	a, b
+      0024F4 D6 0A            [ 7] 7415 	sub	a, #0x0a
+      0024F6 30 79            [12] 7416 	jr	NC, 00118$
+                                   7417 ;src\/Title.h:140: word lastJiffy = JIFFY;
+      0024F8 2A 9E FC         [16] 7418 	ld	hl, (_JIFFY)
+      0024FB DD 75 FE         [19] 7419 	ld	-2 (ix), l
+      0024FE DD 74 FF         [19] 7420 	ld	-1 (ix), h
+                                   7421 ;src\/Title.h:141: while (JIFFY == lastJiffy) {
+      002501                       7422 00109$:
+      002501 FD 21 9E FC      [14] 7423 	ld	iy, #_JIFFY
+      002505 FD 7E 00         [19] 7424 	ld	a, 0 (iy)
+      002508 DD 96 FE         [19] 7425 	sub	a, -2 (ix)
+      00250B 20 08            [12] 7426 	jr	NZ, 00195$
+      00250D FD 7E 01         [19] 7427 	ld	a, 1 (iy)
+      002510 DD 96 FF         [19] 7428 	sub	a, -1 (ix)
+      002513 28 EC            [12] 7429 	jr	Z, 00109$
+      002515                       7430 00195$:
+                                   7431 ;src\/Title.h:146: SetBlock(col_1, line_1, blocks[index]);
+      002515 DD 6E FD         [19] 7432 	ld	l, -3 (ix)
+      002518 26 00            [ 7] 7433 	ld	h, #0x00
+      00251A 19               [11] 7434 	add	hl, de
+      00251B 7E               [ 7] 7435 	ld	a, (hl)
+      00251C C5               [11] 7436 	push	bc
+      00251D D5               [11] 7437 	push	de
+      00251E F5               [11] 7438 	push	af
+      00251F 33               [ 6] 7439 	inc	sp
+      002520 DD 66 F9         [19] 7440 	ld	h, -7 (ix)
+      002523 DD 6E F8         [19] 7441 	ld	l, -8 (ix)
+      002526 E5               [11] 7442 	push	hl
+      002527 CDr80r23         [17] 7443 	call	_SetBlock
+      00252A F1               [10] 7444 	pop	af
+      00252B 33               [ 6] 7445 	inc	sp
+      00252C D1               [10] 7446 	pop	de
+      00252D C1               [10] 7447 	pop	bc
+                                   7448 ;src\/Title.h:150: if(index++ >= sizeof(blocks)) index = 0;
+      00252E DD 7E FD         [19] 7449 	ld	a, -3 (ix)
+      002531 DD 34 FD         [23] 7450 	inc	-3 (ix)
+      002534 D6 07            [ 7] 7451 	sub	a, #0x07
+      002536 38 04            [12] 7452 	jr	C, 00113$
+      002538 DD 36 FD 00      [19] 7453 	ld	-3 (ix), #0
+      00253C                       7454 00113$:
+                                   7455 ;src\/Title.h:163: spaceBar = GTTRIG(TRIG_Spacebar);
+      00253C C5               [11] 7456 	push	bc
+      00253D D5               [11] 7457 	push	de
+      00253E 2E 00            [ 7] 7458 	ld	l, #0x00
+      002540 CDr00r00         [17] 7459 	call	_GTTRIG
+                                   7460 ;src\/Title.h:164: btn1 = GTTRIG(TRIG_Joy1_A);
+      002543 DD 75 FF         [19] 7461 	ld	-1 (ix), l
+      002546 2E 01            [ 7] 7462 	ld	l, #0x01
+      002548 CDr00r00         [17] 7463 	call	_GTTRIG
+      00254B D1               [10] 7464 	pop	de
+      00254C C1               [10] 7465 	pop	bc
+                                   7466 ;src\/Title.h:165: btn2 = GTTRIG(TRIG_Joy1_B);
+      00254D E5               [11] 7467 	push	hl
+      00254E C5               [11] 7468 	push	bc
+      00254F D5               [11] 7469 	push	de
+      002550 2E 03            [ 7] 7470 	ld	l, #0x03
+      002552 CDr00r00         [17] 7471 	call	_GTTRIG
+      002555 7D               [ 4] 7472 	ld	a, l
+      002556 D1               [10] 7473 	pop	de
+      002557 C1               [10] 7474 	pop	bc
+      002558 E1               [10] 7475 	pop	hl
+      002559 67               [ 4] 7476 	ld	h, a
+                                   7477 ;src\/Title.h:167: if(spaceBar == 0xff || btn1 == 0xff || btn2 == 0xff) { 
+      00255A DD 7E FF         [19] 7478 	ld	a, -1 (ix)
+      00255D 3C               [ 4] 7479 	inc	a
+      00255E 28 06            [12] 7480 	jr	Z, 00114$
+      002560 2C               [ 4] 7481 	inc	l
+      002561 28 03            [12] 7482 	jr	Z, 00114$
+      002563 24               [ 4] 7483 	inc	h
+      002564 20 08            [12] 7484 	jr	NZ, 00124$
+      002566                       7485 00114$:
+                                   7486 ;src\/Title.h:168: rndSeed = JIFFY;
+      002566 3A 9E FC         [13] 7487 	ld	a,(#_JIFFY + 0)
+      002569 32r08r00         [13] 7488 	ld	(#_rndSeed), a
+                                   7489 ;src\/Title.h:169: return;
+      00256C 18 1F            [12] 7490 	jr	00125$
+      00256E                       7491 00124$:
+                                   7492 ;src\/Title.h:138: for(byte i=0; i < 10 + 0; i++) {
+      00256E 04               [ 4] 7493 	inc	b
+      00256F 18 82            [12] 7494 	jr	00123$
+      002571                       7495 00118$:
+                                   7496 ;src\/Title.h:173: SetBlock(col_1, line_1, colors[colorIndex + 1]);
+      002571 DD 6E FB         [19] 7497 	ld	l, -5 (ix)
+      002574 DD 66 FC         [19] 7498 	ld	h, -4 (ix)
+      002577 7E               [ 7] 7499 	ld	a, (hl)
+      002578 C5               [11] 7500 	push	bc
+      002579 D5               [11] 7501 	push	de
+      00257A F5               [11] 7502 	push	af
+      00257B 33               [ 6] 7503 	inc	sp
+      00257C DD 66 F9         [19] 7504 	ld	h, -7 (ix)
+      00257F DD 6E F8         [19] 7505 	ld	l, -8 (ix)
+      002582 E5               [11] 7506 	push	hl
+      002583 CDr80r23         [17] 7507 	call	_SetBlock
+      002586 F1               [10] 7508 	pop	af
+      002587 33               [ 6] 7509 	inc	sp
+      002588 D1               [10] 7510 	pop	de
+      002589 C1               [10] 7511 	pop	bc
+      00258A C3r54r24         [10] 7512 	jp	00120$
+      00258D                       7513 00125$:
+                                   7514 ;src\/Title.h:176: }
+      00258D DD F9            [10] 7515 	ld	sp, ix
+      00258F DD E1            [14] 7516 	pop	ix
+      002591 C9               [10] 7517 	ret
+      002592                       7518 _TitleScreen_title_65536_280:
+      002592 00                    7519 	.db #0x00	; 0
+      002593 00                    7520 	.db #0x00	; 0
+      002594 00                    7521 	.db #0x00	; 0
+      002595 00                    7522 	.db #0x00	; 0
+      002596 8E                    7523 	.db #0x8e	; 142
+      002597 8E                    7524 	.db #0x8e	; 142
+      002598 8E                    7525 	.db #0x8e	; 142
+      002599 8E                    7526 	.db #0x8e	; 142
+      00259A 00                    7527 	.db #0x00	; 0
+      00259B 8E                    7528 	.db #0x8e	; 142
+      00259C 8E                    7529 	.db #0x8e	; 142
+      00259D 8E                    7530 	.db #0x8e	; 142
+      00259E 8E                    7531 	.db #0x8e	; 142
+      00259F 8E                    7532 	.db #0x8e	; 142
+      0025A0 8E                    7533 	.db #0x8e	; 142
+      0025A1 00                    7534 	.db #0x00	; 0
+      0025A2 00                    7535 	.db #0x00	; 0
+      0025A3 8E                    7536 	.db #0x8e	; 142
+      0025A4 8E                    7537 	.db #0x8e	; 142
+      0025A5 00                    7538 	.db #0x00	; 0
+      0025A6 00                    7539 	.db #0x00	; 0
+      0025A7 00                    7540 	.db #0x00	; 0
+      0025A8 8E                    7541 	.db #0x8e	; 142
+      0025A9 8E                    7542 	.db #0x8e	; 142
+      0025AA 00                    7543 	.db #0x00	; 0
+      0025AB 00                    7544 	.db #0x00	; 0
+      0025AC 00                    7545 	.db #0x00	; 0
+      0025AD 00                    7546 	.db #0x00	; 0
+      0025AE 8E                    7547 	.db #0x8e	; 142
+      0025AF 8E                    7548 	.db #0x8e	; 142
+      0025B0 8E                    7549 	.db #0x8e	; 142
+      0025B1 8E                    7550 	.db #0x8e	; 142
+      0025B2 00                    7551 	.db #0x00	; 0
+      0025B3 00                    7552 	.db #0x00	; 0
+      0025B4 00                    7553 	.db #0x00	; 0
+      0025B5 8E                    7554 	.db #0x8e	; 142
+      0025B6 8E                    7555 	.db #0x8e	; 142
+      0025B7 8E                    7556 	.db #0x8e	; 142
+      0025B8 8E                    7557 	.db #0x8e	; 142
+      0025B9 8E                    7558 	.db #0x8e	; 142
+      0025BA 00                    7559 	.db #0x00	; 0
+      0025BB 8E                    7560 	.db #0x8e	; 142
+      0025BC 8E                    7561 	.db #0x8e	; 142
+      0025BD 00                    7562 	.db #0x00	; 0
+      0025BE 00                    7563 	.db #0x00	; 0
+      0025BF 00                    7564 	.db #0x00	; 0
+      0025C0 8E                    7565 	.db #0x8e	; 142
+      0025C1 8E                    7566 	.db #0x8e	; 142
+      0025C2 00                    7567 	.db #0x00	; 0
+      0025C3 00                    7568 	.db #0x00	; 0
+      0025C4 8E                    7569 	.db #0x8e	; 142
+      0025C5 8E                    7570 	.db #0x8e	; 142
+      0025C6 00                    7571 	.db #0x00	; 0
+      0025C7 00                    7572 	.db #0x00	; 0
+      0025C8 8E                    7573 	.db #0x8e	; 142
+      0025C9 8E                    7574 	.db #0x8e	; 142
+      0025CA 00                    7575 	.db #0x00	; 0
+      0025CB 00                    7576 	.db #0x00	; 0
+      0025CC 00                    7577 	.db #0x00	; 0
+      0025CD 8E                    7578 	.db #0x8e	; 142
+      0025CE 8E                    7579 	.db #0x8e	; 142
+      0025CF 8E                    7580 	.db #0x8e	; 142
+      0025D0 8E                    7581 	.db #0x8e	; 142
+      0025D1 8E                    7582 	.db #0x8e	; 142
+      0025D2 00                    7583 	.db #0x00	; 0
+      0025D3 00                    7584 	.db #0x00	; 0
+      0025D4 8E                    7585 	.db #0x8e	; 142
+      0025D5 8E                    7586 	.db #0x8e	; 142
+      0025D6 8E                    7587 	.db #0x8e	; 142
+      0025D7 00                    7588 	.db #0x00	; 0
+      0025D8 8E                    7589 	.db #0x8e	; 142
+      0025D9 8E                    7590 	.db #0x8e	; 142
+      0025DA 00                    7591 	.db #0x00	; 0
+      0025DB 8E                    7592 	.db #0x8e	; 142
+      0025DC 8E                    7593 	.db #0x8e	; 142
+      0025DD 00                    7594 	.db #0x00	; 0
+      0025DE 00                    7595 	.db #0x00	; 0
+      0025DF 00                    7596 	.db #0x00	; 0
+      0025E0 8E                    7597 	.db #0x8e	; 142
+      0025E1 8E                    7598 	.db #0x8e	; 142
+      0025E2 00                    7599 	.db #0x00	; 0
+      0025E3 00                    7600 	.db #0x00	; 0
+      0025E4 00                    7601 	.db #0x00	; 0
+      0025E5 8E                    7602 	.db #0x8e	; 142
+      0025E6 8E                    7603 	.db #0x8e	; 142
+      0025E7 00                    7604 	.db #0x00	; 0
+      0025E8 8E                    7605 	.db #0x8e	; 142
+      0025E9 8E                    7606 	.db #0x8e	; 142
+      0025EA 00                    7607 	.db #0x00	; 0
+      0025EB 00                    7608 	.db #0x00	; 0
+      0025EC 8E                    7609 	.db #0x8e	; 142
+      0025ED 8E                    7610 	.db #0x8e	; 142
+      0025EE 8E                    7611 	.db #0x8e	; 142
+      0025EF 00                    7612 	.db #0x00	; 0
+      0025F0 8E                    7613 	.db #0x8e	; 142
+      0025F1 8E                    7614 	.db #0x8e	; 142
+      0025F2 00                    7615 	.db #0x00	; 0
+      0025F3 8E                    7616 	.db #0x8e	; 142
+      0025F4 8E                    7617 	.db #0x8e	; 142
+      0025F5 8E                    7618 	.db #0x8e	; 142
+      0025F6 00                    7619 	.db #0x00	; 0
+      0025F7 00                    7620 	.db #0x00	; 0
+      0025F8 8E                    7621 	.db #0x8e	; 142
+      0025F9 8E                    7622 	.db #0x8e	; 142
+      0025FA 00                    7623 	.db #0x00	; 0
+      0025FB 8E                    7624 	.db #0x8e	; 142
+      0025FC 8E                    7625 	.db #0x8e	; 142
+      0025FD 00                    7626 	.db #0x00	; 0
+      0025FE 00                    7627 	.db #0x00	; 0
+      0025FF 8E                    7628 	.db #0x8e	; 142
+      002600 8E                    7629 	.db #0x8e	; 142
+      002601 00                    7630 	.db #0x00	; 0
+      002602 00                    7631 	.db #0x00	; 0
+      002603 00                    7632 	.db #0x00	; 0
+      002604 00                    7633 	.db #0x00	; 0
+      002605 00                    7634 	.db #0x00	; 0
+      002606 8E                    7635 	.db #0x8e	; 142
+      002607 8E                    7636 	.db #0x8e	; 142
+      002608 8E                    7637 	.db #0x8e	; 142
+      002609 00                    7638 	.db #0x00	; 0
+      00260A 00                    7639 	.db #0x00	; 0
+      00260B 8E                    7640 	.db #0x8e	; 142
+      00260C 8E                    7641 	.db #0x8e	; 142
+      00260D 8E                    7642 	.db #0x8e	; 142
+      00260E 00                    7643 	.db #0x00	; 0
+      00260F 00                    7644 	.db #0x00	; 0
+      002610 8E                    7645 	.db #0x8e	; 142
+      002611 8E                    7646 	.db #0x8e	; 142
+      002612 00                    7647 	.db #0x00	; 0
+      002613 8E                    7648 	.db #0x8e	; 142
+      002614 8E                    7649 	.db #0x8e	; 142
+      002615 00                    7650 	.db #0x00	; 0
+      002616 00                    7651 	.db #0x00	; 0
+      002617 00                    7652 	.db #0x00	; 0
+      002618 8E                    7653 	.db #0x8e	; 142
+      002619 8E                    7654 	.db #0x8e	; 142
+      00261A 00                    7655 	.db #0x00	; 0
+      00261B 8E                    7656 	.db #0x8e	; 142
+      00261C 8E                    7657 	.db #0x8e	; 142
+      00261D 8E                    7658 	.db #0x8e	; 142
+      00261E 8E                    7659 	.db #0x8e	; 142
+      00261F 8E                    7660 	.db #0x8e	; 142
+      002620 00                    7661 	.db #0x00	; 0
+      002621 00                    7662 	.db #0x00	; 0
+      002622 00                    7663 	.db #0x00	; 0
+      002623 00                    7664 	.db #0x00	; 0
+      002624 00                    7665 	.db #0x00	; 0
+      002625 00                    7666 	.db #0x00	; 0
+      002626 8E                    7667 	.db #0x8e	; 142
+      002627 8E                    7668 	.db #0x8e	; 142
+      002628 00                    7669 	.db #0x00	; 0
+      002629 00                    7670 	.db #0x00	; 0
+      00262A 00                    7671 	.db #0x00	; 0
+      00262B 8E                    7672 	.db #0x8e	; 142
+      00262C 8E                    7673 	.db #0x8e	; 142
+      00262D 00                    7674 	.db #0x00	; 0
+      00262E 00                    7675 	.db #0x00	; 0
+      00262F 00                    7676 	.db #0x00	; 0
+      002630 8E                    7677 	.db #0x8e	; 142
+      002631 8E                    7678 	.db #0x8e	; 142
+      002632 00                    7679 	.db #0x00	; 0
+      002633 8E                    7680 	.db #0x8e	; 142
+      002634 8E                    7681 	.db #0x8e	; 142
+      002635 00                    7682 	.db #0x00	; 0
+      002636 00                    7683 	.db #0x00	; 0
+      002637 00                    7684 	.db #0x00	; 0
+      002638 8E                    7685 	.db #0x8e	; 142
+      002639 8E                    7686 	.db #0x8e	; 142
+      00263A 00                    7687 	.db #0x00	; 0
+      00263B 8E                    7688 	.db #0x8e	; 142
+      00263C 8E                    7689 	.db #0x8e	; 142
+      00263D 8E                    7690 	.db #0x8e	; 142
+      00263E 8E                    7691 	.db #0x8e	; 142
+      00263F 8E                    7692 	.db #0x8e	; 142
+      002640 00                    7693 	.db #0x00	; 0
+      002641 00                    7694 	.db #0x00	; 0
+      002642 00                    7695 	.db #0x00	; 0
+      002643 00                    7696 	.db #0x00	; 0
+      002644 00                    7697 	.db #0x00	; 0
+      002645 00                    7698 	.db #0x00	; 0
+      002646 8E                    7699 	.db #0x8e	; 142
+      002647 8E                    7700 	.db #0x8e	; 142
+      002648 00                    7701 	.db #0x00	; 0
+      002649 00                    7702 	.db #0x00	; 0
+      00264A 00                    7703 	.db #0x00	; 0
+      00264B 8E                    7704 	.db #0x8e	; 142
+      00264C 8E                    7705 	.db #0x8e	; 142
+      00264D 00                    7706 	.db #0x00	; 0
+      00264E 00                    7707 	.db #0x00	; 0
+      00264F 00                    7708 	.db #0x00	; 0
+      002650 8E                    7709 	.db #0x8e	; 142
+      002651 8E                    7710 	.db #0x8e	; 142
+      002652 00                    7711 	.db #0x00	; 0
+      002653 8E                    7712 	.db #0x8e	; 142
+      002654 8E                    7713 	.db #0x8e	; 142
+      002655 8E                    7714 	.db #0x8e	; 142
+      002656 8E                    7715 	.db #0x8e	; 142
+      002657 8E                    7716 	.db #0x8e	; 142
+      002658 8E                    7717 	.db #0x8e	; 142
+      002659 8E                    7718 	.db #0x8e	; 142
+      00265A 00                    7719 	.db #0x00	; 0
+      00265B 8E                    7720 	.db #0x8e	; 142
+      00265C 8E                    7721 	.db #0x8e	; 142
+      00265D 00                    7722 	.db #0x00	; 0
+      00265E 00                    7723 	.db #0x00	; 0
+      00265F 00                    7724 	.db #0x00	; 0
+      002660 8E                    7725 	.db #0x8e	; 142
+      002661 00                    7726 	.db #0x00	; 0
+      002662 00                    7727 	.db #0x00	; 0
+      002663 00                    7728 	.db #0x00	; 0
+      002664 00                    7729 	.db #0x00	; 0
+      002665 00                    7730 	.db #0x00	; 0
+      002666 8E                    7731 	.db #0x8e	; 142
+      002667 8E                    7732 	.db #0x8e	; 142
+      002668 00                    7733 	.db #0x00	; 0
+      002669 00                    7734 	.db #0x00	; 0
+      00266A 00                    7735 	.db #0x00	; 0
+      00266B 8E                    7736 	.db #0x8e	; 142
+      00266C 8E                    7737 	.db #0x8e	; 142
+      00266D 8E                    7738 	.db #0x8e	; 142
+      00266E 8E                    7739 	.db #0x8e	; 142
+      00266F 8E                    7740 	.db #0x8e	; 142
+      002670 8E                    7741 	.db #0x8e	; 142
+      002671 8E                    7742 	.db #0x8e	; 142
+      002672 00                    7743 	.db #0x00	; 0
+      002673 8E                    7744 	.db #0x8e	; 142
+      002674 8E                    7745 	.db #0x8e	; 142
+      002675 00                    7746 	.db #0x00	; 0
+      002676 00                    7747 	.db #0x00	; 0
+      002677 00                    7748 	.db #0x00	; 0
+      002678 8E                    7749 	.db #0x8e	; 142
+      002679 8E                    7750 	.db #0x8e	; 142
+      00267A 00                    7751 	.db #0x00	; 0
+      00267B 8E                    7752 	.db #0x8e	; 142
+      00267C 8E                    7753 	.db #0x8e	; 142
+      00267D 00                    7754 	.db #0x00	; 0
+      00267E 00                    7755 	.db #0x00	; 0
+      00267F 00                    7756 	.db #0x00	; 0
+      002680 8E                    7757 	.db #0x8e	; 142
+      002681 00                    7758 	.db #0x00	; 0
+      002682 00                    7759 	.db #0x00	; 0
+      002683 00                    7760 	.db #0x00	; 0
+      002684 00                    7761 	.db #0x00	; 0
+      002685 00                    7762 	.db #0x00	; 0
+      002686 8E                    7763 	.db #0x8e	; 142
+      002687 8E                    7764 	.db #0x8e	; 142
+      002688 00                    7765 	.db #0x00	; 0
+      002689 00                    7766 	.db #0x00	; 0
+      00268A 00                    7767 	.db #0x00	; 0
+      00268B 8E                    7768 	.db #0x8e	; 142
+      00268C 8E                    7769 	.db #0x8e	; 142
+      00268D 00                    7770 	.db #0x00	; 0
+      00268E 00                    7771 	.db #0x00	; 0
+      00268F 00                    7772 	.db #0x00	; 0
+      002690 8E                    7773 	.db #0x8e	; 142
+      002691 8E                    7774 	.db #0x8e	; 142
+      002692                       7775 ___str_9:
+      002692 50 52 45 53 53 20 54  7776 	.ascii "PRESS TRIGGER TO START"
              52 49 47 47 45 52 20
              54 4F 20 53 54 41 52
              54
-      0026AA 00                    7778 	.db 0x00
-      0026AB                       7779 ___str_10:
-      0026AB 41 4E 44 52 45 42 41  7780 	.ascii "ANDREBAPTISTA.COM.BR"
+      0026A8 00                    7777 	.db 0x00
+      0026A9                       7778 ___str_10:
+      0026A9 41 4E 44 52 45 42 41  7779 	.ascii "ANDREBAPTISTA.COM.BR"
              50 54 49 53 54 41 2E
              43 4F 4D 2E 42 52
-      0026BF 00                    7781 	.db 0x00
-      0026C0                       7782 ___str_11:
-      0026C0 76 2E 3F 2E 3F 2E 3F  7783 	.ascii "v.?.?.?"
-      0026C7 00                    7784 	.db 0x00
-                                   7785 ;src\main.c:85: void main() {
-                                   7786 ;	---------------------------------
-                                   7787 ; Function main
-                                   7788 ; ---------------------------------
-      0026C8                       7789 _main::
-                                   7790 ;src\main.c:87: while(TRUE) {
-      0026C8                       7791 00102$:
-                                   7792 ;src\main.c:93: InitGame();
-      0026C8 CDrBDr21         [17] 7793 	call	_InitGame
-                                   7794 ;src\main.c:96: }
-      0026CB 18 FB            [12] 7795 	jr	00102$
-                                   7796 	.area _CODE
-                                   7797 	.area _INITIALIZER
-      000000                       7798 __xinit__gameOver:
-      000000 00                    7799 	.db #0x00	; 0
-      000001                       7800 __xinit__col:
-      000001 00                    7801 	.db #0x00	; 0
-      000002                       7802 __xinit__line:
-      000002 00                    7803 	.db #0x00	; 0
-      000003                       7804 __xinit__counter:
-      000003 00                    7805 	.db #0x00	; 0
-      000004                       7806 __xinit__blocksRemoved:
-      000004 00 00                 7807 	.dw #0x0000
-      000006                       7808 __xinit__level:
-      000006 01                    7809 	.db #0x01	; 1
-      000007                       7810 __xinit__newLevel:
-      000007 00                    7811 	.db #0x00	; 0
-      000008                       7812 __xinit__rndSeed:
-      000008 00                    7813 	.db #0x00	; 0
-      000009                       7814 __xinit__d_col:
-      000009 00                    7815 	.db #0x00	; 0
-      00000A                       7816 __xinit__d_line:
-      00000A 00                    7817 	.db #0x00	; 0
-      00000B                       7818 __xinit__d_value:
-      00000B 00                    7819 	.db #0x00	; 0
-                                   7820 	.area _CABS (ABS)
+      0026BD 00                    7780 	.db 0x00
+      0026BE                       7781 ___str_11:
+      0026BE 76 2E 3F 2E 3F 2E 3F  7782 	.ascii "v.?.?.?"
+      0026C5 00                    7783 	.db 0x00
+                                   7784 ;src\main.c:85: void main() {
+                                   7785 ;	---------------------------------
+                                   7786 ; Function main
+                                   7787 ; ---------------------------------
+      0026C6                       7788 _main::
+                                   7789 ;src\main.c:87: while(TRUE) {
+      0026C6                       7790 00102$:
+                                   7791 ;src\main.c:93: InitGame();
+      0026C6 CDrBBr21         [17] 7792 	call	_InitGame
+                                   7793 ;src\main.c:96: }
+      0026C9 18 FB            [12] 7794 	jr	00102$
+                                   7795 	.area _CODE
+                                   7796 	.area _INITIALIZER
+      000000                       7797 __xinit__gameOver:
+      000000 00                    7798 	.db #0x00	; 0
+      000001                       7799 __xinit__col:
+      000001 00                    7800 	.db #0x00	; 0
+      000002                       7801 __xinit__line:
+      000002 00                    7802 	.db #0x00	; 0
+      000003                       7803 __xinit__counter:
+      000003 00                    7804 	.db #0x00	; 0
+      000004                       7805 __xinit__blocksRemoved:
+      000004 00 00                 7806 	.dw #0x0000
+      000006                       7807 __xinit__level:
+      000006 01                    7808 	.db #0x01	; 1
+      000007                       7809 __xinit__newLevel:
+      000007 00                    7810 	.db #0x00	; 0
+      000008                       7811 __xinit__rndSeed:
+      000008 00                    7812 	.db #0x00	; 0
+      000009                       7813 __xinit__d_col:
+      000009 00                    7814 	.db #0x00	; 0
+      00000A                       7815 __xinit__d_line:
+      00000A 00                    7816 	.db #0x00	; 0
+      00000B                       7817 __xinit__d_value:
+      00000B 00                    7818 	.db #0x00	; 0
+                                   7819 	.area _CABS (ABS)

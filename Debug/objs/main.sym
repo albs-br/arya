@@ -20,7 +20,7 @@ Symbol Table
     _CRTCNT                                                     =  00F3B1 G
     _CSRX                                                       =  00F3DD G
     _CSRY                                                       =  00F3DC G
-  0 _ChangeFontColor                                               002257 GR
+  0 _ChangeFontColor                                               002255 GR
   0 _CheckIfPlayfieldIsValid                                       0013D0 GR
   0 _CheckPlayfield                                                001484 GR
     _DISSCR                                                        ****** GX
@@ -51,10 +51,10 @@ Symbol Table
   0 _HideArrow                                                     000D76 GR
   0 _HideHitSprite                                                 000F96 GR
     _INIGRP                                                        ****** GX
-  0 _InitGame                                                      0021BD GR
+  0 _InitGame                                                      0021BB GR
   0 _InitRnd                                                       000050 GR
   0 _InitVRAM                                                      000FE5 GR
-  0 _Intro                                                         0022F4 GR
+  0 _Intro                                                         0022F2 GR
     _JIFFY                                                      =  00FC9E G
     _LDIRVM                                                        ****** GX
     _LINL32                                                     =  00F3AF G
@@ -88,14 +88,14 @@ Symbol Table
     _SCNCNT                                                     =  00F3F6 G
     _SNSMAT                                                        ****** GX
     _STATFL                                                     =  00F3E7 G
-  0 _ScrollDownFont                                                002297 GR
-  0 _SetBlock                                                      002382 GR
+  0 _ScrollDownFont                                                002295 GR
+  0 _SetBlock                                                      002380 GR
   0 _SoundFx_1                                                     0013AF GR
   0 _SoundFx_2                                                     001370 GR
     _TRGFLG                                                     =  00F3E8 G
   0 _TestCase                                                      00216C GR
-  0 _TitleScreen                                                   0023AD GR
-  0 _TitleScreen_title_65536_280                                   002594 R
+  0 _TitleScreen                                                   0023AB GR
+  0 _TitleScreen_title_65536_280                                   002592 R
   0 _UpdateAndDrawPieceStatic                                      001C9A GR
     _WRTPSG                                                        ****** GX
     _WRTVDP                                                        ****** GX
@@ -103,16 +103,16 @@ Symbol Table
   0 _Wait                                                          000000 GR
   0 ___str_0                                                       00098D R
   0 ___str_1                                                       000CA7 R
-  0 ___str_10                                                      0026AB R
-  0 ___str_11                                                      0026C0 R
+  0 ___str_10                                                      0026A9 R
+  0 ___str_11                                                      0026BE R
   0 ___str_2                                                       000CAE R
   0 ___str_3                                                       000CB5 R
   0 ___str_4                                                       001D4C R
   0 ___str_5                                                       001D8C R
   0 ___str_6                                                       002162 R
-  0 ___str_7                                                       002369 R
-  0 ___str_8                                                       002373 R
-  0 ___str_9                                                       002694 R
+  0 ___str_7                                                       002367 R
+  0 ___str_8                                                       002371 R
+  0 ___str_9                                                       002692 R
     __divuint                                                      ****** GX
     __moduint                                                      ****** GX
     __mulint                                                       ****** GX
@@ -202,7 +202,7 @@ Symbol Table
   2 _gameOver                                                      000000 GR
   2 _level                                                         000006 GR
   2 _line                                                          000002 GR
-  0 _main                                                          0026C8 GR
+  0 _main                                                          0026C6 GR
   1 _midPiece                                                      000091 GR
   2 _newLevel                                                      000007 GR
   0 _pattern_0                                                     000437 R
@@ -284,7 +284,7 @@ Hexadecimal [24-Bits]
 
 Area Table
 
-   0 _CODE                                      size   26CD   flags    0
+   0 _CODE                                      size   26CB   flags    0
    1 _DATA                                      size     98   flags    0
    2 _INITIALIZED                               size      C   flags    0
    3 _DABS                                      size      0   flags    8
