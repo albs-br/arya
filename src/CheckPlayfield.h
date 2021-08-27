@@ -153,13 +153,13 @@ void CheckPlayfield(byte iteration) {
           x = (PLAYFIELD_HORIZ_OFFSET * 8) + (((rightmostPieceRemoved * 16) - (leftmostPieceRemoved * 16)) / 2) + (leftmostPieceRemoved * 16);
           //y = (((lowermostPieceRemoved * 16) - (upmostPieceRemoved * 16)) / 2) + (upmostPieceRemoved * 16) - (72 - counter);
           y = (((lowermostPieceRemoved * 16) - (upmostPieceRemoved * 16)) / 2) + (upmostPieceRemoved * 16);
-          DrawHitSprite(numberPiecesRemoved, x, y, TRUE);
+          DrawHitSprite(numberPiecesRemoved, iteration, x, y, TRUE);
         }
         else {
           //y -= (72 - counter);
           // TODO: refactor here (line repeated; code expensive unnecessary)
           //y = (((lowermostPieceRemoved * 16) - (upmostPieceRemoved * 16)) / 2) + (upmostPieceRemoved * 16) - (72 - counter);
-          DrawHitSprite(numberPiecesRemoved, x, y - (72 - counter), FALSE);
+          DrawHitSprite(numberPiecesRemoved, iteration, x, y - (72 - counter), FALSE);
         }
       }
 
