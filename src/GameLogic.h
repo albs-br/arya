@@ -251,16 +251,16 @@ void GameLoop() {
     
     // Draw arrow sprite indicating where the piece will drop
     if(playfield[col][line + 3] != EMPTY) {
-      HideArrow();
+      HideArrowSprite();
     }
     else {
       for(byte i = line + 3; i < LINES_PLAYFIELD; i++) {
         if(i == LINES_PLAYFIELD - 1 && playfield[col][i] == EMPTY) {
-          DrawArrow((col * 16) + (PLAYFIELD_HORIZ_OFFSET * 8), (i) * 16);
+          DrawArrowSprite((col * 16) + (PLAYFIELD_HORIZ_OFFSET * 8), (i) * 16);
           break;
         } 
         else if(playfield[col][i] != EMPTY) {
-          DrawArrow((col * 16) + (PLAYFIELD_HORIZ_OFFSET * 8), (i - 1) * 16);
+          DrawArrowSprite((col * 16) + (PLAYFIELD_HORIZ_OFFSET * 8), (i - 1) * 16);
           break;
         }
       }
@@ -346,6 +346,8 @@ void InitGame() {
   
   // Testing code
   TestCase();
+
+  //newLevel = TRUE;  //test
   
   DrawBackground();
   

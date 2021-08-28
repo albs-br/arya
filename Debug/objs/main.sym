@@ -11,7 +11,7 @@ Symbol Table
     _BAKCLR                                                     =  00F3EA G
     _BDRCLR                                                     =  00F3EB G
     _BEEP                                                          ****** GX
-  0 _BlinkPauseText                                                001D2E GR
+  0 _BlinkPauseText                                                001F4D GR
     _CLIKSW                                                     =  00F3DB G
     _CLMLST                                                     =  00F3B1 G
     _CLOC                                                       =  00F92A G
@@ -20,49 +20,51 @@ Symbol Table
     _CRTCNT                                                     =  00F3B1 G
     _CSRX                                                       =  00F3DD G
     _CSRY                                                       =  00F3DC G
-  0 _ChangeFontColor                                               002255 GR
-  0 _CheckIfPlayfieldIsValid                                       0013D0 GR
-  0 _CheckPlayfield                                                001484 GR
+  0 _ChangeFontColor                                               002474 GR
+  0 _CheckIfPlayfieldIsValid                                       0015EF GR
+  0 _CheckPlayfield                                                0016A3 GR
     _DISSCR                                                        ****** GX
-  0 _DrawArrow                                                     000CEB GR
-  0 _DrawBackground                                                000CBC GR
-  0 _DrawBlock                                                     00123B GR
-  0 _DrawBlock_SameTile                                            0012A3 GR
-  0 _DrawChar                                                      0000ED GR
-  0 _DrawColumn                                                    000994 GR
-  0 _DrawHitSprite                                                 000D84 GR
-  0 _DrawLine                                                      001304 GR
-  0 _DrawNumber                                                    0008D9 GR
-  0 _DrawPiece                                                     00133C GR
-  0 _DrawPlayfield                                                 00135F GR
-  0 _DrawScore                                                     000B35 GR
-  0 _DrawString                                                    0008A7 GR
+  0 _DrawArrowSprite                                               0000ED GR
+  0 _DrawBackground                                                0011D5 GR
+  0 _DrawBlock                                                     00145A GR
+  0 _DrawBlock_SameTile                                            0014C2 GR
+  0 _DrawChar                                                      000D87 GR
+  0 _DrawColumn                                                    000E9E GR
+  0 _DrawExplosionSprite                                           000C9F GR
+  0 _DrawHitSprite                                                 000A16 GR
+  0 _DrawLine                                                      001523 GR
+  0 _DrawNumber                                                    000DE3 GR
+  0 _DrawPiece                                                     00155B GR
+  0 _DrawPlayfield                                                 00157E GR
+  0 _DrawScore                                                     00103F GR
+  0 _DrawString                                                    000DB1 GR
     _ENASCR                                                        ****** GX
     _FILVRM                                                        ****** GX
-  0 _FONT                                                          000117 GR
+  0 _FONT                                                          000178 GR
     _FORCLR                                                     =  00F3E9 G
     _GETPNT                                                     =  00F3FA G
     _GICINI                                                        ****** GX
     _GTSTCK                                                        ****** GX
     _GTTRIG                                                        ****** GX
-  0 _GameLoop                                                      001D92 GR
+  0 _GameLoop                                                      001FB1 GR
   0 _GetRandom                                                     0000A3 GR
   0 _GetRandomInInterval                                           0000D9 GR
-  0 _HideArrow                                                     000D76 GR
-  0 _HideHitSprite                                                 000F96 GR
+  0 _HideArrowSprite                                               000A08 GR
+  0 _HideExplosionSprite                                           000C77 GR
+  0 _HideHitSprite                                                 000C28 GR
     _INIGRP                                                        ****** GX
-  0 _InitGame                                                      0021BB GR
+  0 _InitGame                                                      0023DA GR
   0 _InitRnd                                                       000050 GR
-  0 _InitVRAM                                                      000FE5 GR
-  0 _Intro                                                         0022F2 GR
+  0 _InitVRAM                                                      001204 GR
+  0 _Intro                                                         002511 GR
     _JIFFY                                                      =  00FC9E G
-    _LDIRVM                                                        ****** GX
-    _LINL32                                                     =  00F3AF G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 2.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
+    _LDIRVM                                                        ****** GX
+    _LINL32                                                     =  00F3AF G
     _LINL40                                                     =  00F3AE G
     _LINLEN                                                     =  00F3B0 G
     _MSX_charset                                                =  000004 G
@@ -75,7 +77,7 @@ Symbol Table
     _MSX_vdp_regs                                               =  00F3DF G
     _MSX_version                                                =  00002D G
     _PUTPNT                                                     =  00F3F8 G
-  0 _Pause                                                         001D52 GR
+  0 _Pause                                                         001F71 GR
   0 _Power                                                         00001D GR
     _RDVRM                                                         ****** GX
     _REPCNT                                                     =  00F3F7 G
@@ -83,46 +85,46 @@ Symbol Table
   1 _Rand_b                                                        000095 GR
   1 _Rand_c                                                        000096 GR
   1 _Rand_x                                                        000097 GR
-  0 _RandomIndex                                                   001C65 GR
-  0 _RandomPiece                                                   001C72 GR
+  0 _RandomIndex                                                   001E84 GR
+  0 _RandomPiece                                                   001E91 GR
     _SCNCNT                                                     =  00F3F6 G
     _SNSMAT                                                        ****** GX
     _STATFL                                                     =  00F3E7 G
-  0 _ScrollDownFont                                                002295 GR
-  0 _SetBlock                                                      002380 GR
-  0 _SoundFx_1                                                     0013AF GR
-  0 _SoundFx_2                                                     001370 GR
+  0 _ScrollDownFont                                                0024B4 GR
+  0 _SetBlock                                                      00259F GR
+  0 _SoundFx_1                                                     0015CE GR
+  0 _SoundFx_2                                                     00158F GR
     _TRGFLG                                                     =  00F3E8 G
-  0 _TestCase                                                      00216C GR
-  0 _TitleScreen                                                   0023AB GR
-  0 _TitleScreen_title_65536_280                                   002592 R
-  0 _UpdateAndDrawPieceStatic                                      001C9A GR
+  0 _TestCase                                                      00238B GR
+  0 _TitleScreen                                                   0025CA GR
+  0 _TitleScreen_title_65536_285                                   0027B1 R
+  0 _UpdateAndDrawPieceStatic                                      001EB9 GR
     _WRTPSG                                                        ****** GX
     _WRTVDP                                                        ****** GX
     _WRTVRM                                                        ****** GX
   0 _Wait                                                          000000 GR
-  0 ___str_0                                                       00098D R
-  0 ___str_1                                                       000CA7 R
-  0 ___str_10                                                      0026A9 R
-  0 ___str_11                                                      0026BE R
-  0 ___str_2                                                       000CAE R
-  0 ___str_3                                                       000CB5 R
-  0 ___str_4                                                       001D4C R
-  0 ___str_5                                                       001D8C R
-  0 ___str_6                                                       002162 R
-  0 ___str_7                                                       002367 R
-  0 ___str_8                                                       002371 R
-  0 ___str_9                                                       002692 R
+  0 ___str_0                                                       000E97 R
+  0 ___str_1                                                       0011C0 R
+  0 ___str_10                                                      0028C8 R
+  0 ___str_11                                                      0028DD R
+  0 ___str_2                                                       0011C7 R
+  0 ___str_3                                                       0011CE R
+  0 ___str_4                                                       001F6B R
+  0 ___str_5                                                       001FAB R
+  0 ___str_6                                                       002381 R
+  0 ___str_7                                                       002586 R
+  0 ___str_8                                                       002590 R
+  0 ___str_9                                                       0028B1 R
     __divuint                                                      ****** GX
     __moduint                                                      ****** GX
     __mulint                                                       ****** GX
-  7 __xinit__blocksRemoved                                         000004 R
-  7 __xinit__col                                                   000001 R
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 3.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
+  7 __xinit__blocksRemoved                                         000004 R
+  7 __xinit__col                                                   000001 R
   7 __xinit__counter                                               000003 R
   7 __xinit__d_col                                                 000009 R
   7 __xinit__d_line                                                00000A R
@@ -135,66 +137,66 @@ Symbol Table
   2 _blocksRemoved                                                 000004 GR
   1 _bottomPiece                                                   000092 GR
   2 _col                                                           000001 GR
-  0 _color_0                                                       0005AF R
-  0 _color_1                                                       0005B7 R
-  0 _color_10                                                      0005FF R
-  0 _color_11                                                      000607 R
-  0 _color_12                                                      00060F R
-  0 _color_13                                                      000617 R
-  0 _color_14                                                      00061F R
-  0 _color_15                                                      000627 R
-  0 _color_16                                                      00062F R
-  0 _color_17                                                      000637 R
-  0 _color_18                                                      00063F R
-  0 _color_19                                                      000647 R
-  0 _color_2                                                       0005BF R
-  0 _color_3                                                       0005C7 R
-  0 _color_4                                                       0005CF R
-  0 _color_5                                                       0005D7 R
-  0 _color_6                                                       0005DF R
-  0 _color_7                                                       0005E7 R
-  0 _color_8                                                       0005EF R
-  0 _color_9                                                       0005F7 R
-  0 _color_black_0                                                 00058F R
-  0 _color_black_1                                                 000597 R
-  0 _color_black_2                                                 00059F R
-  0 _color_black_3                                                 0005A7 R
-  0 _color_column_1                                                00064F R
-  0 _color_column_10                                               000697 R
-  0 _color_column_11                                               00069F R
-  0 _color_column_12                                               0006A7 R
-  0 _color_column_13                                               0006C7 R
-  0 _color_column_14                                               0006CF R
-  0 _color_column_15                                               0006D7 R
-  0 _color_column_16                                               0006AF R
-  0 _color_column_17                                               0006B7 R
-  0 _color_column_18                                               0006BF R
-  0 _color_column_2                                                000657 R
-  0 _color_column_3                                                00065F R
-  0 _color_column_4                                                000667 R
-  0 _color_column_5                                                00066F R
-  0 _color_column_6                                                000677 R
-  0 _color_column_7                                                00067F R
-  0 _color_column_8                                                000687 R
-  0 _color_column_9                                                00068F R
-  0 _color_dust_0                                                  0006DF R
+  0 _color_0                                                       000610 R
+  0 _color_1                                                       000618 R
+  0 _color_10                                                      000660 R
+  0 _color_11                                                      000668 R
+  0 _color_12                                                      000670 R
+  0 _color_13                                                      000678 R
+  0 _color_14                                                      000680 R
+  0 _color_15                                                      000688 R
+  0 _color_16                                                      000690 R
+  0 _color_17                                                      000698 R
+  0 _color_18                                                      0006A0 R
+  0 _color_19                                                      0006A8 R
+  0 _color_2                                                       000620 R
+  0 _color_3                                                       000628 R
+  0 _color_4                                                       000630 R
+  0 _color_5                                                       000638 R
+  0 _color_6                                                       000640 R
+  0 _color_7                                                       000648 R
+  0 _color_8                                                       000650 R
+  0 _color_9                                                       000658 R
+  0 _color_black_0                                                 0005F0 R
+  0 _color_black_1                                                 0005F8 R
+  0 _color_black_2                                                 000600 R
+  0 _color_black_3                                                 000608 R
+  0 _color_column_1                                                0006B0 R
+  0 _color_column_10                                               0006F8 R
+  0 _color_column_11                                               000700 R
+  0 _color_column_12                                               000708 R
+  0 _color_column_13                                               000728 R
+  0 _color_column_14                                               000730 R
+  0 _color_column_15                                               000738 R
+  0 _color_column_16                                               000710 R
+  0 _color_column_17                                               000718 R
+  0 _color_column_18                                               000720 R
+  0 _color_column_2                                                0006B8 R
+  0 _color_column_3                                                0006C0 R
+  0 _color_column_4                                                0006C8 R
+  0 _color_column_5                                                0006D0 R
+  0 _color_column_6                                                0006D8 R
+  0 _color_column_7                                                0006E0 R
+  0 _color_column_8                                                0006E8 R
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 4.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
-  0 _color_dust_1                                                  0006E7 R
-  0 _color_dust_2                                                  0006EF R
-  0 _color_dust_3                                                  0006F7 R
-  0 _color_font_1                                                  0006FF R
-  0 _color_font_2                                                  000707 R
-  0 _color_title_1                                                 00070F R
-  0 _color_title_2                                                 000717 R
-  0 _color_title_3                                                 00071F R
-  0 _color_title_4                                                 000727 R
-  0 _color_title_5                                                 00072F R
-  0 _color_title_6                                                 000737 R
-  0 _color_title_7                                                 00073F R
+  0 _color_column_9                                                0006F0 R
+  0 _color_dust_0                                                  000740 R
+  0 _color_dust_1                                                  000748 R
+  0 _color_dust_2                                                  000750 R
+  0 _color_dust_3                                                  000758 R
+  0 _color_font_1                                                  000760 R
+  0 _color_font_2                                                  000768 R
+  0 _color_title_1                                                 000770 R
+  0 _color_title_2                                                 000778 R
+  0 _color_title_3                                                 000780 R
+  0 _color_title_4                                                 000788 R
+  0 _color_title_5                                                 000790 R
+  0 _color_title_6                                                 000798 R
+  0 _color_title_7                                                 0007A0 R
   2 _counter                                                       000003 GR
   2 _d_col                                                         000009 GR
   2 _d_line                                                        00000A GR
@@ -202,89 +204,96 @@ Symbol Table
   2 _gameOver                                                      000000 GR
   2 _level                                                         000006 GR
   2 _line                                                          000002 GR
-  0 _main                                                          0026C6 GR
+  0 _main                                                          0028E5 GR
   1 _midPiece                                                      000091 GR
   2 _newLevel                                                      000007 GR
-  0 _pattern_0                                                     000437 R
-  0 _pattern_1                                                     00043F R
-  0 _pattern_10                                                    000487 R
-  0 _pattern_11                                                    00048F R
-  0 _pattern_12                                                    000497 R
-  0 _pattern_13                                                    00049F R
-  0 _pattern_14                                                    0004A7 R
-  0 _pattern_15                                                    0004AF R
-  0 _pattern_16                                                    0004B7 R
-  0 _pattern_17                                                    0004BF R
-  0 _pattern_18                                                    0004C7 R
-  0 _pattern_19                                                    0004CF R
-  0 _pattern_2                                                     000447 R
-  0 _pattern_20                                                    0004D7 R
-  0 _pattern_21                                                    0004DF R
-  0 _pattern_22                                                    0004E7 R
-  0 _pattern_23                                                    0004EF R
-  0 _pattern_24                                                    0004F7 R
-  0 _pattern_25                                                    0004FF R
-  0 _pattern_26                                                    000507 R
-  0 _pattern_27                                                    00050F R
-  0 _pattern_28                                                    000517 R
-  0 _pattern_29                                                    00051F R
-  0 _pattern_3                                                     00044F R
-  0 _pattern_30                                                    000527 R
-  0 _pattern_31                                                    00052F R
-  0 _pattern_32                                                    00054F R
-  0 _pattern_33                                                    000557 R
-  0 _pattern_34                                                    00055F R
-  0 _pattern_37                                                    000537 R
-  0 _pattern_38                                                    00053F R
-  0 _pattern_39                                                    000547 R
-  0 _pattern_4                                                     000457 R
+  0 _pattern_0                                                     000498 R
+  0 _pattern_1                                                     0004A0 R
+  0 _pattern_10                                                    0004E8 R
+  0 _pattern_11                                                    0004F0 R
+  0 _pattern_12                                                    0004F8 R
+  0 _pattern_13                                                    000500 R
+  0 _pattern_14                                                    000508 R
+  0 _pattern_15                                                    000510 R
+  0 _pattern_16                                                    000518 R
+  0 _pattern_17                                                    000520 R
+  0 _pattern_18                                                    000528 R
+  0 _pattern_19                                                    000530 R
+  0 _pattern_2                                                     0004A8 R
+  0 _pattern_20                                                    000538 R
+  0 _pattern_21                                                    000540 R
+  0 _pattern_22                                                    000548 R
+  0 _pattern_23                                                    000550 R
+  0 _pattern_24                                                    000558 R
+  0 _pattern_25                                                    000560 R
+  0 _pattern_26                                                    000568 R
+  0 _pattern_27                                                    000570 R
+  0 _pattern_28                                                    000578 R
+  0 _pattern_29                                                    000580 R
+  0 _pattern_3                                                     0004B0 R
+  0 _pattern_30                                                    000588 R
+  0 _pattern_31                                                    000590 R
+  0 _pattern_32                                                    0005B0 R
+  0 _pattern_33                                                    0005B8 R
+  0 _pattern_34                                                    0005C0 R
+  0 _pattern_37                                                    000598 R
+  0 _pattern_38                                                    0005A0 R
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 5.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
-  0 _pattern_5                                                     00045F R
-  0 _pattern_6                                                     000467 R
-  0 _pattern_7                                                     00046F R
-  0 _pattern_8                                                     000477 R
-  0 _pattern_9                                                     00047F R
-  0 _pattern_black_0                                               000417 R
-  0 _pattern_black_1                                               00041F R
-  0 _pattern_black_2                                               000427 R
-  0 _pattern_black_3                                               00042F R
-  0 _pattern_title                                                 000587 R
+  0 _pattern_39                                                    0005A8 R
+  0 _pattern_4                                                     0004B8 R
+  0 _pattern_5                                                     0004C0 R
+  0 _pattern_6                                                     0004C8 R
+  0 _pattern_7                                                     0004D0 R
+  0 _pattern_8                                                     0004D8 R
+  0 _pattern_9                                                     0004E0 R
+  0 _pattern_black_0                                               000478 R
+  0 _pattern_black_1                                               000480 R
+  0 _pattern_black_2                                               000488 R
+  0 _pattern_black_3                                               000490 R
+  0 _pattern_title                                                 0005E8 R
   0 _pieces                                                        000018 GR
   1 _playfield                                                     000000 GR
   1 _playfieldTemp                                                 000048 GR
   2 _rndSeed                                                       000008 GR
   1 _speed                                                         000093 GR
-  0 _sprite_2x                                                     0007E7 R
-  0 _sprite_3x                                                     000807 R
-  0 _sprite_4x                                                     000827 R
-  0 _sprite_5x                                                     000847 R
-  0 _sprite_6x                                                     000867 R
-  0 _sprite_arrow_0                                                000747 R
-  0 _sprite_arrow_1                                                00074F R
-  0 _sprite_arrow_2                                                000757 R
-  0 _sprite_arrow_3                                                00075F R
-  0 _sprite_combo_1                                                0007A7 R
-  0 _sprite_combo_2                                                0007C7 R
-  0 _sprite_dust_0                                                 000567 R
-  0 _sprite_dust_1                                                 00056F R
-  0 _sprite_dust_2                                                 000577 R
-  0 _sprite_dust_3                                                 00057F R
-  0 _sprite_hit_1                                                  000767 R
-  0 _sprite_hit_2                                                  000787 R
-  0 _sprite_mega_hit                                               000887 R
+  0 _sprite_2x                                                     000848 R
+  0 _sprite_3x                                                     000868 R
+  0 _sprite_4x                                                     000888 R
+  0 _sprite_5x                                                     0008A8 R
+  0 _sprite_6x                                                     0008C8 R
+  0 _sprite_arrow_0                                                0007A8 R
+  0 _sprite_arrow_1                                                0007B0 R
+  0 _sprite_arrow_2                                                0007B8 R
+  0 _sprite_arrow_3                                                0007C0 R
+  0 _sprite_combo_1                                                000808 R
+  0 _sprite_combo_2                                                000828 R
+  0 _sprite_dust_0                                                 0005C8 R
+  0 _sprite_dust_1                                                 0005D0 R
+  0 _sprite_dust_2                                                 0005D8 R
+  0 _sprite_dust_3                                                 0005E0 R
+  0 _sprite_explosion_0                                            000908 R
+  0 _sprite_explosion_1                                            000928 R
+  0 _sprite_explosion_2                                            000948 R
+  0 _sprite_explosion_3                                            000968 R
+  0 _sprite_explosion_4                                            000988 R
+  0 _sprite_explosion_5                                            0009A8 R
+  0 _sprite_explosion_6                                            0009C8 R
+  0 _sprite_explosion_7                                            0009E8 R
+  0 _sprite_hit_1                                                  0007C8 R
+  0 _sprite_hit_2                                                  0007E8 R
+  0 _sprite_mega_hit                                               0008E8 R
   1 _topPiece                                                      000090 GR
-
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 6.
 Hexadecimal [24-Bits]
 
 Area Table
 
-   0 _CODE                                      size   26CB   flags    0
+   0 _CODE                                      size   28EA   flags    0
    1 _DATA                                      size     98   flags    0
    2 _INITIALIZED                               size      C   flags    0
    3 _DABS                                      size      0   flags    8

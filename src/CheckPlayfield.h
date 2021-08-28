@@ -108,7 +108,7 @@ void CheckPlayfield(byte iteration) {
     byte leftmostPieceRemoved = 5, rightmostPieceRemoved = 0;
     byte lowermostPieceRemoved = 11,   upmostPieceRemoved = 0;
     
-    HideArrow();
+    HideArrowSprite();
     
     SoundFx_2();
     

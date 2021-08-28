@@ -1,14 +1,3 @@
-// Screen 2 VRAM mapping
-#define NAMTBL  6144
-#define CLRTBL  8192
-#define PATTBL  0
-#define SPRATT  6912
-#define SPRPAT  14336
-
-
-#define PLAYFIELD_HORIZ_OFFSET		10
-
-
 void DrawChar(byte character, byte col, byte line) {
   WRTVRM(NAMTBL + (line * 32) + col, character);
 }
@@ -84,10 +73,11 @@ void DrawScore() {
       lastJiffy = JIFFY;
       while(lastJiffy == JIFFY) { }
       
+      DrawExplosionSprite(26 * 8, 4 * 8, i);
 
       if(JIFFY & 0b00000110) {
-  	DrawString(" LEVEL", 26, 4);
-      	DrawNumber(level, 26, 5);
+  	    DrawString(" LEVEL", 26, 4);
+      	DrawNumber(level, 26, 5); //TODO: fix bug (new level not blinking)
         
         // Animate Bg
         //void FILVRM(uint16_t start, uint16_t len, uint8_t data);
@@ -130,7 +120,7 @@ void DrawScore() {
         
       }
       else {
-  	DrawString("      ", 26, 4);
+  	    DrawString("      ", 26, 4);
       	DrawString("      ", 26, 5);
       }
       
@@ -197,138 +187,6 @@ void DrawBackground() {
     //DrawNumber(i * 10 + 1, 25, i);
   }
   */
-}
-
-void DrawArrow(byte x, byte y) {
-  const byte colors[] = {
-    15,
-    14,
-    5,
-    4,
-    4,
-    5,
-    14,
-    15,
-  };
-  
-  byte colorIndex = (JIFFY & 0b00001110) >> 1;
-  
-  
-  //if(JIFFY & 0b00000001) color = 15;
-  //else color = 4;
-  
-  // First sprite
-  WRTVRM(SPRATT, 	y - 1);
-  WRTVRM(SPRATT + 1, 	x);
-  WRTVRM(SPRATT + 2, 	SPRITE_PATTERN_DOWN_ARROW);
-  WRTVRM(SPRATT + 3, 	colors[colorIndex]);
-
-  // Second sprite (offset to right/down by 1px)
-  /*
-  WRTVRM(SPRATT + 4,  	y);
-  WRTVRM(SPRATT + 5, 	x + 1);
-  WRTVRM(SPRATT + 6, 	0);
-  WRTVRM(SPRATT + 7, 	4);
-  */
-}
-
-void HideArrow() {
-  WRTVRM(SPRATT, 	192);
-}
-
-void DrawHitSprite(byte numberHit, byte numberCombo, byte x, byte y, bool firstTime) {
-  const byte redColorRamp[] = {
-    15,
-    14,
-    9,
-    6,
-    6,
-    9,
-    14,
-    15,
-  };
-
-  // const byte blueColorRamp[] = {
-  //   15,
-  //   14,
-  //   5,
-  //   4,
-  //   4,
-  //   5,
-  //   14,
-  //   15,
-  // };
-  
-  const byte greenColorRamp[] = {
-    15,
-    14,
-    3,
-    12,
-    12,
-    3,
-    14,
-    15,
-  };
-  
-  byte colorIndex = (JIFFY & 0b00000111);
-  byte currentColor_1 = redColorRamp[colorIndex];
-  byte currentColor_2 = greenColorRamp[colorIndex];
-
-  if(firstTime) {
-    WRTVRM(SPRATT + 5, 	x - 8);
-    WRTVRM(SPRATT + 6, 	SPRITE_PATTERN_3X + ((numberHit - 3) * 4));
-
-    WRTVRM(SPRATT + 9, 	x + 8);
-    WRTVRM(SPRATT + 10, 	SPRITE_PATTERN_HIT);
-
-    WRTVRM(SPRATT + 13, 	x + 24);
-    WRTVRM(SPRATT + 14, 	SPRITE_PATTERN_HIT + 4);
-
-    if(numberCombo > 1) {
-      WRTVRM(SPRATT + 17, 	x - 8);
-      WRTVRM(SPRATT + 18, 	SPRITE_PATTERN_2X + ((numberCombo - 2) * 4));
-
-      WRTVRM(SPRATT + 21, 	x + 8);
-      WRTVRM(SPRATT + 22, 	SPRITE_PATTERN_COMBO);
-
-      WRTVRM(SPRATT + 25, 	x + 24);
-      WRTVRM(SPRATT + 26, 	SPRITE_PATTERN_COMBO + 4);
-    }
-  }
-
-  // Hit sprite
-  WRTVRM(SPRATT + 4, 	y);
-  WRTVRM(SPRATT + 7, 	currentColor_1);
-
-  WRTVRM(SPRATT + 8, 	y);
-  WRTVRM(SPRATT + 11, 	currentColor_1);
-
-  WRTVRM(SPRATT + 12, 	y);
-  WRTVRM(SPRATT + 15, 	currentColor_1);
-
-  if(numberCombo > 1) {
-    // Combo sprite
-    WRTVRM(SPRATT + 16, 	y + 16);
-    WRTVRM(SPRATT + 19, 	currentColor_2);
-
-    WRTVRM(SPRATT + 20, 	y + 16);
-    WRTVRM(SPRATT + 23, 	currentColor_2);
-
-    WRTVRM(SPRATT + 24, 	y + 16);
-    WRTVRM(SPRATT + 27, 	currentColor_2);
-  }
-}
-
-void HideHitSprite() {
-  // Hit sprite
-  WRTVRM(SPRATT + 4, 	192);
-  WRTVRM(SPRATT + 8, 	192);
-  WRTVRM(SPRATT + 12, 	192);
-
-  // Combo sprite
-  WRTVRM(SPRATT + 16, 	192);
-  WRTVRM(SPRATT + 20, 	192);
-  WRTVRM(SPRATT + 24, 	192);
 }
 
 void InitVRAM() {
