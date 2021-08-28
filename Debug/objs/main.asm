@@ -5733,7 +5733,7 @@ _CheckPlayfield::
 00219$:
 	ld	a, -1 (ix)
 	sub	a, #0x0c
-	jr	NC, 00136$
+	jr	NC, 00290$
 ;src\/CheckPlayfield.h:118: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
 	ld	e, -5 (ix)
 	ld	b, #0x00
@@ -5799,86 +5799,8 @@ _CheckPlayfield::
 ;src\/CheckPlayfield.h:117: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
 	inc	-1 (ix)
 	jr	00219$
-00136$:
-;src\/CheckPlayfield.h:131: DrawNumber(numberPiecesRemoved, 0, 0);//test
-	ld	c, -5 (ix)
-	ld	b, #0x00
-	xor	a, a
-	push	af
-	inc	sp
-	xor	a, a
-	push	af
-	inc	sp
-	push	bc
-	call	_DrawNumber
-	pop	af
-	pop	af
-;src\/CheckPlayfield.h:132: DrawNumber(iteration, 0, 1);//test
-	ld	c, 4 (ix)
-	ld	b, #0x00
-	ld	a, #0x01
-	push	af
-	inc	sp
-	xor	a, a
-	push	af
-	inc	sp
-	push	bc
-	call	_DrawNumber
-	pop	af
-	pop	af
-;src\/CheckPlayfield.h:133: DrawNumber(leftmostPieceRemoved, 0, 13);//test
-	ld	c, -9 (ix)
-	ld	b, #0x00
-	ld	a, #0x0d
-	push	af
-	inc	sp
-	xor	a, a
-	push	af
-	inc	sp
-	push	bc
-	call	_DrawNumber
-	pop	af
-	pop	af
-;src\/CheckPlayfield.h:134: DrawNumber(rightmostPieceRemoved, 0, 14);//test
-	ld	c, -8 (ix)
-	ld	b, #0x00
-	ld	a, #0x0e
-	push	af
-	inc	sp
-	xor	a, a
-	push	af
-	inc	sp
-	push	bc
-	call	_DrawNumber
-	pop	af
-	pop	af
-;src\/CheckPlayfield.h:135: DrawNumber(lowermostPieceRemoved, 0, 16);//test
-	ld	c, -7 (ix)
-	ld	b, #0x00
-	ld	a, #0x10
-	push	af
-	inc	sp
-	xor	a, a
-	push	af
-	inc	sp
-	push	bc
-	call	_DrawNumber
-	pop	af
-	pop	af
-;src\/CheckPlayfield.h:136: DrawNumber(upmostPieceRemoved, 0, 17);//test
-	ld	c, -6 (ix)
-	ld	b, #0x00
-	ld	a, #0x11
-	push	af
-	inc	sp
-	xor	a, a
-	push	af
-	inc	sp
-	push	bc
-	call	_DrawNumber
-	pop	af
-	pop	af
 ;src\/CheckPlayfield.h:139: while(counter-- > 0) {
+00290$:
 	ld	-1 (ix), #0x48
 00166$:
 	ld	c, -1 (ix)
@@ -8257,6 +8179,10 @@ ___str_11:
 _main::
 ;src\main.c:90: while(TRUE) {
 00102$:
+;src\main.c:92: Intro();
+	call	_Intro
+;src\main.c:94: TitleScreen();
+	call	_TitleScreen
 ;src\main.c:96: InitGame();
 	call	_InitGame
 ;src\main.c:99: }

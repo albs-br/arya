@@ -128,12 +128,12 @@ void CheckPlayfield(byte iteration) {
     }
     
     // debug
-    DrawNumber(numberPiecesRemoved, 0, 0);//test
-    DrawNumber(iteration, 0, 1);//test
-    DrawNumber(leftmostPieceRemoved, 0, 13);//test
-    DrawNumber(rightmostPieceRemoved, 0, 14);//test
-    DrawNumber(lowermostPieceRemoved, 0, 16);//test
-    DrawNumber(upmostPieceRemoved, 0, 17);//test
+    // DrawNumber(numberPiecesRemoved, 0, 0);//test
+    // DrawNumber(iteration, 0, 1);//test
+    // DrawNumber(leftmostPieceRemoved, 0, 13);//test
+    // DrawNumber(rightmostPieceRemoved, 0, 14);//test
+    // DrawNumber(lowermostPieceRemoved, 0, 16);//test
+    // DrawNumber(upmostPieceRemoved, 0, 17);//test
     //Wait(60);
     
     while(counter-- > 0) {
