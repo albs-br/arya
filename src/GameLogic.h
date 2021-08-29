@@ -324,7 +324,7 @@ void InitGame() {
   gameOver = FALSE;
   line = INITIAL_LINE;
   col = INITIAL_COL;
-  score = 0;
+  // score = 0;
   blocksRemoved = 0;
   level = 1;
   newLevel = FALSE;

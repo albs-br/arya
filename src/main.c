@@ -47,7 +47,7 @@ bool gameOver = FALSE;
 byte col = 0, line = 0;
 byte counter = 0;
 byte topPiece, midPiece, bottomPiece;
-word score = 0;
+// word score = 0;
 word blocksRemoved = 0;
 byte level = 1;
 bool newLevel = FALSE;

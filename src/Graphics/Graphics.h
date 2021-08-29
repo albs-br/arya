@@ -135,14 +135,24 @@ void DrawScore() {
   FILVRM(CLRTBL + (256 * 8), 8 * 4, 0x14);
   FILVRM(CLRTBL + (512 * 8), 8 * 4, 0x14);
   
-  DrawString(" SCORE", 26, 2);
+  // DrawString(" SCORE", 26, 2);
   DrawString(" LEVEL", 26, 10);
   DrawString("BLOCKS", 26, 18);
   
-  DrawNumber(score, 26, 3);
+  // DrawNumber(score, 26, 3);
   DrawNumber(level, 26, 11);
   DrawNumber(blocksRemoved, 26, 19);
-  
+
+  //test
+  WRTVRM(SPRATT + 40, 	10);
+  WRTVRM(SPRATT + 41, 	26 * 8);
+  WRTVRM(SPRATT + 42, 	SPRITE_PATTERN_SMALL_BLOCK);
+  WRTVRM(SPRATT + 43, 	3);
+
+  WRTVRM(SPRATT + 44, 	10);
+  WRTVRM(SPRATT + 45, 	26 * 8);
+  WRTVRM(SPRATT + 46, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
+  WRTVRM(SPRATT + 47, 	12);
 }
 
 void DrawBackground() {

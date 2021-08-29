@@ -1,6 +1,6 @@
 
 //#define POINTS_PER_BLOCK_REMOVED 	      10
-#define POINTS_PER_COMBO 	              5
+//#define POINTS_PER_COMBO 	              5
 
 void CheckIfPlayfieldIsValid() {
   bool found = FALSE;
