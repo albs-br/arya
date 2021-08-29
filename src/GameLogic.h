@@ -272,8 +272,8 @@ void GameLoop() {
   
   //while(1) { };
   
-  // Wait 3 seconds
-  Wait(60 * 3);
+  // Wait 5 seconds
+  Wait(60 * 5);
   
 }
 
@@ -324,6 +324,7 @@ void InitGame() {
   gameOver = FALSE;
   line = INITIAL_LINE;
   col = INITIAL_COL;
+  score = 0;
   blocksRemoved = 0;
   level = 1;
   newLevel = FALSE;

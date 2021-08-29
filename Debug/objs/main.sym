@@ -11,7 +11,7 @@ Symbol Table
     _BAKCLR                                                     =  00F3EA G
     _BDRCLR                                                     =  00F3EB G
     _BEEP                                                          ****** GX
-  0 _BlinkPauseText                                                001EE2 GR
+  0 _BlinkPauseText                                                001F03 GR
     _CLIKSW                                                     =  00F3DB G
     _CLMLST                                                     =  00F3B1 G
     _CLOC                                                       =  00F92A G
@@ -20,22 +20,22 @@ Symbol Table
     _CRTCNT                                                     =  00F3B1 G
     _CSRX                                                       =  00F3DD G
     _CSRY                                                       =  00F3DC G
-  0 _ChangeFontColor                                               002409 GR
-  0 _CheckIfPlayfieldIsValid                                       0015EF GR
-  0 _CheckPlayfield                                                0016A3 GR
+  0 _ChangeFontColor                                               002433 GR
+  0 _CheckIfPlayfieldIsValid                                       001610 GR
+  0 _CheckPlayfield                                                0016C4 GR
     _DISSCR                                                        ****** GX
   0 _DrawArrowSprite                                               0000ED GR
-  0 _DrawBackground                                                0011D5 GR
-  0 _DrawBlock                                                     00145A GR
-  0 _DrawBlock_SameTile                                            0014C2 GR
+  0 _DrawBackground                                                0011F6 GR
+  0 _DrawBlock                                                     00147B GR
+  0 _DrawBlock_SameTile                                            0014E3 GR
   0 _DrawChar                                                      000D87 GR
   0 _DrawColumn                                                    000E9E GR
   0 _DrawExplosionSprite                                           000C9F GR
   0 _DrawHitSprite                                                 000A16 GR
-  0 _DrawLine                                                      001523 GR
+  0 _DrawLine                                                      001544 GR
   0 _DrawNumber                                                    000DE3 GR
-  0 _DrawPiece                                                     00155B GR
-  0 _DrawPlayfield                                                 00157E GR
+  0 _DrawPiece                                                     00157C GR
+  0 _DrawPlayfield                                                 00159F GR
   0 _DrawScore                                                     00103F GR
   0 _DrawString                                                    000DB1 GR
     _ENASCR                                                        ****** GX
@@ -46,17 +46,17 @@ Symbol Table
     _GICINI                                                        ****** GX
     _GTSTCK                                                        ****** GX
     _GTTRIG                                                        ****** GX
-  0 _GameLoop                                                      001F46 GR
+  0 _GameLoop                                                      001F67 GR
   0 _GetRandom                                                     0000A3 GR
   0 _GetRandomInInterval                                           0000D9 GR
   0 _HideArrowSprite                                               000A08 GR
   0 _HideExplosionSprite                                           000C77 GR
   0 _HideHitSprite                                                 000C28 GR
     _INIGRP                                                        ****** GX
-  0 _InitGame                                                      00236F GR
+  0 _InitGame                                                      002390 GR
   0 _InitRnd                                                       000050 GR
-  0 _InitVRAM                                                      001204 GR
-  0 _Intro                                                         0024A6 GR
+  0 _InitVRAM                                                      001225 GR
+  0 _Intro                                                         0024D0 GR
     _JIFFY                                                      =  00FC9E G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 2.
 Hexadecimal [24-Bits]
@@ -77,7 +77,7 @@ Symbol Table
     _MSX_vdp_regs                                               =  00F3DF G
     _MSX_version                                                =  00002D G
     _PUTPNT                                                     =  00F3F8 G
-  0 _Pause                                                         001F06 GR
+  0 _Pause                                                         001F27 GR
   0 _Power                                                         00001D GR
     _RDVRM                                                         ****** GX
     _REPCNT                                                     =  00F3F7 G
@@ -85,56 +85,58 @@ Symbol Table
   1 _Rand_b                                                        000095 GR
   1 _Rand_c                                                        000096 GR
   1 _Rand_x                                                        000097 GR
-  0 _RandomIndex                                                   001E19 GR
-  0 _RandomPiece                                                   001E26 GR
+  0 _RandomIndex                                                   001E3A GR
+  0 _RandomPiece                                                   001E47 GR
     _SCNCNT                                                     =  00F3F6 G
     _SNSMAT                                                        ****** GX
     _STATFL                                                     =  00F3E7 G
-  0 _ScrollDownFont                                                002449 GR
-  0 _SetBlock                                                      002534 GR
-  0 _SoundFx_1                                                     0015CE GR
-  0 _SoundFx_2                                                     00158F GR
+  0 _ScrollDownFont                                                002473 GR
+  0 _SetBlock                                                      00255E GR
+  0 _SoundFx_1                                                     0015EF GR
+  0 _SoundFx_2                                                     0015B0 GR
     _TRGFLG                                                     =  00F3E8 G
-  0 _TestCase                                                      002320 GR
-  0 _TitleScreen                                                   00255F GR
-  0 _TitleScreen_title_65536_285                                   002746 R
-  0 _UpdateAndDrawPieceStatic                                      001E4E GR
+  0 _TestCase                                                      002341 GR
+  0 _TitleScreen                                                   002589 GR
+  0 _TitleScreen_title_65536_285                                   002770 R
+  0 _UpdateAndDrawPieceStatic                                      001E6F GR
     _WRTPSG                                                        ****** GX
     _WRTVDP                                                        ****** GX
     _WRTVRM                                                        ****** GX
   0 _Wait                                                          000000 GR
   0 ___str_0                                                       000E97 R
-  0 ___str_1                                                       0011C0 R
-  0 ___str_10                                                      00285D R
-  0 ___str_11                                                      002872 R
-  0 ___str_2                                                       0011C7 R
-  0 ___str_3                                                       0011CE R
-  0 ___str_4                                                       001F00 R
-  0 ___str_5                                                       001F40 R
-  0 ___str_6                                                       002316 R
-  0 ___str_7                                                       00251B R
-  0 ___str_8                                                       002525 R
-  0 ___str_9                                                       002846 R
+  0 ___str_1                                                       0011DA R
+  0 ___str_10                                                      002870 R
+  0 ___str_11                                                      002887 R
+  0 ___str_12                                                      00289C R
+  0 ___str_2                                                       0011E1 R
+  0 ___str_3                                                       0011E8 R
+  0 ___str_4                                                       0011EF R
+  0 ___str_5                                                       001F21 R
+  0 ___str_6                                                       001F61 R
+  0 ___str_7                                                       002337 R
+  0 ___str_8                                                       002545 R
+  0 ___str_9                                                       00254F R
     __divuint                                                      ****** GX
     __moduint                                                      ****** GX
-    __mulint                                                       ****** GX
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 3.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
-  7 __xinit__blocksRemoved                                         000004 R
+    __mulint                                                       ****** GX
+  7 __xinit__blocksRemoved                                         000006 R
   7 __xinit__col                                                   000001 R
   7 __xinit__counter                                               000003 R
-  7 __xinit__d_col                                                 000009 R
-  7 __xinit__d_line                                                00000A R
-  7 __xinit__d_value                                               00000B R
+  7 __xinit__d_col                                                 00000B R
+  7 __xinit__d_line                                                00000C R
+  7 __xinit__d_value                                               00000D R
   7 __xinit__gameOver                                              000000 R
-  7 __xinit__level                                                 000006 R
+  7 __xinit__level                                                 000008 R
   7 __xinit__line                                                  000002 R
-  7 __xinit__newLevel                                              000007 R
-  7 __xinit__rndSeed                                               000008 R
-  2 _blocksRemoved                                                 000004 GR
+  7 __xinit__newLevel                                              000009 R
+  7 __xinit__rndSeed                                               00000A R
+  7 __xinit__score                                                 000004 R
+  2 _blocksRemoved                                                 000006 GR
   1 _bottomPiece                                                   000092 GR
   2 _col                                                           000001 GR
   0 _color_0                                                       000610 R
@@ -176,13 +178,13 @@ Symbol Table
   0 _color_column_4                                                0006C8 R
   0 _color_column_5                                                0006D0 R
   0 _color_column_6                                                0006D8 R
-  0 _color_column_7                                                0006E0 R
-  0 _color_column_8                                                0006E8 R
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 4.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
+  0 _color_column_7                                                0006E0 R
+  0 _color_column_8                                                0006E8 R
   0 _color_column_9                                                0006F0 R
   0 _color_dust_0                                                  000740 R
   0 _color_dust_1                                                  000748 R
@@ -198,15 +200,15 @@ Symbol Table
   0 _color_title_6                                                 000798 R
   0 _color_title_7                                                 0007A0 R
   2 _counter                                                       000003 GR
-  2 _d_col                                                         000009 GR
-  2 _d_line                                                        00000A GR
-  2 _d_value                                                       00000B GR
+  2 _d_col                                                         00000B GR
+  2 _d_line                                                        00000C GR
+  2 _d_value                                                       00000D GR
   2 _gameOver                                                      000000 GR
-  2 _level                                                         000006 GR
+  2 _level                                                         000008 GR
   2 _line                                                          000002 GR
-  0 _main                                                          00287A GR
+  0 _main                                                          0028A4 GR
   1 _midPiece                                                      000091 GR
-  2 _newLevel                                                      000007 GR
+  2 _newLevel                                                      000009 GR
   0 _pattern_0                                                     000498 R
   0 _pattern_1                                                     0004A0 R
   0 _pattern_10                                                    0004E8 R
@@ -236,13 +238,13 @@ Symbol Table
   0 _pattern_32                                                    0005B0 R
   0 _pattern_33                                                    0005B8 R
   0 _pattern_34                                                    0005C0 R
-  0 _pattern_37                                                    000598 R
-  0 _pattern_38                                                    0005A0 R
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 5.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
+  0 _pattern_37                                                    000598 R
+  0 _pattern_38                                                    0005A0 R
   0 _pattern_39                                                    0005A8 R
   0 _pattern_4                                                     0004B8 R
   0 _pattern_5                                                     0004C0 R
@@ -258,7 +260,8 @@ Symbol Table
   0 _pieces                                                        000018 GR
   1 _playfield                                                     000000 GR
   1 _playfieldTemp                                                 000048 GR
-  2 _rndSeed                                                       000008 GR
+  2 _rndSeed                                                       00000A GR
+  2 _score                                                         000004 GR
   1 _speed                                                         000093 GR
   0 _sprite_2x                                                     000848 R
   0 _sprite_3x                                                     000868 R
@@ -293,13 +296,13 @@ Hexadecimal [24-Bits]
 
 Area Table
 
-   0 _CODE                                      size   2885   flags    0
+   0 _CODE                                      size   28AF   flags    0
    1 _DATA                                      size     98   flags    0
-   2 _INITIALIZED                               size      C   flags    0
+   2 _INITIALIZED                               size      E   flags    0
    3 _DABS                                      size      0   flags    8
    4 _HOME                                      size      0   flags    0
    5 _GSINIT                                    size      0   flags    0
    6 _GSFINAL                                   size      0   flags    0
-   7 _INITIALIZER                               size      C   flags    0
+   7 _INITIALIZER                               size      E   flags    0
    8 _CABS                                      size      0   flags    8
 

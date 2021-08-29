@@ -70,6 +70,7 @@
 	.globl _newLevel
 	.globl _level
 	.globl _blocksRemoved
+	.globl _score
 	.globl _counter
 	.globl _line
 	.globl _col
@@ -184,6 +185,8 @@ _line::
 	.ds 1
 _counter::
 	.ds 1
+_score::
+	.ds 2
 _blocksRemoved::
 	.ds 2
 _level::
@@ -3962,9 +3965,9 @@ _DrawScore::
 	cp	a, a
 	sbc	hl, bc
 	jr	Z, 00101$
-;src\/Graphics\Graphics.h:76: DrawExplosionSprite(26 * 8, 4 * 8, i);
+;src\/Graphics\Graphics.h:76: DrawExplosionSprite(26 * 8, 10 * 8, i);
 	ld	d, -1 (ix)
-	ld	e,#0x20
+	ld	e,#0x50
 	push	de
 	ld	a, #0xd0
 	push	af
@@ -3977,25 +3980,25 @@ _DrawScore::
 	ld	a, l
 	and	a, #0x06
 	jp	Z,00115$
-;src\/Graphics\Graphics.h:79: DrawString(" LEVEL", 26, 4);
-	ld	de, #0x041a
+;src\/Graphics\Graphics.h:80: DrawString(" LEVEL", 26, 10);
+	ld	de, #0x0a1a
 	push	de
 	ld	hl, #___str_1
 	push	hl
 	call	_DrawString
 	pop	af
 	pop	af
-;src\/Graphics\Graphics.h:80: DrawNumber(level, 26, 5); //TODO: fix bug (new level not blinking)
+;src\/Graphics\Graphics.h:81: DrawNumber(level, 26, 11); //TODO: fix bug (new level not blinking)
 	ld	a, (#_level + 0)
 	ld	c, a
 	ld	b, #0x00
-	ld	de, #0x051a
+	ld	de, #0x0b1a
 	push	de
 	push	bc
 	call	_DrawNumber
 	pop	af
 	pop	af
-;src\/Graphics\Graphics.h:86: switch(bgCounter++) {
+;src\/Graphics\Graphics.h:87: switch(bgCounter++) {
 	ld	c, -2 (ix)
 	inc	-2 (ix)
 	ld	a, #0x07
@@ -4016,63 +4019,63 @@ _DrawScore::
 	jp	00109$
 	jp	00110$
 	jp	00111$
-;src\/Graphics\Graphics.h:87: case 0:
+;src\/Graphics\Graphics.h:88: case 0:
 00104$:
-;src\/Graphics\Graphics.h:88: bgColor = 0x14;
+;src\/Graphics\Graphics.h:89: bgColor = 0x14;
 	ld	c, #0x14
-;src\/Graphics\Graphics.h:89: break;
+;src\/Graphics\Graphics.h:90: break;
 	jr	00113$
-;src\/Graphics\Graphics.h:90: case 1:
+;src\/Graphics\Graphics.h:91: case 1:
 00105$:
-;src\/Graphics\Graphics.h:91: bgColor = 0x15;
+;src\/Graphics\Graphics.h:92: bgColor = 0x15;
 	ld	c, #0x15
-;src\/Graphics\Graphics.h:92: break;
+;src\/Graphics\Graphics.h:93: break;
 	jr	00113$
-;src\/Graphics\Graphics.h:93: case 2:
+;src\/Graphics\Graphics.h:94: case 2:
 00106$:
-;src\/Graphics\Graphics.h:94: bgColor = 0x17;
+;src\/Graphics\Graphics.h:95: bgColor = 0x17;
 	ld	c, #0x17
-;src\/Graphics\Graphics.h:95: break;
+;src\/Graphics\Graphics.h:96: break;
 	jr	00113$
-;src\/Graphics\Graphics.h:96: case 3:
+;src\/Graphics\Graphics.h:97: case 3:
 00107$:
-;src\/Graphics\Graphics.h:97: bgColor = 0x1e;
+;src\/Graphics\Graphics.h:98: bgColor = 0x1e;
 	ld	c, #0x1e
-;src\/Graphics\Graphics.h:98: break;
+;src\/Graphics\Graphics.h:99: break;
 	jr	00113$
-;src\/Graphics\Graphics.h:99: case 4:
+;src\/Graphics\Graphics.h:100: case 4:
 00108$:
-;src\/Graphics\Graphics.h:100: bgColor = 0x1f;
+;src\/Graphics\Graphics.h:101: bgColor = 0x1f;
 	ld	c, #0x1f
-;src\/Graphics\Graphics.h:101: break;
+;src\/Graphics\Graphics.h:102: break;
 	jr	00113$
-;src\/Graphics\Graphics.h:102: case 5:
+;src\/Graphics\Graphics.h:103: case 5:
 00109$:
-;src\/Graphics\Graphics.h:103: bgColor = 0x1e;
+;src\/Graphics\Graphics.h:104: bgColor = 0x1e;
 	ld	c, #0x1e
-;src\/Graphics\Graphics.h:104: break;
+;src\/Graphics\Graphics.h:105: break;
 	jr	00113$
-;src\/Graphics\Graphics.h:105: case 6:
+;src\/Graphics\Graphics.h:106: case 6:
 00110$:
-;src\/Graphics\Graphics.h:106: bgColor = 0x17;
+;src\/Graphics\Graphics.h:107: bgColor = 0x17;
 	ld	c, #0x17
-;src\/Graphics\Graphics.h:107: break;
+;src\/Graphics\Graphics.h:108: break;
 	jr	00113$
-;src\/Graphics\Graphics.h:108: case 7:
+;src\/Graphics\Graphics.h:109: case 7:
 00111$:
-;src\/Graphics\Graphics.h:109: bgColor = 0x15;
+;src\/Graphics\Graphics.h:110: bgColor = 0x15;
 	ld	c, #0x15
-;src\/Graphics\Graphics.h:110: bgCounter = 0;
+;src\/Graphics\Graphics.h:111: bgCounter = 0;
 	ld	-2 (ix), #0
-;src\/Graphics\Graphics.h:111: break;
+;src\/Graphics\Graphics.h:112: break;
 	jr	00113$
-;src\/Graphics\Graphics.h:112: default:
+;src\/Graphics\Graphics.h:113: default:
 00112$:
-;src\/Graphics\Graphics.h:113: bgColor = 0x11;
+;src\/Graphics\Graphics.h:114: bgColor = 0x11;
 	ld	c, #0x11
-;src\/Graphics\Graphics.h:115: }
+;src\/Graphics\Graphics.h:116: }
 00113$:
-;src\/Graphics\Graphics.h:116: FILVRM(CLRTBL, 8 * 4, bgColor);
+;src\/Graphics\Graphics.h:117: FILVRM(CLRTBL, 8 * 4, bgColor);
 	push	bc
 	ld	a, c
 	push	af
@@ -4086,7 +4089,7 @@ _DrawScore::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:117: FILVRM(CLRTBL + (256 * 8), 8 * 4, bgColor);
+;src\/Graphics\Graphics.h:118: FILVRM(CLRTBL + (256 * 8), 8 * 4, bgColor);
 	push	bc
 	ld	a, c
 	push	af
@@ -4100,7 +4103,7 @@ _DrawScore::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:118: FILVRM(CLRTBL + (512 * 8), 8 * 4, bgColor);
+;src\/Graphics\Graphics.h:119: FILVRM(CLRTBL + (512 * 8), 8 * 4, bgColor);
 	ld	a, c
 	push	af
 	inc	sp
@@ -4114,16 +4117,16 @@ _DrawScore::
 	inc	sp
 	jr	00122$
 00115$:
-;src\/Graphics\Graphics.h:123: DrawString("      ", 26, 4);
-	ld	de, #0x041a
+;src\/Graphics\Graphics.h:124: DrawString("      ", 26, 10);
+	ld	de, #0x0a1a
 	push	de
 	ld	hl, #___str_2
 	push	hl
 	call	_DrawString
 	pop	af
 	pop	af
-;src\/Graphics\Graphics.h:124: DrawString("      ", 26, 5);
-	ld	de, #0x051a
+;src\/Graphics\Graphics.h:125: DrawString("      ", 26, 11);
+	ld	de, #0x0b1a
 	push	de
 	ld	hl, #___str_2
 	push	hl
@@ -4135,10 +4138,10 @@ _DrawScore::
 	inc	-1 (ix)
 	jp	00121$
 00119$:
-;src\/Graphics\Graphics.h:130: newLevel = FALSE;
+;src\/Graphics\Graphics.h:131: newLevel = FALSE;
 	ld	hl, #_newLevel
 	ld	(hl), #0x00
-;src\/Graphics\Graphics.h:133: FILVRM(CLRTBL, 8 * 4, 0x14);
+;src\/Graphics\Graphics.h:134: FILVRM(CLRTBL, 8 * 4, 0x14);
 	ld	a, #0x14
 	push	af
 	inc	sp
@@ -4150,7 +4153,7 @@ _DrawScore::
 	pop	af
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:134: FILVRM(CLRTBL + (256 * 8), 8 * 4, 0x14);
+;src\/Graphics\Graphics.h:135: FILVRM(CLRTBL + (256 * 8), 8 * 4, 0x14);
 	ld	a, #0x14
 	push	af
 	inc	sp
@@ -4162,7 +4165,7 @@ _DrawScore::
 	pop	af
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:135: FILVRM(CLRTBL + (512 * 8), 8 * 4, 0x14);
+;src\/Graphics\Graphics.h:136: FILVRM(CLRTBL + (512 * 8), 8 * 4, 0x14);
 	ld	a, #0x14
 	push	af
 	inc	sp
@@ -4174,39 +4177,55 @@ _DrawScore::
 	pop	af
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:137: DrawString(" LEVEL", 26, 4);
-	ld	de, #0x041a
-	push	de
-	ld	hl, #___str_1
-	push	hl
-	call	_DrawString
-	pop	af
-	pop	af
-;src\/Graphics\Graphics.h:138: DrawString("BLOCKS", 26, 9);
-	ld	de, #0x091a
+;src\/Graphics\Graphics.h:138: DrawString(" SCORE", 26, 2);
+	ld	de, #0x021a
 	push	de
 	ld	hl, #___str_3
 	push	hl
 	call	_DrawString
 	pop	af
 	pop	af
-;src\/Graphics\Graphics.h:140: DrawNumber(blocksRemoved, 26, 10);
+;src\/Graphics\Graphics.h:139: DrawString(" LEVEL", 26, 10);
 	ld	de, #0x0a1a
 	push	de
-	ld	hl, (_blocksRemoved)
+	ld	hl, #___str_1
+	push	hl
+	call	_DrawString
+	pop	af
+	pop	af
+;src\/Graphics\Graphics.h:140: DrawString("BLOCKS", 26, 18);
+	ld	de, #0x121a
+	push	de
+	ld	hl, #___str_4
+	push	hl
+	call	_DrawString
+	pop	af
+	pop	af
+;src\/Graphics\Graphics.h:142: DrawNumber(score, 26, 3);
+	ld	de, #0x031a
+	push	de
+	ld	hl, (_score)
 	push	hl
 	call	_DrawNumber
 	pop	af
 	pop	af
-;src\/Graphics\Graphics.h:141: DrawNumber(level, 26, 5);
+;src\/Graphics\Graphics.h:143: DrawNumber(level, 26, 11);
 	ld	a, (#_level + 0)
 	ld	c, a
 	ld	b, #0x00
-	ld	de, #0x051a
+	ld	de, #0x0b1a
 	push	de
 	push	bc
 	call	_DrawNumber
-;src\/Graphics\Graphics.h:143: }
+	pop	af
+	pop	af
+;src\/Graphics\Graphics.h:144: DrawNumber(blocksRemoved, 26, 19);
+	ld	de, #0x131a
+	push	de
+	ld	hl, (_blocksRemoved)
+	push	hl
+	call	_DrawNumber
+;src\/Graphics\Graphics.h:146: }
 	ld	sp,ix
 	pop	ix
 	ret
@@ -4217,21 +4236,24 @@ ___str_2:
 	.ascii "      "
 	.db 0x00
 ___str_3:
+	.ascii " SCORE"
+	.db 0x00
+___str_4:
 	.ascii "BLOCKS"
 	.db 0x00
-;src\/Graphics\Graphics.h:145: void DrawBackground() {
+;src\/Graphics\Graphics.h:148: void DrawBackground() {
 ;	---------------------------------
 ; Function DrawBackground
 ; ---------------------------------
 _DrawBackground::
-;src\/Graphics\Graphics.h:147: for(int i = 0; i < 256 * 3; i++) {
+;src\/Graphics\Graphics.h:150: for(int i = 0; i < 256 * 3; i++) {
 	ld	bc, #0x0000
 00103$:
 	ld	a, b
 	xor	a, #0x80
 	sub	a, #0x83
 	jr	NC, 00101$
-;src\/Graphics\Graphics.h:148: WRTVRM(NAMTBL + i, 0); // test
+;src\/Graphics\Graphics.h:151: WRTVRM(NAMTBL + i, 0); // test
 	ld	hl, #0x1800
 	add	hl, bc
 	push	bc
@@ -4243,26 +4265,26 @@ _DrawBackground::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:147: for(int i = 0; i < 256 * 3; i++) {
+;src\/Graphics\Graphics.h:150: for(int i = 0; i < 256 * 3; i++) {
 	inc	bc
 	jr	00103$
 00101$:
-;src\/Graphics\Graphics.h:151: DrawColumn(7);
+;src\/Graphics\Graphics.h:154: DrawColumn(7);
 	ld	a, #0x07
 	push	af
 	inc	sp
 	call	_DrawColumn
 	inc	sp
-;src\/Graphics\Graphics.h:152: DrawColumn(22);
+;src\/Graphics\Graphics.h:155: DrawColumn(22);
 	ld	a, #0x16
 	push	af
 	inc	sp
 	call	_DrawColumn
 	inc	sp
-;src\/Graphics\Graphics.h:154: DrawScore();
-;src\/Graphics\Graphics.h:190: }
+;src\/Graphics\Graphics.h:157: DrawScore();
+;src\/Graphics\Graphics.h:193: }
 	jp	_DrawScore
-;src\/Graphics\Graphics.h:192: void InitVRAM() {
+;src\/Graphics\Graphics.h:195: void InitVRAM() {
 ;	---------------------------------
 ; Function InitVRAM
 ; ---------------------------------
@@ -4271,29 +4293,29 @@ _InitVRAM::
 	ld	ix,#0
 	add	ix,sp
 	dec	sp
-;src\/Graphics\Graphics.h:197: CLIKSW = 0;	// disable keyboard sound
+;src\/Graphics\Graphics.h:200: CLIKSW = 0;	// disable keyboard sound
 	ld	hl, #0x0000
 	ld	(_CLIKSW), hl
-;src\/Graphics\Graphics.h:198: SCNCNT = 1; 	// set keyboard scan counter
+;src\/Graphics\Graphics.h:201: SCNCNT = 1; 	// set keyboard scan counter
 	ld	hl, #_SCNCNT
 	ld	(hl), #0x01
-;src\/Graphics\Graphics.h:200: FORCLR = COLOR_WHITE;
+;src\/Graphics\Graphics.h:203: FORCLR = COLOR_WHITE;
 	ld	hl, #_FORCLR
 	ld	(hl), #0x0f
-;src\/Graphics\Graphics.h:201: BAKCLR = COLOR_BLACK;
+;src\/Graphics\Graphics.h:204: BAKCLR = COLOR_BLACK;
 	ld	hl, #_BAKCLR
 	ld	(hl), #0x01
-;src\/Graphics\Graphics.h:202: BDRCLR = COLOR_BLACK;
+;src\/Graphics\Graphics.h:205: BDRCLR = COLOR_BLACK;
 	ld	hl, #_BDRCLR
 	ld	(hl), #0x01
-;src\/Graphics\Graphics.h:230: WRTVDP(0b0000000111100010);
+;src\/Graphics\Graphics.h:233: WRTVDP(0b0000000111100010);
 	ld	hl, #0x01e2
 	call	_WRTVDP
-;src\/Graphics\Graphics.h:232: INIGRP();	// Set screen 2
+;src\/Graphics\Graphics.h:235: INIGRP();	// Set screen 2
 	call	_INIGRP
-;src\/Graphics\Graphics.h:234: DISSCR();	// Disable screen (faster to write)
+;src\/Graphics\Graphics.h:237: DISSCR();	// Disable screen (faster to write)
 	call	_DISSCR
-;src\/Graphics\Graphics.h:238: FILVRM(0x0000, 0x4000, 0x00); //void FILVRM(uint16_t start, uint16_t len, uint8_t data);
+;src\/Graphics\Graphics.h:241: FILVRM(0x0000, 0x4000, 0x00); //void FILVRM(uint16_t start, uint16_t len, uint8_t data);
 	xor	a, a
 	push	af
 	inc	sp
@@ -4303,7 +4325,7 @@ _InitVRAM::
 	push	hl
 	call	_FILVRM
 	pop	af
-;src\/Graphics\Graphics.h:247: LDIRVM(SPRPAT, sprite_arrow_0, NUMBER_OF_SPRITES * 32);
+;src\/Graphics\Graphics.h:250: LDIRVM(SPRPAT, sprite_arrow_0, NUMBER_OF_SPRITES * 32);
 	inc	sp
 	ld	hl,#0x0260
 	ex	(sp),hl
@@ -4315,10 +4337,10 @@ _InitVRAM::
 	ld	hl, #6
 	add	hl, sp
 	ld	sp, hl
-;src\/Graphics\Graphics.h:253: for(byte i=0; i<32; i++) {
+;src\/Graphics\Graphics.h:256: for(byte i=0; i<32; i++) {
 	ld	c, #0x00
 00110$:
-;src\/Graphics\Graphics.h:254: WRTVRM(SPRATT + (i * 4), 	192);
+;src\/Graphics\Graphics.h:257: WRTVRM(SPRATT + (i * 4), 	192);
 	ld	a,c
 	cp	a,#0x20
 	jr	NC, 00101$
@@ -4338,11 +4360,11 @@ _InitVRAM::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:253: for(byte i=0; i<32; i++) {
+;src\/Graphics\Graphics.h:256: for(byte i=0; i<32; i++) {
 	inc	c
 	jr	00110$
 00101$:
-;src\/Graphics\Graphics.h:263: LDIRVM(PATTBL, pattern_black_0, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+;src\/Graphics\Graphics.h:266: LDIRVM(PATTBL, pattern_black_0, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
 	ld	hl, #0x0178
 	push	hl
 	ld	hl, #_pattern_black_0
@@ -4353,7 +4375,7 @@ _InitVRAM::
 	ld	hl, #6
 	add	hl, sp
 	ld	sp, hl
-;src\/Graphics\Graphics.h:266: LDIRVM(PATTBL + (256 * 8), pattern_black_0, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+;src\/Graphics\Graphics.h:269: LDIRVM(PATTBL + (256 * 8), pattern_black_0, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
 	ld	hl, #0x0178
 	push	hl
 	ld	hl, #_pattern_black_0
@@ -4364,7 +4386,7 @@ _InitVRAM::
 	ld	hl, #6
 	add	hl, sp
 	ld	sp, hl
-;src\/Graphics\Graphics.h:269: LDIRVM(PATTBL + (512 * 8), pattern_black_0, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+;src\/Graphics\Graphics.h:272: LDIRVM(PATTBL + (512 * 8), pattern_black_0, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
 	ld	hl, #0x0178
 	push	hl
 	ld	hl, #_pattern_black_0
@@ -4375,7 +4397,7 @@ _InitVRAM::
 	ld	hl, #6
 	add	hl, sp
 	ld	sp, hl
-;src\/Graphics\Graphics.h:272: LDIRVM(PATTBL + (NUMBER_OF_PATTERNS * 8), FONT, (HICHAR-LOCHAR+1) * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+;src\/Graphics\Graphics.h:275: LDIRVM(PATTBL + (NUMBER_OF_PATTERNS * 8), FONT, (HICHAR-LOCHAR+1) * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
 	ld	hl, #0x0300
 	push	hl
 	ld	hl, #_FONT
@@ -4386,7 +4408,7 @@ _InitVRAM::
 	ld	hl, #6
 	add	hl, sp
 	ld	sp, hl
-;src\/Graphics\Graphics.h:275: LDIRVM(PATTBL + (256 * 8) + (NUMBER_OF_PATTERNS * 8), FONT, (HICHAR-LOCHAR+1) * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+;src\/Graphics\Graphics.h:278: LDIRVM(PATTBL + (256 * 8) + (NUMBER_OF_PATTERNS * 8), FONT, (HICHAR-LOCHAR+1) * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
 	ld	hl, #0x0300
 	push	hl
 	ld	hl, #_FONT
@@ -4397,7 +4419,7 @@ _InitVRAM::
 	ld	hl, #6
 	add	hl, sp
 	ld	sp, hl
-;src\/Graphics\Graphics.h:278: LDIRVM(PATTBL + (512 * 8) + (NUMBER_OF_PATTERNS * 8), FONT, (HICHAR-LOCHAR+1) * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+;src\/Graphics\Graphics.h:281: LDIRVM(PATTBL + (512 * 8) + (NUMBER_OF_PATTERNS * 8), FONT, (HICHAR-LOCHAR+1) * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
 	ld	hl, #0x0300
 	push	hl
 	ld	hl, #_FONT
@@ -4408,10 +4430,10 @@ _InitVRAM::
 	ld	hl, #6
 	add	hl, sp
 	ld	sp, hl
-;src\/Graphics\Graphics.h:282: for(byte i=0; i < NUMBER_OF_TITLE_BLOCKS; i++) {
+;src\/Graphics\Graphics.h:285: for(byte i=0; i < NUMBER_OF_TITLE_BLOCKS; i++) {
 	ld	c, #0x00
 00113$:
-;src\/Graphics\Graphics.h:283: LDIRVM(PATTBL + (TITLE_1 * 8) + (i * 8), pattern_title, NUMBER_OF_TITLE_BLOCKS * 8);
+;src\/Graphics\Graphics.h:286: LDIRVM(PATTBL + (TITLE_1 * 8) + (i * 8), pattern_title, NUMBER_OF_TITLE_BLOCKS * 8);
 	ld	a,c
 	cp	a,#0x07
 	jr	NC, 00102$
@@ -4433,11 +4455,11 @@ _InitVRAM::
 	add	hl, sp
 	ld	sp, hl
 	pop	bc
-;src\/Graphics\Graphics.h:282: for(byte i=0; i < NUMBER_OF_TITLE_BLOCKS; i++) {
+;src\/Graphics\Graphics.h:285: for(byte i=0; i < NUMBER_OF_TITLE_BLOCKS; i++) {
 	inc	c
 	jr	00113$
 00102$:
-;src\/Graphics\Graphics.h:289: LDIRVM(CLRTBL, color_black_0, NUMBER_OF_PATTERNS * 8);
+;src\/Graphics\Graphics.h:292: LDIRVM(CLRTBL, color_black_0, NUMBER_OF_PATTERNS * 8);
 	ld	hl, #0x0178
 	push	hl
 	ld	hl, #_color_black_0
@@ -4448,7 +4470,7 @@ _InitVRAM::
 	ld	hl, #6
 	add	hl, sp
 	ld	sp, hl
-;src\/Graphics\Graphics.h:291: LDIRVM(CLRTBL + (256 * 8), color_black_0, NUMBER_OF_PATTERNS * 8);
+;src\/Graphics\Graphics.h:294: LDIRVM(CLRTBL + (256 * 8), color_black_0, NUMBER_OF_PATTERNS * 8);
 	ld	hl, #0x0178
 	push	hl
 	ld	hl, #_color_black_0
@@ -4459,7 +4481,7 @@ _InitVRAM::
 	ld	hl, #6
 	add	hl, sp
 	ld	sp, hl
-;src\/Graphics\Graphics.h:293: LDIRVM(CLRTBL + (512 * 8), color_black_0, NUMBER_OF_PATTERNS * 8);
+;src\/Graphics\Graphics.h:296: LDIRVM(CLRTBL + (512 * 8), color_black_0, NUMBER_OF_PATTERNS * 8);
 	ld	hl, #0x0178
 	push	hl
 	ld	hl, #_color_black_0
@@ -4470,10 +4492,10 @@ _InitVRAM::
 	ld	hl, #6
 	add	hl, sp
 	ld	sp, hl
-;src\/Graphics\Graphics.h:300: for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
+;src\/Graphics\Graphics.h:303: for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
 	ld	c, #0x00
 00116$:
-;src\/Graphics\Graphics.h:301: LDIRVM(CLRTBL + (NUMBER_OF_PATTERNS * 8) + (i * 8), color_font_2, 8);
+;src\/Graphics\Graphics.h:304: LDIRVM(CLRTBL + (NUMBER_OF_PATTERNS * 8) + (i * 8), color_font_2, 8);
 	ld	a,c
 	cp	a,#0x60
 	jr	NC, 00103$
@@ -4495,14 +4517,14 @@ _InitVRAM::
 	add	hl, sp
 	ld	sp, hl
 	pop	bc
-;src\/Graphics\Graphics.h:300: for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
+;src\/Graphics\Graphics.h:303: for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
 	inc	c
 	jr	00116$
 00103$:
-;src\/Graphics\Graphics.h:304: for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
+;src\/Graphics\Graphics.h:307: for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
 	ld	c, #0x00
 00119$:
-;src\/Graphics\Graphics.h:305: LDIRVM(CLRTBL + (256 * 8) + (NUMBER_OF_PATTERNS * 8) + (i * 8), color_font_2, 8);
+;src\/Graphics\Graphics.h:308: LDIRVM(CLRTBL + (256 * 8) + (NUMBER_OF_PATTERNS * 8) + (i * 8), color_font_2, 8);
 	ld	a,c
 	cp	a,#0x60
 	jr	NC, 00104$
@@ -4524,14 +4546,14 @@ _InitVRAM::
 	add	hl, sp
 	ld	sp, hl
 	pop	bc
-;src\/Graphics\Graphics.h:304: for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
+;src\/Graphics\Graphics.h:307: for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
 	inc	c
 	jr	00119$
 00104$:
-;src\/Graphics\Graphics.h:308: for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
+;src\/Graphics\Graphics.h:311: for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
 	ld	c, #0x00
 00122$:
-;src\/Graphics\Graphics.h:309: LDIRVM(CLRTBL + (512 * 8) + (NUMBER_OF_PATTERNS * 8) + (i * 8), color_font_2, 8);
+;src\/Graphics\Graphics.h:312: LDIRVM(CLRTBL + (512 * 8) + (NUMBER_OF_PATTERNS * 8) + (i * 8), color_font_2, 8);
 	ld	a,c
 	cp	a,#0x60
 	jr	NC, 00105$
@@ -4553,14 +4575,14 @@ _InitVRAM::
 	add	hl, sp
 	ld	sp, hl
 	pop	bc
-;src\/Graphics\Graphics.h:308: for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
+;src\/Graphics\Graphics.h:311: for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
 	inc	c
 	jr	00122$
 00105$:
-;src\/Graphics\Graphics.h:317: for(byte i = 0; i < 10; i++) {
+;src\/Graphics\Graphics.h:320: for(byte i = 0; i < 10; i++) {
 	ld	c, #0x00
 00125$:
-;src\/Graphics\Graphics.h:318: LDIRVM(CLRTBL + (CHAR_0 * 8) + (i * 8), color_font_1, 8);
+;src\/Graphics\Graphics.h:321: LDIRVM(CLRTBL + (CHAR_0 * 8) + (i * 8), color_font_1, 8);
 	ld	a,c
 	cp	a,#0x0a
 	jr	NC, 00106$
@@ -4582,14 +4604,14 @@ _InitVRAM::
 	add	hl, sp
 	ld	sp, hl
 	pop	bc
-;src\/Graphics\Graphics.h:317: for(byte i = 0; i < 10; i++) {
+;src\/Graphics\Graphics.h:320: for(byte i = 0; i < 10; i++) {
 	inc	c
 	jr	00125$
 00106$:
-;src\/Graphics\Graphics.h:321: for(byte i = 0; i < 10; i++) {
+;src\/Graphics\Graphics.h:324: for(byte i = 0; i < 10; i++) {
 	ld	c, #0x00
 00128$:
-;src\/Graphics\Graphics.h:322: LDIRVM(CLRTBL + (256 * 8) + (CHAR_0 * 8) + (i * 8), color_font_1, 8);
+;src\/Graphics\Graphics.h:325: LDIRVM(CLRTBL + (256 * 8) + (CHAR_0 * 8) + (i * 8), color_font_1, 8);
 	ld	a,c
 	cp	a,#0x0a
 	jr	NC, 00107$
@@ -4611,17 +4633,17 @@ _InitVRAM::
 	add	hl, sp
 	ld	sp, hl
 	pop	bc
-;src\/Graphics\Graphics.h:321: for(byte i = 0; i < 10; i++) {
+;src\/Graphics\Graphics.h:324: for(byte i = 0; i < 10; i++) {
 	inc	c
 	jr	00128$
 00107$:
-;src\/Graphics\Graphics.h:325: for(byte i = 0; i < 10; i++) {
+;src\/Graphics\Graphics.h:328: for(byte i = 0; i < 10; i++) {
 	ld	-1 (ix), #0
 00131$:
 	ld	a, -1 (ix)
 	sub	a, #0x0a
 	jr	NC, 00108$
-;src\/Graphics\Graphics.h:326: LDIRVM(CLRTBL + (512 * 8) + (CHAR_0 * 8) + (i * 8), color_font_1, 8);
+;src\/Graphics\Graphics.h:329: LDIRVM(CLRTBL + (512 * 8) + (CHAR_0 * 8) + (i * 8), color_font_1, 8);
 	ld	bc, #_color_font_1
 	ld	l, -1 (ix)
 	ld	h, #0x00
@@ -4638,11 +4660,11 @@ _InitVRAM::
 	ld	hl, #6
 	add	hl, sp
 	ld	sp, hl
-;src\/Graphics\Graphics.h:325: for(byte i = 0; i < 10; i++) {
+;src\/Graphics\Graphics.h:328: for(byte i = 0; i < 10; i++) {
 	inc	-1 (ix)
 	jr	00131$
 00108$:
-;src\/Graphics\Graphics.h:330: LDIRVM(CLRTBL + (TITLE_1 * 8), color_title_1, NUMBER_OF_TITLE_BLOCKS * 8);
+;src\/Graphics\Graphics.h:333: LDIRVM(CLRTBL + (TITLE_1 * 8), color_title_1, NUMBER_OF_TITLE_BLOCKS * 8);
 	ld	hl, #0x0038
 	push	hl
 	ld	hl, #_color_title_1
@@ -4653,13 +4675,13 @@ _InitVRAM::
 	ld	hl, #6
 	add	hl, sp
 	ld	sp, hl
-;src\/Graphics\Graphics.h:338: ENASCR();	// Enable screen
+;src\/Graphics\Graphics.h:341: ENASCR();	// Enable screen
 	call	_ENASCR
-;src\/Graphics\Graphics.h:339: }
+;src\/Graphics\Graphics.h:342: }
 	inc	sp
 	pop	ix
 	ret
-;src\/Graphics\Graphics.h:341: void DrawBlock(byte col, byte line, byte tile) {
+;src\/Graphics\Graphics.h:344: void DrawBlock(byte col, byte line, byte tile) {
 ;	---------------------------------
 ; Function DrawBlock
 ; ---------------------------------
@@ -4667,7 +4689,7 @@ _DrawBlock::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-;src\/Graphics\Graphics.h:343: word baseAddr = NAMTBL + (col * 2) + (line * 2 * 32) + PLAYFIELD_HORIZ_OFFSET;
+;src\/Graphics\Graphics.h:346: word baseAddr = NAMTBL + (col * 2) + (line * 2 * 32) + PLAYFIELD_HORIZ_OFFSET;
 	ld	l, 4 (ix)
 	ld	h, #0x00
 	add	hl, hl
@@ -4685,7 +4707,7 @@ _DrawBlock::
 	add	hl, de
 	add	hl, bc
 	ex	de, hl
-;src\/Graphics\Graphics.h:345: WRTVRM(baseAddr, tile);
+;src\/Graphics\Graphics.h:348: WRTVRM(baseAddr, tile);
 	push	de
 	ld	a, 6 (ix)
 	push	af
@@ -4695,7 +4717,7 @@ _DrawBlock::
 	pop	af
 	inc	sp
 	pop	de
-;src\/Graphics\Graphics.h:346: WRTVRM(baseAddr + 1, tile + 1);
+;src\/Graphics\Graphics.h:349: WRTVRM(baseAddr + 1, tile + 1);
 	ld	c, 6 (ix)
 	ld	a, c
 	inc	a
@@ -4712,7 +4734,7 @@ _DrawBlock::
 	inc	sp
 	pop	de
 	pop	bc
-;src\/Graphics\Graphics.h:347: WRTVRM(baseAddr + 32, tile + 2);
+;src\/Graphics\Graphics.h:350: WRTVRM(baseAddr + 32, tile + 2);
 	ld	b, c
 	inc	b
 	inc	b
@@ -4728,7 +4750,7 @@ _DrawBlock::
 	inc	sp
 	pop	de
 	pop	bc
-;src\/Graphics\Graphics.h:348: WRTVRM(baseAddr + 33, tile + 3);
+;src\/Graphics\Graphics.h:351: WRTVRM(baseAddr + 33, tile + 3);
 	inc	c
 	inc	c
 	inc	c
@@ -4741,10 +4763,10 @@ _DrawBlock::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:349: }
+;src\/Graphics\Graphics.h:352: }
 	pop	ix
 	ret
-;src\/Graphics\Graphics.h:351: void DrawBlock_SameTile(byte col, byte line, byte tile) {
+;src\/Graphics\Graphics.h:354: void DrawBlock_SameTile(byte col, byte line, byte tile) {
 ;	---------------------------------
 ; Function DrawBlock_SameTile
 ; ---------------------------------
@@ -4752,7 +4774,7 @@ _DrawBlock_SameTile::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-;src\/Graphics\Graphics.h:353: word baseAddr = NAMTBL + (col * 2) + (line * 2 * 32) + PLAYFIELD_HORIZ_OFFSET;
+;src\/Graphics\Graphics.h:356: word baseAddr = NAMTBL + (col * 2) + (line * 2 * 32) + PLAYFIELD_HORIZ_OFFSET;
 	ld	l, 4 (ix)
 	ld	h, #0x00
 	add	hl, hl
@@ -4770,7 +4792,7 @@ _DrawBlock_SameTile::
 	add	hl, de
 	add	hl, bc
 	ex	de, hl
-;src\/Graphics\Graphics.h:355: WRTVRM(baseAddr, tile);
+;src\/Graphics\Graphics.h:358: WRTVRM(baseAddr, tile);
 	push	de
 	ld	a, 6 (ix)
 	push	af
@@ -4780,7 +4802,7 @@ _DrawBlock_SameTile::
 	pop	af
 	inc	sp
 	pop	de
-;src\/Graphics\Graphics.h:356: WRTVRM(baseAddr + 1, tile);
+;src\/Graphics\Graphics.h:359: WRTVRM(baseAddr + 1, tile);
 	ld	c, e
 	ld	b, d
 	inc	bc
@@ -4793,7 +4815,7 @@ _DrawBlock_SameTile::
 	pop	af
 	inc	sp
 	pop	de
-;src\/Graphics\Graphics.h:357: WRTVRM(baseAddr + 32, tile);
+;src\/Graphics\Graphics.h:360: WRTVRM(baseAddr + 32, tile);
 	ld	hl, #0x0020
 	add	hl, de
 	push	de
@@ -4805,7 +4827,7 @@ _DrawBlock_SameTile::
 	pop	af
 	inc	sp
 	pop	de
-;src\/Graphics\Graphics.h:358: WRTVRM(baseAddr + 33, tile);
+;src\/Graphics\Graphics.h:361: WRTVRM(baseAddr + 33, tile);
 	ld	hl, #0x0021
 	add	hl, de
 	ld	a, 6 (ix)
@@ -4815,10 +4837,10 @@ _DrawBlock_SameTile::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:359: }
+;src\/Graphics\Graphics.h:362: }
 	pop	ix
 	ret
-;src\/Graphics\Graphics.h:361: void DrawLine(byte line) {
+;src\/Graphics\Graphics.h:364: void DrawLine(byte line) {
 ;	---------------------------------
 ; Function DrawLine
 ; ---------------------------------
@@ -4826,14 +4848,14 @@ _DrawLine::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-;src\/Graphics\Graphics.h:362: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+;src\/Graphics\Graphics.h:365: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
 	ld	c, 4 (ix)
 	ld	b, #0x00
 00103$:
 	ld	a, b
 	sub	a, #0x06
 	jr	NC, 00105$
-;src\/Graphics\Graphics.h:363: DrawBlock(col, line, playfield[col][line]);
+;src\/Graphics\Graphics.h:366: DrawBlock(col, line, playfield[col][line]);
 	ld	e, b
 	ld	d, #0x00
 	ld	l, e
@@ -4860,19 +4882,19 @@ _DrawLine::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:362: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+;src\/Graphics\Graphics.h:365: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
 	inc	b
 	jr	00103$
 00105$:
-;src\/Graphics\Graphics.h:365: }
+;src\/Graphics\Graphics.h:368: }
 	pop	ix
 	ret
-;src\/Graphics\Graphics.h:367: void DrawPiece(byte line) {
+;src\/Graphics\Graphics.h:370: void DrawPiece(byte line) {
 ;	---------------------------------
 ; Function DrawPiece
 ; ---------------------------------
 _DrawPiece::
-;src\/Graphics\Graphics.h:368: DrawLine(line);
+;src\/Graphics\Graphics.h:371: DrawLine(line);
 	ld	hl, #2
 	add	hl, sp
 	ld	a, (hl)
@@ -4880,7 +4902,7 @@ _DrawPiece::
 	inc	sp
 	call	_DrawLine
 	inc	sp
-;src\/Graphics\Graphics.h:369: DrawLine(line + 1);
+;src\/Graphics\Graphics.h:372: DrawLine(line + 1);
 	ld	hl, #2
 	add	hl, sp
 	ld	b, (hl)
@@ -4892,36 +4914,36 @@ _DrawPiece::
 	call	_DrawLine
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:370: DrawLine(line + 2);
+;src\/Graphics\Graphics.h:373: DrawLine(line + 2);
 	inc	b
 	inc	b
 	push	bc
 	inc	sp
 	call	_DrawLine
 	inc	sp
-;src\/Graphics\Graphics.h:371: }
+;src\/Graphics\Graphics.h:374: }
 	ret
-;src\/Graphics\Graphics.h:373: void DrawPlayfield() {
+;src\/Graphics\Graphics.h:376: void DrawPlayfield() {
 ;	---------------------------------
 ; Function DrawPlayfield
 ; ---------------------------------
 _DrawPlayfield::
-;src\/Graphics\Graphics.h:374: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+;src\/Graphics\Graphics.h:377: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
 	ld	b, #0x00
 00103$:
 	ld	a, b
 	sub	a, #0x0c
 	ret	NC
-;src\/Graphics\Graphics.h:375: DrawLine(line);
+;src\/Graphics\Graphics.h:378: DrawLine(line);
 	push	bc
 	push	bc
 	inc	sp
 	call	_DrawLine
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:374: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+;src\/Graphics\Graphics.h:377: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
 	inc	b
-;src\/Graphics\Graphics.h:377: }
+;src\/Graphics\Graphics.h:380: }
 	jr	00103$
 ;src\/Sound.h:1: void SoundFx_2() {
 ;	---------------------------------
@@ -4994,7 +5016,7 @@ _SoundFx_1::
 	ld	hl, #0x010d
 ;src\/Sound.h:49: }
 	jp	_WRTPSG
-;src\/CheckPlayfield.h:2: void CheckIfPlayfieldIsValid() {
+;src\/CheckPlayfield.h:5: void CheckIfPlayfieldIsValid() {
 ;	---------------------------------
 ; Function CheckIfPlayfieldIsValid
 ; ---------------------------------
@@ -5005,31 +5027,31 @@ _CheckIfPlayfieldIsValid::
 	push	af
 	push	af
 	dec	sp
-;src\/CheckPlayfield.h:3: bool found = FALSE;
+;src\/CheckPlayfield.h:6: bool found = FALSE;
 	ld	-5 (ix), #0
-;src\/CheckPlayfield.h:4: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+;src\/CheckPlayfield.h:7: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
 	ld	-4 (ix), #0
 	ld	-2 (ix), #0
 00119$:
 	ld	a, -2 (ix)
 	sub	a, #0x0c
 	jp	NC, 00121$
-;src\/CheckPlayfield.h:5: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+;src\/CheckPlayfield.h:8: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
 	ld	-3 (ix), #0
 	ld	-1 (ix), #0
 00116$:
 	ld	a, -1 (ix)
 	sub	a, #0x06
 	jr	NC, 00120$
-;src\/CheckPlayfield.h:6: for(byte item = 0; item < 5; item++) {
+;src\/CheckPlayfield.h:9: for(byte item = 0; item < 5; item++) {
 	ld	c, #0x00
 00113$:
 	ld	a, c
 	sub	a, #0x05
 	jr	NC, 00104$
-;src\/CheckPlayfield.h:7: found = FALSE;
+;src\/CheckPlayfield.h:10: found = FALSE;
 	ld	-5 (ix), #0
-;src\/CheckPlayfield.h:8: if(playfieldTemp[col][line] == pieces[item] || playfieldTemp[col][line] == EMPTY) {
+;src\/CheckPlayfield.h:11: if(playfieldTemp[col][line] == pieces[item] || playfieldTemp[col][line] == EMPTY) {
 	ld	e, -1 (ix)
 	ld	d, #0x00
 	ld	l, e
@@ -5056,26 +5078,26 @@ _CheckIfPlayfieldIsValid::
 	or	a, a
 	jr	NZ, 00114$
 00101$:
-;src\/CheckPlayfield.h:9: found = TRUE;
+;src\/CheckPlayfield.h:12: found = TRUE;
 	ld	-5 (ix), #0x01
-;src\/CheckPlayfield.h:10: break;
+;src\/CheckPlayfield.h:13: break;
 	jr	00104$
 00114$:
-;src\/CheckPlayfield.h:6: for(byte item = 0; item < 5; item++) {
+;src\/CheckPlayfield.h:9: for(byte item = 0; item < 5; item++) {
 	inc	c
 	jr	00113$
 00104$:
-;src\/CheckPlayfield.h:13: if(!found) {
+;src\/CheckPlayfield.h:16: if(!found) {
 	ld	a, -5 (ix)
 	or	a, a
 	jr	NZ, 00117$
-;src\/CheckPlayfield.h:14: d_col = col;
+;src\/CheckPlayfield.h:17: d_col = col;
 	ld	a, -3 (ix)
 	ld	(#_d_col),a
-;src\/CheckPlayfield.h:15: d_line = line;
+;src\/CheckPlayfield.h:18: d_line = line;
 	ld	a, -4 (ix)
 	ld	(#_d_line),a
-;src\/CheckPlayfield.h:16: d_value = playfieldTemp[col][line];
+;src\/CheckPlayfield.h:19: d_value = playfieldTemp[col][line];
 	ld	c, -3 (ix)
 	ld	b, #0x00
 	ld	l, c
@@ -5091,29 +5113,29 @@ _CheckIfPlayfieldIsValid::
 	add	hl, de
 	ld	a, (hl)
 	ld	(_d_value+0), a
-;src\/CheckPlayfield.h:18: while(1) { 
+;src\/CheckPlayfield.h:21: while(1) { 
 00106$:
-;src\/CheckPlayfield.h:19: BEEP();
+;src\/CheckPlayfield.h:22: BEEP();
 	call	_BEEP
 	jr	00106$
 00117$:
-;src\/CheckPlayfield.h:5: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+;src\/CheckPlayfield.h:8: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
 	inc	-1 (ix)
 	ld	a, -1 (ix)
 	ld	-3 (ix), a
 	jr	00116$
 00120$:
-;src\/CheckPlayfield.h:4: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+;src\/CheckPlayfield.h:7: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
 	inc	-2 (ix)
 	ld	a, -2 (ix)
 	ld	-4 (ix), a
 	jp	00119$
 00121$:
-;src\/CheckPlayfield.h:25: }
+;src\/CheckPlayfield.h:28: }
 	ld	sp, ix
 	pop	ix
 	ret
-;src\/CheckPlayfield.h:28: void CheckPlayfield(byte iteration) {
+;src\/CheckPlayfield.h:31: void CheckPlayfield(byte iteration) {
 ;	---------------------------------
 ; Function CheckPlayfield
 ; ---------------------------------
@@ -5124,21 +5146,21 @@ _CheckPlayfield::
 	ld	hl, #-17
 	add	hl, sp
 	ld	sp, hl
-;src\/CheckPlayfield.h:29: bool piecesRemoved = FALSE;
+;src\/CheckPlayfield.h:32: bool piecesRemoved = FALSE;
 	ld	-17 (ix), #0
-;src\/CheckPlayfield.h:32: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+;src\/CheckPlayfield.h:35: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
 	ld	c, #0x00
 00195$:
 	ld	a, c
 	sub	a, #0x0c
 	jr	NC, 00102$
-;src\/CheckPlayfield.h:33: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+;src\/CheckPlayfield.h:36: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
 	ld	-1 (ix), #0
 00192$:
 	ld	a, -1 (ix)
 	sub	a, #0x06
 	jr	NC, 00196$
-;src\/CheckPlayfield.h:34: playfieldTemp[col][line] = playfield[col][line];
+;src\/CheckPlayfield.h:37: playfieldTemp[col][line] = playfield[col][line];
 	ld	e, -1 (ix)
 	ld	d, #0x00
 	ld	l, e
@@ -5166,27 +5188,27 @@ _CheckPlayfield::
 00614$:
 	ld	a, (de)
 	ld	(hl), a
-;src\/CheckPlayfield.h:33: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+;src\/CheckPlayfield.h:36: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
 	inc	-1 (ix)
 	jr	00192$
 00196$:
-;src\/CheckPlayfield.h:32: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+;src\/CheckPlayfield.h:35: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
 	inc	c
 	jr	00195$
 00102$:
-;src\/CheckPlayfield.h:39: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+;src\/CheckPlayfield.h:42: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
 	ld	-2 (ix), #0
 00201$:
 	ld	a, -2 (ix)
 	sub	a, #0x0c
 	jp	NC, 00108$
-;src\/CheckPlayfield.h:40: for(byte col = 2; col < COLS_PLAYFIELD; col++) {
+;src\/CheckPlayfield.h:43: for(byte col = 2; col < COLS_PLAYFIELD; col++) {
 	ld	-1 (ix), #0x02
 00198$:
 	ld	a, -1 (ix)
 	sub	a, #0x06
 	jp	NC, 00202$
-;src\/CheckPlayfield.h:41: if (playfieldTemp[col][line] != EMPTY &&
+;src\/CheckPlayfield.h:44: if (playfieldTemp[col][line] != EMPTY &&
 	ld	c, -1 (ix)
 	ld	b, #0x00
 	ld	l, c
@@ -5215,7 +5237,7 @@ _CheckPlayfield::
 	ld	-7 (ix), a
 	or	a, a
 	jp	Z, 00199$
-;src\/CheckPlayfield.h:42: playfieldTemp[col - 2][line] == playfieldTemp[col - 1][line] && 
+;src\/CheckPlayfield.h:45: playfieldTemp[col - 2][line] == playfieldTemp[col - 1][line] && 
 	ld	a, -1 (ix)
 	ld	-3 (ix), a
 	ld	c, a
@@ -5274,13 +5296,13 @@ _CheckPlayfield::
 	ld	a, l
 	sub	a, h
 	jr	NZ, 00199$
-;src\/CheckPlayfield.h:43: playfieldTemp[col - 1][line] == playfieldTemp[col][line]) {
+;src\/CheckPlayfield.h:46: playfieldTemp[col - 1][line] == playfieldTemp[col][line]) {
 	ld	a, -7 (ix)
 	sub	a, h
 	jr	NZ, 00199$
-;src\/CheckPlayfield.h:45: piecesRemoved = TRUE;
+;src\/CheckPlayfield.h:48: piecesRemoved = TRUE;
 	ld	-17 (ix), #0x01
-;src\/CheckPlayfield.h:48: playfield[col - 2][line] = playfieldTemp[col - 2][line] | REMOVING_FLAG;
+;src\/CheckPlayfield.h:51: playfield[col - 2][line] = playfieldTemp[col - 2][line] | REMOVING_FLAG;
 	ld	a, #<(_playfield)
 	add	a, e
 	ld	e, a
@@ -5296,7 +5318,7 @@ _CheckPlayfield::
 	ld	a, l
 	set	7, a
 	ld	(de), a
-;src\/CheckPlayfield.h:49: playfield[col - 1][line] = playfieldTemp[col - 1][line] | REMOVING_FLAG;
+;src\/CheckPlayfield.h:52: playfield[col - 1][line] = playfieldTemp[col - 1][line] | REMOVING_FLAG;
 	ld	a, #<(_playfield)
 	add	a, -4 (ix)
 	ld	e, a
@@ -5309,7 +5331,7 @@ _CheckPlayfield::
 	ld	a, (bc)
 	set	7, a
 	ld	(hl), a
-;src\/CheckPlayfield.h:50: playfield[col][line] = 	   playfieldTemp[col][line] | REMOVING_FLAG;
+;src\/CheckPlayfield.h:53: playfield[col][line] = 	   playfieldTemp[col][line] | REMOVING_FLAG;
 	ld	a, #<(_playfield)
 	add	a, -11 (ix)
 	ld	c, a
@@ -5328,27 +5350,27 @@ _CheckPlayfield::
 	set	7, a
 	ld	(bc), a
 00199$:
-;src\/CheckPlayfield.h:40: for(byte col = 2; col < COLS_PLAYFIELD; col++) {
+;src\/CheckPlayfield.h:43: for(byte col = 2; col < COLS_PLAYFIELD; col++) {
 	inc	-1 (ix)
 	jp	00198$
 00202$:
-;src\/CheckPlayfield.h:39: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+;src\/CheckPlayfield.h:42: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
 	inc	-2 (ix)
 	jp	00201$
 00108$:
-;src\/CheckPlayfield.h:56: for(byte line = 2; line < LINES_PLAYFIELD; line++) {
+;src\/CheckPlayfield.h:59: for(byte line = 2; line < LINES_PLAYFIELD; line++) {
 	ld	c, #0x02
 00207$:
 	ld	a, c
 	sub	a, #0x0c
 	jp	NC, 00114$
-;src\/CheckPlayfield.h:57: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+;src\/CheckPlayfield.h:60: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
 	ld	-1 (ix), #0
 00204$:
 	ld	a, -1 (ix)
 	sub	a, #0x06
 	jp	NC, 00208$
-;src\/CheckPlayfield.h:58: if (playfieldTemp[col][line] != EMPTY &&
+;src\/CheckPlayfield.h:61: if (playfieldTemp[col][line] != EMPTY &&
 	ld	e, -1 (ix)
 	ld	d, #0x00
 	ld	l, e
@@ -5377,7 +5399,7 @@ _CheckPlayfield::
 	ld	-2 (ix), a
 	or	a, a
 	jr	Z, 00205$
-;src\/CheckPlayfield.h:59: playfieldTemp[col][line - 2] == playfieldTemp[col][line - 1] && 
+;src\/CheckPlayfield.h:62: playfieldTemp[col][line - 2] == playfieldTemp[col][line - 1] && 
 	ld	-3 (ix), c
 	ld	a, c
 	add	a, #0xfe
@@ -5400,13 +5422,13 @@ _CheckPlayfield::
 	ld	a, -4 (ix)
 	sub	a, l
 	jr	NZ, 00205$
-;src\/CheckPlayfield.h:60: playfieldTemp[col][line - 1] == playfieldTemp[col][line]) {
+;src\/CheckPlayfield.h:63: playfieldTemp[col][line - 1] == playfieldTemp[col][line]) {
 	ld	a, -2 (ix)
 	sub	a, l
 	jr	NZ, 00205$
-;src\/CheckPlayfield.h:62: piecesRemoved = TRUE;
+;src\/CheckPlayfield.h:65: piecesRemoved = TRUE;
 	ld	-17 (ix), #0x01
-;src\/CheckPlayfield.h:65: playfield[col][line - 2] = playfieldTemp[col][line - 2] | REMOVING_FLAG;
+;src\/CheckPlayfield.h:68: playfield[col][line - 2] = playfieldTemp[col][line - 2] | REMOVING_FLAG;
 	ld	a, #<(_playfield)
 	add	a, -9 (ix)
 	ld	-3 (ix), a
@@ -5422,7 +5444,7 @@ _CheckPlayfield::
 	ld	a, -4 (ix)
 	set	7, a
 	ld	(hl), a
-;src\/CheckPlayfield.h:66: playfield[col][line - 1] = playfieldTemp[col][line - 1] | REMOVING_FLAG;
+;src\/CheckPlayfield.h:69: playfield[col][line - 1] = playfieldTemp[col][line - 1] | REMOVING_FLAG;
 	ld	a, -3 (ix)
 	add	a, b
 	ld	l, a
@@ -5432,7 +5454,7 @@ _CheckPlayfield::
 	ld	a, (de)
 	set	7, a
 	ld	(hl), a
-;src\/CheckPlayfield.h:67: playfield[col][line] = 	   playfieldTemp[col][line] | REMOVING_FLAG;
+;src\/CheckPlayfield.h:70: playfield[col][line] = 	   playfieldTemp[col][line] | REMOVING_FLAG;
 	ld	a, -3 (ix)
 	add	a, c
 	ld	e, a
@@ -5445,27 +5467,27 @@ _CheckPlayfield::
 	set	7, a
 	ld	(de), a
 00205$:
-;src\/CheckPlayfield.h:57: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+;src\/CheckPlayfield.h:60: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
 	inc	-1 (ix)
 	jp	00204$
 00208$:
-;src\/CheckPlayfield.h:56: for(byte line = 2; line < LINES_PLAYFIELD; line++) {
+;src\/CheckPlayfield.h:59: for(byte line = 2; line < LINES_PLAYFIELD; line++) {
 	inc	c
 	jp	00207$
 00114$:
-;src\/CheckPlayfield.h:73: for(byte line = 2; line < LINES_PLAYFIELD; line++) {
+;src\/CheckPlayfield.h:76: for(byte line = 2; line < LINES_PLAYFIELD; line++) {
 	ld	-2 (ix), #0x02
 00213$:
 	ld	a, -2 (ix)
 	sub	a, #0x0c
 	jp	NC, 00124$
-;src\/CheckPlayfield.h:74: for(byte col = 2; col < COLS_PLAYFIELD; col++) {
+;src\/CheckPlayfield.h:77: for(byte col = 2; col < COLS_PLAYFIELD; col++) {
 	ld	-1 (ix), #0x02
 00210$:
 	ld	a, -1 (ix)
 	sub	a, #0x06
 	jp	NC, 00214$
-;src\/CheckPlayfield.h:75: if (playfieldTemp[col][line] != EMPTY &&
+;src\/CheckPlayfield.h:78: if (playfieldTemp[col][line] != EMPTY &&
 	ld	c, -1 (ix)
 	ld	b, #0x00
 	ld	l, c
@@ -5491,7 +5513,7 @@ _CheckPlayfield::
 	ld	l, -14 (ix)
 	ld	h, -13 (ix)
 	ld	e, (hl)
-;src\/CheckPlayfield.h:76: playfieldTemp[col - 2][line - 2] == playfieldTemp[col - 1][line - 1] && 
+;src\/CheckPlayfield.h:79: playfieldTemp[col - 2][line - 2] == playfieldTemp[col - 1][line - 1] && 
 	ld	d, -1 (ix)
 	ld	h, -2 (ix)
 	ld	l, d
@@ -5552,11 +5574,11 @@ _CheckPlayfield::
 	ld	a, l
 	adc	a, #0x00
 	ld	-3 (ix), a
-;src\/CheckPlayfield.h:75: if (playfieldTemp[col][line] != EMPTY &&
+;src\/CheckPlayfield.h:78: if (playfieldTemp[col][line] != EMPTY &&
 	ld	a, e
 	or	a, a
 	jr	Z, 00116$
-;src\/CheckPlayfield.h:76: playfieldTemp[col - 2][line - 2] == playfieldTemp[col - 1][line - 1] && 
+;src\/CheckPlayfield.h:79: playfieldTemp[col - 2][line - 2] == playfieldTemp[col - 1][line - 1] && 
 	ld	a, -6 (ix)
 	add	a, -12 (ix)
 	ld	l, a
@@ -5570,13 +5592,13 @@ _CheckPlayfield::
 	ld	a, d
 	sub	a, l
 	jr	NZ, 00116$
-;src\/CheckPlayfield.h:77: playfieldTemp[col - 1][line - 1] == playfieldTemp[col][line]) {
+;src\/CheckPlayfield.h:80: playfieldTemp[col - 1][line - 1] == playfieldTemp[col][line]) {
 	ld	a, e
 	sub	a, l
 	jr	NZ, 00116$
-;src\/CheckPlayfield.h:79: piecesRemoved = TRUE;
+;src\/CheckPlayfield.h:82: piecesRemoved = TRUE;
 	ld	-17 (ix), #0x01
-;src\/CheckPlayfield.h:82: playfield[col - 2][line - 2] = playfieldTemp[col - 2][line - 2] | REMOVING_FLAG;
+;src\/CheckPlayfield.h:85: playfield[col - 2][line - 2] = playfieldTemp[col - 2][line - 2] | REMOVING_FLAG;
 	ld	a, #<(_playfield)
 	add	a, -10 (ix)
 	ld	e, a
@@ -5591,7 +5613,7 @@ _CheckPlayfield::
 00631$:
 	set	7, d
 	ld	(hl), d
-;src\/CheckPlayfield.h:83: playfield[col - 1][line - 1] = playfieldTemp[col - 1][line - 1] | REMOVING_FLAG;
+;src\/CheckPlayfield.h:86: playfield[col - 1][line - 1] = playfieldTemp[col - 1][line - 1] | REMOVING_FLAG;
 	ld	a, #<(_playfield)
 	add	a, -8 (ix)
 	ld	e, a
@@ -5609,7 +5631,7 @@ _CheckPlayfield::
 	ld	a, (hl)
 	set	7, a
 	ld	(de), a
-;src\/CheckPlayfield.h:84: playfield[col][line] = 	       playfieldTemp[col][line] | REMOVING_FLAG;
+;src\/CheckPlayfield.h:87: playfield[col][line] = 	       playfieldTemp[col][line] | REMOVING_FLAG;
 	ld	a, #<(_playfield)
 	add	a, -16 (ix)
 	ld	e, a
@@ -5628,7 +5650,7 @@ _CheckPlayfield::
 	set	7, a
 	ld	(de), a
 00116$:
-;src\/CheckPlayfield.h:86: if (playfieldTemp[col][line - 2] != EMPTY &&
+;src\/CheckPlayfield.h:89: if (playfieldTemp[col][line - 2] != EMPTY &&
 	ld	l, -12 (ix)
 	ld	h, #0x00
 	add	hl, bc
@@ -5636,7 +5658,7 @@ _CheckPlayfield::
 	ld	a, c
 	or	a, a
 	jr	Z, 00211$
-;src\/CheckPlayfield.h:87: playfieldTemp[col - 1][line - 1] == playfieldTemp[col - 2][line] && 
+;src\/CheckPlayfield.h:90: playfieldTemp[col - 1][line - 1] == playfieldTemp[col - 2][line] && 
 	ld	a, -6 (ix)
 	add	a, -2 (ix)
 	ld	e, a
@@ -5649,12 +5671,12 @@ _CheckPlayfield::
 	ld	a, (de)
 	cp	a, b
 	jr	NZ, 00211$
-;src\/CheckPlayfield.h:88: playfieldTemp[col - 2][line] == playfieldTemp[col][line - 2]) {
+;src\/CheckPlayfield.h:91: playfieldTemp[col - 2][line] == playfieldTemp[col][line - 2]) {
 	sub	a, c
 	jr	NZ, 00211$
-;src\/CheckPlayfield.h:90: piecesRemoved = TRUE;
+;src\/CheckPlayfield.h:93: piecesRemoved = TRUE;
 	ld	-17 (ix), #0x01
-;src\/CheckPlayfield.h:93: playfield[col][line - 2] =     playfieldTemp[col][line - 2] | REMOVING_FLAG;
+;src\/CheckPlayfield.h:96: playfield[col][line - 2] =     playfieldTemp[col][line - 2] | REMOVING_FLAG;
 	ld	a, #<(_playfield)
 	add	a, -16 (ix)
 	ld	b, a
@@ -5669,7 +5691,7 @@ _CheckPlayfield::
 00638$:
 	set	7, c
 	ld	(hl), c
-;src\/CheckPlayfield.h:94: playfield[col - 1][line - 1] = playfieldTemp[col - 1][line - 1] | REMOVING_FLAG;
+;src\/CheckPlayfield.h:97: playfield[col - 1][line - 1] = playfieldTemp[col - 1][line - 1] | REMOVING_FLAG;
 	ld	a, #<(_playfield)
 	add	a, -8 (ix)
 	ld	c, a
@@ -5687,7 +5709,7 @@ _CheckPlayfield::
 	ld	a, (hl)
 	set	7, a
 	ld	(bc), a
-;src\/CheckPlayfield.h:95: playfield[col - 2][line] =     playfieldTemp[col - 2][line] | REMOVING_FLAG;
+;src\/CheckPlayfield.h:98: playfield[col - 2][line] =     playfieldTemp[col - 2][line] | REMOVING_FLAG;
 	ld	a, #<(_playfield)
 	add	a, -10 (ix)
 	ld	c, a
@@ -5701,47 +5723,47 @@ _CheckPlayfield::
 	set	7, a
 	ld	(hl), a
 00211$:
-;src\/CheckPlayfield.h:74: for(byte col = 2; col < COLS_PLAYFIELD; col++) {
+;src\/CheckPlayfield.h:77: for(byte col = 2; col < COLS_PLAYFIELD; col++) {
 	inc	-1 (ix)
 	jp	00210$
 00214$:
-;src\/CheckPlayfield.h:73: for(byte line = 2; line < LINES_PLAYFIELD; line++) {
+;src\/CheckPlayfield.h:76: for(byte line = 2; line < LINES_PLAYFIELD; line++) {
 	inc	-2 (ix)
 	jp	00213$
 00124$:
-;src\/CheckPlayfield.h:100: if(piecesRemoved) {
+;src\/CheckPlayfield.h:103: if(piecesRemoved) {
 	ld	a, -17 (ix)
 	or	a, a
 	jp	Z, 00236$
-;src\/CheckPlayfield.h:106: byte x = 255, y = 0;
+;src\/CheckPlayfield.h:109: byte x = 255, y = 0;
 	ld	-11 (ix), #0xff
 	ld	-10 (ix), #0
-;src\/CheckPlayfield.h:108: byte leftmostPieceRemoved = 5, rightmostPieceRemoved = 0;
+;src\/CheckPlayfield.h:111: byte leftmostPieceRemoved = 5, rightmostPieceRemoved = 0;
 	ld	-9 (ix), #0x05
 	ld	-8 (ix), #0
-;src\/CheckPlayfield.h:109: byte lowermostPieceRemoved = 11,   upmostPieceRemoved = 0;
+;src\/CheckPlayfield.h:112: byte lowermostPieceRemoved = 11,   upmostPieceRemoved = 0;
 	ld	-7 (ix), #0x0b
 	ld	-6 (ix), #0
-;src\/CheckPlayfield.h:111: HideArrowSprite();
+;src\/CheckPlayfield.h:114: HideArrowSprite();
 	call	_HideArrowSprite
-;src\/CheckPlayfield.h:113: SoundFx_2();
+;src\/CheckPlayfield.h:116: SoundFx_2();
 	call	_SoundFx_2
-;src\/CheckPlayfield.h:116: numberPiecesRemoved = 0;
+;src\/CheckPlayfield.h:119: numberPiecesRemoved = 0;
 	ld	-5 (ix), #0
-;src\/CheckPlayfield.h:117: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+;src\/CheckPlayfield.h:120: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
 	ld	-1 (ix), #0
 00219$:
 	ld	a, -1 (ix)
 	sub	a, #0x0c
 	jr	NC, 00290$
-;src\/CheckPlayfield.h:118: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+;src\/CheckPlayfield.h:121: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
 	ld	e, -5 (ix)
 	ld	b, #0x00
 00216$:
 	ld	a, b
 	sub	a, #0x06
 	jr	NC, 00319$
-;src\/CheckPlayfield.h:119: if((playfield[col][line] & REMOVING_FLAG) != 0) {
+;src\/CheckPlayfield.h:122: if((playfield[col][line] & REMOVING_FLAG) != 0) {
 	push	de
 	ld	e, b
 	ld	d, #0x00
@@ -5763,43 +5785,43 @@ _CheckPlayfield::
 	ld	a, (hl)
 	rlca
 	jr	NC, 00217$
-;src\/CheckPlayfield.h:120: numberPiecesRemoved++;
+;src\/CheckPlayfield.h:123: numberPiecesRemoved++;
 	inc	e
-;src\/CheckPlayfield.h:122: if(col < leftmostPieceRemoved) leftmostPieceRemoved = col;
+;src\/CheckPlayfield.h:125: if(col < leftmostPieceRemoved) leftmostPieceRemoved = col;
 	ld	a, b
 	sub	a, -9 (ix)
 	jr	NC, 00126$
 	ld	-9 (ix), b
 00126$:
-;src\/CheckPlayfield.h:123: if(col > rightmostPieceRemoved) rightmostPieceRemoved = col;
+;src\/CheckPlayfield.h:126: if(col > rightmostPieceRemoved) rightmostPieceRemoved = col;
 	ld	a, -8 (ix)
 	sub	a, b
 	jr	NC, 00128$
 	ld	-8 (ix), b
 00128$:
-;src\/CheckPlayfield.h:124: if(line < lowermostPieceRemoved) lowermostPieceRemoved = line;
+;src\/CheckPlayfield.h:127: if(line < lowermostPieceRemoved) lowermostPieceRemoved = line;
 	ld	a, -1 (ix)
 	sub	a, -7 (ix)
 	jr	NC, 00130$
 	ld	a, -1 (ix)
 	ld	-7 (ix), a
 00130$:
-;src\/CheckPlayfield.h:125: if(line > upmostPieceRemoved) upmostPieceRemoved = line;
+;src\/CheckPlayfield.h:128: if(line > upmostPieceRemoved) upmostPieceRemoved = line;
 	ld	a, -6 (ix)
 	sub	a, -1 (ix)
 	jr	NC, 00217$
 	ld	a, -1 (ix)
 	ld	-6 (ix), a
 00217$:
-;src\/CheckPlayfield.h:118: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+;src\/CheckPlayfield.h:121: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
 	inc	b
 	jr	00216$
 00319$:
 	ld	-5 (ix), e
-;src\/CheckPlayfield.h:117: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+;src\/CheckPlayfield.h:120: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
 	inc	-1 (ix)
 	jr	00219$
-;src\/CheckPlayfield.h:139: while(counter-- > 0) {
+;src\/CheckPlayfield.h:142: while(counter-- > 0) {
 00290$:
 	ld	-1 (ix), #0x48
 00166$:
@@ -5808,29 +5830,29 @@ _CheckPlayfield::
 	ld	a, c
 	or	a, a
 	jp	Z, 00168$
-;src\/CheckPlayfield.h:141: word lastJiffy = JIFFY;
+;src\/CheckPlayfield.h:144: word lastJiffy = JIFFY;
 	ld	de, (_JIFFY)
-;src\/CheckPlayfield.h:142: while (lastJiffy == JIFFY) {
+;src\/CheckPlayfield.h:145: while (lastJiffy == JIFFY) {
 00137$:
 	ld	hl, (_JIFFY)
 	cp	a, a
 	sbc	hl, de
 	jr	Z, 00137$
-;src\/CheckPlayfield.h:148: if(numberPiecesRemoved >= 3) {
+;src\/CheckPlayfield.h:151: if(numberPiecesRemoved >= 3) {
 	ld	a, -5 (ix)
 	sub	a, #0x03
 	jp	C, 00300$
-;src\/CheckPlayfield.h:150: if(numberPiecesRemoved >= 7) numberPiecesRemoved = 7;
+;src\/CheckPlayfield.h:153: if(numberPiecesRemoved >= 7) numberPiecesRemoved = 7;
 	ld	a, -5 (ix)
 	sub	a, #0x07
 	jr	C, 00141$
 	ld	-5 (ix), #0x07
 00141$:
-;src\/CheckPlayfield.h:152: if(x == 255) { // do this expensive calculation only once
+;src\/CheckPlayfield.h:155: if(x == 255) { // do this expensive calculation only once
 	ld	a, -11 (ix)
 	inc	a
 	jr	NZ, 00143$
-;src\/CheckPlayfield.h:153: x = (PLAYFIELD_HORIZ_OFFSET * 8) + (((rightmostPieceRemoved * 16) - (leftmostPieceRemoved * 16)) / 2) + (leftmostPieceRemoved * 16);
+;src\/CheckPlayfield.h:156: x = (PLAYFIELD_HORIZ_OFFSET * 8) + (((rightmostPieceRemoved * 16) - (leftmostPieceRemoved * 16)) / 2) + (leftmostPieceRemoved * 16);
 	ld	l, -8 (ix)
 	ld	h, #0x00
 	add	hl, hl
@@ -5866,7 +5888,7 @@ _CheckPlayfield::
 	add	hl, hl
 	add	a, l
 	ld	-11 (ix), a
-;src\/CheckPlayfield.h:155: y = (((lowermostPieceRemoved * 16) - (upmostPieceRemoved * 16)) / 2) + (upmostPieceRemoved * 16);
+;src\/CheckPlayfield.h:158: y = (((lowermostPieceRemoved * 16) - (upmostPieceRemoved * 16)) / 2) + (upmostPieceRemoved * 16);
 	ld	l, -7 (ix)
 	ld	h, #0x00
 	add	hl, hl
@@ -5900,7 +5922,7 @@ _CheckPlayfield::
 	add	a, a
 	add	a, c
 	ld	-10 (ix), a
-;src\/CheckPlayfield.h:156: DrawHitSprite(numberPiecesRemoved, iteration, x, y, TRUE);
+;src\/CheckPlayfield.h:159: DrawHitSprite(numberPiecesRemoved, iteration, x, y, TRUE);
 	ld	h, #0x01
 	ld	l, -10 (ix)
 	push	hl
@@ -5916,7 +5938,7 @@ _CheckPlayfield::
 	inc	sp
 	jr	00300$
 00143$:
-;src\/CheckPlayfield.h:162: DrawHitSprite(numberPiecesRemoved, iteration, x, y - (72 - counter), FALSE);
+;src\/CheckPlayfield.h:165: DrawHitSprite(numberPiecesRemoved, iteration, x, y - (72 - counter), FALSE);
 	ld	c, -1 (ix)
 	ld	a, #0x48
 	sub	a, c
@@ -5938,7 +5960,7 @@ _CheckPlayfield::
 	pop	af
 	pop	af
 	inc	sp
-;src\/CheckPlayfield.h:166: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+;src\/CheckPlayfield.h:169: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
 00300$:
 	ld	a, #0x0c
 	sub	a, -1 (ix)
@@ -5965,13 +5987,13 @@ _CheckPlayfield::
 	ld	a, b
 	sub	a, #0x0c
 	jp	NC, 00166$
-;src\/CheckPlayfield.h:167: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+;src\/CheckPlayfield.h:170: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
 	ld	d, #0x00
 00222$:
 	ld	a, d
 	sub	a, #0x06
 	jp	NC, 00226$
-;src\/CheckPlayfield.h:169: if((playfield[col][line] & REMOVING_FLAG) != 0) {
+;src\/CheckPlayfield.h:172: if((playfield[col][line] & REMOVING_FLAG) != 0) {
 	push	de
 	ld	e, d
 	ld	d, #0x00
@@ -5994,16 +6016,16 @@ _CheckPlayfield::
 	ld	-2 (ix), a
 	bit	7, -2 (ix)
 	jp	Z,00223$
-;src\/CheckPlayfield.h:172: if(counter > 12) {
+;src\/CheckPlayfield.h:175: if(counter > 12) {
 	ld	a, e
 	or	a, a
 	jr	Z, 00160$
-;src\/CheckPlayfield.h:173: if(JIFFY & 0b00000011) {
+;src\/CheckPlayfield.h:176: if(JIFFY & 0b00000011) {
 	ld	hl, (_JIFFY)
 	ld	a, l
 	and	a, #0x03
 	jr	Z, 00148$
-;src\/CheckPlayfield.h:174: DrawBlock(col, line, playfield[col][line] & 0b01111111);
+;src\/CheckPlayfield.h:177: DrawBlock(col, line, playfield[col][line] & 0b01111111);
 	ld	a, -2 (ix)
 	res	7, a
 	push	bc
@@ -6019,7 +6041,7 @@ _CheckPlayfield::
 	pop	bc
 	jr	00223$
 00148$:
-;src\/CheckPlayfield.h:177: DrawBlock(col, line, EMPTY);
+;src\/CheckPlayfield.h:180: DrawBlock(col, line, EMPTY);
 	push	bc
 	push	de
 	xor	a, a
@@ -6034,7 +6056,7 @@ _CheckPlayfield::
 	pop	bc
 	jr	00223$
 00160$:
-;src\/CheckPlayfield.h:182: if(counter > 9) DrawBlock_SameTile(col, line, DUST_1);
+;src\/CheckPlayfield.h:185: if(counter > 9) DrawBlock_SameTile(col, line, DUST_1);
 	ld	a, c
 	or	a, a
 	jr	Z, 00157$
@@ -6052,7 +6074,7 @@ _CheckPlayfield::
 	pop	bc
 	jr	00223$
 00157$:
-;src\/CheckPlayfield.h:183: else if(counter > 6) DrawBlock_SameTile(col, line, DUST_1 + 1);
+;src\/CheckPlayfield.h:186: else if(counter > 6) DrawBlock_SameTile(col, line, DUST_1 + 1);
 	ld	a, -4 (ix)
 	or	a, a
 	jr	Z, 00154$
@@ -6070,7 +6092,7 @@ _CheckPlayfield::
 	pop	bc
 	jr	00223$
 00154$:
-;src\/CheckPlayfield.h:184: else if(counter > 3) DrawBlock_SameTile(col, line, DUST_1 + 2);
+;src\/CheckPlayfield.h:187: else if(counter > 3) DrawBlock_SameTile(col, line, DUST_1 + 2);
 	ld	a, -3 (ix)
 	or	a, a
 	jr	Z, 00151$
@@ -6088,7 +6110,7 @@ _CheckPlayfield::
 	pop	bc
 	jr	00223$
 00151$:
-;src\/CheckPlayfield.h:185: else DrawBlock_SameTile(col, line, DUST_1 + 3);
+;src\/CheckPlayfield.h:188: else DrawBlock_SameTile(col, line, DUST_1 + 3);
 	push	bc
 	push	de
 	ld	a, #0x2d
@@ -6102,29 +6124,29 @@ _CheckPlayfield::
 	pop	de
 	pop	bc
 00223$:
-;src\/CheckPlayfield.h:167: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+;src\/CheckPlayfield.h:170: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
 	inc	d
 	jp	00222$
 00226$:
-;src\/CheckPlayfield.h:166: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+;src\/CheckPlayfield.h:169: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
 	inc	b
 	jp	00225$
 00168$:
-;src\/CheckPlayfield.h:193: HideHitSprite();
+;src\/CheckPlayfield.h:196: HideHitSprite();
 	call	_HideHitSprite
-;src\/CheckPlayfield.h:198: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+;src\/CheckPlayfield.h:201: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
 	ld	-3 (ix), #0
 00234$:
 	ld	a, -3 (ix)
 	sub	a, #0x0c
 	jp	NC, 00177$
-;src\/CheckPlayfield.h:199: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+;src\/CheckPlayfield.h:202: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
 	ld	-2 (ix), #0
 00231$:
 	ld	a, -2 (ix)
 	sub	a, #0x06
 	jp	NC, 00235$
-;src\/CheckPlayfield.h:201: if((playfield[col][line] & REMOVING_FLAG) != 0) {
+;src\/CheckPlayfield.h:204: if((playfield[col][line] & REMOVING_FLAG) != 0) {
 	ld	c, -2 (ix)
 	ld	b, #0x00
 	ld	l, c
@@ -6147,11 +6169,11 @@ _CheckPlayfield::
 	ld	a, (bc)
 	rlca
 	jp	NC,00232$
-;src\/CheckPlayfield.h:203: blocksRemoved++;
+;src\/CheckPlayfield.h:206: blocksRemoved++;
 	ld	hl, (_blocksRemoved)
 	inc	hl
 	ld	(_blocksRemoved), hl
-;src\/CheckPlayfield.h:206: for(byte line1 = line; line1 > 0; line1--) {
+;src\/CheckPlayfield.h:209: for(byte line1 = line; line1 > 0; line1--) {
 	ld	a, -5 (ix)
 	ld	-9 (ix), a
 	ld	a, -4 (ix)
@@ -6162,9 +6184,9 @@ _CheckPlayfield::
 	ld	a, -1 (ix)
 	or	a, a
 	jr	Z, 00232$
-;src\/CheckPlayfield.h:207: byte linesToBeRemoved = 1;
+;src\/CheckPlayfield.h:210: byte linesToBeRemoved = 1;
 	ld	c, #0x01
-;src\/CheckPlayfield.h:208: if((playfield[col][line1 - 1] & REMOVING_FLAG) != 0) linesToBeRemoved++;
+;src\/CheckPlayfield.h:211: if((playfield[col][line1 - 1] & REMOVING_FLAG) != 0) linesToBeRemoved++;
 	ld	a, -1 (ix)
 	ld	-4 (ix), a
 	dec	a
@@ -6178,7 +6200,7 @@ _CheckPlayfield::
 	jr	NC, 00170$
 	ld	c, #0x02
 00170$:
-;src\/CheckPlayfield.h:209: if((playfield[col][line1 - 2] & REMOVING_FLAG) != 0) linesToBeRemoved++;
+;src\/CheckPlayfield.h:212: if((playfield[col][line1 - 2] & REMOVING_FLAG) != 0) linesToBeRemoved++;
 	ld	a, -4 (ix)
 	dec	a
 	dec	a
@@ -6192,7 +6214,7 @@ _CheckPlayfield::
 	jr	NC, 00172$
 	inc	c
 00172$:
-;src\/CheckPlayfield.h:213: playfield[col][line1] = (line1 - linesToBeRemoved >= 0) ? playfield[col][line1 - linesToBeRemoved] : EMPTY;
+;src\/CheckPlayfield.h:216: playfield[col][line1] = (line1 - linesToBeRemoved >= 0) ? playfield[col][line1 - linesToBeRemoved] : EMPTY;
 	ld	a, -9 (ix)
 	add	a, -1 (ix)
 	ld	-7 (ix), a
@@ -6227,22 +6249,22 @@ _CheckPlayfield::
 	ld	l, -7 (ix)
 	ld	h, -6 (ix)
 	ld	(hl), a
-;src\/CheckPlayfield.h:206: for(byte line1 = line; line1 > 0; line1--) {
+;src\/CheckPlayfield.h:209: for(byte line1 = line; line1 > 0; line1--) {
 	dec	-1 (ix)
 	jp	00228$
 00232$:
-;src\/CheckPlayfield.h:199: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+;src\/CheckPlayfield.h:202: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
 	inc	-2 (ix)
 	jp	00231$
 00235$:
-;src\/CheckPlayfield.h:198: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+;src\/CheckPlayfield.h:201: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
 	inc	-3 (ix)
 	jp	00234$
 00177$:
-;src\/CheckPlayfield.h:220: oldLevel = level;
+;src\/CheckPlayfield.h:227: oldLevel = level;
 	ld	a, (#_level + 0)
 	ld	c, a
-;src\/CheckPlayfield.h:221: if(blocksRemoved >= 90) {
+;src\/CheckPlayfield.h:228: if(blocksRemoved >= 90) {
 	ld	hl, #_blocksRemoved
 	ld	b, (hl)
 	inc	hl
@@ -6252,7 +6274,7 @@ _CheckPlayfield::
 	ld	a, d
 	sbc	a, #0x00
 	jr	C, 00185$
-;src\/CheckPlayfield.h:222: level = (blocksRemoved / 30) + 1;
+;src\/CheckPlayfield.h:229: level = (blocksRemoved / 30) + 1;
 	push	bc
 	ld	hl, #0x001e
 	push	hl
@@ -6265,69 +6287,69 @@ _CheckPlayfield::
 	ld	a, l
 	inc	a
 	ld	(_level+0), a
-;src\/CheckPlayfield.h:223: speed = 15;
+;src\/CheckPlayfield.h:230: speed = 15;
 	ld	hl, #_speed
 	ld	(hl), #0x0f
 	jr	00186$
 00185$:
-;src\/CheckPlayfield.h:226: else if(blocksRemoved >= 60) { 
+;src\/CheckPlayfield.h:233: else if(blocksRemoved >= 60) { 
 	ld	a, b
 	sub	a, #0x3c
 	ld	a, d
 	sbc	a, #0x00
 	jr	C, 00182$
-;src\/CheckPlayfield.h:227: level = 3;
+;src\/CheckPlayfield.h:234: level = 3;
 	ld	hl, #_level
 	ld	(hl), #0x03
-;src\/CheckPlayfield.h:228: speed = 30;
+;src\/CheckPlayfield.h:235: speed = 30;
 	ld	hl, #_speed
 	ld	(hl), #0x1e
 	jr	00186$
 00182$:
-;src\/CheckPlayfield.h:230: else if(blocksRemoved >= 30) { 
+;src\/CheckPlayfield.h:237: else if(blocksRemoved >= 30) { 
 	ld	a, b
 	sub	a, #0x1e
 	ld	a, d
 	sbc	a, #0x00
 	jr	C, 00179$
-;src\/CheckPlayfield.h:231: level = 2;
+;src\/CheckPlayfield.h:238: level = 2;
 	ld	hl, #_level
 	ld	(hl), #0x02
-;src\/CheckPlayfield.h:232: speed = 45;
+;src\/CheckPlayfield.h:239: speed = 45;
 	ld	hl, #_speed
 	ld	(hl), #0x2d
 	jr	00186$
 00179$:
-;src\/CheckPlayfield.h:235: level = 1;
+;src\/CheckPlayfield.h:242: level = 1;
 	ld	hl, #_level
 	ld	(hl), #0x01
-;src\/CheckPlayfield.h:236: speed = 60;
+;src\/CheckPlayfield.h:243: speed = 60;
 	ld	hl, #_speed
 	ld	(hl), #0x3c
 00186$:
-;src\/CheckPlayfield.h:239: if(oldLevel != level) {
+;src\/CheckPlayfield.h:246: if(oldLevel != level) {
 	ld	a,(#_level + 0)
 	sub	a, c
 	jr	Z, 00188$
-;src\/CheckPlayfield.h:240: newLevel = TRUE;
+;src\/CheckPlayfield.h:247: newLevel = TRUE;
 	ld	hl, #_newLevel
 	ld	(hl), #0x01
 00188$:
-;src\/CheckPlayfield.h:244: DrawPlayfield();
+;src\/CheckPlayfield.h:251: DrawPlayfield();
 	call	_DrawPlayfield
-;src\/CheckPlayfield.h:248: CheckIfPlayfieldIsValid(); // test
+;src\/CheckPlayfield.h:255: CheckIfPlayfieldIsValid(); // test
 	call	_CheckIfPlayfieldIsValid
-;src\/CheckPlayfield.h:250: DrawScore();
+;src\/CheckPlayfield.h:257: DrawScore();
 	call	_DrawScore
-;src\/CheckPlayfield.h:252: iteration++;
+;src\/CheckPlayfield.h:259: iteration++;
 	inc	4 (ix)
-;src\/CheckPlayfield.h:253: CheckPlayfield(iteration);  
+;src\/CheckPlayfield.h:260: CheckPlayfield(iteration);  
 	ld	a, 4 (ix)
 	push	af
 	inc	sp
 	call	_CheckPlayfield
 00236$:
-;src\/CheckPlayfield.h:258: }
+;src\/CheckPlayfield.h:265: }
 	ld	sp, ix
 	pop	ix
 	ret
@@ -6499,7 +6521,7 @@ _BlinkPauseText::
 ;src\/GameLogic.h:50: DrawString("PAUSE", 13, 12);
 	ld	de, #0x0c0d
 	push	de
-	ld	hl, #___str_4
+	ld	hl, #___str_5
 	push	hl
 	call	_DrawString
 	pop	af
@@ -6514,7 +6536,7 @@ _BlinkPauseText::
 	inc	sp
 ;src\/GameLogic.h:58: }
 	ret
-___str_4:
+___str_5:
 	.ascii "PAUSE"
 	.db 0x00
 ;src\/GameLogic.h:60: void Pause() {
@@ -6525,7 +6547,7 @@ _Pause::
 ;src\/GameLogic.h:63: DrawString("PAUSE", 13, 12);
 	ld	de, #0x0c0d
 	push	de
-	ld	hl, #___str_5
+	ld	hl, #___str_6
 	push	hl
 	call	_DrawString
 	pop	af
@@ -6569,7 +6591,7 @@ _Pause::
 ;src\/GameLogic.h:90: return;
 ;src\/GameLogic.h:100: }
 	ret
-___str_5:
+___str_6:
 	.ascii "PAUSE"
 	.db 0x00
 ;src\/GameLogic.h:102: void GameLoop() {
@@ -7149,7 +7171,7 @@ _GameLoop::
 ;src\/GameLogic.h:271: DrawString("GAME OVER", 12, 12);
 	ld	de, #0x0c0c
 	push	de
-	ld	hl, #___str_6
+	ld	hl, #___str_7
 	push	hl
 	call	_DrawString
 	pop	af
@@ -7161,7 +7183,7 @@ _GameLoop::
 	ld	sp,ix
 	pop	ix
 	ret
-___str_6:
+___str_7:
 	.ascii "GAME OVER"
 	.db 0x00
 ;src\/GameLogic.h:280: void TestCase() {
@@ -7232,21 +7254,24 @@ _InitGame::
 ;src\/GameLogic.h:326: col = INITIAL_COL;
 	ld	hl, #_col
 	ld	(hl), #0x02
-;src\/GameLogic.h:327: blocksRemoved = 0;
+;src\/GameLogic.h:327: score = 0;
 	ld	hl, #0x0000
+	ld	(_score), hl
+;src\/GameLogic.h:328: blocksRemoved = 0;
+	ld	l, h
 	ld	(_blocksRemoved), hl
-;src\/GameLogic.h:328: level = 1;
+;src\/GameLogic.h:329: level = 1;
 	ld	hl, #_level
 	ld	(hl), #0x01
-;src\/GameLogic.h:329: newLevel = FALSE;
+;src\/GameLogic.h:330: newLevel = FALSE;
 	ld	hl, #_newLevel
 	ld	(hl), #0x00
-;src\/GameLogic.h:330: speed = 60;
+;src\/GameLogic.h:331: speed = 60;
 	ld	hl, #_speed
 	ld	(hl), #0x3c
-;src\/GameLogic.h:332: InitVRAM();
+;src\/GameLogic.h:333: InitVRAM();
 	call	_InitVRAM
-;src\/GameLogic.h:335: InitRnd(rndSeed, JIFFY * rndSeed, JIFFY * rndSeed + 99);
+;src\/GameLogic.h:336: InitRnd(rndSeed, JIFFY * rndSeed, JIFFY * rndSeed + 99);
 	ld	a, (#_rndSeed + 0)
 	ld	e, a
 	ld	a, (#_JIFFY + 0)
@@ -7288,21 +7313,21 @@ _InitGame::
 	call	_InitRnd
 	pop	af
 	inc	sp
-;src\/GameLogic.h:338: RandomPiece();
+;src\/GameLogic.h:339: RandomPiece();
 	call	_RandomPiece
-;src\/GameLogic.h:341: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+;src\/GameLogic.h:342: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
 	ld	c, #0x00
 00107$:
 	ld	a, c
 	sub	a, #0x0c
 	jr	NC, 00102$
-;src\/GameLogic.h:342: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+;src\/GameLogic.h:343: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
 	ld	b, #0x00
 00104$:
 	ld	a, b
 	sub	a, #0x06
 	jr	NC, 00108$
-;src\/GameLogic.h:343: playfield[col][line] = EMPTY;
+;src\/GameLogic.h:344: playfield[col][line] = EMPTY;
 	ld	e, b
 	ld	d, #0x00
 	ld	l, e
@@ -7317,24 +7342,27 @@ _InitGame::
 	ld	d, #0x00
 	add	hl, de
 	ld	(hl), #0x00
-;src\/GameLogic.h:342: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+;src\/GameLogic.h:343: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
 	inc	b
 	jr	00104$
 00108$:
-;src\/GameLogic.h:341: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+;src\/GameLogic.h:342: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
 	inc	c
 	jr	00107$
 00102$:
-;src\/GameLogic.h:348: TestCase();
+;src\/GameLogic.h:349: TestCase();
 	call	_TestCase
-;src\/GameLogic.h:352: DrawBackground();
+;src\/GameLogic.h:351: newLevel = TRUE;  //test
+	ld	hl, #_newLevel
+	ld	(hl), #0x01
+;src\/GameLogic.h:353: DrawBackground();
 	call	_DrawBackground
-;src\/GameLogic.h:354: DrawPlayfield();
+;src\/GameLogic.h:355: DrawPlayfield();
 	call	_DrawPlayfield
-;src\/GameLogic.h:356: DrawScore();
+;src\/GameLogic.h:357: DrawScore();
 	call	_DrawScore
-;src\/GameLogic.h:358: GameLoop();
-;src\/GameLogic.h:359: }
+;src\/GameLogic.h:359: GameLoop();
+;src\/GameLogic.h:360: }
 	jp	_GameLoop
 ;src\/Intro.h:3: void ChangeFontColor(byte color) {
 ;	---------------------------------
@@ -7472,7 +7500,7 @@ _Intro::
 ;src\/Intro.h:43: DrawString("A GAME BY", 11, 11);
 	ld	de, #0x0b0b
 	push	de
-	ld	hl, #___str_7
+	ld	hl, #___str_8
 	push	hl
 	call	_DrawString
 	pop	af
@@ -7480,7 +7508,7 @@ _Intro::
 ;src\/Intro.h:44: DrawString("ANDRE BAPTISTA", 9, 13);
 	ld	de, #0x0d09
 	push	de
-	ld	hl, #___str_8
+	ld	hl, #___str_9
 	push	hl
 	call	_DrawString
 	pop	af
@@ -7555,10 +7583,10 @@ _Intro::
 	pop	bc
 ;src\/Intro.h:140: }
 	jr	00112$
-___str_7:
+___str_8:
 	.ascii "A GAME BY"
 	.db 0x00
-___str_8:
+___str_9:
 	.ascii "ANDRE BAPTISTA"
 	.db 0x00
 ;src\/Title.h:14: void SetBlock(byte col, byte line, byte tileNumber) {
@@ -7674,7 +7702,7 @@ _TitleScreen::
 	ld	sp, hl
 	ld	de, #0x0d05
 	push	de
-	ld	hl, #___str_9
+	ld	hl, #___str_10
 	push	hl
 	call	_DrawString
 	pop	af
@@ -7684,14 +7712,14 @@ _TitleScreen::
 	xor	a, a
 	push	af
 	inc	sp
-	ld	hl, #___str_10
+	ld	hl, #___str_11
 	push	hl
 	call	_DrawString
 	pop	af
 	pop	af
 	ld	de, #0x1719
 	push	de
-	ld	hl, #___str_11
+	ld	hl, #___str_12
 	push	hl
 	call	_DrawString
 	pop	af
@@ -8163,29 +8191,29 @@ _TitleScreen_title_65536_285:
 	.db #0x00	; 0
 	.db #0x8e	; 142
 	.db #0x8e	; 142
-___str_9:
+___str_10:
 	.ascii "PRESS TRIGGER TO START"
 	.db 0x00
-___str_10:
+___str_11:
 	.ascii "ANDREBAPTISTA.COM.BR"
 	.db 0x00
-___str_11:
+___str_12:
 	.ascii "v.?.?.?"
 	.db 0x00
-;src\main.c:88: void main() {
+;src\main.c:89: void main() {
 ;	---------------------------------
 ; Function main
 ; ---------------------------------
 _main::
-;src\main.c:90: while(TRUE) {
+;src\main.c:91: while(TRUE) {
 00102$:
-;src\main.c:92: Intro();
+;src\main.c:93: Intro();
 	call	_Intro
-;src\main.c:94: TitleScreen();
+;src\main.c:95: TitleScreen();
 	call	_TitleScreen
-;src\main.c:96: InitGame();
+;src\main.c:97: InitGame();
 	call	_InitGame
-;src\main.c:99: }
+;src\main.c:100: }
 	jr	00102$
 	.area _CODE
 	.area _INITIALIZER
@@ -8197,6 +8225,8 @@ __xinit__line:
 	.db #0x00	; 0
 __xinit__counter:
 	.db #0x00	; 0
+__xinit__score:
+	.dw #0x0000
 __xinit__blocksRemoved:
 	.dw #0x0000
 __xinit__level:

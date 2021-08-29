@@ -73,11 +73,12 @@ void DrawScore() {
       lastJiffy = JIFFY;
       while(lastJiffy == JIFFY) { }
       
-      DrawExplosionSprite(26 * 8, 4 * 8, i);
+      DrawExplosionSprite(26 * 8, 10 * 8, i);
 
       if(JIFFY & 0b00000110) {
-  	    DrawString(" LEVEL", 26, 4);
-      	DrawNumber(level, 26, 5); //TODO: fix bug (new level not blinking)
+  	    
+        DrawString(" LEVEL", 26, 10);
+      	DrawNumber(level, 26, 11);
         
         // Animate Bg
         //void FILVRM(uint16_t start, uint16_t len, uint8_t data);
@@ -120,8 +121,8 @@ void DrawScore() {
         
       }
       else {
-  	    DrawString("      ", 26, 4);
-      	DrawString("      ", 26, 5);
+  	    DrawString("      ", 26, 10);
+      	DrawString("      ", 26, 11);
       }
       
     }
@@ -134,11 +135,13 @@ void DrawScore() {
   FILVRM(CLRTBL + (256 * 8), 8 * 4, 0x14);
   FILVRM(CLRTBL + (512 * 8), 8 * 4, 0x14);
   
-  DrawString(" LEVEL", 26, 4);
-  DrawString("BLOCKS", 26, 9);
+  DrawString(" SCORE", 26, 2);
+  DrawString(" LEVEL", 26, 10);
+  DrawString("BLOCKS", 26, 18);
   
-  DrawNumber(blocksRemoved, 26, 10);
-  DrawNumber(level, 26, 5);
+  DrawNumber(score, 26, 3);
+  DrawNumber(level, 26, 11);
+  DrawNumber(blocksRemoved, 26, 19);
   
 }
 

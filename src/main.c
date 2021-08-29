@@ -11,13 +11,13 @@ typedef uint8_t 	byte;
 typedef uint16_t 	word;
 typedef uint8_t 	bool;
 
-#define TRUE 	1
-#define FALSE 	0
+#define TRUE 	      1
+#define FALSE 	    0
 
-#define EMPTY		0
+#define EMPTY		    0
 #define TILE_GREEN	4
-#define TILE_RED	8
-#define TILE_BLUE	12
+#define TILE_RED	  8
+#define TILE_BLUE	  12
 #define TILE_PURPLE	16
 #define TILE_YELLOW	20
 
@@ -47,6 +47,7 @@ bool gameOver = FALSE;
 byte col = 0, line = 0;
 byte counter = 0;
 byte topPiece, midPiece, bottomPiece;
+word score = 0;
 word blocksRemoved = 0;
 byte level = 1;
 bool newLevel = FALSE;

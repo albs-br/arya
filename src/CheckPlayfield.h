@@ -1,4 +1,7 @@
 
+//#define POINTS_PER_BLOCK_REMOVED 	      10
+#define POINTS_PER_COMBO 	              5
+
 void CheckIfPlayfieldIsValid() {
   bool found = FALSE;
   for(byte line = 0; line < LINES_PLAYFIELD; line++) {
@@ -215,6 +218,10 @@ void CheckPlayfield(byte iteration) {
         }
       }
     }
+
+    // Wait(60);
+    // score = score + numberPiecesRemoved + POINTS_PER_COMBO;
+    //score++;
 
     // Level logic
     oldLevel = level;
