@@ -47,7 +47,8 @@ bool gameOver = FALSE;
 byte col = 0, line = 0;
 byte counter = 0;
 byte topPiece, midPiece, bottomPiece;
-// word score = 0;
+byte nextTopPiece, nextMidPiece, nextBottomPiece;
+//word score = 0;
 word blocksRemoved = 0;
 byte level = 1;
 bool newLevel = FALSE;
@@ -55,7 +56,7 @@ byte speed, rndSeed = 0;
 
 
 // Debug variables
-byte d_col = 0, d_line = 0, d_value = 0;
+// byte d_col = 0, d_line = 0, d_value = 0;
 
 
 #include "Common.h"
@@ -90,9 +91,9 @@ void main() {
   
   while(TRUE) {
     
-    Intro();
+    //Intro();
     
-    TitleScreen();
+    //TitleScreen();
 
     InitGame();
     

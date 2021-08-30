@@ -2,30 +2,30 @@
 //#define POINTS_PER_BLOCK_REMOVED 	      10
 //#define POINTS_PER_COMBO 	              5
 
-void CheckIfPlayfieldIsValid() {
-  bool found = FALSE;
-  for(byte line = 0; line < LINES_PLAYFIELD; line++) {
-    for(byte col = 0; col < COLS_PLAYFIELD; col++) {
-      for(byte item = 0; item < 5; item++) {
-        found = FALSE;
-      	if(playfieldTemp[col][line] == pieces[item] || playfieldTemp[col][line] == EMPTY) {
-          found = TRUE;
-          break;
-        }
-      }
-      if(!found) {
-        d_col = col;
-        d_line = line;
-        d_value = playfieldTemp[col][line];
+// void CheckIfPlayfieldIsValid() {
+//   bool found = FALSE;
+//   for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+//     for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+//       for(byte item = 0; item < 5; item++) {
+//         found = FALSE;
+//       	if(playfieldTemp[col][line] == pieces[item] || playfieldTemp[col][line] == EMPTY) {
+//           found = TRUE;
+//           break;
+//         }
+//       }
+//       if(!found) {
+//         d_col = col;
+//         d_line = line;
+//         d_value = playfieldTemp[col][line];
         
-        while(1) { 
-          BEEP();
-        }
-      }
+//         while(1) { 
+//           BEEP();
+//         }
+//       }
       
-    }
-  }
-}
+//     }
+//   }
+// }
 
 
 void CheckPlayfield(byte iteration) {
@@ -220,8 +220,8 @@ void CheckPlayfield(byte iteration) {
     }
 
     // Wait(60);
-    // score = score + numberPiecesRemoved + POINTS_PER_COMBO;
-    //score++;
+    //score = score + numberPiecesRemoved + POINTS_PER_COMBO; // causing slowdown
+    //score++;                                                  // works fine
 
     // Level logic
     oldLevel = level;
@@ -252,15 +252,16 @@ void CheckPlayfield(byte iteration) {
     
     //Wait(90);
     
-    CheckIfPlayfieldIsValid(); // test
+    //CheckIfPlayfieldIsValid(); // test
     
     DrawScore();
 
     iteration++;
     CheckPlayfield(iteration);  
   }
-  //else {
-  //  SoundFx_1();
-  //}
+  else {
+    //SoundFx_1();
+    DrawScore();
+  }
 }
 

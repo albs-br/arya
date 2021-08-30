@@ -11,9 +11,13 @@ byte RandomIndex() {
 }
 
 void RandomPiece() {
-  topPiece = pieces[RandomIndex()];
-  midPiece = pieces[RandomIndex()];
-  bottomPiece = pieces[RandomIndex()];
+  topPiece = nextTopPiece;
+  midPiece = nextMidPiece;
+  bottomPiece = nextBottomPiece;
+
+  nextTopPiece = pieces[RandomIndex()];
+  nextMidPiece = pieces[RandomIndex()];
+  nextBottomPiece = pieces[RandomIndex()];
 }
 
 void UpdateAndDrawPieceStatic() {
@@ -324,7 +328,7 @@ void InitGame() {
   gameOver = FALSE;
   line = INITIAL_LINE;
   col = INITIAL_COL;
-  // score = 0;
+  //score = 0;
   blocksRemoved = 0;
   level = 1;
   newLevel = FALSE;
@@ -335,7 +339,8 @@ void InitGame() {
   // Using user input on title screen to seed random number generator
   InitRnd(rndSeed, JIFFY * rndSeed, JIFFY * rndSeed + 99);
 
-  
+  // Call RandomPiece twice, to populate current and next pieces
+  RandomPiece();
   RandomPiece();
   
   // Reset playfield
