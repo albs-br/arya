@@ -89,6 +89,49 @@ void GetNextPieceColors(byte sourcePiece) {
   }  
 }
 
+void DrawNextPiece() {
+  //Draw next piece
+  GetNextPieceColors(nextTopPiece);
+  WRTVRM(SPRATT + 40, 	(4 * 8));                       // Code repeated for performance reasons
+  WRTVRM(SPRATT + 41, 	(4 * 8)-4);
+  WRTVRM(SPRATT + 42, 	SPRITE_PATTERN_SMALL_BLOCK);
+  WRTVRM(SPRATT + 43, 	nextPieceColor_Front);
+  WRTVRM(SPRATT + 44, 	(4 * 8));
+  WRTVRM(SPRATT + 45, 	(4 * 8)-4);
+  WRTVRM(SPRATT + 46, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
+  WRTVRM(SPRATT + 47, 	nextPieceColor_Back);
+
+  GetNextPieceColors(nextMidPiece);
+  WRTVRM(SPRATT + 48, 	(5 * 8));
+  WRTVRM(SPRATT + 49, 	(4 * 8)-4);
+  WRTVRM(SPRATT + 50, 	SPRITE_PATTERN_SMALL_BLOCK);
+  WRTVRM(SPRATT + 51, 	nextPieceColor_Front);
+  WRTVRM(SPRATT + 52, 	(5 * 8));
+  WRTVRM(SPRATT + 53, 	(4 * 8)-4);
+  WRTVRM(SPRATT + 54, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
+  WRTVRM(SPRATT + 55, 	nextPieceColor_Back);
+
+  GetNextPieceColors(nextBottomPiece);
+  WRTVRM(SPRATT + 56, 	(6 * 8));
+  WRTVRM(SPRATT + 57, 	(4 * 8)-4);
+  WRTVRM(SPRATT + 58, 	SPRITE_PATTERN_SMALL_BLOCK);
+  WRTVRM(SPRATT + 59, 	nextPieceColor_Front);
+  WRTVRM(SPRATT + 60, 	(6 * 8));
+  WRTVRM(SPRATT + 61, 	(4 * 8)-4);
+  WRTVRM(SPRATT + 62, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
+  WRTVRM(SPRATT + 63, 	nextPieceColor_Back);
+
+  // WRTVRM(SPRATT + 40, 	10);
+  // WRTVRM(SPRATT + 41, 	26 * 8);
+  // WRTVRM(SPRATT + 42, 	SPRITE_PATTERN_SMALL_BLOCK);
+  // WRTVRM(SPRATT + 43, 	3);
+
+  // WRTVRM(SPRATT + 44, 	10);
+  // WRTVRM(SPRATT + 45, 	26 * 8);
+  // WRTVRM(SPRATT + 46, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
+  // WRTVRM(SPRATT + 47, 	12);  
+}
+
 void DrawScore() {
   byte bgCounter = 0, bgColor;
   word lastJiffy;
@@ -170,46 +213,7 @@ void DrawScore() {
   DrawNumber(level, 26, 11);
   DrawNumber(blocksRemoved, 26, 19);
 
-  //Draw next piece
-  GetNextPieceColors(nextTopPiece);
-  WRTVRM(SPRATT + 40, 	(4 * 8));                       // Code repeated for performance reasons
-  WRTVRM(SPRATT + 41, 	(2 * 8)-4);
-  WRTVRM(SPRATT + 42, 	SPRITE_PATTERN_SMALL_BLOCK);
-  WRTVRM(SPRATT + 43, 	nextPieceColor_Front);
-  WRTVRM(SPRATT + 44, 	(4 * 8));
-  WRTVRM(SPRATT + 45, 	(2 * 8)-4);
-  WRTVRM(SPRATT + 46, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
-  WRTVRM(SPRATT + 47, 	nextPieceColor_Back);
-
-  GetNextPieceColors(nextMidPiece);
-  WRTVRM(SPRATT + 48, 	(5 * 8));
-  WRTVRM(SPRATT + 49, 	(2 * 8)-4);
-  WRTVRM(SPRATT + 50, 	SPRITE_PATTERN_SMALL_BLOCK);
-  WRTVRM(SPRATT + 51, 	nextPieceColor_Front);
-  WRTVRM(SPRATT + 52, 	(5 * 8));
-  WRTVRM(SPRATT + 53, 	(2 * 8)-4);
-  WRTVRM(SPRATT + 54, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
-  WRTVRM(SPRATT + 55, 	nextPieceColor_Back);
-
-  GetNextPieceColors(nextBottomPiece);
-  WRTVRM(SPRATT + 56, 	(6 * 8));
-  WRTVRM(SPRATT + 57, 	(2 * 8)-4);
-  WRTVRM(SPRATT + 58, 	SPRITE_PATTERN_SMALL_BLOCK);
-  WRTVRM(SPRATT + 59, 	nextPieceColor_Front);
-  WRTVRM(SPRATT + 60, 	(6 * 8));
-  WRTVRM(SPRATT + 61, 	(2 * 8)-4);
-  WRTVRM(SPRATT + 62, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
-  WRTVRM(SPRATT + 63, 	nextPieceColor_Back);
-
-  // WRTVRM(SPRATT + 40, 	10);
-  // WRTVRM(SPRATT + 41, 	26 * 8);
-  // WRTVRM(SPRATT + 42, 	SPRITE_PATTERN_SMALL_BLOCK);
-  // WRTVRM(SPRATT + 43, 	3);
-
-  // WRTVRM(SPRATT + 44, 	10);
-  // WRTVRM(SPRATT + 45, 	26 * 8);
-  // WRTVRM(SPRATT + 46, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
-  // WRTVRM(SPRATT + 47, 	12);
+  //DrawNextPiece();
 }
 
 void DrawBackground() {

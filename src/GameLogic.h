@@ -44,6 +44,8 @@ void UpdateAndDrawPieceStatic() {
     RandomPiece();
 
     CheckPlayfield(1);
+
+    DrawNextPiece();
   }
 
   DrawPlayfield();
@@ -360,6 +362,8 @@ void InitGame() {
   DrawPlayfield();
   
   DrawScore();
+
+  DrawNextPiece();
   
   GameLoop();
 }
