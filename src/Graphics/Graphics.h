@@ -65,6 +65,7 @@ void DrawColumn(byte col) {
 
 byte nextPieceColor_Front, nextPieceColor_Back;
 
+// Convert from colors used on big pieces (the game pieces itself) to the small pieces colors (the "next" window)
 void GetNextPieceColors(byte sourcePiece) {
   switch(sourcePiece) {
     case TILE_BLUE:
@@ -89,47 +90,100 @@ void GetNextPieceColors(byte sourcePiece) {
   }  
 }
 
+void PosMaskSprites(word VRAMaddress, byte y) {
+  // Pos mask sprites (to make pieces show/hide pixel by pixel - using the 9918 4 sprites per line constraint)
+  WRTVRM(VRAMaddress, 	    y);
+  WRTVRM(VRAMaddress + 1, 	0);
+  WRTVRM(VRAMaddress + 2, 	0); // Pattern don't matter
+  WRTVRM(VRAMaddress + 3, 	0b1000000); // Early Clock bit makes x = -32 (out of the screen)
+
+  WRTVRM(VRAMaddress + 4,   y);
+  WRTVRM(VRAMaddress + 5, 	0);
+  WRTVRM(VRAMaddress + 6, 	0); // Pattern don't matter
+  WRTVRM(VRAMaddress + 7, 	0b1000000); // Early Clock bit makes x = -32 (out of the screen)
+
+  WRTVRM(VRAMaddress + 8,   y);
+  WRTVRM(VRAMaddress + 9, 	0);
+  WRTVRM(VRAMaddress + 10,	0); // Pattern don't matter
+  WRTVRM(VRAMaddress + 11,	0b1000000); // Early Clock bit makes x = -32 (out of the screen)
+
+  WRTVRM(VRAMaddress + 12,  y);
+  WRTVRM(VRAMaddress + 13,	0);
+  WRTVRM(VRAMaddress + 14,	0); // Pattern don't matter
+  WRTVRM(VRAMaddress + 15,	0b1000000); // Early Clock bit makes x = -32 (out of the screen)  
+}
+
 void DrawNextPiece() {
-  //Draw next piece
-  GetNextPieceColors(nextTopPiece);
-  WRTVRM(SPRATT + 40, 	(4 * 8));                       // Code repeated for performance reasons
-  WRTVRM(SPRATT + 41, 	(4 * 8)-4);
-  WRTVRM(SPRATT + 42, 	SPRITE_PATTERN_SMALL_BLOCK);
-  WRTVRM(SPRATT + 43, 	nextPieceColor_Front);
-  WRTVRM(SPRATT + 44, 	(4 * 8));
-  WRTVRM(SPRATT + 45, 	(4 * 8)-4);
-  WRTVRM(SPRATT + 46, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
-  WRTVRM(SPRATT + 47, 	nextPieceColor_Back);
+  byte y = 24+24, counter = 0;
 
-  GetNextPieceColors(nextMidPiece);
-  WRTVRM(SPRATT + 48, 	(5 * 8));
-  WRTVRM(SPRATT + 49, 	(4 * 8)-4);
-  WRTVRM(SPRATT + 50, 	SPRITE_PATTERN_SMALL_BLOCK);
-  WRTVRM(SPRATT + 51, 	nextPieceColor_Front);
-  WRTVRM(SPRATT + 52, 	(5 * 8));
-  WRTVRM(SPRATT + 53, 	(4 * 8)-4);
-  WRTVRM(SPRATT + 54, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
-  WRTVRM(SPRATT + 55, 	nextPieceColor_Back);
+  // Masks under next piece
+  PosMaskSprites(SPRATT, 24+24);
+  PosMaskSprites(SPRATT + 16, 24+24+16);
 
-  GetNextPieceColors(nextBottomPiece);
-  WRTVRM(SPRATT + 56, 	(6 * 8));
-  WRTVRM(SPRATT + 57, 	(4 * 8)-4);
-  WRTVRM(SPRATT + 58, 	SPRITE_PATTERN_SMALL_BLOCK);
-  WRTVRM(SPRATT + 59, 	nextPieceColor_Front);
-  WRTVRM(SPRATT + 60, 	(6 * 8));
-  WRTVRM(SPRATT + 61, 	(4 * 8)-4);
-  WRTVRM(SPRATT + 62, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
-  WRTVRM(SPRATT + 63, 	nextPieceColor_Back);
+  // Mask above next piece
+  PosMaskSprites(SPRATT + 32, 255); // first line
 
-  // WRTVRM(SPRATT + 40, 	10);
-  // WRTVRM(SPRATT + 41, 	26 * 8);
-  // WRTVRM(SPRATT + 42, 	SPRITE_PATTERN_SMALL_BLOCK);
-  // WRTVRM(SPRATT + 43, 	3);
+  while(counter++ < 25) {
 
-  // WRTVRM(SPRATT + 44, 	10);
-  // WRTVRM(SPRATT + 45, 	26 * 8);
-  // WRTVRM(SPRATT + 46, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
-  // WRTVRM(SPRATT + 47, 	12);  
+    word lastJiffy = JIFFY;
+    while (lastJiffy == JIFFY) {
+    }
+    // Animation loop sync'ed at 60/50 Hz starts here
+
+    // Draw previous piece exiting to top
+    GetNextPieceColors(topPiece);
+    WRTVRM(SPRATT + 64, 	y - 32);                       // Code repeated for performance reasons
+    WRTVRM(SPRATT + 65, 	(4 * 8)-4);
+    WRTVRM(SPRATT + 66, 	SPRITE_PATTERN_SMALL_BLOCK);
+    WRTVRM(SPRATT + 67, 	nextPieceColor_Front);
+    WRTVRM(SPRATT + 68, 	y - 32);
+    WRTVRM(SPRATT + 69, 	(4 * 8)-4);
+    WRTVRM(SPRATT + 70, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
+    WRTVRM(SPRATT + 71, 	nextPieceColor_Back);
+    
+    GetNextPieceColors(midPiece);
+    WRTVRM(SPRATT + 72, 	y - 24);
+    WRTVRM(SPRATT + 73, 	(4 * 8)-4);
+    WRTVRM(SPRATT + 74, 	SPRITE_PATTERN_SMALL_BLOCK);
+    WRTVRM(SPRATT + 75, 	nextPieceColor_Front);
+    WRTVRM(SPRATT + 76, 	y - 24);
+    WRTVRM(SPRATT + 77, 	(4 * 8)-4);
+    WRTVRM(SPRATT + 78, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
+    WRTVRM(SPRATT + 79, 	nextPieceColor_Back);    
+
+    // Draw next piece entering from bottom
+    GetNextPieceColors(nextTopPiece);
+    WRTVRM(SPRATT + 80, 	y);                       // Code repeated for performance reasons
+    WRTVRM(SPRATT + 81, 	(4 * 8)-4);
+    WRTVRM(SPRATT + 82, 	SPRITE_PATTERN_SMALL_BLOCK);
+    WRTVRM(SPRATT + 83, 	nextPieceColor_Front);
+    WRTVRM(SPRATT + 84, 	y);
+    WRTVRM(SPRATT + 85, 	(4 * 8)-4);
+    WRTVRM(SPRATT + 86, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
+    WRTVRM(SPRATT + 87, 	nextPieceColor_Back);
+
+    GetNextPieceColors(nextMidPiece);
+    WRTVRM(SPRATT + 88, 	y + 8);
+    WRTVRM(SPRATT + 89, 	(4 * 8)-4);
+    WRTVRM(SPRATT + 90, 	SPRITE_PATTERN_SMALL_BLOCK);
+    WRTVRM(SPRATT + 91, 	nextPieceColor_Front);
+    WRTVRM(SPRATT + 92, 	y + 8);
+    WRTVRM(SPRATT + 93, 	(4 * 8)-4);
+    WRTVRM(SPRATT + 94, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
+    WRTVRM(SPRATT + 95, 	nextPieceColor_Back);
+
+    GetNextPieceColors(nextBottomPiece);
+    WRTVRM(SPRATT + 96, 	y + 16);
+    WRTVRM(SPRATT + 97, 	(4 * 8)-4);
+    WRTVRM(SPRATT + 98, 	SPRITE_PATTERN_SMALL_BLOCK);
+    WRTVRM(SPRATT + 99, 	nextPieceColor_Front);
+    WRTVRM(SPRATT + 100, 	y + 16);
+    WRTVRM(SPRATT + 101, 	(4 * 8)-4);
+    WRTVRM(SPRATT + 102, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
+    WRTVRM(SPRATT + 103, 	nextPieceColor_Back);
+
+    y--;
+  }
 }
 
 void DrawScore() {
@@ -204,7 +258,7 @@ void DrawScore() {
   FILVRM(CLRTBL + (256 * 8), 8 * 4, 0x14);
   FILVRM(CLRTBL + (512 * 8), 8 * 4, 0x14);
   
-  DrawString("NEXT", 2, 2);
+  DrawString("NEXT", 2, 1);
   //DrawString(" SCORE", 26, 2);
   DrawString(" LEVEL", 26, 10);
   DrawString("BLOCKS", 26, 18);
