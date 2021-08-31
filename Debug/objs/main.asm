@@ -40,6 +40,8 @@
 	.globl _DrawString
 	.globl _DrawChar
 	.globl _ShowCountdown
+	.globl _BlinkNumber
+	.globl _AnimateSprites
 	.globl _DrawExplosionSprite
 	.globl _HideExplosionSprite
 	.globl _HideHitSprite
@@ -115,6 +117,7 @@
 	.globl _LINL32
 	.globl _LINL40
 	.globl _MSX_charset
+	.globl _colors
 	.globl _FONT
 	.globl _pieces
 	.globl _MSX_version
@@ -4037,39 +4040,17 @@ _DrawExplosionSprite::
 ;src\/Graphics\SpritesLogic.h:164: }
 	inc	sp
 	ret
-;src\/Graphics\Countdown.h:1: void ShowCountdown() {
+;src\/Graphics\Countdown.h:12: void AnimateSprites(byte x, byte y, byte pattern) {
 ;	---------------------------------
-; Function ShowCountdown
+; Function AnimateSprites
 ; ---------------------------------
-_ShowCountdown::
+_AnimateSprites::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-	ld	hl, #-7
-	add	hl, sp
-	ld	sp, hl
-;src\/Graphics\Countdown.h:3: byte x = 128-80, y = 0;
-	ld	-7 (ix), #0x30
-	ld	-6 (ix), #0
-;src\/Graphics\Countdown.h:5: while(counter-- > 0) {
-	ld	-1 (ix), #0x3c
-00108$:
-	ld	a, -1 (ix)
-	ld	-2 (ix), a
-	dec	-1 (ix)
-	ld	a, -2 (ix)
-	or	a, a
-	jp	Z, 00112$
-;src\/Graphics\Countdown.h:15: word lastJiffy = JIFFY;
-	ld	bc, (_JIFFY)
-;src\/Graphics\Countdown.h:16: while (lastJiffy == JIFFY) {
-00101$:
-	ld	hl, (_JIFFY)
-	cp	a, a
-	sbc	hl, bc
-	jr	Z, 00101$
-;src\/Graphics\Countdown.h:21: WRTVRM(SPRATT, 	y); //96-16);
-	ld	a, -6 (ix)
+	dec	sp
+;src\/Graphics\Countdown.h:14: WRTVRM(SPRATT, 	    y); //96-16);
+	ld	a, 5 (ix)
 	push	af
 	inc	sp
 	ld	hl, #0x1b00
@@ -4077,12 +4058,11 @@ _ShowCountdown::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Countdown.h:22: WRTVRM(SPRATT + 1, 	256-x-16); //128-16);
-	ld	a, -7 (ix)
-	ld	-5 (ix), a
+;src\/Graphics\Countdown.h:15: WRTVRM(SPRATT + 1, 	256-x-16); //128-16);
+	ld	c, 4 (ix)
 	ld	a, #0xf0
-	sub	a, -5 (ix)
-	ld	-4 (ix), a
+	sub	a, c
+	ld	-1 (ix), a
 	push	af
 	inc	sp
 	ld	hl, #0x1b01
@@ -4090,8 +4070,8 @@ _ShowCountdown::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Countdown.h:23: WRTVRM(SPRATT + 2, 	SPRITE_PATTERN_NUMBER_3_32X32);
-	ld	a, #0x54
+;src\/Graphics\Countdown.h:16: WRTVRM(SPRATT + 2, 	pattern);
+	ld	a, 6 (ix)
 	push	af
 	inc	sp
 	ld	hl, #0x1b02
@@ -4099,7 +4079,7 @@ _ShowCountdown::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Countdown.h:24: WRTVRM(SPRATT + 3, 	10);
+;src\/Graphics\Countdown.h:17: WRTVRM(SPRATT + 3, 	10);
 	ld	a, #0x0a
 	push	af
 	inc	sp
@@ -4108,8 +4088,8 @@ _ShowCountdown::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Countdown.h:27: WRTVRM(SPRATT + 4, 	y); //96-16);
-	ld	a, -6 (ix)
+;src\/Graphics\Countdown.h:20: WRTVRM(SPRATT + 4, 	y); //96-16);
+	ld	a, 5 (ix)
 	push	af
 	inc	sp
 	ld	hl, #0x1b04
@@ -4117,8 +4097,8 @@ _ShowCountdown::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Countdown.h:28: WRTVRM(SPRATT + 5, 	x);
-	ld	a, -7 (ix)
+;src\/Graphics\Countdown.h:21: WRTVRM(SPRATT + 5, 	x);
+	ld	a, 4 (ix)
 	push	af
 	inc	sp
 	ld	hl, #0x1b05
@@ -4126,8 +4106,14 @@ _ShowCountdown::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Countdown.h:29: WRTVRM(SPRATT + 6, SPRITE_PATTERN_NUMBER_3_32X32 + 4);
-	ld	a, #0x58
+;src\/Graphics\Countdown.h:22: WRTVRM(SPRATT + 6,  pattern + 4);
+	ld	c, 6 (ix)
+	ld	a, c
+	inc	a
+	inc	a
+	inc	a
+	inc	a
+	push	bc
 	push	af
 	inc	sp
 	ld	hl, #0x1b06
@@ -4135,7 +4121,6 @@ _ShowCountdown::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Countdown.h:30: WRTVRM(SPRATT + 7, 10);
 	ld	a, #0x0a
 	push	af
 	inc	sp
@@ -4144,21 +4129,21 @@ _ShowCountdown::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Countdown.h:33: WRTVRM(SPRATT + 8, 	192-y-16); //96);
-	ld	a, -6 (ix)
-	ld	-3 (ix), a
+	pop	bc
+;src\/Graphics\Countdown.h:26: WRTVRM(SPRATT + 8, 	192-y-16); //96);
+	ld	b, 5 (ix)
 	ld	a, #0xb0
-	sub	a, -3 (ix)
-	ld	-2 (ix), a
-	push	af
+	sub	a, b
+	ld	b, a
+	push	bc
+	push	bc
 	inc	sp
 	ld	hl, #0x1b08
 	push	hl
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Countdown.h:34: WRTVRM(SPRATT + 9, 	256-x-16);
-	ld	a, -4 (ix)
+	ld	a, -1 (ix)
 	push	af
 	inc	sp
 	ld	hl, #0x1b09
@@ -4166,8 +4151,11 @@ _ShowCountdown::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Countdown.h:35: WRTVRM(SPRATT + 10,	SPRITE_PATTERN_NUMBER_3_32X32 + 8);
-	ld	a, #0x5c
+	pop	bc
+;src\/Graphics\Countdown.h:28: WRTVRM(SPRATT + 10,	pattern + 8);
+	ld	a, c
+	add	a, #0x08
+	push	bc
 	push	af
 	inc	sp
 	ld	hl, #0x1b0a
@@ -4175,7 +4163,6 @@ _ShowCountdown::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Countdown.h:36: WRTVRM(SPRATT + 11,	10);
 	ld	a, #0x0a
 	push	af
 	inc	sp
@@ -4184,17 +4171,17 @@ _ShowCountdown::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Countdown.h:39: WRTVRM(SPRATT + 12,	192-y-16); //96);
-	ld	a, -2 (ix)
-	push	af
+	pop	bc
+;src\/Graphics\Countdown.h:32: WRTVRM(SPRATT + 12,	192-y-16); //96);
+	push	bc
+	push	bc
 	inc	sp
 	ld	hl, #0x1b0c
 	push	hl
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Countdown.h:40: WRTVRM(SPRATT + 13,	x);
-	ld	a, -7 (ix)
+	ld	a, 4 (ix)
 	push	af
 	inc	sp
 	ld	hl, #0x1b0d
@@ -4202,8 +4189,10 @@ _ShowCountdown::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Countdown.h:41: WRTVRM(SPRATT + 14,	SPRITE_PATTERN_NUMBER_3_32X32 + 12);
-	ld	a, #0x60
+	pop	bc
+;src\/Graphics\Countdown.h:34: WRTVRM(SPRATT + 14,	pattern + 12);
+	ld	a, c
+	add	a, #0x0c
 	push	af
 	inc	sp
 	ld	hl, #0x1b0e
@@ -4211,7 +4200,7 @@ _ShowCountdown::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Countdown.h:42: WRTVRM(SPRATT + 15,	10);
+;src\/Graphics\Countdown.h:35: WRTVRM(SPRATT + 15,	10);
 	ld	a, #0x0a
 	push	af
 	inc	sp
@@ -4220,26 +4209,329 @@ _ShowCountdown::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Countdown.h:44: if(x < 128) x += 4;
-	ld	a, -7 (ix)
+;src\/Graphics\Countdown.h:36: }
+	inc	sp
+	pop	ix
+	ret
+_colors:
+	.db #0x0f	; 15
+	.db #0x0e	; 14
+	.db #0x05	; 5
+	.db #0x04	; 4
+	.db #0x04	; 4
+	.db #0x05	; 5
+	.db #0x0e	; 14
+	.db #0x0f	; 15
+;src\/Graphics\Countdown.h:38: void BlinkNumber(byte colorIndex) {
+;	---------------------------------
+; Function BlinkNumber
+; ---------------------------------
+_BlinkNumber::
+;src\/Graphics\Countdown.h:41: WRTVRM(SPRATT + 3, 	colors[colorIndex]);
+	ld	a, #<(_colors)
+	ld	hl, #2
+	add	hl, sp
+	add	a, (hl)
+	ld	c, a
+	ld	a, #>(_colors)
+	adc	a, #0x00
+	ld	b, a
+	ld	a, (bc)
+	push	bc
+	push	af
+	inc	sp
+	ld	hl, #0x1b03
+	push	hl
+	call	_WRTVRM
+	pop	af
+	inc	sp
+	pop	bc
+;src\/Graphics\Countdown.h:42: WRTVRM(SPRATT + 7, 	colors[colorIndex]);
+	ld	a, (bc)
+	push	bc
+	push	af
+	inc	sp
+	ld	hl, #0x1b07
+	push	hl
+	call	_WRTVRM
+	pop	af
+	inc	sp
+	pop	bc
+;src\/Graphics\Countdown.h:43: WRTVRM(SPRATT + 11,	colors[colorIndex]);
+	ld	a, (bc)
+	push	bc
+	push	af
+	inc	sp
+	ld	hl, #0x1b0b
+	push	hl
+	call	_WRTVRM
+	pop	af
+	inc	sp
+	pop	bc
+;src\/Graphics\Countdown.h:44: WRTVRM(SPRATT + 15, colors[colorIndex]);    
+	ld	a, (bc)
+	push	af
+	inc	sp
+	ld	hl, #0x1b0f
+	push	hl
+	call	_WRTVRM
+	pop	af
+	inc	sp
+;src\/Graphics\Countdown.h:45: }
+	ret
+;src\/Graphics\Countdown.h:47: void ShowCountdown() {
+;	---------------------------------
+; Function ShowCountdown
+; ---------------------------------
+_ShowCountdown::
+	push	ix
+	ld	ix,#0
+	add	ix,sp
+	push	af
+	push	af
+	dec	sp
+;src\/Graphics\Countdown.h:49: byte x = 128-80, y = 0, colorIndex = 0;
+	ld	c, #0x30
+	ld	-5 (ix), #0
+	ld	-2 (ix), #0
+;src\/Graphics\Countdown.h:51: while(counter++ < 240) {
+	ld	-1 (ix), #0
+00137$:
+	ld	a, -1 (ix)
+	sub	a, #0xf0
+	jp	NC, 00139$
+	inc	-1 (ix)
+;src\/Graphics\Countdown.h:61: word lastJiffy = JIFFY;
+	ld	de, (_JIFFY)
+;src\/Graphics\Countdown.h:62: while (lastJiffy == JIFFY) {
+00101$:
+	ld	hl, (_JIFFY)
+	cp	a, a
+	sbc	hl, de
+	jr	Z, 00101$
+;src\/Graphics\Countdown.h:71: if(x < 128) x += 4;
+	ld	a, c
 	sub	a, #0x80
-	jr	NC, 00105$
+	ld	a, #0x00
+	rla
+	ld	b, a
+	ld	e, c
+;src\/Graphics\Countdown.h:72: if(y < 80) y += 4;
 	ld	a, -5 (ix)
-	add	a, #0x04
-	ld	-7 (ix), a
-00105$:
-;src\/Graphics\Countdown.h:45: if(y < 80) y += 4;
-	ld	a, -6 (ix)
 	sub	a, #0x50
-	jp	NC, 00108$
-	ld	a, -3 (ix)
+	ld	a, #0x00
+	rla
+	ld	-4 (ix), a
+	ld	d, -5 (ix)
+;src\/Graphics\Countdown.h:71: if(x < 128) x += 4;
+	inc	e
+	inc	e
+	inc	e
+	inc	e
+;src\/Graphics\Countdown.h:72: if(y < 80) y += 4;
+	ld	a, d
 	add	a, #0x04
-	ld	-6 (ix), a
-	jp	00108$
-;src\/Graphics\Countdown.h:49: while(1) {}
-00112$:
-;src\/Graphics\Countdown.h:50: }
-	jr	00112$
+	ld	-3 (ix), a
+;src\/Graphics\Countdown.h:66: if(counter < 30) {
+	ld	a, -1 (ix)
+	sub	a, #0x1e
+	jr	NC, 00135$
+;src\/Graphics\Countdown.h:67: colorIndex = 0;
+	ld	-2 (ix), #0
+;src\/Graphics\Countdown.h:69: AnimateSprites(x, y, SPRITE_PATTERN_NUMBER_3_32X32);
+	push	bc
+	push	de
+	ld	a, #0x54
+	push	af
+	inc	sp
+	ld	b, -5 (ix)
+	push	bc
+	call	_AnimateSprites
+	pop	af
+	inc	sp
+	pop	de
+	pop	bc
+;src\/Graphics\Countdown.h:71: if(x < 128) x += 4;
+	ld	a, b
+	or	a, a
+	jr	Z, 00105$
+	ld	c, e
+00105$:
+;src\/Graphics\Countdown.h:72: if(y < 80) y += 4;
+	ld	a, -4 (ix)
+	or	a, a
+	jr	Z, 00137$
+	ld	a, -3 (ix)
+	ld	-5 (ix), a
+	jr	00137$
+00135$:
+;src\/Graphics\Countdown.h:74: else if(counter >= 60 && counter < 90) {
+	ld	a, -1 (ix)
+	sub	a, #0x3c
+	jr	C, 00131$
+	ld	a, -1 (ix)
+	sub	a, #0x5a
+	jr	NC, 00131$
+;src\/Graphics\Countdown.h:75: colorIndex = 0;
+	ld	-2 (ix), #0
+;src\/Graphics\Countdown.h:77: AnimateSprites(x, y, SPRITE_PATTERN_NUMBER_2_32X32);
+	push	bc
+	push	de
+	ld	a, #0x64
+	push	af
+	inc	sp
+	ld	b, -5 (ix)
+	push	bc
+	call	_AnimateSprites
+	pop	af
+	inc	sp
+	pop	de
+	pop	bc
+;src\/Graphics\Countdown.h:79: if(x < 128) x += 4;
+	ld	a, b
+	or	a, a
+	jr	Z, 00109$
+	ld	c, e
+00109$:
+;src\/Graphics\Countdown.h:80: if(y < 80) y += 4;
+	ld	a, -4 (ix)
+	or	a, a
+	jp	Z, 00137$
+	ld	a, -3 (ix)
+	ld	-5 (ix), a
+	jp	00137$
+00131$:
+;src\/Graphics\Countdown.h:82: else if(counter >= 120 && counter < 150) {
+	ld	a, -1 (ix)
+	sub	a, #0x78
+	jr	C, 00127$
+	ld	a, -1 (ix)
+	sub	a, #0x96
+	jr	NC, 00127$
+;src\/Graphics\Countdown.h:83: colorIndex = 0;
+	ld	-2 (ix), #0
+;src\/Graphics\Countdown.h:85: AnimateSprites(x, y, SPRITE_PATTERN_NUMBER_1_32X32);
+	push	bc
+	push	de
+	ld	a, #0x74
+	push	af
+	inc	sp
+	ld	b, -5 (ix)
+	push	bc
+	call	_AnimateSprites
+	pop	af
+	inc	sp
+	pop	de
+	pop	bc
+;src\/Graphics\Countdown.h:87: if(x < 128) x += 4;
+	ld	a, b
+	or	a, a
+	jr	Z, 00113$
+	ld	c, e
+00113$:
+;src\/Graphics\Countdown.h:88: if(y < 80) y += 4;
+	ld	a, -4 (ix)
+	or	a, a
+	jp	Z, 00137$
+	ld	a, -3 (ix)
+	ld	-5 (ix), a
+	jp	00137$
+00127$:
+;src\/Graphics\Countdown.h:90: else if(counter >= 180 && counter < 210) {
+	ld	a, -1 (ix)
+	sub	a, #0xb4
+	jr	C, 00123$
+	ld	a, -1 (ix)
+	sub	a, #0xd2
+	jr	NC, 00123$
+;src\/Graphics\Countdown.h:91: colorIndex = 0;
+	ld	-2 (ix), #0
+;src\/Graphics\Countdown.h:93: AnimateSprites(x, y, SPRITE_PATTERN_GO_32X32);
+	push	bc
+	push	de
+	ld	a, #0x84
+	push	af
+	inc	sp
+	ld	b, -5 (ix)
+	push	bc
+	call	_AnimateSprites
+	pop	af
+	inc	sp
+	pop	de
+	pop	bc
+;src\/Graphics\Countdown.h:95: if(x < 128) x += 4;
+	ld	a, b
+	or	a, a
+	jr	Z, 00117$
+	ld	c, e
+00117$:
+;src\/Graphics\Countdown.h:96: if(y < 80) y += 4;
+	ld	a, -4 (ix)
+	or	a, a
+	jp	Z, 00137$
+	ld	a, -3 (ix)
+	ld	-5 (ix), a
+	jp	00137$
+00123$:
+;src\/Graphics\Countdown.h:99: x = 128-80;
+	ld	c, #0x30
+;src\/Graphics\Countdown.h:100: y = 0;
+	ld	-5 (ix), #0
+;src\/Graphics\Countdown.h:102: BlinkNumber(colorIndex);
+	push	bc
+	ld	a, -2 (ix)
+	push	af
+	inc	sp
+	call	_BlinkNumber
+	inc	sp
+	pop	bc
+;src\/Graphics\Countdown.h:104: colorIndex++;
+	inc	-2 (ix)
+;src\/Graphics\Countdown.h:105: if(colorIndex >= sizeof(colors)) colorIndex = 0;
+	ld	a, -2 (ix)
+	sub	a, #0x08
+	jp	C, 00137$
+	ld	-2 (ix), #0
+	jp	00137$
+00139$:
+;src\/Graphics\Countdown.h:110: WRTVRM(SPRATT, 	        192);
+	ld	a, #0xc0
+	push	af
+	inc	sp
+	ld	hl, #0x1b00
+	push	hl
+	call	_WRTVRM
+	pop	af
+	inc	sp
+;src\/Graphics\Countdown.h:111: WRTVRM(SPRATT + 4, 	    192);
+	ld	a, #0xc0
+	push	af
+	inc	sp
+	ld	hl, #0x1b04
+	push	hl
+	call	_WRTVRM
+	pop	af
+	inc	sp
+;src\/Graphics\Countdown.h:112: WRTVRM(SPRATT + 8, 	    192);
+	ld	a, #0xc0
+	push	af
+	inc	sp
+	ld	hl, #0x1b08
+	push	hl
+	call	_WRTVRM
+	pop	af
+	inc	sp
+;src\/Graphics\Countdown.h:113: WRTVRM(SPRATT + 12,	    192);
+	ld	a, #0xc0
+	push	af
+	inc	sp
+	ld	hl, #0x1b0c
+	push	hl
+	call	_WRTVRM
+;src\/Graphics\Countdown.h:114: }
+	ld	sp,ix
+	pop	ix
+	ret
 ;src\/Graphics\Graphics.h:1: void DrawChar(byte character, byte col, byte line) {
 ;	---------------------------------
 ; Function DrawChar
@@ -5421,7 +5713,7 @@ _InitVRAM::
 	pop	af
 ;src\/Graphics\Graphics.h:321: LDIRVM(SPRPAT, sprite_arrow_0, NUMBER_OF_SPRITES * 32);
 	inc	sp
-	ld	hl,#0x0380
+	ld	hl,#0x04a0
 	ex	(sp),hl
 	ld	hl, #_sprite_arrow_0
 	push	hl
@@ -8345,10 +8637,10 @@ _InitGame::
 	call	_DrawPlayfield
 ;src\/GameLogic.h:364: DrawScore();
 	call	_DrawScore
-;src\/GameLogic.h:366: DrawNextPiece();
-	call	_DrawNextPiece
-;src\/GameLogic.h:368: ShowCountdown();
+;src\/GameLogic.h:366: ShowCountdown();
 	call	_ShowCountdown
+;src\/GameLogic.h:368: DrawNextPiece();
+	call	_DrawNextPiece
 ;src\/GameLogic.h:370: GameLoop();
 ;src\/GameLogic.h:371: }
 	jp	_GameLoop
@@ -8680,7 +8972,7 @@ _TitleScreen::
 	call	_InitVRAM
 	ld	hl, #0x0100
 	push	hl
-	ld	hl, #_TitleScreen_title_65536_284
+	ld	hl, #_TitleScreen_title_65536_292
 	push	hl
 	ld	hl, #0x1800
 	push	hl
@@ -8922,7 +9214,7 @@ _TitleScreen::
 	ld	sp, ix
 	pop	ix
 	ret
-_TitleScreen_title_65536_284:
+_TitleScreen_title_65536_292:
 	.db #0x00	; 0
 	.db #0x00	; 0
 	.db #0x00	; 0

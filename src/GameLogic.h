@@ -363,9 +363,9 @@ void InitGame() {
   
   DrawScore();
 
-  DrawNextPiece();
-  
   ShowCountdown();
+
+  DrawNextPiece();
 
   GameLoop();
 }

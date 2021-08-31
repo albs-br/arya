@@ -1,5 +1,5 @@
 
-#define NUMBER_OF_SPRITES		28                  // number of 16x16 sprites (max 64)
+#define NUMBER_OF_SPRITES		37                  // number of 16x16 sprites (max 64)
 
 
 // sprite numbers on sprite patterns table (each sprite uses 4 8x8 patterns, so the numbers increment by 4)
@@ -11,9 +11,9 @@
 #define SPRITE_PATTERN_EXPLOSION  44
 #define SPRITE_PATTERN_SMALL_BLOCK      76
 #define SPRITE_PATTERN_NUMBER_3_32X32   84
-#define SPRITE_PATTERN_NUMBER_2_32X32   88
-#define SPRITE_PATTERN_NUMBER_1_32X32   92
-#define SPRITE_PATTERN_GO_32X32         96
+#define SPRITE_PATTERN_NUMBER_2_32X32   100
+#define SPRITE_PATTERN_NUMBER_1_32X32   116
+#define SPRITE_PATTERN_GO_32X32         132
 
 
 
