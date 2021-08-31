@@ -108,9 +108,9 @@ byte speed, rndSeed = 0;
 
 void main() {
   
+  Intro();
+
   while(TRUE) {
-    
-    Intro();
     
     TitleScreen();
 

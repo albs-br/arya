@@ -10149,21 +10149,21 @@
       0032CB                      10133 ___str_16:
       0032CB 76 2E 31 2E 30 2E 30 10134 	.ascii "v.1.0.0"
       0032D2 00                   10135 	.db 0x00
-                                  10136 ;src\main.c:106: void main() {
+                                  10136 ;src\main.c:109: void main() {
                                   10137 ;	---------------------------------
                                   10138 ; Function main
                                   10139 ; ---------------------------------
       0032D3                      10140 _main::
-                                  10141 ;src\main.c:108: while(TRUE) {
-      0032D3                      10142 00102$:
-                                  10143 ;src\main.c:110: Intro();
-      0032D3 CDrC4r2E         [17]10144 	call	_Intro
-                                  10145 ;src\main.c:112: TitleScreen();
+                                  10141 ;src\main.c:111: Intro();
+      0032D3 CDrC4r2E         [17]10142 	call	_Intro
+                                  10143 ;src\main.c:113: while(TRUE) {
+      0032D6                      10144 00102$:
+                                  10145 ;src\main.c:115: TitleScreen();
       0032D6 CDrB8r2F         [17]10146 	call	_TitleScreen
-                                  10147 ;src\main.c:114: InitGame();
+                                  10147 ;src\main.c:117: InitGame();
       0032D9 CDr23r2D         [17]10148 	call	_InitGame
-                                  10149 ;src\main.c:117: }
-      0032DC 18 F5            [12]10150 	jr	00102$
+                                  10149 ;src\main.c:120: }
+      0032DC 18 F8            [12]10150 	jr	00102$
                                   10151 	.area _CODE
                                   10152 	.area _INITIALIZER
       000000                      10153 __xinit__gameOver:

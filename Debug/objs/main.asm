@@ -10133,20 +10133,20 @@ ___str_15:
 ___str_16:
 	.ascii "v.1.0.0"
 	.db 0x00
-;src\main.c:106: void main() {
+;src\main.c:109: void main() {
 ;	---------------------------------
 ; Function main
 ; ---------------------------------
 _main::
-;src\main.c:108: while(TRUE) {
-00102$:
-;src\main.c:110: Intro();
+;src\main.c:111: Intro();
 	call	_Intro
-;src\main.c:112: TitleScreen();
+;src\main.c:113: while(TRUE) {
+00102$:
+;src\main.c:115: TitleScreen();
 	call	_TitleScreen
-;src\main.c:114: InitGame();
+;src\main.c:117: InitGame();
 	call	_InitGame
-;src\main.c:117: }
+;src\main.c:120: }
 	jr	00102$
 	.area _CODE
 	.area _INITIALIZER
