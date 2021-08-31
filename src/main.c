@@ -1,3 +1,21 @@
+/*
+
+Arya for MSX computers (any generation)
+
+By Andre Baptista
+
+Jul/Ago 2021
+
+Acknowdgements:
+
+ - 8 Bit Workshop
+ - Danilo Angelo (MSX Templates)
+ - MSX Resource Center
+ - MSX Dev
+ - MSX Community overall
+
+*/
+
 
 #include <ctype.h>
 #include <stdio.h>
@@ -92,9 +110,9 @@ void main() {
   
   while(TRUE) {
     
-    //Intro();
+    Intro();
     
-    //TitleScreen();
+    TitleScreen();
 
     InitGame();
     

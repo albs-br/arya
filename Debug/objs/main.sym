@@ -21,7 +21,7 @@ Symbol Table
     _CRTCNT                                                     =  00F3B1 G
     _CSRX                                                       =  00F3DD G
     _CSRY                                                       =  00F3DC G
-  0 _ChangeFontColor                                               002DC6 GR
+  0 _ChangeFontColor                                               002DC3 GR
   0 _CheckPlayfield                                                002040 GR
     _DISSCR                                                        ****** GX
   0 _DrawArrowSprite                                               0000ED GR
@@ -43,6 +43,7 @@ Symbol Table
     _FILVRM                                                        ****** GX
   0 _FONT                                                          000178 GR
     _FORCLR                                                     =  00F3E9 G
+  0 _FadeOut                                                       002DD9 GR
     _GETPNT                                                     =  00F3FA G
     _GICINI                                                        ****** GX
     _GTSTCK                                                        ****** GX
@@ -57,13 +58,13 @@ Symbol Table
     _INIGRP                                                        ****** GX
   0 _InitGame                                                      002D23 GR
   0 _InitRnd                                                       000050 GR
-  0 _InitVRAM                                                      001C55 GR
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 2.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
-  0 _Intro                                                         002E63 GR
+  0 _InitVRAM                                                      001C55 GR
+  0 _Intro                                                         002EC4 GR
     _JIFFY                                                      =  00FC9E G
     _LDIRVM                                                        ****** GX
     _LINL32                                                     =  00F3AF G
@@ -93,15 +94,14 @@ Symbol Table
     _SCNCNT                                                     =  00F3F6 G
     _SNSMAT                                                        ****** GX
     _STATFL                                                     =  00F3E7 G
-  0 _ScrollDownFont                                                002E06 GR
-  0 _SetBlock                                                      002EF1 GR
+  0 _SetBlock                                                      002F8D GR
   0 _ShowCountdown                                                 001110 GR
   0 _SoundFx_1                                                     00201F GR
   0 _SoundFx_2                                                     001FE0 GR
     _TRGFLG                                                     =  00F3E8 G
   0 _TestCase                                                      002CD4 GR
-  0 _TitleScreen                                                   002F1C GR
-  0 _TitleScreen_title_65536_296                                   003103 R
+  0 _TitleScreen                                                   002FB8 GR
+  0 _TitleScreen_title_65536_295                                   00319F R
   0 _UpdateAndDrawPieceStatic                                      0027FF GR
     _WRTPSG                                                        ****** GX
     _WRTVDP                                                        ****** GX
@@ -109,22 +109,26 @@ Symbol Table
   0 _Wait                                                          000000 GR
   0 ___str_0                                                       0013A1 R
   0 ___str_1                                                       001C0C R
-  0 ___str_10                                                      003203 R
-  0 ___str_11                                                      00321A R
-  0 ___str_12                                                      00322F R
+  0 ___str_10                                                      002F4F R
+  0 ___str_11                                                      002F5A R
+  0 ___str_12                                                      002F6B R
+  0 ___str_13                                                      002F7C R
+  0 ___str_14                                                      00329F R
+  0 ___str_15                                                      0032B6 R
+  0 ___str_16                                                      0032CB R
   0 ___str_2                                                       001C13 R
   0 ___str_3                                                       001C1A R
-  0 ___str_4                                                       001C1F R
-  0 ___str_5                                                       0028B4 R
-  0 ___str_6                                                       0028F4 R
-  0 ___str_7                                                       002CCA R
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 3.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
-  0 ___str_8                                                       002ED8 R
-  0 ___str_9                                                       002EE2 R
+  0 ___str_4                                                       001C1F R
+  0 ___str_5                                                       0028B4 R
+  0 ___str_6                                                       0028F4 R
+  0 ___str_7                                                       002CCA R
+  0 ___str_8                                                       002F33 R
+  0 ___str_9                                                       002F3E R
     __divuint                                                      ****** GX
     __moduint                                                      ****** GX
     __mulint                                                       ****** GX
@@ -174,15 +178,15 @@ Symbol Table
   0 _color_column_17                                               000718 R
   0 _color_column_18                                               000720 R
   0 _color_column_2                                                0006B8 R
-  0 _color_column_3                                                0006C0 R
-  0 _color_column_4                                                0006C8 R
-  0 _color_column_5                                                0006D0 R
-  0 _color_column_6                                                0006D8 R
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 4.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
+  0 _color_column_3                                                0006C0 R
+  0 _color_column_4                                                0006C8 R
+  0 _color_column_5                                                0006D0 R
+  0 _color_column_6                                                0006D8 R
   0 _color_column_7                                                0006E0 R
   0 _color_column_8                                                0006E8 R
   0 _color_column_9                                                0006F0 R
@@ -204,7 +208,7 @@ Symbol Table
   2 _gameOver                                                      000000 GR
   2 _level                                                         000006 GR
   2 _line                                                          000002 GR
-  0 _main                                                          003237 GR
+  0 _main                                                          0032D3 GR
   1 _midPiece                                                      000091 GR
   2 _newLevel                                                      000007 GR
   1 _nextBottomPiece                                               000095 GR
@@ -234,15 +238,15 @@ Symbol Table
   0 _pattern_26                                                    000568 R
   0 _pattern_27                                                    000570 R
   0 _pattern_28                                                    000578 R
-  0 _pattern_29                                                    000580 R
-  0 _pattern_3                                                     0004B0 R
-  0 _pattern_30                                                    000588 R
-  0 _pattern_31                                                    000590 R
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 5.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
+  0 _pattern_29                                                    000580 R
+  0 _pattern_3                                                     0004B0 R
+  0 _pattern_30                                                    000588 R
+  0 _pattern_31                                                    000590 R
   0 _pattern_32                                                    0005B0 R
   0 _pattern_33                                                    0005B8 R
   0 _pattern_34                                                    0005C0 R
@@ -294,23 +298,22 @@ Symbol Table
   0 _sprite_hit_1                                                  0007C8 R
   0 _sprite_hit_2                                                  0007E8 R
   0 _sprite_mega_hit                                               0008E8 R
-  0 _sprite_number_1_32x32                                         000B48 R
-  0 _sprite_number_2_32x32                                         000AC8 R
-  0 _sprite_number_3_32x32                                         000A48 R
-  1 _topPiece                                                      000090 GR
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 6.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
-
+  0 _sprite_number_1_32x32                                         000B48 R
+  0 _sprite_number_2_32x32                                         000AC8 R
+  0 _sprite_number_3_32x32                                         000A48 R
+  1 _topPiece                                                      000090 GR
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 7.
 Hexadecimal [24-Bits]
 
 Area Table
 
-   0 _CODE                                      size   323C   flags    0
+   0 _CODE                                      size   32DE   flags    0
    1 _DATA                                      size     9D   flags    0
    2 _INITIALIZED                               size      9   flags    0
    3 _DABS                                      size      0   flags    8

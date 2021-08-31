@@ -353,7 +353,7 @@ void InitGame() {
   }
   
   // Testing code
-  TestCase();
+  //TestCase();
 
   //newLevel = TRUE;  //test
   

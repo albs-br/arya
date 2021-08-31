@@ -12,7 +12,7 @@
 	.globl _TitleScreen
 	.globl _SetBlock
 	.globl _Intro
-	.globl _ScrollDownFont
+	.globl _FadeOut
 	.globl _ChangeFontColor
 	.globl _InitGame
 	.globl _TestCase
@@ -9231,8 +9231,6 @@ _InitGame::
 	inc	c
 	jr	00107$
 00102$:
-;src\/GameLogic.h:356: TestCase();
-	call	_TestCase
 ;src\/GameLogic.h:360: DrawBackground();
 	call	_DrawBackground
 ;src\/GameLogic.h:362: DrawPlayfield();
@@ -9246,26 +9244,12 @@ _InitGame::
 ;src\/GameLogic.h:370: GameLoop();
 ;src\/GameLogic.h:371: }
 	jp	_GameLoop
-;src\/Intro.h:3: void ChangeFontColor(byte color) {
+;src\/Intro.h:1: void ChangeFontColor(byte color) {
 ;	---------------------------------
 ; Function ChangeFontColor
 ; ---------------------------------
 _ChangeFontColor::
-;src\/Intro.h:4: FILVRM(CLRTBL + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, color);
-	ld	hl, #2
-	add	hl, sp
-	ld	a, (hl)
-	push	af
-	inc	sp
-	ld	hl, #0x0300
-	push	hl
-	ld	hl, #0x2178
-	push	hl
-	call	_FILVRM
-	pop	af
-	pop	af
-	inc	sp
-;src\/Intro.h:5: FILVRM(CLRTBL + (256 * 8) + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, color);
+;src\/Intro.h:3: FILVRM(CLRTBL + (256 * 8) + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, color);
 	ld	hl, #2
 	add	hl, sp
 	ld	a, (hl)
@@ -9279,107 +9263,185 @@ _ChangeFontColor::
 	pop	af
 	pop	af
 	inc	sp
-;src\/Intro.h:6: FILVRM(CLRTBL + (512 * 8) + (NUMBER_OF_PATTERNS * 8), (HICHAR - LOCHAR + 1) * 8, color);
-	ld	hl, #2
+;src\/Intro.h:5: }
+	ret
+;src\/Intro.h:33: void FadeOut() {
+;	---------------------------------
+; Function FadeOut
+; ---------------------------------
+_FadeOut::
+	dec	sp
+;src\/Intro.h:38: ChangeFontColor(0x40);
+	ld	a, #0x40
+	push	af
+	inc	sp
+	call	_ChangeFontColor
+	inc	sp
+;src\/Intro.h:45: while(counter++ < 105) {
+	xor	a, a
+	ld	iy, #0
+	add	iy, sp
+	ld	0 (iy), a
+00121$:
+	ld	iy, #0
+	add	iy, sp
+	ld	a, 0 (iy)
+	sub	a, #0x69
+	jp	NC, 00123$
+	inc	0 (iy)
+;src\/Intro.h:46: byte lastJiffy = JIFFY;
+	ld	hl, #_JIFFY
+	ld	c, (hl)
+;src\/Intro.h:47: while (JIFFY == lastJiffy) {
+00101$:
+	ld	e, c
+	ld	d, #0x00
+	ld	hl, (_JIFFY)
+	cp	a, a
+	sbc	hl, de
+	jr	Z, 00101$
+;src\/Intro.h:50: if(counter == 90) {
+	ld	hl, #0
 	add	hl, sp
 	ld	a, (hl)
+	sub	a, #0x5a
+	jr	NZ, 00119$
+;src\/Intro.h:51: ChangeFontColor(0x40);
+	ld	a, #0x40
 	push	af
 	inc	sp
-	ld	hl, #0x0300
-	push	hl
-	ld	hl, #0x3178
-	push	hl
-	call	_FILVRM
-	pop	af
-	pop	af
+	call	_ChangeFontColor
 	inc	sp
-;src\/Intro.h:7: }
-	ret
-;src\/Intro.h:9: void ScrollDownFont() {
-;	---------------------------------
-; Function ScrollDownFont
-; ---------------------------------
-_ScrollDownFont::
-	push	ix
-	ld	ix,#0
-	add	ix,sp
+;src\/Intro.h:52: Wait(5);
+	ld	hl, #0x0005
+	push	hl
+	call	_Wait
+	pop	af
+	jr	00121$
+00119$:
+;src\/Intro.h:54: else if(counter == 75) {
+	ld	hl, #0
+	add	hl, sp
+	ld	a, (hl)
+	sub	a, #0x4b
+	jr	NZ, 00116$
+;src\/Intro.h:55: ChangeFontColor(0x50);
+	ld	a, #0x50
 	push	af
-;src\/Intro.h:25: for(word i=startVRAMAddr; i < (startVRAMAddr + size); i+=8) {
-	ld	de, #0x0978
+	inc	sp
+	call	_ChangeFontColor
+	inc	sp
+;src\/Intro.h:56: Wait(5);
+	ld	hl, #0x0005
+	push	hl
+	call	_Wait
+	pop	af
+	jr	00121$
+00116$:
+;src\/Intro.h:58: else if(counter == 60) {
+	ld	hl, #0
+	add	hl, sp
+	ld	a, (hl)
+	sub	a, #0x3c
+	jr	NZ, 00113$
+;src\/Intro.h:59: ChangeFontColor(0xe0);
+	ld	a, #0xe0
+	push	af
+	inc	sp
+	call	_ChangeFontColor
+	inc	sp
+;src\/Intro.h:60: Wait(5);
+	ld	hl, #0x0005
+	push	hl
+	call	_Wait
+	pop	af
+	jr	00121$
+00113$:
+;src\/Intro.h:62: else if(counter == 45) {
+	ld	hl, #0
+	add	hl, sp
+	ld	a, (hl)
+	sub	a, #0x2d
+	jr	NZ, 00110$
+;src\/Intro.h:63: ChangeFontColor(0xf0);
+	ld	a, #0xf0
+	push	af
+	inc	sp
+	call	_ChangeFontColor
+	inc	sp
+;src\/Intro.h:64: Wait(180);
+	ld	hl, #0x00b4
+	push	hl
+	call	_Wait
+	pop	af
+	jp	00121$
+00110$:
+;src\/Intro.h:66: else if(counter == 30) {
+	ld	hl, #0
+	add	hl, sp
+	ld	a, (hl)
+	sub	a, #0x1e
+	jr	NZ, 00107$
+;src\/Intro.h:67: ChangeFontColor(0xe0);
+	ld	a, #0xe0
+	push	af
+	inc	sp
+	call	_ChangeFontColor
+	inc	sp
+;src\/Intro.h:68: Wait(5);
+	ld	hl, #0x0005
+	push	hl
+	call	_Wait
+	pop	af
+	jp	00121$
 00107$:
-	ld	a, e
-	sub	a, #0x78
-	ld	a, d
-	sbc	a, #0x0c
-	jr	NC, 00109$
-;src\/Intro.h:26: for(word j=i+7; j>0; j--) {
-	inc	sp
-	inc	sp
-	push	de
-	ld	a, -2 (ix)
-	add	a, #0x07
-	ld	c, a
-	ld	a, -1 (ix)
-	adc	a, #0x00
-	ld	b, a
-00104$:
-	ld	a, b
-	or	a, c
-	jr	Z, 00101$
-;src\/Intro.h:27: value = RDVRM(j-1);
-	ld	l, c
-	ld	h, b
-	dec	hl
-	push	bc
-	push	de
-	call	_RDVRM
-	pop	de
-	pop	bc
-;src\/Intro.h:29: WRTVRM(j, 0);
-	push	bc
-	push	de
-	xor	a, a
+;src\/Intro.h:70: else if(counter == 15) {
+	ld	hl, #0
+	add	hl, sp
+	ld	a, (hl)
+	sub	a, #0x0f
+	jp	NZ,00121$
+;src\/Intro.h:72: ChangeFontColor(0x50);
+	ld	a, #0x50
 	push	af
 	inc	sp
-	push	bc
-	call	_WRTVRM
-	pop	af
+	call	_ChangeFontColor
 	inc	sp
-	pop	de
-	pop	bc
-;src\/Intro.h:26: for(word j=i+7; j>0; j--) {
-	dec	bc
-	jr	00104$
-00101$:
-;src\/Intro.h:31: WRTVRM(i, 0);
-	xor	a, a
+;src\/Intro.h:73: Wait(5);
+	ld	hl, #0x0005
+	push	hl
+	call	_Wait
+	pop	af
+	jp	00121$
+00123$:
+;src\/Intro.h:77: ChangeFontColor(0x10); // Hide text
+	ld	a, #0x10
 	push	af
 	inc	sp
-	push	de
-	call	_WRTVRM
-	pop	af
+	call	_ChangeFontColor
 	inc	sp
-;src\/Intro.h:25: for(word i=startVRAMAddr; i < (startVRAMAddr + size); i+=8) {
-	ld	a, -2 (ix)
-	add	a, #0x08
-	ld	e, a
-	ld	a, -1 (ix)
-	adc	a, #0x00
-	ld	d, a
-	jr	00107$
-00109$:
-;src\/Intro.h:35: }
-	ld	sp, ix
-	pop	ix
+;src\/Intro.h:78: Wait(60);
+	ld	hl, #0x003c
+	push	hl
+	call	_Wait
+	pop	af
+;src\/Intro.h:80: }
+	inc	sp
 	ret
-;src\/Intro.h:37: void Intro() {
+;src\/Intro.h:82: void Intro() {
 ;	---------------------------------
 ; Function Intro
 ; ---------------------------------
 _Intro::
-;src\/Intro.h:41: InitVRAM();
+;src\/Intro.h:84: InitVRAM();
 	call	_InitVRAM
-;src\/Intro.h:43: DrawString("A GAME BY", 11, 11);
+;src\/Intro.h:86: ChangeFontColor(0x10); // Hide text
+	ld	a, #0x10
+	push	af
+	inc	sp
+	call	_ChangeFontColor
+	inc	sp
+;src\/Intro.h:88: DrawString("A game by ", 11, 11);
 	ld	de, #0x0b0b
 	push	de
 	ld	hl, #___str_8
@@ -9387,89 +9449,78 @@ _Intro::
 	call	_DrawString
 	pop	af
 	pop	af
-;src\/Intro.h:44: DrawString("ANDRE BAPTISTA", 9, 13);
+;src\/Intro.h:89: DrawString("ANDRE BAPTISTA  ", 9, 13);
 	ld	de, #0x0d09
 	push	de
 	ld	hl, #___str_9
 	push	hl
 	call	_DrawString
 	pop	af
-;src\/Intro.h:51: ChangeFontColor(0xf0);
-	ld	h,#0xf0
-	ex	(sp),hl
-	inc	sp
-	call	_ChangeFontColor
-	inc	sp
-;src\/Intro.h:56: Wait(2 * 60);
-	ld	hl, #0x0078
-	push	hl
-	call	_Wait
 	pop	af
-;src\/Intro.h:58: while(counter++ < 20) {
-	ld	c, #0x00
-00112$:
-	ld	a, c
-	sub	a, #0x14
-	ret	NC
-	inc	c
-;src\/Intro.h:59: byte lastJiffy = JIFFY;
-	ld	hl, #_JIFFY
-	ld	b, (hl)
-;src\/Intro.h:60: while (JIFFY == lastJiffy) {
-00101$:
-	ld	e, b
-	ld	d, #0x00
-	ld	hl, (_JIFFY)
-	cp	a, a
-	sbc	hl, de
-	jr	Z, 00101$
-;src\/Intro.h:63: if(counter == 15) {
-	ld	a, c
-	sub	a, #0x0f
-	jr	NZ, 00110$
-;src\/Intro.h:64: ChangeFontColor(0x40);
-	push	bc
-	ld	a, #0x40
-	push	af
-	inc	sp
-	call	_ChangeFontColor
-	inc	sp
-	pop	bc
-	jr	00112$
-00110$:
-;src\/Intro.h:66: else if(counter == 10) {
-	ld	a, c
-	sub	a, #0x0a
-	jr	NZ, 00107$
-;src\/Intro.h:67: ChangeFontColor(0x50);
-	push	bc
-	ld	a, #0x50
-	push	af
-	inc	sp
-	call	_ChangeFontColor
-	inc	sp
-	pop	bc
-	jr	00112$
-00107$:
-;src\/Intro.h:69: else if(counter == 5) {
-	ld	a, c
-	sub	a, #0x05
-	jr	NZ, 00112$
-;src\/Intro.h:71: ChangeFontColor(0xe0);
-	push	bc
-	ld	a, #0xe0
-	push	af
-	inc	sp
-	call	_ChangeFontColor
-	inc	sp
-	pop	bc
-;src\/Intro.h:140: }
-	jr	00112$
+;src\/Intro.h:90: FadeOut();
+	call	_FadeOut
+;src\/Intro.h:92: DrawString("Powered by", 11, 11);
+	ld	de, #0x0b0b
+	push	de
+	ld	hl, #___str_10
+	push	hl
+	call	_DrawString
+	pop	af
+	pop	af
+;src\/Intro.h:93: DrawString("8 BIT WORKSHOP  ", 9, 13);
+	ld	de, #0x0d09
+	push	de
+	ld	hl, #___str_11
+	push	hl
+	call	_DrawString
+	pop	af
+	pop	af
+;src\/Intro.h:94: FadeOut();
+	call	_FadeOut
+;src\/Intro.h:96: DrawString("Powered by", 11, 11);
+	ld	de, #0x0b0b
+	push	de
+	ld	hl, #___str_10
+	push	hl
+	call	_DrawString
+	pop	af
+	pop	af
+;src\/Intro.h:97: DrawString(" MSX TEMPLATES  ", 9, 13);
+	ld	de, #0x0d09
+	push	de
+	ld	hl, #___str_12
+	push	hl
+	call	_DrawString
+	pop	af
+	pop	af
+;src\/Intro.h:98: DrawString("by DANILO ANGELO", 8, 15);
+	ld	de, #0x0f08
+	push	de
+	ld	hl, #___str_13
+	push	hl
+	call	_DrawString
+	pop	af
+	pop	af
+;src\/Intro.h:99: FadeOut();
+;src\/Intro.h:105: }
+	jp	_FadeOut
 ___str_8:
-	.ascii "A GAME BY"
+	.ascii "A game by "
 	.db 0x00
 ___str_9:
-	.ascii "ANDRE BAPTISTA"
+	.ascii "ANDRE BAPTISTA  "
+	.db 0x00
+___str_10:
+	.ascii "Powered by"
+	.db 0x00
+___str_11:
+	.ascii "8 BIT WORKSHOP  "
+	.db 0x00
+___str_12:
+	.ascii " MSX TEMPLATES  "
+	.db 0x00
+___str_13:
+	.ascii "by DANILO ANGELO"
 	.db 0x00
 ;src\/Title.h:14: void SetBlock(byte col, byte line, byte tileNumber) {
 ;	---------------------------------
@@ -9517,7 +9568,7 @@ _TitleScreen::
 	ld	sp, hl
 ;src\/Title.h:19: byte colorIndex = 0;
 	ld	c, #0x00
-;src\/Title.h:52: const char blocks[] = {
+;src\/Title.h:34: const char blocks[] = {
 	ld	hl, #0
 	add	hl, sp
 	ex	de, hl
@@ -9547,7 +9598,7 @@ _TitleScreen::
 	ld	hl, #0x0006
 	add	hl, de
 	ld	(hl), #0x94
-;src\/Title.h:62: const char colors[] = { A, C, E, G }; // last item will be ignored
+;src\/Title.h:44: const char colors[] = { A, C, E, G }; // last item will be ignored
 	ld	hl, #7
 	add	hl, sp
 	ld	-10 (ix), l
@@ -9568,13 +9619,13 @@ _TitleScreen::
 	inc	hl
 	inc	hl
 	ld	(hl), #0x94
-;src\/Title.h:65: InitVRAM();
+;src\/Title.h:47: InitVRAM();
 	push	bc
 	push	de
 	call	_InitVRAM
 	ld	hl, #0x0100
 	push	hl
-	ld	hl, #_TitleScreen_title_65536_296
+	ld	hl, #_TitleScreen_title_65536_295
 	push	hl
 	ld	hl, #0x1800
 	push	hl
@@ -9584,7 +9635,7 @@ _TitleScreen::
 	ld	sp, hl
 	ld	de, #0x0d05
 	push	de
-	ld	hl, #___str_10
+	ld	hl, #___str_14
 	push	hl
 	call	_DrawString
 	pop	af
@@ -9594,38 +9645,38 @@ _TitleScreen::
 	xor	a, a
 	push	af
 	inc	sp
-	ld	hl, #___str_11
+	ld	hl, #___str_15
 	push	hl
 	call	_DrawString
 	pop	af
 	pop	af
 	ld	de, #0x1719
 	push	de
-	ld	hl, #___str_12
+	ld	hl, #___str_16
 	push	hl
 	call	_DrawString
 	pop	af
 	pop	af
 	pop	de
 	pop	bc
-;src\/Title.h:73: while(TRUE) {
+;src\/Title.h:55: while(TRUE) {
 00120$:
-;src\/Title.h:74: byte index = 0, col_1, line_1; //, col_2, line_2, col_3, line_3;
+;src\/Title.h:56: byte index = 0, col_1, line_1; //, col_2, line_2, col_3, line_3;
 	ld	-3 (ix), #0
-;src\/Title.h:78: word counter = 0;
+;src\/Title.h:60: word counter = 0;
 	xor	a, a
 	ld	-2 (ix), a
 	ld	-1 (ix), a
-;src\/Title.h:88: do {
+;src\/Title.h:70: do {
 00106$:
-;src\/Title.h:95: col_1 = GetRandomInInterval(31, 0b00011111);
+;src\/Title.h:77: col_1 = GetRandomInInterval(31, 0b00011111);
 	push	bc
 	push	de
 	ld	de, #0x1f1f
 	push	de
 	call	_GetRandomInInterval
 	pop	af
-;src\/Title.h:96: line_1 = GetRandomInInterval(7, 0b00000111);
+;src\/Title.h:78: line_1 = GetRandomInInterval(7, 0b00000111);
 	ld	-8 (ix), l
 	ld	de, #0x0707
 	push	de
@@ -9634,7 +9685,7 @@ _TitleScreen::
 	pop	de
 	pop	bc
 	ld	-7 (ix), l
-;src\/Title.h:99: value = RDVRM(NAMTBL + col_1 + (line_1 * 32));
+;src\/Title.h:81: value = RDVRM(NAMTBL + col_1 + (line_1 * 32));
 	ld	l, -8 (ix)
 	ld	a, #0x00
 	add	a, #0x18
@@ -9662,7 +9713,7 @@ _TitleScreen::
 	pop	de
 	pop	bc
 	ld	-6 (ix), l
-;src\/Title.h:102: if(counter++ > 1000) {
+;src\/Title.h:84: if(counter++ > 1000) {
 	ld	b, -2 (ix)
 	ld	l, -1 (ix)
 	inc	-2 (ix)
@@ -9674,20 +9725,20 @@ _TitleScreen::
 	ld	a, #0x03
 	sbc	a, l
 	jr	NC, 00107$
-;src\/Title.h:103: colorIndex++;
+;src\/Title.h:85: colorIndex++;
 	inc	c
-;src\/Title.h:104: if(colorIndex >= sizeof(colors) - 1) colorIndex = 0;
+;src\/Title.h:86: if(colorIndex >= sizeof(colors) - 1) colorIndex = 0;
 	ld	a, c
 	sub	a, #0x03
 	jr	C, 00102$
 	ld	c, #0x00
 00102$:
-;src\/Title.h:119: counter = 0;
+;src\/Title.h:101: counter = 0;
 	xor	a, a
 	ld	-2 (ix), a
 	ld	-1 (ix), a
 00107$:
-;src\/Title.h:122: while (value == EMPTY || value == colors[colorIndex + 1]);
+;src\/Title.h:104: while (value == EMPTY || value == colors[colorIndex + 1]);
 	ld	a, -6 (ix)
 	or	a, a
 	jr	Z, 00106$
@@ -9709,17 +9760,17 @@ _TitleScreen::
 	ld	a, -6 (ix)
 	sub	a, b
 	jp	Z,00106$
-;src\/Title.h:138: for(byte i=0; i < 10 + 0; i++) {
+;src\/Title.h:120: for(byte i=0; i < 10 + 0; i++) {
 	ld	b, #0x00
 00123$:
 	ld	a, b
 	sub	a, #0x0a
 	jr	NC, 00118$
-;src\/Title.h:140: word lastJiffy = JIFFY;
+;src\/Title.h:122: word lastJiffy = JIFFY;
 	ld	hl, (_JIFFY)
 	ld	-2 (ix), l
 	ld	-1 (ix), h
-;src\/Title.h:141: while (JIFFY == lastJiffy) {
+;src\/Title.h:123: while (JIFFY == lastJiffy) {
 00109$:
 	ld	iy, #_JIFFY
 	ld	a, 0 (iy)
@@ -9729,7 +9780,7 @@ _TitleScreen::
 	sub	a, -1 (ix)
 	jr	Z, 00109$
 00195$:
-;src\/Title.h:146: SetBlock(col_1, line_1, blocks[index]);
+;src\/Title.h:128: SetBlock(col_1, line_1, blocks[index]);
 	ld	l, -3 (ix)
 	ld	h, #0x00
 	add	hl, de
@@ -9746,25 +9797,25 @@ _TitleScreen::
 	inc	sp
 	pop	de
 	pop	bc
-;src\/Title.h:150: if(index++ >= sizeof(blocks)) index = 0;
+;src\/Title.h:132: if(index++ >= sizeof(blocks)) index = 0;
 	ld	a, -3 (ix)
 	inc	-3 (ix)
 	sub	a, #0x07
 	jr	C, 00113$
 	ld	-3 (ix), #0
 00113$:
-;src\/Title.h:163: spaceBar = GTTRIG(TRIG_Spacebar);
+;src\/Title.h:145: spaceBar = GTTRIG(TRIG_Spacebar);
 	push	bc
 	push	de
 	ld	l, #0x00
 	call	_GTTRIG
-;src\/Title.h:164: btn1 = GTTRIG(TRIG_Joy1_A);
+;src\/Title.h:146: btn1 = GTTRIG(TRIG_Joy1_A);
 	ld	-1 (ix), l
 	ld	l, #0x01
 	call	_GTTRIG
 	pop	de
 	pop	bc
-;src\/Title.h:165: btn2 = GTTRIG(TRIG_Joy1_B);
+;src\/Title.h:147: btn2 = GTTRIG(TRIG_Joy1_B);
 	push	hl
 	push	bc
 	push	de
@@ -9775,7 +9826,7 @@ _TitleScreen::
 	pop	bc
 	pop	hl
 	ld	h, a
-;src\/Title.h:167: if(spaceBar == 0xff || btn1 == 0xff || btn2 == 0xff) { 
+;src\/Title.h:149: if(spaceBar == 0xff || btn1 == 0xff || btn2 == 0xff) { 
 	ld	a, -1 (ix)
 	inc	a
 	jr	Z, 00114$
@@ -9784,17 +9835,17 @@ _TitleScreen::
 	inc	h
 	jr	NZ, 00124$
 00114$:
-;src\/Title.h:168: rndSeed = JIFFY;
+;src\/Title.h:150: rndSeed = JIFFY;
 	ld	a,(#_JIFFY + 0)
 	ld	(#_rndSeed), a
-;src\/Title.h:169: return;
+;src\/Title.h:151: return;
 	jr	00125$
 00124$:
-;src\/Title.h:138: for(byte i=0; i < 10 + 0; i++) {
+;src\/Title.h:120: for(byte i=0; i < 10 + 0; i++) {
 	inc	b
 	jr	00123$
 00118$:
-;src\/Title.h:173: SetBlock(col_1, line_1, colors[colorIndex + 1]);
+;src\/Title.h:155: SetBlock(col_1, line_1, colors[colorIndex + 1]);
 	ld	l, -5 (ix)
 	ld	h, -4 (ix)
 	ld	a, (hl)
@@ -9812,11 +9863,11 @@ _TitleScreen::
 	pop	bc
 	jp	00120$
 00125$:
-;src\/Title.h:176: }
+;src\/Title.h:158: }
 	ld	sp, ix
 	pop	ix
 	ret
-_TitleScreen_title_65536_296:
+_TitleScreen_title_65536_295:
 	.db #0x00	; 0
 	.db #0x00	; 0
 	.db #0x00	; 0
@@ -10073,25 +10124,29 @@ _TitleScreen_title_65536_296:
 	.db #0x00	; 0
 	.db #0x8e	; 142
 	.db #0x8e	; 142
-___str_10:
+___str_14:
 	.ascii "PRESS TRIGGER TO START"
 	.db 0x00
-___str_11:
+___str_15:
 	.ascii "ANDREBAPTISTA.COM.BR"
 	.db 0x00
-___str_12:
-	.ascii "v.?.?.?"
+___str_16:
+	.ascii "v.1.0.0"
 	.db 0x00
-;src\main.c:91: void main() {
+;src\main.c:106: void main() {
 ;	---------------------------------
 ; Function main
 ; ---------------------------------
 _main::
-;src\main.c:93: while(TRUE) {
+;src\main.c:108: while(TRUE) {
 00102$:
-;src\main.c:99: InitGame();
+;src\main.c:110: Intro();
+	call	_Intro
+;src\main.c:112: TitleScreen();
+	call	_TitleScreen
+;src\main.c:114: InitGame();
 	call	_InitGame
-;src\main.c:102: }
+;src\main.c:117: }
 	jr	00102$
 	.area _CODE
 	.area _INITIALIZER
