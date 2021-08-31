@@ -40,6 +40,7 @@
 	.globl _DrawNumber
 	.globl _DrawString
 	.globl _DrawChar
+	.globl _ClearNamesTable
 	.globl _ShowCountdown
 	.globl _BlinkNumber
 	.globl _AnimateSprites
@@ -4533,7 +4534,26 @@ _ShowCountdown::
 	ld	sp,ix
 	pop	ix
 	ret
-;src\/Graphics\Graphics.h:1: void DrawChar(byte character, byte col, byte line) {
+;src\/Graphics\Graphics.h:1: void ClearNamesTable() {
+;	---------------------------------
+; Function ClearNamesTable
+; ---------------------------------
+_ClearNamesTable::
+;src\/Graphics\Graphics.h:2: FILVRM(NAMTBL, 768, 0);
+	xor	a, a
+	push	af
+	inc	sp
+	ld	hl, #0x0300
+	push	hl
+	ld	h, #0x18
+	push	hl
+	call	_FILVRM
+	pop	af
+	pop	af
+	inc	sp
+;src\/Graphics\Graphics.h:3: }
+	ret
+;src\/Graphics\Graphics.h:5: void DrawChar(byte character, byte col, byte line) {
 ;	---------------------------------
 ; Function DrawChar
 ; ---------------------------------
@@ -4541,7 +4561,7 @@ _DrawChar::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-;src\/Graphics\Graphics.h:2: WRTVRM(NAMTBL + (line * 32) + col, character);
+;src\/Graphics\Graphics.h:6: WRTVRM(NAMTBL + (line * 32) + col, character);
 	ld	l, 6 (ix)
 	ld	h, #0x00
 	add	hl, hl
@@ -4561,10 +4581,10 @@ _DrawChar::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:3: }
+;src\/Graphics\Graphics.h:7: }
 	pop	ix
 	ret
-;src\/Graphics\Graphics.h:5: void DrawString(const char* str, byte col, byte line) {
+;src\/Graphics\Graphics.h:9: void DrawString(const char* str, byte col, byte line) {
 ;	---------------------------------
 ; Function DrawString
 ; ---------------------------------
@@ -4572,7 +4592,7 @@ _DrawString::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-;src\/Graphics\Graphics.h:6: while (*str) {
+;src\/Graphics\Graphics.h:10: while (*str) {
 	ld	l, 6 (ix)
 	ld	c, 4 (ix)
 	ld	b, 5 (ix)
@@ -4580,7 +4600,7 @@ _DrawString::
 	ld	a, (bc)
 	or	a, a
 	jr	Z, 00104$
-;src\/Graphics\Graphics.h:7: DrawChar((*str++) - (65 - CHAR_A), col++, line);
+;src\/Graphics\Graphics.h:11: DrawChar((*str++) - (65 - CHAR_A), col++, line);
 	ld	d, l
 	inc	l
 	ld	6 (ix), l
@@ -4600,10 +4620,10 @@ _DrawString::
 	pop	hl
 	jr	00101$
 00104$:
-;src\/Graphics\Graphics.h:9: }
+;src\/Graphics\Graphics.h:13: }
 	pop	ix
 	ret
-;src\/Graphics\Graphics.h:11: void DrawNumber(word number, byte col, byte line) {
+;src\/Graphics\Graphics.h:15: void DrawNumber(word number, byte col, byte line) {
 ;	---------------------------------
 ; Function DrawNumber
 ; ---------------------------------
@@ -4614,9 +4634,9 @@ _DrawNumber::
 	ld	hl, #-6
 	add	hl, sp
 	ld	sp, hl
-;src\/Graphics\Graphics.h:14: bool trailingZero = TRUE;
+;src\/Graphics\Graphics.h:18: bool trailingZero = TRUE;
 	ld	-6 (ix), #0x01
-;src\/Graphics\Graphics.h:16: DrawString("      ", col, line); // Clear space for number (6 digits)
+;src\/Graphics\Graphics.h:20: DrawString("      ", col, line); // Clear space for number (6 digits)
 	ld	h, 7 (ix)
 	ld	l, 6 (ix)
 	push	hl
@@ -4625,7 +4645,7 @@ _DrawNumber::
 	call	_DrawString
 	pop	af
 	pop	af
-;src\/Graphics\Graphics.h:18: for(byte i = 6; i > 0; i--) { //  (6 digits)
+;src\/Graphics\Graphics.h:22: for(byte i = 6; i > 0; i--) { //  (6 digits)
 	ld	a, 6 (ix)
 	ld	-1 (ix), a
 	ld	e, #0x06
@@ -4633,7 +4653,7 @@ _DrawNumber::
 	ld	a, e
 	or	a, a
 	jp	Z, 00111$
-;src\/Graphics\Graphics.h:20: power = Power(10, i - 1);
+;src\/Graphics\Graphics.h:24: power = Power(10, i - 1);
 	ld	a, e
 	dec	a
 	push	de
@@ -4645,7 +4665,7 @@ _DrawNumber::
 	pop	de
 	ld	-5 (ix), l
 	ld	-4 (ix), h
-;src\/Graphics\Graphics.h:22: if(trailingZero && (number / power) != 0) trailingZero = FALSE;
+;src\/Graphics\Graphics.h:26: if(trailingZero && (number / power) != 0) trailingZero = FALSE;
 	push	de
 	ld	l, -5 (ix)
 	ld	h, -4 (ix)
@@ -4667,7 +4687,7 @@ _DrawNumber::
 	jr	Z, 00102$
 	ld	-6 (ix), #0
 00102$:
-;src\/Graphics\Graphics.h:24: if(!trailingZero || i == 1) {
+;src\/Graphics\Graphics.h:28: if(!trailingZero || i == 1) {
 	ld	a, -6 (ix)
 	or	a, a
 	jr	Z, 00104$
@@ -4675,7 +4695,7 @@ _DrawNumber::
 	dec	a
 	jr	NZ, 00105$
 00104$:
-;src\/Graphics\Graphics.h:25: DrawChar((number / power) + CHAR_0, col, line);
+;src\/Graphics\Graphics.h:29: DrawChar((number / power) + CHAR_0, col, line);
 	ld	a, -3 (ix)
 	add	a, #0x3f
 	push	de
@@ -4703,20 +4723,20 @@ _DrawNumber::
 	ld	4 (ix), l
 	ld	5 (ix), h
 00105$:
-;src\/Graphics\Graphics.h:29: col++;
+;src\/Graphics\Graphics.h:33: col++;
 	inc	-1 (ix)
-;src\/Graphics\Graphics.h:18: for(byte i = 6; i > 0; i--) { //  (6 digits)
+;src\/Graphics\Graphics.h:22: for(byte i = 6; i > 0; i--) { //  (6 digits)
 	dec	e
 	jp	00109$
 00111$:
-;src\/Graphics\Graphics.h:34: }
+;src\/Graphics\Graphics.h:38: }
 	ld	sp, ix
 	pop	ix
 	ret
 ___str_0:
 	.ascii "      "
 	.db 0x00
-;src\/Graphics\Graphics.h:36: void DrawColumn(byte col) {
+;src\/Graphics\Graphics.h:40: void DrawColumn(byte col) {
 ;	---------------------------------
 ; Function DrawColumn
 ; ---------------------------------
@@ -4727,7 +4747,7 @@ _DrawColumn::
 	ld	hl, #-7
 	add	hl, sp
 	ld	sp, hl
-;src\/Graphics\Graphics.h:37: WRTVRM(NAMTBL + col + 0, COLUMN_TOP_1);
+;src\/Graphics\Graphics.h:41: WRTVRM(NAMTBL + col + 0, COLUMN_TOP_1);
 	ld	c, 4 (ix)
 	ld	b, #0x00
 	ld	hl, #0x1800
@@ -4741,7 +4761,7 @@ _DrawColumn::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:38: WRTVRM(NAMTBL + col + 1, COLUMN_TOP_1 + 1);
+;src\/Graphics\Graphics.h:42: WRTVRM(NAMTBL + col + 1, COLUMN_TOP_1 + 1);
 	ld	hl, #0x1801
 	add	hl, bc
 	push	bc
@@ -4753,7 +4773,7 @@ _DrawColumn::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:39: WRTVRM(NAMTBL + col + 2, COLUMN_TOP_1 + 2);
+;src\/Graphics\Graphics.h:43: WRTVRM(NAMTBL + col + 2, COLUMN_TOP_1 + 2);
 	ld	hl, #0x1802
 	add	hl, bc
 	push	bc
@@ -4765,7 +4785,7 @@ _DrawColumn::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:40: WRTVRM(NAMTBL + col + 32, COLUMN_TOP_1 + 3);
+;src\/Graphics\Graphics.h:44: WRTVRM(NAMTBL + col + 32, COLUMN_TOP_1 + 3);
 	ld	hl, #0x1820
 	add	hl, bc
 	push	bc
@@ -4777,7 +4797,7 @@ _DrawColumn::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:41: WRTVRM(NAMTBL + col + 33, COLUMN_TOP_1 + 4);
+;src\/Graphics\Graphics.h:45: WRTVRM(NAMTBL + col + 33, COLUMN_TOP_1 + 4);
 	ld	hl, #0x1821
 	add	hl, bc
 	push	bc
@@ -4789,7 +4809,7 @@ _DrawColumn::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:42: WRTVRM(NAMTBL + col + 34, COLUMN_TOP_1 + 5);
+;src\/Graphics\Graphics.h:46: WRTVRM(NAMTBL + col + 34, COLUMN_TOP_1 + 5);
 	ld	hl, #0x1822
 	add	hl, bc
 	push	bc
@@ -4801,7 +4821,7 @@ _DrawColumn::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:44: for(byte i=0; i<20; i++) {
+;src\/Graphics\Graphics.h:48: for(byte i=0; i<20; i++) {
 	ld	hl, #0x1840
 	add	hl, bc
 	ex	(sp), hl
@@ -4818,7 +4838,7 @@ _DrawColumn::
 	ld	a, -1 (ix)
 	sub	a, #0x14
 	jr	NC, 00101$
-;src\/Graphics\Graphics.h:45: WRTVRM(NAMTBL + col + 64 + (i*32), COLUMN_MIDDLE_1);
+;src\/Graphics\Graphics.h:49: WRTVRM(NAMTBL + col + 64 + (i*32), COLUMN_MIDDLE_1);
 	ld	e, -1 (ix)
 	ld	d, #0x00
 	ex	de, hl
@@ -4842,7 +4862,7 @@ _DrawColumn::
 	inc	sp
 	pop	de
 	pop	bc
-;src\/Graphics\Graphics.h:46: WRTVRM(NAMTBL + col + 65 + (i*32), COLUMN_MIDDLE_1 + 1);
+;src\/Graphics\Graphics.h:50: WRTVRM(NAMTBL + col + 65 + (i*32), COLUMN_MIDDLE_1 + 1);
 	ld	l, -5 (ix)
 	ld	h, -4 (ix)
 	add	hl, de
@@ -4857,7 +4877,7 @@ _DrawColumn::
 	inc	sp
 	pop	de
 	pop	bc
-;src\/Graphics\Graphics.h:47: WRTVRM(NAMTBL + col + 66 + (i*32), COLUMN_MIDDLE_1 + 2);
+;src\/Graphics\Graphics.h:51: WRTVRM(NAMTBL + col + 66 + (i*32), COLUMN_MIDDLE_1 + 2);
 	ld	l, -3 (ix)
 	ld	h, -2 (ix)
 	add	hl, de
@@ -4870,11 +4890,11 @@ _DrawColumn::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:44: for(byte i=0; i<20; i++) {
+;src\/Graphics\Graphics.h:48: for(byte i=0; i<20; i++) {
 	inc	-1 (ix)
 	jr	00103$
 00101$:
-;src\/Graphics\Graphics.h:50: WRTVRM(NAMTBL + col + (32 * 8), COLUMN_MIDDLE_2);
+;src\/Graphics\Graphics.h:54: WRTVRM(NAMTBL + col + (32 * 8), COLUMN_MIDDLE_2);
 	ld	hl, #0x1900
 	add	hl, bc
 	push	bc
@@ -4886,7 +4906,7 @@ _DrawColumn::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:51: WRTVRM(NAMTBL + col + (32 * 8) + 1, COLUMN_MIDDLE_2 + 1);
+;src\/Graphics\Graphics.h:55: WRTVRM(NAMTBL + col + (32 * 8) + 1, COLUMN_MIDDLE_2 + 1);
 	ld	hl, #0x1901
 	add	hl, bc
 	push	bc
@@ -4898,7 +4918,7 @@ _DrawColumn::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:52: WRTVRM(NAMTBL + col + (32 * 8) + 2, COLUMN_MIDDLE_2 + 2);
+;src\/Graphics\Graphics.h:56: WRTVRM(NAMTBL + col + (32 * 8) + 2, COLUMN_MIDDLE_2 + 2);
 	ld	hl, #0x1902
 	add	hl, bc
 	push	bc
@@ -4910,7 +4930,7 @@ _DrawColumn::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:54: WRTVRM(NAMTBL + col + (32 * 16), COLUMN_MIDDLE_2);
+;src\/Graphics\Graphics.h:58: WRTVRM(NAMTBL + col + (32 * 16), COLUMN_MIDDLE_2);
 	ld	hl, #0x1a00
 	add	hl, bc
 	push	bc
@@ -4922,7 +4942,7 @@ _DrawColumn::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:55: WRTVRM(NAMTBL + col + (32 * 16) + 1, COLUMN_MIDDLE_2 + 1);
+;src\/Graphics\Graphics.h:59: WRTVRM(NAMTBL + col + (32 * 16) + 1, COLUMN_MIDDLE_2 + 1);
 	ld	hl, #0x1a01
 	add	hl, bc
 	push	bc
@@ -4934,7 +4954,7 @@ _DrawColumn::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:56: WRTVRM(NAMTBL + col + (32 * 16) + 2, COLUMN_MIDDLE_2 + 2);
+;src\/Graphics\Graphics.h:60: WRTVRM(NAMTBL + col + (32 * 16) + 2, COLUMN_MIDDLE_2 + 2);
 	ld	hl, #0x1a02
 	add	hl, bc
 	push	bc
@@ -4946,7 +4966,7 @@ _DrawColumn::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:58: WRTVRM(NAMTBL + col + (32 * 22) + 0, COLUMN_BOTTOM_1);
+;src\/Graphics\Graphics.h:62: WRTVRM(NAMTBL + col + (32 * 22) + 0, COLUMN_BOTTOM_1);
 	ld	hl, #0x1ac0
 	add	hl, bc
 	push	bc
@@ -4958,7 +4978,7 @@ _DrawColumn::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:59: WRTVRM(NAMTBL + col + (32 * 22) + 1, COLUMN_BOTTOM_1 + 1);
+;src\/Graphics\Graphics.h:63: WRTVRM(NAMTBL + col + (32 * 22) + 1, COLUMN_BOTTOM_1 + 1);
 	ld	hl, #0x1ac1
 	add	hl, bc
 	push	bc
@@ -4970,7 +4990,7 @@ _DrawColumn::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:60: WRTVRM(NAMTBL + col + (32 * 22) + 2, COLUMN_BOTTOM_1 + 2);
+;src\/Graphics\Graphics.h:64: WRTVRM(NAMTBL + col + (32 * 22) + 2, COLUMN_BOTTOM_1 + 2);
 	ld	hl, #0x1ac2
 	add	hl, bc
 	push	bc
@@ -4982,7 +5002,7 @@ _DrawColumn::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:61: WRTVRM(NAMTBL + col + (32 * 22) + 32, COLUMN_BOTTOM_1 + 3);
+;src\/Graphics\Graphics.h:65: WRTVRM(NAMTBL + col + (32 * 22) + 32, COLUMN_BOTTOM_1 + 3);
 	ld	hl, #0x1ae0
 	add	hl, bc
 	push	bc
@@ -4994,7 +5014,7 @@ _DrawColumn::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:62: WRTVRM(NAMTBL + col + (32 * 22) + 33, COLUMN_BOTTOM_1 + 4);
+;src\/Graphics\Graphics.h:66: WRTVRM(NAMTBL + col + (32 * 22) + 33, COLUMN_BOTTOM_1 + 4);
 	ld	hl, #0x1ae1
 	add	hl, bc
 	push	bc
@@ -5006,7 +5026,7 @@ _DrawColumn::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:63: WRTVRM(NAMTBL + col + (32 * 22) + 34, COLUMN_BOTTOM_1 + 5);
+;src\/Graphics\Graphics.h:67: WRTVRM(NAMTBL + col + (32 * 22) + 34, COLUMN_BOTTOM_1 + 5);
 	ld	hl, #0x1ae2
 	add	hl, bc
 	ld	a, #0x29
@@ -5014,16 +5034,16 @@ _DrawColumn::
 	inc	sp
 	push	hl
 	call	_WRTVRM
-;src\/Graphics\Graphics.h:64: }
+;src\/Graphics\Graphics.h:68: }
 	ld	sp,ix
 	pop	ix
 	ret
-;src\/Graphics\Graphics.h:69: void GetNextPieceColors(byte sourcePiece) {
+;src\/Graphics\Graphics.h:73: void GetNextPieceColors(byte sourcePiece) {
 ;	---------------------------------
 ; Function GetNextPieceColors
 ; ---------------------------------
 _GetNextPieceColors::
-;src\/Graphics\Graphics.h:70: switch(sourcePiece) {
+;src\/Graphics\Graphics.h:74: switch(sourcePiece) {
 	ld	iy, #2
 	add	iy, sp
 	ld	a, 0 (iy)
@@ -5039,58 +5059,58 @@ _GetNextPieceColors::
 	sub	a, #0x14
 	jr	Z, 00104$
 	jr	00105$
-;src\/Graphics\Graphics.h:71: case TILE_BLUE:
+;src\/Graphics\Graphics.h:75: case TILE_BLUE:
 00101$:
-;src\/Graphics\Graphics.h:72: nextPieceColor_Front = 7;
+;src\/Graphics\Graphics.h:76: nextPieceColor_Front = 7;
 	ld	a, #0x07
 	ld	(#_nextPieceColor_Front), a
-;src\/Graphics\Graphics.h:73: nextPieceColor_Back = 4;
+;src\/Graphics\Graphics.h:77: nextPieceColor_Back = 4;
 	ld	a, #0x04
-	ld	(#_nextPieceColor_Back), a
-;src\/Graphics\Graphics.h:74: break;
-	ret
-;src\/Graphics\Graphics.h:75: case TILE_GREEN:
-00102$:
-;src\/Graphics\Graphics.h:76: nextPieceColor_Front = 3;
-	ld	a, #0x03
-	ld	(#_nextPieceColor_Front), a
-;src\/Graphics\Graphics.h:77: nextPieceColor_Back = 12;
-	ld	a, #0x0c
 	ld	(#_nextPieceColor_Back), a
 ;src\/Graphics\Graphics.h:78: break;
 	ret
-;src\/Graphics\Graphics.h:79: case TILE_RED:
-00103$:
-;src\/Graphics\Graphics.h:80: nextPieceColor_Front = 9;
-	ld	a, #0x09
+;src\/Graphics\Graphics.h:79: case TILE_GREEN:
+00102$:
+;src\/Graphics\Graphics.h:80: nextPieceColor_Front = 3;
+	ld	a, #0x03
 	ld	(#_nextPieceColor_Front), a
-;src\/Graphics\Graphics.h:81: nextPieceColor_Back = 6;
-	ld	a, #0x06
+;src\/Graphics\Graphics.h:81: nextPieceColor_Back = 12;
+	ld	a, #0x0c
 	ld	(#_nextPieceColor_Back), a
 ;src\/Graphics\Graphics.h:82: break;
 	ret
-;src\/Graphics\Graphics.h:83: case TILE_YELLOW:
-00104$:
-;src\/Graphics\Graphics.h:84: nextPieceColor_Front = 11;
-	ld	a, #0x0b
+;src\/Graphics\Graphics.h:83: case TILE_RED:
+00103$:
+;src\/Graphics\Graphics.h:84: nextPieceColor_Front = 9;
+	ld	a, #0x09
 	ld	(#_nextPieceColor_Front), a
-;src\/Graphics\Graphics.h:85: nextPieceColor_Back = 10;
-	ld	a, #0x0a
+;src\/Graphics\Graphics.h:85: nextPieceColor_Back = 6;
+	ld	a, #0x06
 	ld	(#_nextPieceColor_Back), a
 ;src\/Graphics\Graphics.h:86: break;
 	ret
-;src\/Graphics\Graphics.h:87: default:
+;src\/Graphics\Graphics.h:87: case TILE_YELLOW:
+00104$:
+;src\/Graphics\Graphics.h:88: nextPieceColor_Front = 11;
+	ld	a, #0x0b
+	ld	(#_nextPieceColor_Front), a
+;src\/Graphics\Graphics.h:89: nextPieceColor_Back = 10;
+	ld	a, #0x0a
+	ld	(#_nextPieceColor_Back), a
+;src\/Graphics\Graphics.h:90: break;
+	ret
+;src\/Graphics\Graphics.h:91: default:
 00105$:
-;src\/Graphics\Graphics.h:88: nextPieceColor_Front = 15;
+;src\/Graphics\Graphics.h:92: nextPieceColor_Front = 15;
 	ld	a, #0x0f
 	ld	(#_nextPieceColor_Front), a
-;src\/Graphics\Graphics.h:89: nextPieceColor_Back = 13;
+;src\/Graphics\Graphics.h:93: nextPieceColor_Back = 13;
 	ld	a, #0x0d
 	ld	(#_nextPieceColor_Back), a
-;src\/Graphics\Graphics.h:90: }  
-;src\/Graphics\Graphics.h:91: }
+;src\/Graphics\Graphics.h:94: }  
+;src\/Graphics\Graphics.h:95: }
 	ret
-;src\/Graphics\Graphics.h:93: void PosMaskSprites(word VRAMaddress, byte y) {
+;src\/Graphics\Graphics.h:97: void PosMaskSprites(word VRAMaddress, byte y) {
 ;	---------------------------------
 ; Function PosMaskSprites
 ; ---------------------------------
@@ -5098,7 +5118,7 @@ _PosMaskSprites::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-;src\/Graphics\Graphics.h:95: WRTVRM(VRAMaddress, 	    y);
+;src\/Graphics\Graphics.h:99: WRTVRM(VRAMaddress, 	    y);
 	ld	a, 6 (ix)
 	push	af
 	inc	sp
@@ -5108,7 +5128,7 @@ _PosMaskSprites::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:96: WRTVRM(VRAMaddress + 1, 	0);
+;src\/Graphics\Graphics.h:100: WRTVRM(VRAMaddress + 1, 	0);
 	ld	c, 4 (ix)
 	ld	b, 5 (ix)
 	ld	e, c
@@ -5123,7 +5143,7 @@ _PosMaskSprites::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:97: WRTVRM(VRAMaddress + 2, 	0); // Pattern don't matter
+;src\/Graphics\Graphics.h:101: WRTVRM(VRAMaddress + 2, 	0); // Pattern don't matter
 	ld	e, c
 	ld	d, b
 	inc	de
@@ -5137,7 +5157,7 @@ _PosMaskSprites::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:98: WRTVRM(VRAMaddress + 3, 	0b1000000); // Early Clock bit makes x = -32 (out of the screen)
+;src\/Graphics\Graphics.h:102: WRTVRM(VRAMaddress + 3, 	0b1000000); // Early Clock bit makes x = -32 (out of the screen)
 	ld	e, c
 	ld	d, b
 	inc	de
@@ -5152,7 +5172,7 @@ _PosMaskSprites::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:100: WRTVRM(VRAMaddress + 4,   y);
+;src\/Graphics\Graphics.h:104: WRTVRM(VRAMaddress + 4,   y);
 	ld	hl, #0x0004
 	add	hl, bc
 	push	bc
@@ -5164,7 +5184,7 @@ _PosMaskSprites::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:101: WRTVRM(VRAMaddress + 5, 	0);
+;src\/Graphics\Graphics.h:105: WRTVRM(VRAMaddress + 5, 	0);
 	ld	hl, #0x0005
 	add	hl, bc
 	push	bc
@@ -5176,7 +5196,7 @@ _PosMaskSprites::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:102: WRTVRM(VRAMaddress + 6, 	0); // Pattern don't matter
+;src\/Graphics\Graphics.h:106: WRTVRM(VRAMaddress + 6, 	0); // Pattern don't matter
 	ld	hl, #0x0006
 	add	hl, bc
 	push	bc
@@ -5188,7 +5208,7 @@ _PosMaskSprites::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:103: WRTVRM(VRAMaddress + 7, 	0b1000000); // Early Clock bit makes x = -32 (out of the screen)
+;src\/Graphics\Graphics.h:107: WRTVRM(VRAMaddress + 7, 	0b1000000); // Early Clock bit makes x = -32 (out of the screen)
 	ld	hl, #0x0007
 	add	hl, bc
 	push	bc
@@ -5200,7 +5220,7 @@ _PosMaskSprites::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:105: WRTVRM(VRAMaddress + 8,   y);
+;src\/Graphics\Graphics.h:109: WRTVRM(VRAMaddress + 8,   y);
 	ld	hl, #0x0008
 	add	hl, bc
 	push	bc
@@ -5212,7 +5232,7 @@ _PosMaskSprites::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:106: WRTVRM(VRAMaddress + 9, 	0);
+;src\/Graphics\Graphics.h:110: WRTVRM(VRAMaddress + 9, 	0);
 	ld	hl, #0x0009
 	add	hl, bc
 	push	bc
@@ -5224,7 +5244,7 @@ _PosMaskSprites::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:107: WRTVRM(VRAMaddress + 10,	0); // Pattern don't matter
+;src\/Graphics\Graphics.h:111: WRTVRM(VRAMaddress + 10,	0); // Pattern don't matter
 	ld	hl, #0x000a
 	add	hl, bc
 	push	bc
@@ -5236,7 +5256,7 @@ _PosMaskSprites::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:108: WRTVRM(VRAMaddress + 11,	0b1000000); // Early Clock bit makes x = -32 (out of the screen)
+;src\/Graphics\Graphics.h:112: WRTVRM(VRAMaddress + 11,	0b1000000); // Early Clock bit makes x = -32 (out of the screen)
 	ld	hl, #0x000b
 	add	hl, bc
 	push	bc
@@ -5248,7 +5268,7 @@ _PosMaskSprites::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:110: WRTVRM(VRAMaddress + 12,  y);
+;src\/Graphics\Graphics.h:114: WRTVRM(VRAMaddress + 12,  y);
 	ld	hl, #0x000c
 	add	hl, bc
 	push	bc
@@ -5260,7 +5280,7 @@ _PosMaskSprites::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:111: WRTVRM(VRAMaddress + 13,	0);
+;src\/Graphics\Graphics.h:115: WRTVRM(VRAMaddress + 13,	0);
 	ld	hl, #0x000d
 	add	hl, bc
 	push	bc
@@ -5272,7 +5292,7 @@ _PosMaskSprites::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:112: WRTVRM(VRAMaddress + 14,	0); // Pattern don't matter
+;src\/Graphics\Graphics.h:116: WRTVRM(VRAMaddress + 14,	0); // Pattern don't matter
 	ld	hl, #0x000e
 	add	hl, bc
 	push	bc
@@ -5284,7 +5304,7 @@ _PosMaskSprites::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:113: WRTVRM(VRAMaddress + 15,	0b1000000); // Early Clock bit makes x = -32 (out of the screen)  
+;src\/Graphics\Graphics.h:117: WRTVRM(VRAMaddress + 15,	0b1000000); // Early Clock bit makes x = -32 (out of the screen)  
 	ld	hl, #0x000f
 	add	hl, bc
 	ld	a, #0x40
@@ -5294,17 +5314,17 @@ _PosMaskSprites::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:114: }
+;src\/Graphics\Graphics.h:118: }
 	pop	ix
 	ret
-;src\/Graphics\Graphics.h:116: void DrawNextPiece() {
+;src\/Graphics\Graphics.h:120: void DrawNextPiece() {
 ;	---------------------------------
 ; Function DrawNextPiece
 ; ---------------------------------
 _DrawNextPiece::
 	push	af
 	push	af
-;src\/Graphics\Graphics.h:120: PosMaskSprites(SPRATT, 24+24);
+;src\/Graphics\Graphics.h:124: PosMaskSprites(SPRATT, 24+24);
 	ld	a, #0x30
 	push	af
 	inc	sp
@@ -5313,7 +5333,7 @@ _DrawNextPiece::
 	call	_PosMaskSprites
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:121: PosMaskSprites(SPRATT + 16, 24+24+16);
+;src\/Graphics\Graphics.h:125: PosMaskSprites(SPRATT + 16, 24+24+16);
 	ld	a, #0x40
 	push	af
 	inc	sp
@@ -5322,7 +5342,7 @@ _DrawNextPiece::
 	call	_PosMaskSprites
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:124: PosMaskSprites(SPRATT + 32, 255); // first line
+;src\/Graphics\Graphics.h:128: PosMaskSprites(SPRATT + 32, 255); // first line
 	ld	a, #0xff
 	push	af
 	inc	sp
@@ -5331,7 +5351,7 @@ _DrawNextPiece::
 	call	_PosMaskSprites
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:126: while(counter++ < 25) {
+;src\/Graphics\Graphics.h:130: while(counter++ < 25) {
 	ld	iy, #2
 	add	iy, sp
 	ld	0 (iy), #0x30
@@ -5345,21 +5365,21 @@ _DrawNextPiece::
 	sub	a, #0x19
 	jp	NC, 00106$
 	inc	0 (iy)
-;src\/Graphics\Graphics.h:128: word lastJiffy = JIFFY;
+;src\/Graphics\Graphics.h:132: word lastJiffy = JIFFY;
 	ld	bc, (_JIFFY)
-;src\/Graphics\Graphics.h:129: while (lastJiffy == JIFFY) {
+;src\/Graphics\Graphics.h:133: while (lastJiffy == JIFFY) {
 00101$:
 	ld	hl, (_JIFFY)
 	cp	a, a
 	sbc	hl, bc
 	jr	Z, 00101$
-;src\/Graphics\Graphics.h:134: GetNextPieceColors(topPiece);
+;src\/Graphics\Graphics.h:138: GetNextPieceColors(topPiece);
 	ld	a,(#_topPiece + 0)
 	push	af
 	inc	sp
 	call	_GetNextPieceColors
 	inc	sp
-;src\/Graphics\Graphics.h:135: WRTVRM(SPRATT + 64, 	y - 32);                       // Code repeated for performance reasons
+;src\/Graphics\Graphics.h:139: WRTVRM(SPRATT + 64, 	y - 32);                       // Code repeated for performance reasons
 	ld	iy, #2
 	add	iy, sp
 	ld	a, 0 (iy)
@@ -5378,7 +5398,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:136: WRTVRM(SPRATT + 65, 	(4 * 8)-4);
+;src\/Graphics\Graphics.h:140: WRTVRM(SPRATT + 65, 	(4 * 8)-4);
 	ld	a, #0x1c
 	push	af
 	inc	sp
@@ -5387,7 +5407,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:137: WRTVRM(SPRATT + 66, 	SPRITE_PATTERN_SMALL_BLOCK);
+;src\/Graphics\Graphics.h:141: WRTVRM(SPRATT + 66, 	SPRITE_PATTERN_SMALL_BLOCK);
 	ld	a, #0x4c
 	push	af
 	inc	sp
@@ -5396,7 +5416,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:138: WRTVRM(SPRATT + 67, 	nextPieceColor_Front);
+;src\/Graphics\Graphics.h:142: WRTVRM(SPRATT + 67, 	nextPieceColor_Front);
 	ld	a,(#_nextPieceColor_Front + 0)
 	push	af
 	inc	sp
@@ -5405,7 +5425,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:139: WRTVRM(SPRATT + 68, 	y - 32);
+;src\/Graphics\Graphics.h:143: WRTVRM(SPRATT + 68, 	y - 32);
 	ld	hl, #0
 	add	hl, sp
 	ld	a, (hl)
@@ -5416,7 +5436,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:140: WRTVRM(SPRATT + 69, 	(4 * 8)-4);
+;src\/Graphics\Graphics.h:144: WRTVRM(SPRATT + 69, 	(4 * 8)-4);
 	ld	a, #0x1c
 	push	af
 	inc	sp
@@ -5425,7 +5445,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:141: WRTVRM(SPRATT + 70, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
+;src\/Graphics\Graphics.h:145: WRTVRM(SPRATT + 70, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
 	ld	a, #0x50
 	push	af
 	inc	sp
@@ -5434,7 +5454,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:142: WRTVRM(SPRATT + 71, 	nextPieceColor_Back);
+;src\/Graphics\Graphics.h:146: WRTVRM(SPRATT + 71, 	nextPieceColor_Back);
 	ld	a,(#_nextPieceColor_Back + 0)
 	push	af
 	inc	sp
@@ -5443,13 +5463,13 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:144: GetNextPieceColors(midPiece);
+;src\/Graphics\Graphics.h:148: GetNextPieceColors(midPiece);
 	ld	a,(#_midPiece + 0)
 	push	af
 	inc	sp
 	call	_GetNextPieceColors
 	inc	sp
-;src\/Graphics\Graphics.h:145: WRTVRM(SPRATT + 72, 	y - 24);
+;src\/Graphics\Graphics.h:149: WRTVRM(SPRATT + 72, 	y - 24);
 	ld	hl, #0
 	add	hl, sp
 	ld	iy, #1
@@ -5465,7 +5485,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:146: WRTVRM(SPRATT + 73, 	(4 * 8)-4);
+;src\/Graphics\Graphics.h:150: WRTVRM(SPRATT + 73, 	(4 * 8)-4);
 	ld	a, #0x1c
 	push	af
 	inc	sp
@@ -5474,7 +5494,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:147: WRTVRM(SPRATT + 74, 	SPRITE_PATTERN_SMALL_BLOCK);
+;src\/Graphics\Graphics.h:151: WRTVRM(SPRATT + 74, 	SPRITE_PATTERN_SMALL_BLOCK);
 	ld	a, #0x4c
 	push	af
 	inc	sp
@@ -5483,7 +5503,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:148: WRTVRM(SPRATT + 75, 	nextPieceColor_Front);
+;src\/Graphics\Graphics.h:152: WRTVRM(SPRATT + 75, 	nextPieceColor_Front);
 	ld	a,(#_nextPieceColor_Front + 0)
 	push	af
 	inc	sp
@@ -5492,7 +5512,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:149: WRTVRM(SPRATT + 76, 	y - 24);
+;src\/Graphics\Graphics.h:153: WRTVRM(SPRATT + 76, 	y - 24);
 	ld	hl, #0
 	add	hl, sp
 	ld	a, (hl)
@@ -5503,7 +5523,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:150: WRTVRM(SPRATT + 77, 	(4 * 8)-4);
+;src\/Graphics\Graphics.h:154: WRTVRM(SPRATT + 77, 	(4 * 8)-4);
 	ld	a, #0x1c
 	push	af
 	inc	sp
@@ -5512,7 +5532,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:151: WRTVRM(SPRATT + 78, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
+;src\/Graphics\Graphics.h:155: WRTVRM(SPRATT + 78, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
 	ld	a, #0x50
 	push	af
 	inc	sp
@@ -5521,7 +5541,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:152: WRTVRM(SPRATT + 79, 	nextPieceColor_Back);    
+;src\/Graphics\Graphics.h:156: WRTVRM(SPRATT + 79, 	nextPieceColor_Back);    
 	ld	a,(#_nextPieceColor_Back + 0)
 	push	af
 	inc	sp
@@ -5530,13 +5550,13 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:154: GetNextPieceColors(bottomPiece);
+;src\/Graphics\Graphics.h:158: GetNextPieceColors(bottomPiece);
 	ld	a,(#_bottomPiece + 0)
 	push	af
 	inc	sp
 	call	_GetNextPieceColors
 	inc	sp
-;src\/Graphics\Graphics.h:155: WRTVRM(SPRATT + 80, 	y - 16);
+;src\/Graphics\Graphics.h:159: WRTVRM(SPRATT + 80, 	y - 16);
 	ld	hl, #0
 	add	hl, sp
 	ld	iy, #1
@@ -5552,7 +5572,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:156: WRTVRM(SPRATT + 81, 	(4 * 8)-4);
+;src\/Graphics\Graphics.h:160: WRTVRM(SPRATT + 81, 	(4 * 8)-4);
 	ld	a, #0x1c
 	push	af
 	inc	sp
@@ -5561,7 +5581,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:157: WRTVRM(SPRATT + 82, 	SPRITE_PATTERN_SMALL_BLOCK);
+;src\/Graphics\Graphics.h:161: WRTVRM(SPRATT + 82, 	SPRITE_PATTERN_SMALL_BLOCK);
 	ld	a, #0x4c
 	push	af
 	inc	sp
@@ -5570,7 +5590,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:158: WRTVRM(SPRATT + 83, 	nextPieceColor_Front);
+;src\/Graphics\Graphics.h:162: WRTVRM(SPRATT + 83, 	nextPieceColor_Front);
 	ld	a,(#_nextPieceColor_Front + 0)
 	push	af
 	inc	sp
@@ -5579,7 +5599,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:159: WRTVRM(SPRATT + 84, 	y - 16);
+;src\/Graphics\Graphics.h:163: WRTVRM(SPRATT + 84, 	y - 16);
 	ld	hl, #0
 	add	hl, sp
 	ld	a, (hl)
@@ -5590,7 +5610,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:160: WRTVRM(SPRATT + 85, 	(4 * 8)-4);
+;src\/Graphics\Graphics.h:164: WRTVRM(SPRATT + 85, 	(4 * 8)-4);
 	ld	a, #0x1c
 	push	af
 	inc	sp
@@ -5599,7 +5619,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:161: WRTVRM(SPRATT + 86, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
+;src\/Graphics\Graphics.h:165: WRTVRM(SPRATT + 86, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
 	ld	a, #0x50
 	push	af
 	inc	sp
@@ -5608,7 +5628,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:162: WRTVRM(SPRATT + 87, 	nextPieceColor_Back);    
+;src\/Graphics\Graphics.h:166: WRTVRM(SPRATT + 87, 	nextPieceColor_Back);    
 	ld	a,(#_nextPieceColor_Back + 0)
 	push	af
 	inc	sp
@@ -5617,13 +5637,13 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:165: GetNextPieceColors(nextTopPiece);
+;src\/Graphics\Graphics.h:169: GetNextPieceColors(nextTopPiece);
 	ld	a,(#_nextTopPiece + 0)
 	push	af
 	inc	sp
 	call	_GetNextPieceColors
 	inc	sp
-;src\/Graphics\Graphics.h:166: WRTVRM(SPRATT + 88, 	y);                       // Code repeated for performance reasons
+;src\/Graphics\Graphics.h:170: WRTVRM(SPRATT + 88, 	y);                       // Code repeated for performance reasons
 	ld	hl, #2
 	add	hl, sp
 	ld	a, (hl)
@@ -5634,7 +5654,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:167: WRTVRM(SPRATT + 89, 	(4 * 8)-4);
+;src\/Graphics\Graphics.h:171: WRTVRM(SPRATT + 89, 	(4 * 8)-4);
 	ld	a, #0x1c
 	push	af
 	inc	sp
@@ -5643,7 +5663,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:168: WRTVRM(SPRATT + 90, 	SPRITE_PATTERN_SMALL_BLOCK);
+;src\/Graphics\Graphics.h:172: WRTVRM(SPRATT + 90, 	SPRITE_PATTERN_SMALL_BLOCK);
 	ld	a, #0x4c
 	push	af
 	inc	sp
@@ -5652,7 +5672,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:169: WRTVRM(SPRATT + 91, 	nextPieceColor_Front);
+;src\/Graphics\Graphics.h:173: WRTVRM(SPRATT + 91, 	nextPieceColor_Front);
 	ld	a,(#_nextPieceColor_Front + 0)
 	push	af
 	inc	sp
@@ -5661,7 +5681,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:170: WRTVRM(SPRATT + 92, 	y);
+;src\/Graphics\Graphics.h:174: WRTVRM(SPRATT + 92, 	y);
 	ld	hl, #2
 	add	hl, sp
 	ld	a, (hl)
@@ -5672,7 +5692,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:171: WRTVRM(SPRATT + 93, 	(4 * 8)-4);
+;src\/Graphics\Graphics.h:175: WRTVRM(SPRATT + 93, 	(4 * 8)-4);
 	ld	a, #0x1c
 	push	af
 	inc	sp
@@ -5681,7 +5701,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:172: WRTVRM(SPRATT + 94, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
+;src\/Graphics\Graphics.h:176: WRTVRM(SPRATT + 94, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
 	ld	a, #0x50
 	push	af
 	inc	sp
@@ -5690,7 +5710,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:173: WRTVRM(SPRATT + 95, 	nextPieceColor_Back);
+;src\/Graphics\Graphics.h:177: WRTVRM(SPRATT + 95, 	nextPieceColor_Back);
 	ld	a,(#_nextPieceColor_Back + 0)
 	push	af
 	inc	sp
@@ -5699,13 +5719,13 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:175: GetNextPieceColors(nextMidPiece);
+;src\/Graphics\Graphics.h:179: GetNextPieceColors(nextMidPiece);
 	ld	a,(#_nextMidPiece + 0)
 	push	af
 	inc	sp
 	call	_GetNextPieceColors
 	inc	sp
-;src\/Graphics\Graphics.h:176: WRTVRM(SPRATT + 96, 	y + 8);
+;src\/Graphics\Graphics.h:180: WRTVRM(SPRATT + 96, 	y + 8);
 	ld	iy, #1
 	add	iy, sp
 	ld	a, 0 (iy)
@@ -5719,7 +5739,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:177: WRTVRM(SPRATT + 97, 	(4 * 8)-4);
+;src\/Graphics\Graphics.h:181: WRTVRM(SPRATT + 97, 	(4 * 8)-4);
 	ld	a, #0x1c
 	push	af
 	inc	sp
@@ -5728,7 +5748,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:178: WRTVRM(SPRATT + 98, 	SPRITE_PATTERN_SMALL_BLOCK);
+;src\/Graphics\Graphics.h:182: WRTVRM(SPRATT + 98, 	SPRITE_PATTERN_SMALL_BLOCK);
 	ld	a, #0x4c
 	push	af
 	inc	sp
@@ -5737,7 +5757,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:179: WRTVRM(SPRATT + 99, 	nextPieceColor_Front);
+;src\/Graphics\Graphics.h:183: WRTVRM(SPRATT + 99, 	nextPieceColor_Front);
 	ld	a,(#_nextPieceColor_Front + 0)
 	push	af
 	inc	sp
@@ -5746,7 +5766,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:180: WRTVRM(SPRATT + 100, 	y + 8);
+;src\/Graphics\Graphics.h:184: WRTVRM(SPRATT + 100, 	y + 8);
 	ld	hl, #0
 	add	hl, sp
 	ld	a, (hl)
@@ -5757,7 +5777,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:181: WRTVRM(SPRATT + 101, 	(4 * 8)-4);
+;src\/Graphics\Graphics.h:185: WRTVRM(SPRATT + 101, 	(4 * 8)-4);
 	ld	a, #0x1c
 	push	af
 	inc	sp
@@ -5766,7 +5786,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:182: WRTVRM(SPRATT + 102, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
+;src\/Graphics\Graphics.h:186: WRTVRM(SPRATT + 102, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
 	ld	a, #0x50
 	push	af
 	inc	sp
@@ -5775,7 +5795,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:183: WRTVRM(SPRATT + 103, 	nextPieceColor_Back);
+;src\/Graphics\Graphics.h:187: WRTVRM(SPRATT + 103, 	nextPieceColor_Back);
 	ld	a,(#_nextPieceColor_Back + 0)
 	push	af
 	inc	sp
@@ -5784,13 +5804,13 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:185: GetNextPieceColors(nextBottomPiece);
+;src\/Graphics\Graphics.h:189: GetNextPieceColors(nextBottomPiece);
 	ld	a,(#_nextBottomPiece + 0)
 	push	af
 	inc	sp
 	call	_GetNextPieceColors
 	inc	sp
-;src\/Graphics\Graphics.h:186: WRTVRM(SPRATT + 104, 	y + 16);
+;src\/Graphics\Graphics.h:190: WRTVRM(SPRATT + 104, 	y + 16);
 	ld	iy, #1
 	add	iy, sp
 	ld	a, 0 (iy)
@@ -5803,7 +5823,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:187: WRTVRM(SPRATT + 105, 	(4 * 8)-4);
+;src\/Graphics\Graphics.h:191: WRTVRM(SPRATT + 105, 	(4 * 8)-4);
 	ld	a, #0x1c
 	push	af
 	inc	sp
@@ -5812,7 +5832,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:188: WRTVRM(SPRATT + 106, 	SPRITE_PATTERN_SMALL_BLOCK);
+;src\/Graphics\Graphics.h:192: WRTVRM(SPRATT + 106, 	SPRITE_PATTERN_SMALL_BLOCK);
 	ld	a, #0x4c
 	push	af
 	inc	sp
@@ -5821,7 +5841,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:189: WRTVRM(SPRATT + 107, 	nextPieceColor_Front);
+;src\/Graphics\Graphics.h:193: WRTVRM(SPRATT + 107, 	nextPieceColor_Front);
 	ld	a,(#_nextPieceColor_Front + 0)
 	push	af
 	inc	sp
@@ -5830,7 +5850,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:190: WRTVRM(SPRATT + 108, 	y + 16);
+;src\/Graphics\Graphics.h:194: WRTVRM(SPRATT + 108, 	y + 16);
 	ld	hl, #1
 	add	hl, sp
 	ld	a, (hl)
@@ -5841,7 +5861,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:191: WRTVRM(SPRATT + 109, 	(4 * 8)-4);
+;src\/Graphics\Graphics.h:195: WRTVRM(SPRATT + 109, 	(4 * 8)-4);
 	ld	a, #0x1c
 	push	af
 	inc	sp
@@ -5850,7 +5870,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:192: WRTVRM(SPRATT + 110, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
+;src\/Graphics\Graphics.h:196: WRTVRM(SPRATT + 110, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
 	ld	a, #0x50
 	push	af
 	inc	sp
@@ -5859,7 +5879,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:193: WRTVRM(SPRATT + 111, 	nextPieceColor_Back);
+;src\/Graphics\Graphics.h:197: WRTVRM(SPRATT + 111, 	nextPieceColor_Back);
 	ld	a,(#_nextPieceColor_Back + 0)
 	push	af
 	inc	sp
@@ -5868,13 +5888,13 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:195: y--;
+;src\/Graphics\Graphics.h:199: y--;
 	ld	iy, #2
 	add	iy, sp
 	dec	0 (iy)
 	jp	00104$
 00106$:
-;src\/Graphics\Graphics.h:199: WRTVRM(SPRATT + 64, 	192);
+;src\/Graphics\Graphics.h:203: WRTVRM(SPRATT + 64, 	192);
 	ld	a, #0xc0
 	push	af
 	inc	sp
@@ -5883,7 +5903,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:200: WRTVRM(SPRATT + 68, 	192);
+;src\/Graphics\Graphics.h:204: WRTVRM(SPRATT + 68, 	192);
 	ld	a, #0xc0
 	push	af
 	inc	sp
@@ -5892,7 +5912,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:201: WRTVRM(SPRATT + 72, 	192);
+;src\/Graphics\Graphics.h:205: WRTVRM(SPRATT + 72, 	192);
 	ld	a, #0xc0
 	push	af
 	inc	sp
@@ -5901,7 +5921,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:202: WRTVRM(SPRATT + 76, 	192);
+;src\/Graphics\Graphics.h:206: WRTVRM(SPRATT + 76, 	192);
 	ld	a, #0xc0
 	push	af
 	inc	sp
@@ -5910,7 +5930,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:203: WRTVRM(SPRATT + 80, 	192);
+;src\/Graphics\Graphics.h:207: WRTVRM(SPRATT + 80, 	192);
 	ld	a, #0xc0
 	push	af
 	inc	sp
@@ -5919,7 +5939,7 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:204: WRTVRM(SPRATT + 84, 	192);
+;src\/Graphics\Graphics.h:208: WRTVRM(SPRATT + 84, 	192);
 	ld	a, #0xc0
 	push	af
 	inc	sp
@@ -5928,11 +5948,11 @@ _DrawNextPiece::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:205: }
+;src\/Graphics\Graphics.h:209: }
 	pop	af
 	pop	af
 	ret
-;src\/Graphics\Graphics.h:207: void DrawScore() {
+;src\/Graphics\Graphics.h:211: void DrawScore() {
 ;	---------------------------------
 ; Function DrawScore
 ; ---------------------------------
@@ -5941,27 +5961,27 @@ _DrawScore::
 	ld	ix,#0
 	add	ix,sp
 	push	af
-;src\/Graphics\Graphics.h:208: byte bgCounter = 0, bgColor;
+;src\/Graphics\Graphics.h:212: byte bgCounter = 0, bgColor;
 	ld	-2 (ix), #0
-;src\/Graphics\Graphics.h:212: if(newLevel) {
+;src\/Graphics\Graphics.h:216: if(newLevel) {
 	ld	a,(#_newLevel + 0)
 	or	a, a
 	jp	Z, 00119$
-;src\/Graphics\Graphics.h:213: for(byte i=0; i < 60; i++) {
+;src\/Graphics\Graphics.h:217: for(byte i=0; i < 60; i++) {
 	ld	-1 (ix), #0
 00121$:
 	ld	a, -1 (ix)
 	sub	a, #0x3c
 	jp	NC, 00119$
-;src\/Graphics\Graphics.h:214: lastJiffy = JIFFY;
+;src\/Graphics\Graphics.h:218: lastJiffy = JIFFY;
 	ld	bc, (_JIFFY)
-;src\/Graphics\Graphics.h:215: while(lastJiffy == JIFFY) { }
+;src\/Graphics\Graphics.h:219: while(lastJiffy == JIFFY) { }
 00101$:
 	ld	hl, (_JIFFY)
 	cp	a, a
 	sbc	hl, bc
 	jr	Z, 00101$
-;src\/Graphics\Graphics.h:217: DrawExplosionSprite(26 * 8, 10 * 8, i);
+;src\/Graphics\Graphics.h:221: DrawExplosionSprite(26 * 8, 10 * 8, i);
 	ld	d, -1 (ix)
 	ld	e,#0x50
 	push	de
@@ -5971,12 +5991,12 @@ _DrawScore::
 	call	_DrawExplosionSprite
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:219: if(JIFFY & 0b00000110) {
+;src\/Graphics\Graphics.h:223: if(JIFFY & 0b00000110) {
 	ld	hl, (_JIFFY)
 	ld	a, l
 	and	a, #0x06
 	jp	Z,00115$
-;src\/Graphics\Graphics.h:221: DrawString(" LEVEL", 26, 10);
+;src\/Graphics\Graphics.h:225: DrawString(" LEVEL", 26, 10);
 	ld	de, #0x0a1a
 	push	de
 	ld	hl, #___str_1
@@ -5984,7 +6004,7 @@ _DrawScore::
 	call	_DrawString
 	pop	af
 	pop	af
-;src\/Graphics\Graphics.h:222: DrawNumber(level, 26, 11);
+;src\/Graphics\Graphics.h:226: DrawNumber(level, 26, 11);
 	ld	a, (#_level + 0)
 	ld	c, a
 	ld	b, #0x00
@@ -5994,7 +6014,7 @@ _DrawScore::
 	call	_DrawNumber
 	pop	af
 	pop	af
-;src\/Graphics\Graphics.h:228: switch(bgCounter++) {
+;src\/Graphics\Graphics.h:232: switch(bgCounter++) {
 	ld	c, -2 (ix)
 	inc	-2 (ix)
 	ld	a, #0x07
@@ -6015,63 +6035,63 @@ _DrawScore::
 	jp	00109$
 	jp	00110$
 	jp	00111$
-;src\/Graphics\Graphics.h:229: case 0:
+;src\/Graphics\Graphics.h:233: case 0:
 00104$:
-;src\/Graphics\Graphics.h:230: bgColor = 0x14;
+;src\/Graphics\Graphics.h:234: bgColor = 0x14;
 	ld	c, #0x14
-;src\/Graphics\Graphics.h:231: break;
+;src\/Graphics\Graphics.h:235: break;
 	jr	00113$
-;src\/Graphics\Graphics.h:232: case 1:
+;src\/Graphics\Graphics.h:236: case 1:
 00105$:
-;src\/Graphics\Graphics.h:233: bgColor = 0x15;
+;src\/Graphics\Graphics.h:237: bgColor = 0x15;
 	ld	c, #0x15
-;src\/Graphics\Graphics.h:234: break;
+;src\/Graphics\Graphics.h:238: break;
 	jr	00113$
-;src\/Graphics\Graphics.h:235: case 2:
+;src\/Graphics\Graphics.h:239: case 2:
 00106$:
-;src\/Graphics\Graphics.h:236: bgColor = 0x17;
+;src\/Graphics\Graphics.h:240: bgColor = 0x17;
 	ld	c, #0x17
-;src\/Graphics\Graphics.h:237: break;
+;src\/Graphics\Graphics.h:241: break;
 	jr	00113$
-;src\/Graphics\Graphics.h:238: case 3:
+;src\/Graphics\Graphics.h:242: case 3:
 00107$:
-;src\/Graphics\Graphics.h:239: bgColor = 0x1e;
+;src\/Graphics\Graphics.h:243: bgColor = 0x1e;
 	ld	c, #0x1e
-;src\/Graphics\Graphics.h:240: break;
+;src\/Graphics\Graphics.h:244: break;
 	jr	00113$
-;src\/Graphics\Graphics.h:241: case 4:
+;src\/Graphics\Graphics.h:245: case 4:
 00108$:
-;src\/Graphics\Graphics.h:242: bgColor = 0x1f;
+;src\/Graphics\Graphics.h:246: bgColor = 0x1f;
 	ld	c, #0x1f
-;src\/Graphics\Graphics.h:243: break;
+;src\/Graphics\Graphics.h:247: break;
 	jr	00113$
-;src\/Graphics\Graphics.h:244: case 5:
+;src\/Graphics\Graphics.h:248: case 5:
 00109$:
-;src\/Graphics\Graphics.h:245: bgColor = 0x1e;
+;src\/Graphics\Graphics.h:249: bgColor = 0x1e;
 	ld	c, #0x1e
-;src\/Graphics\Graphics.h:246: break;
+;src\/Graphics\Graphics.h:250: break;
 	jr	00113$
-;src\/Graphics\Graphics.h:247: case 6:
+;src\/Graphics\Graphics.h:251: case 6:
 00110$:
-;src\/Graphics\Graphics.h:248: bgColor = 0x17;
+;src\/Graphics\Graphics.h:252: bgColor = 0x17;
 	ld	c, #0x17
-;src\/Graphics\Graphics.h:249: break;
-	jr	00113$
-;src\/Graphics\Graphics.h:250: case 7:
-00111$:
-;src\/Graphics\Graphics.h:251: bgColor = 0x15;
-	ld	c, #0x15
-;src\/Graphics\Graphics.h:252: bgCounter = 0;
-	ld	-2 (ix), #0
 ;src\/Graphics\Graphics.h:253: break;
 	jr	00113$
-;src\/Graphics\Graphics.h:254: default:
+;src\/Graphics\Graphics.h:254: case 7:
+00111$:
+;src\/Graphics\Graphics.h:255: bgColor = 0x15;
+	ld	c, #0x15
+;src\/Graphics\Graphics.h:256: bgCounter = 0;
+	ld	-2 (ix), #0
+;src\/Graphics\Graphics.h:257: break;
+	jr	00113$
+;src\/Graphics\Graphics.h:258: default:
 00112$:
-;src\/Graphics\Graphics.h:255: bgColor = 0x11;
+;src\/Graphics\Graphics.h:259: bgColor = 0x11;
 	ld	c, #0x11
-;src\/Graphics\Graphics.h:257: }
+;src\/Graphics\Graphics.h:261: }
 00113$:
-;src\/Graphics\Graphics.h:258: FILVRM(CLRTBL, 8 * 4, bgColor);
+;src\/Graphics\Graphics.h:262: FILVRM(CLRTBL, 8 * 4, bgColor);
 	push	bc
 	ld	a, c
 	push	af
@@ -6085,7 +6105,7 @@ _DrawScore::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:259: FILVRM(CLRTBL + (256 * 8), 8 * 4, bgColor);
+;src\/Graphics\Graphics.h:263: FILVRM(CLRTBL + (256 * 8), 8 * 4, bgColor);
 	push	bc
 	ld	a, c
 	push	af
@@ -6099,7 +6119,7 @@ _DrawScore::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:260: FILVRM(CLRTBL + (512 * 8), 8 * 4, bgColor);
+;src\/Graphics\Graphics.h:264: FILVRM(CLRTBL + (512 * 8), 8 * 4, bgColor);
 	ld	a, c
 	push	af
 	inc	sp
@@ -6113,7 +6133,7 @@ _DrawScore::
 	inc	sp
 	jr	00122$
 00115$:
-;src\/Graphics\Graphics.h:265: DrawString("      ", 26, 10);
+;src\/Graphics\Graphics.h:269: DrawString("      ", 26, 10);
 	ld	de, #0x0a1a
 	push	de
 	ld	hl, #___str_2
@@ -6121,7 +6141,7 @@ _DrawScore::
 	call	_DrawString
 	pop	af
 	pop	af
-;src\/Graphics\Graphics.h:266: DrawString("      ", 26, 11);
+;src\/Graphics\Graphics.h:270: DrawString("      ", 26, 11);
 	ld	de, #0x0b1a
 	push	de
 	ld	hl, #___str_2
@@ -6130,14 +6150,14 @@ _DrawScore::
 	pop	af
 	pop	af
 00122$:
-;src\/Graphics\Graphics.h:213: for(byte i=0; i < 60; i++) {
+;src\/Graphics\Graphics.h:217: for(byte i=0; i < 60; i++) {
 	inc	-1 (ix)
 	jp	00121$
 00119$:
-;src\/Graphics\Graphics.h:272: newLevel = FALSE;
+;src\/Graphics\Graphics.h:276: newLevel = FALSE;
 	ld	hl, #_newLevel
 	ld	(hl), #0x00
-;src\/Graphics\Graphics.h:275: FILVRM(CLRTBL, 8 * 4, 0x14);
+;src\/Graphics\Graphics.h:279: FILVRM(CLRTBL, 8 * 4, 0x14);
 	ld	a, #0x14
 	push	af
 	inc	sp
@@ -6149,7 +6169,7 @@ _DrawScore::
 	pop	af
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:276: FILVRM(CLRTBL + (256 * 8), 8 * 4, 0x14);
+;src\/Graphics\Graphics.h:280: FILVRM(CLRTBL + (256 * 8), 8 * 4, 0x14);
 	ld	a, #0x14
 	push	af
 	inc	sp
@@ -6161,7 +6181,7 @@ _DrawScore::
 	pop	af
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:277: FILVRM(CLRTBL + (512 * 8), 8 * 4, 0x14);
+;src\/Graphics\Graphics.h:281: FILVRM(CLRTBL + (512 * 8), 8 * 4, 0x14);
 	ld	a, #0x14
 	push	af
 	inc	sp
@@ -6173,7 +6193,7 @@ _DrawScore::
 	pop	af
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:279: DrawString("NEXT", 2, 1);
+;src\/Graphics\Graphics.h:283: DrawString("NEXT", 2, 1);
 	ld	de, #0x0102
 	push	de
 	ld	hl, #___str_3
@@ -6181,7 +6201,7 @@ _DrawScore::
 	call	_DrawString
 	pop	af
 	pop	af
-;src\/Graphics\Graphics.h:281: DrawString(" LEVEL", 26, 10);
+;src\/Graphics\Graphics.h:285: DrawString(" LEVEL", 26, 10);
 	ld	de, #0x0a1a
 	push	de
 	ld	hl, #___str_1
@@ -6189,7 +6209,7 @@ _DrawScore::
 	call	_DrawString
 	pop	af
 	pop	af
-;src\/Graphics\Graphics.h:282: DrawString("BLOCKS", 26, 18);
+;src\/Graphics\Graphics.h:286: DrawString("BLOCKS", 26, 18);
 	ld	de, #0x121a
 	push	de
 	ld	hl, #___str_4
@@ -6197,7 +6217,7 @@ _DrawScore::
 	call	_DrawString
 	pop	af
 	pop	af
-;src\/Graphics\Graphics.h:285: DrawNumber(level, 26, 11);
+;src\/Graphics\Graphics.h:289: DrawNumber(level, 26, 11);
 	ld	a, (#_level + 0)
 	ld	c, a
 	ld	b, #0x00
@@ -6207,13 +6227,13 @@ _DrawScore::
 	call	_DrawNumber
 	pop	af
 	pop	af
-;src\/Graphics\Graphics.h:286: DrawNumber(blocksRemoved, 26, 19);
+;src\/Graphics\Graphics.h:290: DrawNumber(blocksRemoved, 26, 19);
 	ld	de, #0x131a
 	push	de
 	ld	hl, (_blocksRemoved)
 	push	hl
 	call	_DrawNumber
-;src\/Graphics\Graphics.h:289: }
+;src\/Graphics\Graphics.h:293: }
 	ld	sp,ix
 	pop	ix
 	ret
@@ -6229,19 +6249,19 @@ ___str_3:
 ___str_4:
 	.ascii "BLOCKS"
 	.db 0x00
-;src\/Graphics\Graphics.h:291: void DrawBackground() {
+;src\/Graphics\Graphics.h:295: void DrawBackground() {
 ;	---------------------------------
 ; Function DrawBackground
 ; ---------------------------------
 _DrawBackground::
-;src\/Graphics\Graphics.h:293: for(int i = 0; i < 256 * 3; i++) {
+;src\/Graphics\Graphics.h:297: for(int i = 0; i < 256 * 3; i++) {
 	ld	bc, #0x0000
 00103$:
 	ld	a, b
 	xor	a, #0x80
 	sub	a, #0x83
 	jr	NC, 00101$
-;src\/Graphics\Graphics.h:294: WRTVRM(NAMTBL + i, EMPTY); // test
+;src\/Graphics\Graphics.h:298: WRTVRM(NAMTBL + i, EMPTY); // test
 	ld	hl, #0x1800
 	add	hl, bc
 	push	bc
@@ -6253,26 +6273,26 @@ _DrawBackground::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:293: for(int i = 0; i < 256 * 3; i++) {
+;src\/Graphics\Graphics.h:297: for(int i = 0; i < 256 * 3; i++) {
 	inc	bc
 	jr	00103$
 00101$:
-;src\/Graphics\Graphics.h:297: DrawColumn(7);
+;src\/Graphics\Graphics.h:301: DrawColumn(7);
 	ld	a, #0x07
 	push	af
 	inc	sp
 	call	_DrawColumn
 	inc	sp
-;src\/Graphics\Graphics.h:298: DrawColumn(22);
+;src\/Graphics\Graphics.h:302: DrawColumn(22);
 	ld	a, #0x16
 	push	af
 	inc	sp
 	call	_DrawColumn
 	inc	sp
-;src\/Graphics\Graphics.h:300: DrawScore();
-;src\/Graphics\Graphics.h:336: }
+;src\/Graphics\Graphics.h:304: DrawScore();
+;src\/Graphics\Graphics.h:340: }
 	jp	_DrawScore
-;src\/Graphics\Graphics.h:338: void InitVRAM() {
+;src\/Graphics\Graphics.h:342: void InitVRAM() {
 ;	---------------------------------
 ; Function InitVRAM
 ; ---------------------------------
@@ -6281,29 +6301,29 @@ _InitVRAM::
 	ld	ix,#0
 	add	ix,sp
 	dec	sp
-;src\/Graphics\Graphics.h:343: CLIKSW = 0;	// disable keyboard sound
+;src\/Graphics\Graphics.h:347: CLIKSW = 0;	// disable keyboard sound
 	ld	hl, #0x0000
 	ld	(_CLIKSW), hl
-;src\/Graphics\Graphics.h:344: SCNCNT = 1; 	// set keyboard scan counter
+;src\/Graphics\Graphics.h:348: SCNCNT = 1; 	// set keyboard scan counter
 	ld	hl, #_SCNCNT
 	ld	(hl), #0x01
-;src\/Graphics\Graphics.h:346: FORCLR = COLOR_WHITE;
+;src\/Graphics\Graphics.h:350: FORCLR = COLOR_WHITE;
 	ld	hl, #_FORCLR
 	ld	(hl), #0x0f
-;src\/Graphics\Graphics.h:347: BAKCLR = COLOR_BLACK;
+;src\/Graphics\Graphics.h:351: BAKCLR = COLOR_BLACK;
 	ld	hl, #_BAKCLR
 	ld	(hl), #0x01
-;src\/Graphics\Graphics.h:348: BDRCLR = COLOR_BLACK;
+;src\/Graphics\Graphics.h:352: BDRCLR = COLOR_BLACK;
 	ld	hl, #_BDRCLR
 	ld	(hl), #0x01
-;src\/Graphics\Graphics.h:376: WRTVDP(0b0000000111100010);
+;src\/Graphics\Graphics.h:380: WRTVDP(0b0000000111100010);
 	ld	hl, #0x01e2
 	call	_WRTVDP
-;src\/Graphics\Graphics.h:378: INIGRP();	// Set screen 2
+;src\/Graphics\Graphics.h:382: INIGRP();	// Set screen 2
 	call	_INIGRP
-;src\/Graphics\Graphics.h:380: DISSCR();	// Disable screen (faster to write)
+;src\/Graphics\Graphics.h:384: DISSCR();	// Disable screen (faster to write)
 	call	_DISSCR
-;src\/Graphics\Graphics.h:384: FILVRM(0x0000, 0x4000, 0x00); //void FILVRM(uint16_t start, uint16_t len, uint8_t data);
+;src\/Graphics\Graphics.h:388: FILVRM(0x0000, 0x4000, 0x00); //void FILVRM(uint16_t start, uint16_t len, uint8_t data);
 	xor	a, a
 	push	af
 	inc	sp
@@ -6313,7 +6333,7 @@ _InitVRAM::
 	push	hl
 	call	_FILVRM
 	pop	af
-;src\/Graphics\Graphics.h:393: LDIRVM(SPRPAT, sprite_arrow_0, NUMBER_OF_SPRITES * 32);
+;src\/Graphics\Graphics.h:397: LDIRVM(SPRPAT, sprite_arrow_0, NUMBER_OF_SPRITES * 32);
 	inc	sp
 	ld	hl,#0x04a0
 	ex	(sp),hl
@@ -6325,10 +6345,10 @@ _InitVRAM::
 	ld	hl, #6
 	add	hl, sp
 	ld	sp, hl
-;src\/Graphics\Graphics.h:399: for(byte i=0; i<32; i++) {
+;src\/Graphics\Graphics.h:403: for(byte i=0; i<32; i++) {
 	ld	c, #0x00
 00110$:
-;src\/Graphics\Graphics.h:400: WRTVRM(SPRATT + (i * 4), 	192);
+;src\/Graphics\Graphics.h:404: WRTVRM(SPRATT + (i * 4), 	192);
 	ld	a,c
 	cp	a,#0x20
 	jr	NC, 00101$
@@ -6348,11 +6368,11 @@ _InitVRAM::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:399: for(byte i=0; i<32; i++) {
+;src\/Graphics\Graphics.h:403: for(byte i=0; i<32; i++) {
 	inc	c
 	jr	00110$
 00101$:
-;src\/Graphics\Graphics.h:409: LDIRVM(PATTBL, pattern_black_0, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+;src\/Graphics\Graphics.h:413: LDIRVM(PATTBL, pattern_black_0, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
 	ld	hl, #0x0178
 	push	hl
 	ld	hl, #_pattern_black_0
@@ -6363,7 +6383,7 @@ _InitVRAM::
 	ld	hl, #6
 	add	hl, sp
 	ld	sp, hl
-;src\/Graphics\Graphics.h:412: LDIRVM(PATTBL + (256 * 8), pattern_black_0, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+;src\/Graphics\Graphics.h:416: LDIRVM(PATTBL + (256 * 8), pattern_black_0, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
 	ld	hl, #0x0178
 	push	hl
 	ld	hl, #_pattern_black_0
@@ -6374,7 +6394,7 @@ _InitVRAM::
 	ld	hl, #6
 	add	hl, sp
 	ld	sp, hl
-;src\/Graphics\Graphics.h:415: LDIRVM(PATTBL + (512 * 8), pattern_black_0, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+;src\/Graphics\Graphics.h:419: LDIRVM(PATTBL + (512 * 8), pattern_black_0, NUMBER_OF_PATTERNS * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
 	ld	hl, #0x0178
 	push	hl
 	ld	hl, #_pattern_black_0
@@ -6385,7 +6405,7 @@ _InitVRAM::
 	ld	hl, #6
 	add	hl, sp
 	ld	sp, hl
-;src\/Graphics\Graphics.h:418: LDIRVM(PATTBL + (NUMBER_OF_PATTERNS * 8), FONT, (HICHAR-LOCHAR+1) * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+;src\/Graphics\Graphics.h:422: LDIRVM(PATTBL + (NUMBER_OF_PATTERNS * 8), FONT, (HICHAR-LOCHAR+1) * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
 	ld	hl, #0x0300
 	push	hl
 	ld	hl, #_FONT
@@ -6396,7 +6416,7 @@ _InitVRAM::
 	ld	hl, #6
 	add	hl, sp
 	ld	sp, hl
-;src\/Graphics\Graphics.h:421: LDIRVM(PATTBL + (256 * 8) + (NUMBER_OF_PATTERNS * 8), FONT, (HICHAR-LOCHAR+1) * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+;src\/Graphics\Graphics.h:425: LDIRVM(PATTBL + (256 * 8) + (NUMBER_OF_PATTERNS * 8), FONT, (HICHAR-LOCHAR+1) * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
 	ld	hl, #0x0300
 	push	hl
 	ld	hl, #_FONT
@@ -6407,7 +6427,7 @@ _InitVRAM::
 	ld	hl, #6
 	add	hl, sp
 	ld	sp, hl
-;src\/Graphics\Graphics.h:424: LDIRVM(PATTBL + (512 * 8) + (NUMBER_OF_PATTERNS * 8), FONT, (HICHAR-LOCHAR+1) * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
+;src\/Graphics\Graphics.h:428: LDIRVM(PATTBL + (512 * 8) + (NUMBER_OF_PATTERNS * 8), FONT, (HICHAR-LOCHAR+1) * 8);	//void LDIRVM(uint16_t vdest, const uint8_t* msrc, uint16_t count);
 	ld	hl, #0x0300
 	push	hl
 	ld	hl, #_FONT
@@ -6418,10 +6438,10 @@ _InitVRAM::
 	ld	hl, #6
 	add	hl, sp
 	ld	sp, hl
-;src\/Graphics\Graphics.h:428: for(byte i=0; i < NUMBER_OF_TITLE_BLOCKS; i++) {
+;src\/Graphics\Graphics.h:432: for(byte i=0; i < NUMBER_OF_TITLE_BLOCKS; i++) {
 	ld	c, #0x00
 00113$:
-;src\/Graphics\Graphics.h:429: LDIRVM(PATTBL + (TITLE_1 * 8) + (i * 8), pattern_title, NUMBER_OF_TITLE_BLOCKS * 8);
+;src\/Graphics\Graphics.h:433: LDIRVM(PATTBL + (TITLE_1 * 8) + (i * 8), pattern_title, NUMBER_OF_TITLE_BLOCKS * 8);
 	ld	a,c
 	cp	a,#0x07
 	jr	NC, 00102$
@@ -6443,11 +6463,11 @@ _InitVRAM::
 	add	hl, sp
 	ld	sp, hl
 	pop	bc
-;src\/Graphics\Graphics.h:428: for(byte i=0; i < NUMBER_OF_TITLE_BLOCKS; i++) {
+;src\/Graphics\Graphics.h:432: for(byte i=0; i < NUMBER_OF_TITLE_BLOCKS; i++) {
 	inc	c
 	jr	00113$
 00102$:
-;src\/Graphics\Graphics.h:435: LDIRVM(CLRTBL, color_black_0, NUMBER_OF_PATTERNS * 8);
+;src\/Graphics\Graphics.h:439: LDIRVM(CLRTBL, color_black_0, NUMBER_OF_PATTERNS * 8);
 	ld	hl, #0x0178
 	push	hl
 	ld	hl, #_color_black_0
@@ -6458,7 +6478,7 @@ _InitVRAM::
 	ld	hl, #6
 	add	hl, sp
 	ld	sp, hl
-;src\/Graphics\Graphics.h:437: LDIRVM(CLRTBL + (256 * 8), color_black_0, NUMBER_OF_PATTERNS * 8);
+;src\/Graphics\Graphics.h:441: LDIRVM(CLRTBL + (256 * 8), color_black_0, NUMBER_OF_PATTERNS * 8);
 	ld	hl, #0x0178
 	push	hl
 	ld	hl, #_color_black_0
@@ -6469,7 +6489,7 @@ _InitVRAM::
 	ld	hl, #6
 	add	hl, sp
 	ld	sp, hl
-;src\/Graphics\Graphics.h:439: LDIRVM(CLRTBL + (512 * 8), color_black_0, NUMBER_OF_PATTERNS * 8);
+;src\/Graphics\Graphics.h:443: LDIRVM(CLRTBL + (512 * 8), color_black_0, NUMBER_OF_PATTERNS * 8);
 	ld	hl, #0x0178
 	push	hl
 	ld	hl, #_color_black_0
@@ -6480,10 +6500,10 @@ _InitVRAM::
 	ld	hl, #6
 	add	hl, sp
 	ld	sp, hl
-;src\/Graphics\Graphics.h:446: for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
+;src\/Graphics\Graphics.h:450: for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
 	ld	c, #0x00
 00116$:
-;src\/Graphics\Graphics.h:447: LDIRVM(CLRTBL + (NUMBER_OF_PATTERNS * 8) + (i * 8), color_font_2, 8);
+;src\/Graphics\Graphics.h:451: LDIRVM(CLRTBL + (NUMBER_OF_PATTERNS * 8) + (i * 8), color_font_2, 8);
 	ld	a,c
 	cp	a,#0x60
 	jr	NC, 00103$
@@ -6505,14 +6525,14 @@ _InitVRAM::
 	add	hl, sp
 	ld	sp, hl
 	pop	bc
-;src\/Graphics\Graphics.h:446: for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
+;src\/Graphics\Graphics.h:450: for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
 	inc	c
 	jr	00116$
 00103$:
-;src\/Graphics\Graphics.h:450: for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
+;src\/Graphics\Graphics.h:454: for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
 	ld	c, #0x00
 00119$:
-;src\/Graphics\Graphics.h:451: LDIRVM(CLRTBL + (256 * 8) + (NUMBER_OF_PATTERNS * 8) + (i * 8), color_font_2, 8);
+;src\/Graphics\Graphics.h:455: LDIRVM(CLRTBL + (256 * 8) + (NUMBER_OF_PATTERNS * 8) + (i * 8), color_font_2, 8);
 	ld	a,c
 	cp	a,#0x60
 	jr	NC, 00104$
@@ -6534,14 +6554,14 @@ _InitVRAM::
 	add	hl, sp
 	ld	sp, hl
 	pop	bc
-;src\/Graphics\Graphics.h:450: for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
+;src\/Graphics\Graphics.h:454: for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
 	inc	c
 	jr	00119$
 00104$:
-;src\/Graphics\Graphics.h:454: for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
+;src\/Graphics\Graphics.h:458: for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
 	ld	c, #0x00
 00122$:
-;src\/Graphics\Graphics.h:455: LDIRVM(CLRTBL + (512 * 8) + (NUMBER_OF_PATTERNS * 8) + (i * 8), color_font_2, 8);
+;src\/Graphics\Graphics.h:459: LDIRVM(CLRTBL + (512 * 8) + (NUMBER_OF_PATTERNS * 8) + (i * 8), color_font_2, 8);
 	ld	a,c
 	cp	a,#0x60
 	jr	NC, 00105$
@@ -6563,14 +6583,14 @@ _InitVRAM::
 	add	hl, sp
 	ld	sp, hl
 	pop	bc
-;src\/Graphics\Graphics.h:454: for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
+;src\/Graphics\Graphics.h:458: for(byte i = 0; i < (HICHAR - LOCHAR + 1); i++) {
 	inc	c
 	jr	00122$
 00105$:
-;src\/Graphics\Graphics.h:463: for(byte i = 0; i < 10; i++) {
+;src\/Graphics\Graphics.h:467: for(byte i = 0; i < 10; i++) {
 	ld	c, #0x00
 00125$:
-;src\/Graphics\Graphics.h:464: LDIRVM(CLRTBL + (CHAR_0 * 8) + (i * 8), color_font_1, 8);
+;src\/Graphics\Graphics.h:468: LDIRVM(CLRTBL + (CHAR_0 * 8) + (i * 8), color_font_1, 8);
 	ld	a,c
 	cp	a,#0x0a
 	jr	NC, 00106$
@@ -6592,14 +6612,14 @@ _InitVRAM::
 	add	hl, sp
 	ld	sp, hl
 	pop	bc
-;src\/Graphics\Graphics.h:463: for(byte i = 0; i < 10; i++) {
+;src\/Graphics\Graphics.h:467: for(byte i = 0; i < 10; i++) {
 	inc	c
 	jr	00125$
 00106$:
-;src\/Graphics\Graphics.h:467: for(byte i = 0; i < 10; i++) {
+;src\/Graphics\Graphics.h:471: for(byte i = 0; i < 10; i++) {
 	ld	c, #0x00
 00128$:
-;src\/Graphics\Graphics.h:468: LDIRVM(CLRTBL + (256 * 8) + (CHAR_0 * 8) + (i * 8), color_font_1, 8);
+;src\/Graphics\Graphics.h:472: LDIRVM(CLRTBL + (256 * 8) + (CHAR_0 * 8) + (i * 8), color_font_1, 8);
 	ld	a,c
 	cp	a,#0x0a
 	jr	NC, 00107$
@@ -6621,17 +6641,17 @@ _InitVRAM::
 	add	hl, sp
 	ld	sp, hl
 	pop	bc
-;src\/Graphics\Graphics.h:467: for(byte i = 0; i < 10; i++) {
+;src\/Graphics\Graphics.h:471: for(byte i = 0; i < 10; i++) {
 	inc	c
 	jr	00128$
 00107$:
-;src\/Graphics\Graphics.h:471: for(byte i = 0; i < 10; i++) {
+;src\/Graphics\Graphics.h:475: for(byte i = 0; i < 10; i++) {
 	ld	-1 (ix), #0
 00131$:
 	ld	a, -1 (ix)
 	sub	a, #0x0a
 	jr	NC, 00108$
-;src\/Graphics\Graphics.h:472: LDIRVM(CLRTBL + (512 * 8) + (CHAR_0 * 8) + (i * 8), color_font_1, 8);
+;src\/Graphics\Graphics.h:476: LDIRVM(CLRTBL + (512 * 8) + (CHAR_0 * 8) + (i * 8), color_font_1, 8);
 	ld	bc, #_color_font_1
 	ld	l, -1 (ix)
 	ld	h, #0x00
@@ -6648,11 +6668,11 @@ _InitVRAM::
 	ld	hl, #6
 	add	hl, sp
 	ld	sp, hl
-;src\/Graphics\Graphics.h:471: for(byte i = 0; i < 10; i++) {
+;src\/Graphics\Graphics.h:475: for(byte i = 0; i < 10; i++) {
 	inc	-1 (ix)
 	jr	00131$
 00108$:
-;src\/Graphics\Graphics.h:476: LDIRVM(CLRTBL + (TITLE_1 * 8), color_title_1, NUMBER_OF_TITLE_BLOCKS * 8);
+;src\/Graphics\Graphics.h:480: LDIRVM(CLRTBL + (TITLE_1 * 8), color_title_1, NUMBER_OF_TITLE_BLOCKS * 8);
 	ld	hl, #0x0038
 	push	hl
 	ld	hl, #_color_title_1
@@ -6663,13 +6683,13 @@ _InitVRAM::
 	ld	hl, #6
 	add	hl, sp
 	ld	sp, hl
-;src\/Graphics\Graphics.h:484: ENASCR();	// Enable screen
+;src\/Graphics\Graphics.h:488: ENASCR();	// Enable screen
 	call	_ENASCR
-;src\/Graphics\Graphics.h:485: }
+;src\/Graphics\Graphics.h:489: }
 	inc	sp
 	pop	ix
 	ret
-;src\/Graphics\Graphics.h:487: void DrawBlock(byte col, byte line, byte tile) {
+;src\/Graphics\Graphics.h:491: void DrawBlock(byte col, byte line, byte tile) {
 ;	---------------------------------
 ; Function DrawBlock
 ; ---------------------------------
@@ -6677,7 +6697,7 @@ _DrawBlock::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-;src\/Graphics\Graphics.h:489: word baseAddr = NAMTBL + (col * 2) + (line * 2 * 32) + PLAYFIELD_HORIZ_OFFSET;
+;src\/Graphics\Graphics.h:493: word baseAddr = NAMTBL + (col * 2) + (line * 2 * 32) + PLAYFIELD_HORIZ_OFFSET;
 	ld	l, 4 (ix)
 	ld	h, #0x00
 	add	hl, hl
@@ -6695,7 +6715,7 @@ _DrawBlock::
 	add	hl, de
 	add	hl, bc
 	ex	de, hl
-;src\/Graphics\Graphics.h:491: WRTVRM(baseAddr, tile);
+;src\/Graphics\Graphics.h:495: WRTVRM(baseAddr, tile);
 	push	de
 	ld	a, 6 (ix)
 	push	af
@@ -6705,7 +6725,7 @@ _DrawBlock::
 	pop	af
 	inc	sp
 	pop	de
-;src\/Graphics\Graphics.h:492: WRTVRM(baseAddr + 1, tile + 1);
+;src\/Graphics\Graphics.h:496: WRTVRM(baseAddr + 1, tile + 1);
 	ld	c, 6 (ix)
 	ld	a, c
 	inc	a
@@ -6722,7 +6742,7 @@ _DrawBlock::
 	inc	sp
 	pop	de
 	pop	bc
-;src\/Graphics\Graphics.h:493: WRTVRM(baseAddr + 32, tile + 2);
+;src\/Graphics\Graphics.h:497: WRTVRM(baseAddr + 32, tile + 2);
 	ld	b, c
 	inc	b
 	inc	b
@@ -6738,7 +6758,7 @@ _DrawBlock::
 	inc	sp
 	pop	de
 	pop	bc
-;src\/Graphics\Graphics.h:494: WRTVRM(baseAddr + 33, tile + 3);
+;src\/Graphics\Graphics.h:498: WRTVRM(baseAddr + 33, tile + 3);
 	inc	c
 	inc	c
 	inc	c
@@ -6751,10 +6771,10 @@ _DrawBlock::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:495: }
+;src\/Graphics\Graphics.h:499: }
 	pop	ix
 	ret
-;src\/Graphics\Graphics.h:497: void DrawBlock_SameTile(byte col, byte line, byte tile) {
+;src\/Graphics\Graphics.h:501: void DrawBlock_SameTile(byte col, byte line, byte tile) {
 ;	---------------------------------
 ; Function DrawBlock_SameTile
 ; ---------------------------------
@@ -6762,7 +6782,7 @@ _DrawBlock_SameTile::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-;src\/Graphics\Graphics.h:499: word baseAddr = NAMTBL + (col * 2) + (line * 2 * 32) + PLAYFIELD_HORIZ_OFFSET;
+;src\/Graphics\Graphics.h:503: word baseAddr = NAMTBL + (col * 2) + (line * 2 * 32) + PLAYFIELD_HORIZ_OFFSET;
 	ld	l, 4 (ix)
 	ld	h, #0x00
 	add	hl, hl
@@ -6780,7 +6800,7 @@ _DrawBlock_SameTile::
 	add	hl, de
 	add	hl, bc
 	ex	de, hl
-;src\/Graphics\Graphics.h:501: WRTVRM(baseAddr, tile);
+;src\/Graphics\Graphics.h:505: WRTVRM(baseAddr, tile);
 	push	de
 	ld	a, 6 (ix)
 	push	af
@@ -6790,7 +6810,7 @@ _DrawBlock_SameTile::
 	pop	af
 	inc	sp
 	pop	de
-;src\/Graphics\Graphics.h:502: WRTVRM(baseAddr + 1, tile);
+;src\/Graphics\Graphics.h:506: WRTVRM(baseAddr + 1, tile);
 	ld	c, e
 	ld	b, d
 	inc	bc
@@ -6803,7 +6823,7 @@ _DrawBlock_SameTile::
 	pop	af
 	inc	sp
 	pop	de
-;src\/Graphics\Graphics.h:503: WRTVRM(baseAddr + 32, tile);
+;src\/Graphics\Graphics.h:507: WRTVRM(baseAddr + 32, tile);
 	ld	hl, #0x0020
 	add	hl, de
 	push	de
@@ -6815,7 +6835,7 @@ _DrawBlock_SameTile::
 	pop	af
 	inc	sp
 	pop	de
-;src\/Graphics\Graphics.h:504: WRTVRM(baseAddr + 33, tile);
+;src\/Graphics\Graphics.h:508: WRTVRM(baseAddr + 33, tile);
 	ld	hl, #0x0021
 	add	hl, de
 	ld	a, 6 (ix)
@@ -6825,10 +6845,10 @@ _DrawBlock_SameTile::
 	call	_WRTVRM
 	pop	af
 	inc	sp
-;src\/Graphics\Graphics.h:505: }
+;src\/Graphics\Graphics.h:509: }
 	pop	ix
 	ret
-;src\/Graphics\Graphics.h:507: void DrawLine(byte line) {
+;src\/Graphics\Graphics.h:511: void DrawLine(byte line) {
 ;	---------------------------------
 ; Function DrawLine
 ; ---------------------------------
@@ -6836,14 +6856,14 @@ _DrawLine::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-;src\/Graphics\Graphics.h:508: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+;src\/Graphics\Graphics.h:512: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
 	ld	c, 4 (ix)
 	ld	b, #0x00
 00103$:
 	ld	a, b
 	sub	a, #0x06
 	jr	NC, 00105$
-;src\/Graphics\Graphics.h:509: DrawBlock(col, line, playfield[col][line]);
+;src\/Graphics\Graphics.h:513: DrawBlock(col, line, playfield[col][line]);
 	ld	e, b
 	ld	d, #0x00
 	ld	l, e
@@ -6870,19 +6890,19 @@ _DrawLine::
 	pop	af
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:508: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
+;src\/Graphics\Graphics.h:512: for(byte col = 0; col < COLS_PLAYFIELD; col++) {
 	inc	b
 	jr	00103$
 00105$:
-;src\/Graphics\Graphics.h:511: }
+;src\/Graphics\Graphics.h:515: }
 	pop	ix
 	ret
-;src\/Graphics\Graphics.h:513: void DrawPiece(byte line) {
+;src\/Graphics\Graphics.h:517: void DrawPiece(byte line) {
 ;	---------------------------------
 ; Function DrawPiece
 ; ---------------------------------
 _DrawPiece::
-;src\/Graphics\Graphics.h:514: DrawLine(line);
+;src\/Graphics\Graphics.h:518: DrawLine(line);
 	ld	hl, #2
 	add	hl, sp
 	ld	a, (hl)
@@ -6890,7 +6910,7 @@ _DrawPiece::
 	inc	sp
 	call	_DrawLine
 	inc	sp
-;src\/Graphics\Graphics.h:515: DrawLine(line + 1);
+;src\/Graphics\Graphics.h:519: DrawLine(line + 1);
 	ld	hl, #2
 	add	hl, sp
 	ld	b, (hl)
@@ -6902,36 +6922,36 @@ _DrawPiece::
 	call	_DrawLine
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:516: DrawLine(line + 2);
+;src\/Graphics\Graphics.h:520: DrawLine(line + 2);
 	inc	b
 	inc	b
 	push	bc
 	inc	sp
 	call	_DrawLine
 	inc	sp
-;src\/Graphics\Graphics.h:517: }
+;src\/Graphics\Graphics.h:521: }
 	ret
-;src\/Graphics\Graphics.h:519: void DrawPlayfield() {
+;src\/Graphics\Graphics.h:523: void DrawPlayfield() {
 ;	---------------------------------
 ; Function DrawPlayfield
 ; ---------------------------------
 _DrawPlayfield::
-;src\/Graphics\Graphics.h:520: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+;src\/Graphics\Graphics.h:524: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
 	ld	b, #0x00
 00103$:
 	ld	a, b
 	sub	a, #0x0c
 	ret	NC
-;src\/Graphics\Graphics.h:521: DrawLine(line);
+;src\/Graphics\Graphics.h:525: DrawLine(line);
 	push	bc
 	push	bc
 	inc	sp
 	call	_DrawLine
 	inc	sp
 	pop	bc
-;src\/Graphics\Graphics.h:520: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
+;src\/Graphics\Graphics.h:524: for(byte line = 0; line < LINES_PLAYFIELD; line++) {
 	inc	b
-;src\/Graphics\Graphics.h:523: }
+;src\/Graphics\Graphics.h:527: }
 	jr	00103$
 ;src\/Sound.h:1: void SoundFx_2() {
 ;	---------------------------------
@@ -9441,16 +9461,16 @@ _Intro::
 	inc	sp
 	call	_ChangeFontColor
 	inc	sp
-;src\/Intro.h:88: DrawString("A game by ", 11, 11);
-	ld	de, #0x0b0b
+;src\/Intro.h:88: DrawString("A game by ", 11, 9);
+	ld	de, #0x090b
 	push	de
 	ld	hl, #___str_8
 	push	hl
 	call	_DrawString
 	pop	af
 	pop	af
-;src\/Intro.h:89: DrawString("ANDRE BAPTISTA  ", 9, 13);
-	ld	de, #0x0d09
+;src\/Intro.h:89: DrawString("ANDRE BAPTISTA  ", 9, 11);
+	ld	de, #0x0b09
 	push	de
 	ld	hl, #___str_9
 	push	hl
@@ -9459,50 +9479,74 @@ _Intro::
 	pop	af
 ;src\/Intro.h:90: FadeOut();
 	call	_FadeOut
-;src\/Intro.h:92: DrawString("Powered by", 11, 11);
-	ld	de, #0x0b0b
+;src\/Intro.h:92: ClearNamesTable();
+	call	_ClearNamesTable
+;src\/Intro.h:93: DrawString("Powered by", 11, 9);
+	ld	de, #0x090b
 	push	de
 	ld	hl, #___str_10
 	push	hl
 	call	_DrawString
 	pop	af
 	pop	af
-;src\/Intro.h:93: DrawString("8 BIT WORKSHOP  ", 9, 13);
-	ld	de, #0x0d09
+;src\/Intro.h:94: DrawString("8 BIT WORKSHOP  ", 9, 11);
+	ld	de, #0x0b09
 	push	de
 	ld	hl, #___str_11
 	push	hl
 	call	_DrawString
 	pop	af
 	pop	af
-;src\/Intro.h:94: FadeOut();
+;src\/Intro.h:95: FadeOut();
 	call	_FadeOut
-;src\/Intro.h:96: DrawString("Powered by", 11, 11);
-	ld	de, #0x0b0b
+;src\/Intro.h:97: ClearNamesTable();
+	call	_ClearNamesTable
+;src\/Intro.h:98: DrawString("Powered by", 11, 9);
+	ld	de, #0x090b
 	push	de
 	ld	hl, #___str_10
 	push	hl
 	call	_DrawString
 	pop	af
 	pop	af
-;src\/Intro.h:97: DrawString(" MSX TEMPLATES  ", 9, 13);
-	ld	de, #0x0d09
+;src\/Intro.h:99: DrawString(" MSX TEMPLATES  ", 9, 11);
+	ld	de, #0x0b09
 	push	de
 	ld	hl, #___str_12
 	push	hl
 	call	_DrawString
 	pop	af
 	pop	af
-;src\/Intro.h:98: DrawString("by DANILO ANGELO", 8, 15);
-	ld	de, #0x0f08
+;src\/Intro.h:100: DrawString("by DANILO ANGELO", 8, 13);
+	ld	de, #0x0d08
 	push	de
 	ld	hl, #___str_13
 	push	hl
 	call	_DrawString
 	pop	af
 	pop	af
-;src\/Intro.h:99: FadeOut();
-;src\/Intro.h:105: }
+;src\/Intro.h:101: FadeOut();
+	call	_FadeOut
+;src\/Intro.h:103: ClearNamesTable();
+	call	_ClearNamesTable
+;src\/Intro.h:104: DrawString("Beta tester", 11, 9);
+	ld	de, #0x090b
+	push	de
+	ld	hl, #___str_14
+	push	hl
+	call	_DrawString
+	pop	af
+	pop	af
+;src\/Intro.h:105: DrawString("BIANCA BAPTISTA ", 9, 11);
+	ld	de, #0x0b09
+	push	de
+	ld	hl, #___str_15
+	push	hl
+	call	_DrawString
+	pop	af
+	pop	af
+;src\/Intro.h:106: FadeOut();
+;src\/Intro.h:108: }
 	jp	_FadeOut
 ___str_8:
 	.ascii "A game by "
@@ -9521,6 +9565,12 @@ ___str_12:
 	.db 0x00
 ___str_13:
 	.ascii "by DANILO ANGELO"
+	.db 0x00
+___str_14:
+	.ascii "Beta tester"
+	.db 0x00
+___str_15:
+	.ascii "BIANCA BAPTISTA "
 	.db 0x00
 ;src\/Title.h:14: void SetBlock(byte col, byte line, byte tileNumber) {
 ;	---------------------------------
@@ -9625,7 +9675,7 @@ _TitleScreen::
 	call	_InitVRAM
 	ld	hl, #0x0100
 	push	hl
-	ld	hl, #_TitleScreen_title_65536_295
+	ld	hl, #_TitleScreen_title_65536_296
 	push	hl
 	ld	hl, #0x1800
 	push	hl
@@ -9635,7 +9685,7 @@ _TitleScreen::
 	ld	sp, hl
 	ld	de, #0x0d05
 	push	de
-	ld	hl, #___str_14
+	ld	hl, #___str_16
 	push	hl
 	call	_DrawString
 	pop	af
@@ -9645,14 +9695,14 @@ _TitleScreen::
 	xor	a, a
 	push	af
 	inc	sp
-	ld	hl, #___str_15
+	ld	hl, #___str_17
 	push	hl
 	call	_DrawString
 	pop	af
 	pop	af
 	ld	de, #0x1719
 	push	de
-	ld	hl, #___str_16
+	ld	hl, #___str_18
 	push	hl
 	call	_DrawString
 	pop	af
@@ -9867,7 +9917,7 @@ _TitleScreen::
 	ld	sp, ix
 	pop	ix
 	ret
-_TitleScreen_title_65536_295:
+_TitleScreen_title_65536_296:
 	.db #0x00	; 0
 	.db #0x00	; 0
 	.db #0x00	; 0
@@ -10124,13 +10174,13 @@ _TitleScreen_title_65536_295:
 	.db #0x00	; 0
 	.db #0x8e	; 142
 	.db #0x8e	; 142
-___str_14:
+___str_16:
 	.ascii "PRESS TRIGGER TO START"
 	.db 0x00
-___str_15:
+___str_17:
 	.ascii "ANDREBAPTISTA.COM.BR"
 	.db 0x00
-___str_16:
+___str_18:
 	.ascii "v.1.0.0"
 	.db 0x00
 ;src\main.c:109: void main() {

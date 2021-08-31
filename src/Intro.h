@@ -85,22 +85,25 @@ void Intro() {
 
   ChangeFontColor(0x10); // Hide text
 
-  DrawString("A game by ", 11, 11);
-  DrawString("ANDRE BAPTISTA  ", 9, 13);
+  DrawString("A game by ", 11, 9);
+  DrawString("ANDRE BAPTISTA  ", 9, 11);
   FadeOut();
 
-  DrawString("Powered by", 11, 11);
-  DrawString("8 BIT WORKSHOP  ", 9, 13);
+  ClearNamesTable();
+  DrawString("Powered by", 11, 9);
+  DrawString("8 BIT WORKSHOP  ", 9, 11);
   FadeOut();
   
-  DrawString("Powered by", 11, 11);
-  DrawString(" MSX TEMPLATES  ", 9, 13);
-  DrawString("by DANILO ANGELO", 8, 15);
+  ClearNamesTable();
+  DrawString("Powered by", 11, 9);
+  DrawString(" MSX TEMPLATES  ", 9, 11);
+  DrawString("by DANILO ANGELO", 8, 13);
   FadeOut();
   
+  ClearNamesTable();
+  DrawString("Beta tester", 11, 9);
+  DrawString("BIANCA BAPTISTA ", 9, 11);
+  FadeOut();
   
-  
-
- 
 }
 

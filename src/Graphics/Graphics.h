@@ -1,3 +1,7 @@
+void ClearNamesTable() {
+  FILVRM(NAMTBL, 768, 0);
+}
+
 void DrawChar(byte character, byte col, byte line) {
   WRTVRM(NAMTBL + (line * 32) + col, character);
 }
