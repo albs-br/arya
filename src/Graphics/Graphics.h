@@ -151,39 +151,57 @@ void DrawNextPiece() {
     WRTVRM(SPRATT + 78, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
     WRTVRM(SPRATT + 79, 	nextPieceColor_Back);    
 
-    // Draw next piece entering from bottom
-    GetNextPieceColors(nextTopPiece);
-    WRTVRM(SPRATT + 80, 	y);                       // Code repeated for performance reasons
+    GetNextPieceColors(bottomPiece);
+    WRTVRM(SPRATT + 80, 	y - 16);
     WRTVRM(SPRATT + 81, 	(4 * 8)-4);
     WRTVRM(SPRATT + 82, 	SPRITE_PATTERN_SMALL_BLOCK);
     WRTVRM(SPRATT + 83, 	nextPieceColor_Front);
-    WRTVRM(SPRATT + 84, 	y);
+    WRTVRM(SPRATT + 84, 	y - 16);
     WRTVRM(SPRATT + 85, 	(4 * 8)-4);
     WRTVRM(SPRATT + 86, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
-    WRTVRM(SPRATT + 87, 	nextPieceColor_Back);
+    WRTVRM(SPRATT + 87, 	nextPieceColor_Back);    
 
-    GetNextPieceColors(nextMidPiece);
-    WRTVRM(SPRATT + 88, 	y + 8);
+    // Draw next piece entering from bottom
+    GetNextPieceColors(nextTopPiece);
+    WRTVRM(SPRATT + 88, 	y);                       // Code repeated for performance reasons
     WRTVRM(SPRATT + 89, 	(4 * 8)-4);
     WRTVRM(SPRATT + 90, 	SPRITE_PATTERN_SMALL_BLOCK);
     WRTVRM(SPRATT + 91, 	nextPieceColor_Front);
-    WRTVRM(SPRATT + 92, 	y + 8);
+    WRTVRM(SPRATT + 92, 	y);
     WRTVRM(SPRATT + 93, 	(4 * 8)-4);
     WRTVRM(SPRATT + 94, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
     WRTVRM(SPRATT + 95, 	nextPieceColor_Back);
 
-    GetNextPieceColors(nextBottomPiece);
-    WRTVRM(SPRATT + 96, 	y + 16);
+    GetNextPieceColors(nextMidPiece);
+    WRTVRM(SPRATT + 96, 	y + 8);
     WRTVRM(SPRATT + 97, 	(4 * 8)-4);
     WRTVRM(SPRATT + 98, 	SPRITE_PATTERN_SMALL_BLOCK);
     WRTVRM(SPRATT + 99, 	nextPieceColor_Front);
-    WRTVRM(SPRATT + 100, 	y + 16);
+    WRTVRM(SPRATT + 100, 	y + 8);
     WRTVRM(SPRATT + 101, 	(4 * 8)-4);
     WRTVRM(SPRATT + 102, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
     WRTVRM(SPRATT + 103, 	nextPieceColor_Back);
 
+    GetNextPieceColors(nextBottomPiece);
+    WRTVRM(SPRATT + 104, 	y + 16);
+    WRTVRM(SPRATT + 105, 	(4 * 8)-4);
+    WRTVRM(SPRATT + 106, 	SPRITE_PATTERN_SMALL_BLOCK);
+    WRTVRM(SPRATT + 107, 	nextPieceColor_Front);
+    WRTVRM(SPRATT + 108, 	y + 16);
+    WRTVRM(SPRATT + 109, 	(4 * 8)-4);
+    WRTVRM(SPRATT + 110, 	SPRITE_PATTERN_SMALL_BLOCK + 4);
+    WRTVRM(SPRATT + 111, 	nextPieceColor_Back);
+
     y--;
   }
+
+  // Pos just hidden piece off screen
+  WRTVRM(SPRATT + 64, 	192);
+  WRTVRM(SPRATT + 68, 	192);
+  WRTVRM(SPRATT + 72, 	192);
+  WRTVRM(SPRATT + 76, 	192);
+  WRTVRM(SPRATT + 80, 	192);
+  WRTVRM(SPRATT + 84, 	192);
 }
 
 void DrawScore() {

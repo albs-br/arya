@@ -28,13 +28,13 @@ Area                                    Addr        Size        Decimal Bytes (A
      0000001C  l__HEADER0                      
      0000002D  _MSX_version                       msxbios
      000000AB  l__DATA                         
-     000033D4  l__CODE                         
+     000034A9  l__CODE                         
      0000801C  s__CODE                         
-     0000B3F0  s__GSINIT                       
-     0000B3F0  s__HOME                         
-     0000B400  s__GSFINAL                      
-     0000B401  s__INITIALIZER                  
-     0000B40A  s__ROMDATA                      
+     0000B4C5  s__GSINIT                       
+     0000B4C5  s__HOME                         
+     0000B4D5  s__GSFINAL                      
+     0000B4D6  s__INITIALIZER                  
+     0000B4DF  s__ROMDATA                      
      0000C000  s__DATA                         
      0000C0AB  s__INITIALIZED                  
      0000C0B4  s__HEAP                         
@@ -80,7 +80,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               0000801C    000033D4 =       13268. bytes (REL,CON)
+_CODE                               0000801C    000034A9 =       13481. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -108,102 +108,102 @@ _CODE                               0000801C    000033D4 =       13268. bytes (R
      00009565  _GetNextPieceColors                main
      000095C0  _PosMaskSprites                    main
      000096CB  _DrawNextPiece                     main
-     000099C5  _DrawScore                         main
-     00009B6D  _DrawBackground                    main
-     00009B9C  _InitVRAM                          main
-     00009DF2  _DrawBlock                         main
-     00009E5A  _DrawBlock_SameTile                main
-     00009EBB  _DrawLine                          main
-     00009EF3  _DrawPiece                         main
-     00009F16  _DrawPlayfield                     main
-     00009F27  _SoundFx_2                         main
-     00009F66  _SoundFx_1                         main
-     00009F87  _CheckPlayfield                    main
-     0000A6FF  _RandomIndex                       main
-     0000A70C  _RandomPiece                       main
-     0000A746  _UpdateAndDrawPieceStatic          main
-     0000A7DD  _BlinkPauseText                    main
-     0000A801  _Pause                             main
-     0000A841  _GameLoop                          main
-     0000AC1B  _TestCase                          main
-     0000AC6A  _InitGame                          main
-     0000AD0D  _ChangeFontColor                   main
-     0000AD4D  _ScrollDownFont                    main
-     0000ADAA  _Intro                             main
-     0000AE38  _SetBlock                          main
-     0000AE63  _TitleScreen                       main
-     0000B17E  _main                              main
-     0000B183  _LOAD_REGS                         msxbios
+     00009A9A  _DrawScore                         main
+     00009C42  _DrawBackground                    main
+     00009C71  _InitVRAM                          main
+     00009EC7  _DrawBlock                         main
+     00009F2F  _DrawBlock_SameTile                main
+     00009F90  _DrawLine                          main
+     00009FC8  _DrawPiece                         main
+     00009FEB  _DrawPlayfield                     main
+     00009FFC  _SoundFx_2                         main
+     0000A03B  _SoundFx_1                         main
+     0000A05C  _CheckPlayfield                    main
+     0000A7D4  _RandomIndex                       main
+     0000A7E1  _RandomPiece                       main
+     0000A81B  _UpdateAndDrawPieceStatic          main
+     0000A8B2  _BlinkPauseText                    main
+     0000A8D6  _Pause                             main
+     0000A916  _GameLoop                          main
+     0000ACF0  _TestCase                          main
+     0000AD3F  _InitGame                          main
+     0000ADE2  _ChangeFontColor                   main
+     0000AE22  _ScrollDownFont                    main
+     0000AE7F  _Intro                             main
+     0000AF0D  _SetBlock                          main
+     0000AF38  _TitleScreen                       main
+     0000B253  _main                              main
+     0000B258  _LOAD_REGS                         msxbios
 ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               0000801C    000033D4 =       13268. bytes (REL,CON)
+_CODE                               0000801C    000034A9 =       13481. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     0000B192  _RDSLT                             msxbios
-     0000B1B4  _WRSLT                             msxbios
-     0000B1DD  _DISSCR                            msxbios
-     0000B1E1  _ENASCR                            msxbios
-     0000B1E5  _WRTVDP                            msxbios
-     0000B1EB  _RDVRM                             msxbios
-     0000B1F0  _WRTVRM                            msxbios
-     0000B210  _SETRD                             msxbios
-     0000B214  _SETWRT                            msxbios
-     0000B218  _FILVRM                            msxbios
-     0000B248  _LDIRMV                            msxbios
-     0000B27B  _LDIRVM                            msxbios
-     0000B2AE  _CHGMOD                            msxbios
-     0000B2B3  _CHGCLR                            msxbios
-     0000B2B7  _CLRSPR                            msxbios
-     0000B2BB  _INITXT                            msxbios
-     0000B2BF  _INIT32                            msxbios
-     0000B2C3  _INIGRP                            msxbios
-     0000B2C7  _INIMLT                            msxbios
-     0000B2CB  _CALPAT                            msxbios
-     0000B2D0  _CALATR                            msxbios
-     0000B2D5  _GSPSIZ                            msxbios
-     0000B2DA  _GRPPRT                            msxbios
-     0000B2DF  _GICINI                            msxbios
-     0000B2E3  _WRTPSG                            msxbios
-     0000B2E9  _CHSNS                             msxbios
-     0000B2F1  _CHGET                             msxbios
-     0000B2F6  _CHPUT                             msxbios
-     0000B2FB  _LPTOUT                            msxbios
-     0000B300  _BEEP                              msxbios
-     0000B304  _CLS                               msxbios
-     0000B309  _POSIT                             msxbios
-     0000B30D  _TOTEXT                            msxbios
-     0000B311  _GTSTCK                            msxbios
-     0000B317  _GTTRIG                            msxbios
-     0000B31D  _GTPAD                             msxbios
-     0000B323  _GTPDL                             msxbios
-     0000B329  _MAPXY                             msxbios
-     0000B32D  _FETCHC_ADDR                       msxbios
-     0000B331  _RDVDP                             msxbios
-     0000B336  _SNSMAT                            msxbios
-     0000B33C  _KILBUF                            msxbios
-     0000B340  _putchar                           msxbios
-     0000B36A  _getchar                           msxbios
-     0000B37E  __divuint                          
-     0000B386  __divuchar                         
-     0000B38D  __divu8                            
-     0000B390  __divu16                           
-     0000B3BF  __mulint                           
-     0000B3C5  __mul16                            
-     0000B3D9  __moduchar                         
+     0000B267  _RDSLT                             msxbios
+     0000B289  _WRSLT                             msxbios
+     0000B2B2  _DISSCR                            msxbios
+     0000B2B6  _ENASCR                            msxbios
+     0000B2BA  _WRTVDP                            msxbios
+     0000B2C0  _RDVRM                             msxbios
+     0000B2C5  _WRTVRM                            msxbios
+     0000B2E5  _SETRD                             msxbios
+     0000B2E9  _SETWRT                            msxbios
+     0000B2ED  _FILVRM                            msxbios
+     0000B31D  _LDIRMV                            msxbios
+     0000B350  _LDIRVM                            msxbios
+     0000B383  _CHGMOD                            msxbios
+     0000B388  _CHGCLR                            msxbios
+     0000B38C  _CLRSPR                            msxbios
+     0000B390  _INITXT                            msxbios
+     0000B394  _INIT32                            msxbios
+     0000B398  _INIGRP                            msxbios
+     0000B39C  _INIMLT                            msxbios
+     0000B3A0  _CALPAT                            msxbios
+     0000B3A5  _CALATR                            msxbios
+     0000B3AA  _GSPSIZ                            msxbios
+     0000B3AF  _GRPPRT                            msxbios
+     0000B3B4  _GICINI                            msxbios
+     0000B3B8  _WRTPSG                            msxbios
+     0000B3BE  _CHSNS                             msxbios
+     0000B3C6  _CHGET                             msxbios
+     0000B3CB  _CHPUT                             msxbios
+     0000B3D0  _LPTOUT                            msxbios
+     0000B3D5  _BEEP                              msxbios
+     0000B3D9  _CLS                               msxbios
+     0000B3DE  _POSIT                             msxbios
+     0000B3E2  _TOTEXT                            msxbios
+     0000B3E6  _GTSTCK                            msxbios
+     0000B3EC  _GTTRIG                            msxbios
+     0000B3F2  _GTPAD                             msxbios
+     0000B3F8  _GTPDL                             msxbios
+     0000B3FE  _MAPXY                             msxbios
+     0000B402  _FETCHC_ADDR                       msxbios
+     0000B406  _RDVDP                             msxbios
+     0000B40B  _SNSMAT                            msxbios
+     0000B411  _KILBUF                            msxbios
+     0000B415  _putchar                           msxbios
+     0000B43F  _getchar                           msxbios
+     0000B453  __divuint                          
+     0000B45B  __divuchar                         
+     0000B462  __divu8                            
+     0000B465  __divu16                           
+     0000B494  __mulint                           
+     0000B49A  __mul16                            
+     0000B4AE  __moduchar                         
 ASxxxx Linker V03.00 + NoICE + sdld,  page 5.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               0000801C    000033D4 =       13268. bytes (REL,CON)
+_CODE                               0000801C    000034A9 =       13481. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     0000B3E5  __moduint                          
+     0000B4BA  __moduint                          
 ASxxxx Linker V03.00 + NoICE + sdld,  page 6.
 Hexadecimal  [32-Bits]
 
@@ -220,18 +220,18 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_GSINIT                             0000B3F0    00000010 =          16. bytes (REL,CON)
+_GSINIT                             0000B4C5    00000010 =          16. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     0000B3F0  gsinit                             
+     0000B4C5  gsinit                             
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 8.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_GSFINAL                            0000B400    00000001 =           1. bytes (REL,CON)
+_GSFINAL                            0000B4D5    00000001 =           1. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -240,7 +240,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_INITIALIZER                        0000B401    00000009 =           9. bytes (REL,CON)
+_INITIALIZER                        0000B4D6    00000009 =           9. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
