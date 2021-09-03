@@ -8,3 +8,9 @@ Debug/objs/MSXAPP.IHX
 Debug/objs/MSXAPP.map
 Debug/objs/MSXAPP.noi
 Debug/objs/MSXAPP.ROM
+Debug/objs/MSXAPP.lk
+Debug/objs/msxbios.asm
+Debug/objs/msxbios.lst
+Debug/objs/msxbios.rel
+Debug/objs/msxbios.sym
+Debug/objs/msxromcrt0.rel
