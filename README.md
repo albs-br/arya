@@ -3,6 +3,10 @@ Arya
 
 Arya is a puzzle game, inspired by the classic SEGA Columns.
 
+Video: https://youtu.be/yWkbT_hB1ss
+
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/yWkbT_hB1ss/0.jpg)](http://www.youtube.com/watch?v=yWkbT_hB1ss "Arya")
+
 The goal is to remove pieces by putting at least 3 blocks of same color together, vertically, horizontaly or at diagonal.
 The number of pieces removed are called "Hit": 3x Hit, 4x Hit and so on.
 When the pieces disappear the pieces above fall, making it possible to make more Hits, each of these rounds are called "Combo", 2x Combo, 3x combo, etc.
